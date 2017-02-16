@@ -25,7 +25,6 @@ public class SetGame {
     }
 
 
-    private
 
 
 
@@ -37,7 +36,7 @@ public class SetGame {
     /**
      * Deck to hold all 81 cards
      */
-    class SetDeck {
+    public class SetDeck {
 
         ArrayList<SetCard> mDeck;
 
@@ -79,6 +78,10 @@ public class SetGame {
 
         public boolean isEmpty(){
             return mDeck.isEmpty();
+        }
+
+        public ArrayList<SetCard> getDeckArray(){
+            return mDeck;
         }
 
     }
