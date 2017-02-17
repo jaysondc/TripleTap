@@ -7,6 +7,7 @@ import com.shakeup.setgamelibrary.enums.CardShape;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.Set;
 
@@ -64,6 +65,54 @@ public class SetTests {
     }
 
     @Test
+    public void getThirdCardTest(){
+        SetCard testCard1 = new SetCard(
+                CardShape.DIAMOND,
+                CardColor.GREEN,
+                CardCount.ONE,
+                CardFill.OPEN
+        );
+
+        SetCard testCard2 = new SetCard(
+                CardShape.OVAL,
+                CardColor.GREEN,
+                CardCount.TWO,
+                CardFill.OPEN
+        );
+
+        SetCard thirdCard = testCard1.getThirdCard(testCard2);
+
+        // Compliment
+        Assert.assertEquals(CardShape.SQUIGGLE, thirdCard.getShape());
+        // Same
+        Assert.assertEquals(CardColor.GREEN, thirdCard.getColor());
+        // Compliment
+        Assert.assertEquals(CardCount.THREE, thirdCard.getCount());
+        // Same
+        Assert.assertEquals(CardFill.OPEN, thirdCard.getFill());
+
+
+        // Test again with a diferent card
+        testCard2 = new SetCard(
+                CardShape.DIAMOND,
+                CardColor.PURPLE,
+                CardCount.ONE,
+                CardFill.STRIPED
+        );
+
+        thirdCard = testCard1.getThirdCard(testCard2);
+
+        // Same
+        Assert.assertEquals(CardShape.DIAMOND, thirdCard.getShape());
+        // Compliment
+        Assert.assertEquals(CardColor.RED, thirdCard.getColor());
+        // Same
+        Assert.assertEquals(CardCount.ONE, thirdCard.getCount());
+        // Compliment
+        Assert.assertEquals(CardFill.SOLID, thirdCard.getFill());
+    }
+
+    @Test
     public void setDeckTest(){
         SetGame.SetDeck testDeck = new SetGame().new SetDeck();
 
@@ -80,6 +129,43 @@ public class SetTests {
         }
 
         Assert.assertTrue(testDeck.isEmpty());
+    }
+
+    @Test
+    public void isValidSetTest(){
+        SetGame testGame = new SetGame();
+        
+
+        SetCard testCard1 = new SetCard(
+                CardShape.DIAMOND,
+                CardColor.GREEN,
+                CardCount.ONE,
+                CardFill.OPEN
+        );
+
+        SetCard testCard2 = new SetCard(
+                CardShape.OVAL,
+                CardColor.GREEN,
+                CardCount.TWO,
+                CardFill.OPEN
+        );
+
+        SetCard testCard3Valid = new SetCard(
+                CardShape.SQUIGGLE,
+                CardColor.GREEN,
+                CardCount.THREE,
+                CardFill.OPEN
+        );
+
+        SetCard testCard3Invalid = new SetCard(
+                CardShape.OVAL,
+                CardColor.GREEN,
+                CardCount.THREE,
+                CardFill.OPEN
+        );
+
+        Assert.assertTrue(testGame.isValidSet(testCard1, testCard2, testCard3Valid));
+        Assert.assertFalse(testGame.isValidSet(testCard1, testCard2, testCard3Invalid));
     }
 
 }

@@ -13,6 +13,7 @@ public class SetGame {
 
     int mSetsAvailable; // Number of available sets in the current hand
     ArrayList<SetCard> mSetHand; // Array to hold all drawn cards
+    SetDeck currentDeck;
 
 
     /**
@@ -20,11 +21,44 @@ public class SetGame {
      */
     public SetGame(){
 
+        // Create a new deck
+        currentDeck = new SetDeck();
+
+        mSetHand = new ArrayList<>();
+
+        // Draw 16 cards
+        for (int i = 0; i < 16; i++){
+            mSetHand.add(currentDeck.drawCard());
+        }
+
+
 
 
     }
 
+    /**
+     * This method returns the number of valid sets in the current drawn hand.
+     *
+     * @return Number of sets shown
+     */
+    public int getNumAvailableSets(){
+        return -1;
+    }
 
+    /**
+     * Takes 3 cards and returns true if they are a valid set, false if they are not
+     * @param first
+     * @param second
+     * @param third
+     * @return True if valid set, false if not
+     */
+    public boolean isValidSet(SetCard first, SetCard second, SetCard third){
+        // Get 3rd card that would complete the set
+        SetCard validThirdCard = first.getThirdCard(second);
+
+        // Return whether the 3rd card given correctly completes the set
+        return third.isEqualTo(validThirdCard);
+    }
 
 
 
