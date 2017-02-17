@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import sun.rmi.runtime.Log;
@@ -171,9 +172,19 @@ public class SetTests {
     }
 
     @Test
-    public void countAvailableSetsTest(){
-        // This test is doesn't test anything yet
+    public void setAnalysisTest(){
+        // Test whether the set analysis is correct. Detect and validate all found sets in a hand.
         SetGame testGame = new SetGame();
-        System.out.print(testGame.getNumAvailableSets());
+        int numSets = testGame.getNumAvailableSets();
+        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> locationOfSets = testGame.getLocationOfSets();
+
+        for (SetGame.Triplet<Integer, Integer, Integer> set : locationOfSets) {
+            boolean isValid = testGame.isValidSet(
+                    testGame.getSetCard(set.getFirst()),
+                    testGame.getSetCard(set.getSecond()),
+                    testGame.getSetCard(set.getThird())
+            );
+            Assert.assertTrue(isValid);
+        }
     }
 }

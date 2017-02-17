@@ -4,38 +4,89 @@ import com.shakeup.setgamelibrary.enums.CardColor;
 import com.shakeup.setgamelibrary.enums.CardCount;
 import com.shakeup.setgamelibrary.enums.CardFill;
 import com.shakeup.setgamelibrary.enums.CardShape;
+import com.sun.org.apache.xml.internal.utils.Trie;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 public class SetGame {
+    
+    // Number of available sets in the current hand
+    private int mNumSetsAvailable;
+    // Array to hold all drawn cards
+    private ArrayList<SetCard> mSetHand;
+    // Deck of shuffled SET cards
+    private SetDeck mCurrentDeck;
+    // Location of available sets in hand
+    private ArrayList<Triplet<Integer, Integer, Integer>> mLocationOfSets;
+    // List of found sets
+    private List<Triplet<SetCard, SetCard, SetCard>> mFoundSets;
 
-    int mSetsAvailable; // Number of available sets in the current hand
-    ArrayList<SetCard> mSetHand; // Array to hold all drawn cards
-    SetDeck currentDeck;
 
 
     /**
      * Constructor to initialize a game of SET
      */
     public SetGame(){
+        init();
+    }
+
+    /**
+     * Initialize the game by creating a deck and drawing cards
+     */
+    public void init(){
 
         // Create a new deck
-        currentDeck = new SetDeck();
+        mCurrentDeck = new SetDeck();
 
         mSetHand = new ArrayList<>();
 
         // Draw 16 cards
         for (int i = 0; i < 16; i++){
-            mSetHand.add(currentDeck.drawCard());
+            mSetHand.add(mCurrentDeck.drawCard());
         }
 
+        // Look for SETs in the current hand
+        analyzeSets();
+    }
+
+    public SetCard getSetCard(int location){
+        return mSetHand.get(location);
     }
 
     /**
-     * This method returns the number of valid sets in the current drawn hand.
-     * Iterate through all pairs of cards
+     * Claim 3 cards are a set. If the set is valid, remove and replace the 3 cards
+     * and return true. If the set is invalid, return false.
+     * @param firstIndex
+     * @param secondIndex
+     * @param thirdIndex
+     * @return True if they were a SEt, false otherwise.
+     */
+    public boolean claimSet(int firstIndex, int secondIndex, int thirdIndex){
+        boolean isValid = isValidSet(
+                mSetHand.get(firstIndex),
+                mSetHand.get(secondIndex),
+                mSetHand.get(thirdIndex)
+        );
+
+        if (isValid){
+            // Successful pull
+
+            // Replace cards
+            // Recalculate available sets
+                // Detect and handle endgame
+
+
+        }
+
+        return isValid;
+    }
+
+    /**
+     * This method looks at the drawn hand, counts the available sets and stores
+     * their location.
      * First card is at index i, second card is index j
      * Iterations look like the following
      * 1. ij00
@@ -44,42 +95,56 @@ public class SetGame {
      * 4. 0ij0
      * 5. 0i0j
      * ...
-     * @return Number of sets shown
      */
-    public int getNumAvailableSets(){
+    public void analyzeSets(){
         int setsFound = 0;
+        mLocationOfSets = new ArrayList<>();
 
         for (int i = 0; i < mSetHand.size(); i++){
             for (int j = i+1; j < mSetHand.size(); j++){
                 // Generate 3rd card required to complete the set
                 SetCard thirdCard = mSetHand.get(i).getThirdCard(mSetHand.get(j));
                 // Check if the 3rd card is in the current hand
-                if (isInHand(j, thirdCard)){
+                int k = isInHand(j, thirdCard);
+                if (k > 0){
                     setsFound++;
+                    // Store the location of the set
+                    mLocationOfSets.add(new Triplet<>(i, j, k));
                 }
             }
         }
 
-        return setsFound;
+        // Store the number of available sets
+        mNumSetsAvailable = setsFound;
+    }
+
+    public int getNumAvailableSets(){
+        return mNumSetsAvailable;
+    }
+
+    public ArrayList<Triplet<Integer, Integer, Integer>> getLocationOfSets(){
+        return mLocationOfSets;
     }
 
     /**
-     * Checks if the card required to complete a set is in the current hand.
+     * Checks if the card required to complete a set is in the current hand. Returns it's index
+     * if it exists, -1 if it doesn't exist.
      * @param secondIndex Index of the second card
      * @param thirdCard Third card to search for
+     * @return Index of the 3rd card if it is available, -1 if it isn't
      */
-    private boolean isInHand(int secondIndex, SetCard thirdCard){
-        boolean cardInHand = false;
+    private int isInHand(int secondIndex, SetCard thirdCard){
+        int cardIndex = -1;
 
         // We can assume we've found any sets that can be completed
         // before the second index.
         for (int i = secondIndex; i < mSetHand.size(); i++){
             if (mSetHand.get(i).isEqualTo(thirdCard)){
-                cardInHand = true;
+                cardIndex = i;
             }
         }
 
-        return cardInHand;
+        return cardIndex;
     }
 
     /**
@@ -148,6 +213,23 @@ public class SetGame {
             return mDeck;
         }
 
+    }
+
+    public class Triplet<T, U, V> {
+
+        private final T first;
+        private final U second;
+        private final V third;
+
+        public Triplet(T first, U second, V third) {
+            this.first = first;
+            this.second = second;
+            this.third = third;
+        }
+
+        public T getFirst() { return first; }
+        public U getSecond() { return second; }
+        public V getThird() { return third; }
     }
 
 }
