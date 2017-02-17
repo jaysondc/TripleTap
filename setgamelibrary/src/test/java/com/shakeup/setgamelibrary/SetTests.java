@@ -11,6 +11,8 @@ import org.mockito.Mock;
 
 import java.util.Set;
 
+import sun.rmi.runtime.Log;
+
 /**
  * Created by Jayson on 2/15/2017.
  *
@@ -134,7 +136,7 @@ public class SetTests {
     @Test
     public void isValidSetTest(){
         SetGame testGame = new SetGame();
-        
+
 
         SetCard testCard1 = new SetCard(
                 CardShape.DIAMOND,
@@ -168,4 +170,10 @@ public class SetTests {
         Assert.assertFalse(testGame.isValidSet(testCard1, testCard2, testCard3Invalid));
     }
 
+    @Test
+    public void countAvailableSetsTest(){
+        // This test is doesn't test anything yet
+        SetGame testGame = new SetGame();
+        System.out.print(testGame.getNumAvailableSets());
+    }
 }

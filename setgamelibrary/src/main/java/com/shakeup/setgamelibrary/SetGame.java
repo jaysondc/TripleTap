@@ -31,18 +31,55 @@ public class SetGame {
             mSetHand.add(currentDeck.drawCard());
         }
 
-
-
-
     }
 
     /**
      * This method returns the number of valid sets in the current drawn hand.
-     *
+     * Iterate through all pairs of cards
+     * First card is at index i, second card is index j
+     * Iterations look like the following
+     * 1. ij00
+     * 2. i0j0
+     * 3. i00j
+     * 4. 0ij0
+     * 5. 0i0j
+     * ...
      * @return Number of sets shown
      */
     public int getNumAvailableSets(){
-        return -1;
+        int setsFound = 0;
+
+        for (int i = 0; i < mSetHand.size(); i++){
+            for (int j = i+1; j < mSetHand.size(); j++){
+                // Generate 3rd card required to complete the set
+                SetCard thirdCard = mSetHand.get(i).getThirdCard(mSetHand.get(j));
+                // Check if the 3rd card is in the current hand
+                if (isInHand(j, thirdCard)){
+                    setsFound++;
+                }
+            }
+        }
+
+        return setsFound;
+    }
+
+    /**
+     * Checks if the card required to complete a set is in the current hand.
+     * @param secondIndex Index of the second card
+     * @param thirdCard Third card to search for
+     */
+    private boolean isInHand(int secondIndex, SetCard thirdCard){
+        boolean cardInHand = false;
+
+        // We can assume we've found any sets that can be completed
+        // before the second index.
+        for (int i = secondIndex; i < mSetHand.size(); i++){
+            if (mSetHand.get(i).isEqualTo(thirdCard)){
+                cardInHand = true;
+            }
+        }
+
+        return cardInHand;
     }
 
     /**
@@ -59,13 +96,6 @@ public class SetGame {
         // Return whether the 3rd card given correctly completes the set
         return third.isEqualTo(validThirdCard);
     }
-
-
-
-
-
-
-
 
     /**
      * Deck to hold all 81 cards
