@@ -175,8 +175,10 @@ public class SetTests {
     public void setAnalysisTest(){
         // Test whether the set analysis is correct. Detect and validate all found sets in a hand.
         SetGame testGame = new SetGame();
-        int numSets = testGame.getNumAvailableSets();
-        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> locationOfSets = testGame.getLocationOfSets();
+        int detectedSets = testGame.getNumAvailableSets();
+        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> locationOfSets =
+                testGame.getLocationOfSets();
+        int countedSets = 0;
 
         for (SetGame.Triplet<Integer, Integer, Integer> set : locationOfSets) {
             boolean isValid = testGame.isValidSet(
@@ -184,7 +186,48 @@ public class SetTests {
                     testGame.getSetCard(set.getSecond()),
                     testGame.getSetCard(set.getThird())
             );
+            countedSets++;
             Assert.assertTrue(isValid);
         }
+
+        Assert.assertEquals(detectedSets, countedSets);
+    }
+
+    @Test
+    public void setFullGameTest(){
+        SetGame testGame = new SetGame();
+        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> locationOfSets;
+        int detectedSets = 0;
+        int handSize = 0;
+        int deckSize = 0;
+
+        // Test playing a game and pulling sets until the deck is empty or
+        // there are no more sets in the hand
+        while (!testGame.getIsGameOver()){
+
+            // Test pulling sets from the deck
+            SetGame.Triplet<Integer, Integer, Integer> foundSet;
+            foundSet = testGame.getLocationOfSets().get(0);
+
+            // Claim this set
+            testGame.claimSet(
+                    foundSet.getFirst(),
+                    foundSet.getSecond(),
+                    foundSet.getThird()
+                    );
+
+            detectedSets = testGame.getNumAvailableSets();
+            handSize = testGame.getHandSize();
+            deckSize = testGame.getDeckSize();
+
+            System.out.println("Sets detected: " + detectedSets);
+            System.out.println("Hand size: " + handSize);
+            System.out.println("Deck size: " + deckSize);
+        }
+
+        Assert.assertEquals(0, deckSize);
+        Assert.assertEquals(0, detectedSets);
+        Assert.assertTrue(testGame.getIsGameOver());
+
     }
 }

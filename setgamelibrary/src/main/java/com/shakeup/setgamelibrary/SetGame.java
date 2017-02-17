@@ -23,8 +23,10 @@ public class SetGame {
     private ArrayList<Triplet<Integer, Integer, Integer>> mLocationOfSets;
     // List of found sets
     private List<Triplet<SetCard, SetCard, SetCard>> mFoundSets;
-
-
+    // Detect game over
+    private boolean mGameOver;
+    // Detect hand overflow
+    private boolean mOverflow = false;
 
     /**
      * Constructor to initialize a game of SET
@@ -40,11 +42,12 @@ public class SetGame {
 
         // Create a new deck
         mCurrentDeck = new SetDeck();
-
         mSetHand = new ArrayList<>();
+        mFoundSets = new ArrayList<>();
+        mGameOver = false;
 
         // Draw 16 cards
-        for (int i = 0; i < 16; i++){
+        for (int i = 0; i < 12; i++){
             mSetHand.add(mCurrentDeck.drawCard());
         }
 
@@ -65,19 +68,49 @@ public class SetGame {
      * @return True if they were a SEt, false otherwise.
      */
     public boolean claimSet(int firstIndex, int secondIndex, int thirdIndex){
+        SetCard firstCard = mSetHand.get(firstIndex);
+        SetCard secondCard = mSetHand.get(secondIndex);
+        SetCard thirdCard = mSetHand.get(thirdIndex);
+
         boolean isValid = isValidSet(
-                mSetHand.get(firstIndex),
-                mSetHand.get(secondIndex),
-                mSetHand.get(thirdIndex)
+                firstCard,
+                secondCard,
+                thirdCard
         );
 
-        if (isValid){
-            // Successful pull
+        if (isValid){ // Successful SET call
 
-            // Replace cards
+            // Store found SET
+            mFoundSets.add(
+                    new Triplet<>(
+                            firstCard,
+                            secondCard,
+                            thirdCard
+                    ));
+
+            // Draw new cards or rearrange cards if deck is empty
+            if (!mCurrentDeck.isEmpty() && !mOverflow){
+                // Replace cards in hand if we have cards in the deck and we're not in overflow
+                mSetHand.set(firstIndex, mCurrentDeck.drawCard());
+                mSetHand.set(secondIndex, mCurrentDeck.drawCard());
+                mSetHand.set(thirdIndex, mCurrentDeck.drawCard());
+            } else {
+                // Remove pulled cards in descending order to avoid out of bounds exceptions
+                mSetHand.remove(thirdIndex);
+                mSetHand.remove(secondIndex);
+                mSetHand.remove(firstIndex);
+
+                mOverflow = false;
+            }
+
             // Recalculate available sets
-                // Detect and handle endgame
+            analyzeSets();
 
+            // If no sets and deck is empty, game over
+            if (mNumSetsAvailable == 0){
+                // Game over
+                mGameOver = true;
+            }
 
         }
 
@@ -116,6 +149,17 @@ public class SetGame {
 
         // Store the number of available sets
         mNumSetsAvailable = setsFound;
+
+        // If there are no sets and we still have cards in the deck, add 3 cards and analyze again
+        if (setsFound == 0 && !mCurrentDeck.isEmpty()){
+
+            mSetHand.add(mCurrentDeck.drawCard());
+            mSetHand.add(mCurrentDeck.drawCard());
+            mSetHand.add(mCurrentDeck.drawCard());
+
+            mOverflow = true;
+            analyzeSets();
+        }
     }
 
     public int getNumAvailableSets(){
@@ -124,6 +168,22 @@ public class SetGame {
 
     public ArrayList<Triplet<Integer, Integer, Integer>> getLocationOfSets(){
         return mLocationOfSets;
+    }
+
+    public List<Triplet<SetCard, SetCard, SetCard>> getFoundSets(){
+        return mFoundSets;
+    }
+
+    public int getHandSize(){
+        return mSetHand.size();
+    }
+
+    public int getDeckSize(){
+        return mCurrentDeck.getCount();
+    }
+
+    public boolean getIsGameOver(){
+        return mGameOver;
     }
 
     /**
