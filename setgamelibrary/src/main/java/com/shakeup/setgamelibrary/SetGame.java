@@ -38,7 +38,7 @@ public class SetGame {
     /**
      * Initialize the game by creating a deck and drawing cards
      */
-    public void init(){
+    private void init(){
 
         // Create a new deck
         mCurrentDeck = new SetDeck();
@@ -129,7 +129,7 @@ public class SetGame {
      * 5. 0i0j
      * ...
      */
-    public void analyzeSets(){
+    private void analyzeSets(){
         int setsFound = 0;
         mLocationOfSets = new ArrayList<>();
 
