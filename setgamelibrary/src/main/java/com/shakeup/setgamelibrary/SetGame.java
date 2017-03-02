@@ -4,11 +4,9 @@ import com.shakeup.setgamelibrary.enums.CardColor;
 import com.shakeup.setgamelibrary.enums.CardCount;
 import com.shakeup.setgamelibrary.enums.CardFill;
 import com.shakeup.setgamelibrary.enums.CardShape;
-import com.sun.org.apache.xml.internal.utils.Trie;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 public class SetGame {
@@ -177,6 +175,8 @@ public class SetGame {
     public int getHandSize(){
         return mSetHand.size();
     }
+
+    public SetDeck getSetDeck(){ return mCurrentDeck; }
 
     public int getDeckSize(){
         return mCurrentDeck.getCount();

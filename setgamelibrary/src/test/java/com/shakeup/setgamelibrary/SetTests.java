@@ -7,12 +7,9 @@ import com.shakeup.setgamelibrary.enums.CardShape;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.Set;
-
-import sun.rmi.runtime.Log;
+import java.util.List;
 
 /**
  * Created by Jayson on 2/15/2017.
@@ -200,6 +197,7 @@ public class SetTests {
         int detectedSets = 0;
         int handSize = 0;
         int deckSize = 0;
+        int foundSets = 0;
 
         // Test playing a game and pulling sets until the deck is empty or
         // there are no more sets in the hand
@@ -210,11 +208,13 @@ public class SetTests {
             foundSet = testGame.getLocationOfSets().get(0);
 
             // Claim this set
-            testGame.claimSet(
+            if( testGame.claimSet(
                     foundSet.getFirst(),
                     foundSet.getSecond(),
                     foundSet.getThird()
-                    );
+                    )) {
+                foundSets++;
+            }
 
             detectedSets = testGame.getNumAvailableSets();
             handSize = testGame.getHandSize();
@@ -225,6 +225,13 @@ public class SetTests {
             System.out.println("Deck size: " + deckSize);
         }
 
+        // Get all the sets we found
+        List<SetGame.Triplet<SetCard, SetCard, SetCard>> allFoundSets = testGame.getFoundSets();
+        // Get the leftover deck which should be empty
+        List<SetCard> leftoverDeck = testGame.getSetDeck().getDeckArray();
+
+        Assert.assertEquals(0, leftoverDeck.size());
+        Assert.assertEquals(foundSets, allFoundSets.size());
         Assert.assertEquals(0, deckSize);
         Assert.assertEquals(0, detectedSets);
         Assert.assertTrue(testGame.getIsGameOver());
