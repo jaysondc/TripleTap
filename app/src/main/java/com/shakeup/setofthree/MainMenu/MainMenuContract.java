@@ -22,6 +22,8 @@ public class MainMenuContract {
 
         void openSinglePlayerNormal();
 
+        void openMultiPlayer(int numPlayers);
+
     }
 
     /**

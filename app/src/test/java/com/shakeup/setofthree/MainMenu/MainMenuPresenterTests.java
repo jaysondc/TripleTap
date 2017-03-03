@@ -30,12 +30,18 @@ public class MainMenuPresenterTests {
         mMainMenuPresenter = new MainMenuPresenter(mMainMenuView);
     }
 
+    /**
+     * Verify the presenter handles the StartSinglePlayerNormal UI Command
+     */
     @Test
     public void clickSinglePlayerNormal_StartSinglePlayerNormal(){
-
         mMainMenuPresenter.startSinglePlayerNormal();
-
         verify(mMainMenuView).openSinglePlayerNormal();
+    }
 
+    @Test
+    public void clickMultiPlayer_StartMultiPlayer(){
+        mMainMenuPresenter.startMultiPlayer(2);
+        verify(mMainMenuView).openMultiPlayer(2);
     }
 }

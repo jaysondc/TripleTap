@@ -34,9 +34,13 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
 
     }
 
+    /**
+     * Open a multi-player game with the specified number of players
+     * @param numPlayers
+     */
     @Override
     public void startMultiPlayer(int numPlayers) {
-
+        mMainMenuView.openMultiPlayer(numPlayers);
     }
 
     @Override

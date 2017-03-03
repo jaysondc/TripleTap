@@ -75,6 +75,11 @@ public class MainMenuFragment extends android.support.v4.app.Fragment implements
     }
 
     @Override
+    public void openMultiPlayer(int numPlayers) {
+        // Launch multi player with specified number of players
+    }
+
+    @Override
     public void showSinglePlayerOptions() {
 
     }
