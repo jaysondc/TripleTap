@@ -4,7 +4,6 @@ import com.shakeup.setgamelibrary.enums.CardColor;
 import com.shakeup.setgamelibrary.enums.CardCount;
 import com.shakeup.setgamelibrary.enums.CardFill;
 import com.shakeup.setgamelibrary.enums.CardShape;
-import com.sun.org.apache.xpath.internal.operations.Equals;
 
 import java.util.ArrayList;
 import java.util.Arrays;

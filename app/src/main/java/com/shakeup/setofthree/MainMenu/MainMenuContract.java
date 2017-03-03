@@ -20,6 +20,8 @@ public class MainMenuContract {
 
         void showMultiPlayerOptions();
 
+        void openSinglePlayerNormal();
+
     }
 
     /**
@@ -36,7 +38,11 @@ public class MainMenuContract {
 
         void openLeaderBoard();
 
+        void openHowToPlay();
+
         void openSettings();
+
+        void exitGame();
 
     }
 }
