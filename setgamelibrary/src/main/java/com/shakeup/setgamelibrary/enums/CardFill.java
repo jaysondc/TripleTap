@@ -5,5 +5,5 @@ package com.shakeup.setgamelibrary.enums;
  */
 
 public enum CardFill {
-    SOLID, OPEN, STRIPED
+    SOLID, OPEN, STRIPE
 }

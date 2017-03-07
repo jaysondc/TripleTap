@@ -97,7 +97,7 @@ public class SetTests {
                 CardShape.DIAMOND,
                 CardColor.PURPLE,
                 CardCount.ONE,
-                CardFill.STRIPED
+                CardFill.STRIPE
         );
 
         thirdCard = testCard1.getThirdCard(testCard2);
