@@ -24,7 +24,7 @@ public class GameActivity extends FullScreenActivity {
         setContentView(R.layout.activity_game);
 
         if (null == savedInstanceState) {
-            initFragment(MainMenuFragment.newInstance());
+            initFragment(GameFragment.newInstance());
         }
     }
 

@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.MainMenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.SetGame.GameActivity;
 
 /**
  * Created by Jayson on 3/2/2017.
@@ -72,6 +74,8 @@ public class MainMenuFragment extends android.support.v4.app.Fragment implements
     @Override
     public void openSinglePlayerNormal() {
         // Launch single player activity
+        Intent intent = new Intent(getContext(), GameActivity.class);
+        startActivity(intent);
     }
 
     @Override
