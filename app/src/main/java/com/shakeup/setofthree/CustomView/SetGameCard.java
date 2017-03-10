@@ -190,14 +190,14 @@ public class SetGameCard extends CardView {
         ImageView symbolView = new ImageView(context);
 
         // Set the height of the image to 1/2 the card height
-        int imageHeight = getHeight() / 2;
+        int imageHeight = (int) Math.floor( getHeight() * 0.7);
         int imageWidth = imageHeight / 2;
         LayoutParams params = new LayoutParams(
                 imageWidth,
                 imageHeight
         );
-        params.setMarginEnd(5);
-        params.setMarginStart(5);
+        params.setMarginEnd(10);
+        params.setMarginStart(10);
         symbolView.setLayoutParams(params);
 
         // Get drawable resource from ShapeFill array

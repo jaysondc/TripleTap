@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme.FullScreen">
         <activity
             android:name=".MainMenu.MainMenuActivity"
-            android:label="@string/title_activity_main_menu">
+            android:label="@string/title_activity_main_menu"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SetGame.GameActivity"/>
+            android:name=".SetGame.GameActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
