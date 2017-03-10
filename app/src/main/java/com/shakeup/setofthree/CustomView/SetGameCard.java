@@ -15,14 +15,14 @@ import com.shakeup.setofthree.R;
 
 /**
  * Created by Jayson on 3/6/2017.
- *
+ * <p>
  * This view is able to display cards to be used in Set.
  * It's editable from the layout editor should be editable during runtime
- *
+ * <p>
  * The card will always be 2:3 aspect ratio. Orientation can be set but defaults to vertical.
  */
 
-public class SetGameCard extends CardView{
+public class SetGameCard extends CardView {
 
     // Width and height aspect ratio. Defaults to 2:3
     private int mAspectRatioWidth;
@@ -42,15 +42,16 @@ public class SetGameCard extends CardView{
      */
     private Context mContext;
 
-    public SetGameCard(Context context){
+    public SetGameCard(Context context) {
         super(context);
     }
 
     /**
      * Constructor used most often by layout editor. Attributes are passed through attrs,
      * otherwise the SetCard is initialized with defaults.
+     *
      * @param context Context containing our view
-     * @param attrs Attributes passed from constructing code
+     * @param attrs   Attributes passed from constructing code
      */
     public SetGameCard(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,8 +59,7 @@ public class SetGameCard extends CardView{
         init(context, attrs);
     }
 
-    public SetGameCard(Context context, AttributeSet attrs, int defStyle)
-    {
+    public SetGameCard(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
         init(context, attrs);
@@ -67,11 +67,11 @@ public class SetGameCard extends CardView{
 
     /**
      * Initialize our card with passed in attributes.
+     *
      * @param context Context our view is in
-     * @param attrs Attributes passed into the constructor from code or the layout xml
+     * @param attrs   Attributes passed into the constructor from code or the layout xml
      */
-    private void init(Context context, AttributeSet attrs)
-    {
+    private void init(Context context, AttributeSet attrs) {
 
         /**
          * Get custom attributes
@@ -120,34 +120,37 @@ public class SetGameCard extends CardView{
 
                 // Add an image to the LinearLayout in the card
                 addImage(myContext, linearLayout);
+                addImage(myContext, linearLayout);
+                addImage(myContext, linearLayout);
             }
         });
-
-
     }
 
     /**
-     * Adds the appropriate symbol image to the center of the card
+     * Adds the appropriate symbol image to the center of the card. This will takes the
+     * class attributes and displays the image with the correct shape, color, count, and fill.
+     *
      * @param context Context of our view
      */
-    private void addImage(Context context, LinearLayout linearLayout){
+    private void addImage(Context context, LinearLayout linearLayout) {
 
         ImageView symbolView = new ImageView(context);
 
         // Set the height of the image to 1/2 the card height
         int imageHeight = getHeight() / 2;
+        int imageWidth = imageHeight / 2;
         LayoutParams params = new LayoutParams(
-                LayoutParams.WRAP_CONTENT,
+                imageWidth,
                 imageHeight
         );
-
+        params.setMarginEnd(5);
+        params.setMarginStart(5);
         symbolView.setLayoutParams(params);
 
+        // Set placeholder image
+        symbolView.setImageDrawable(context.getDrawable(R.drawable.ic_set_icons_squiggle_open));
 
-        symbolView.setImageDrawable(context.getDrawable(R.drawable.ic_oval_one_open));
-        //Symbol.setMaxHeight(this.getHeight() / 2);
-
-        linearLayout.addView(symbolView);
+        linearLayout.addView(symbolView, 0);
     }
 
 
@@ -207,7 +210,6 @@ public class SetGameCard extends CardView{
 //        this.mAspectRatioHeight = mAspectRatioHeight;
 //        invalidate();
 //        requestLayout();    }
-
     public int getShape() {
         return mShape;
     }
