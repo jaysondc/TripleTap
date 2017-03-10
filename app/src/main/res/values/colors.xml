@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <!-- Default SET colors -->
+    <color name="set_red">#FF0000</color>
+    <color name="set_green">#008000</color>
+    <color name="set_purple">#551A8B</color>
 </resources>

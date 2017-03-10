@@ -2,6 +2,8 @@ package com.shakeup.setofthree.CustomView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -29,6 +31,26 @@ public class SetGameCard extends CardView {
     private int mAspectRatioHeight;
 
     /**
+     * Constants to map to Enum attributes
+     */
+    // SHAPE
+    private static final int OVAL = 0;
+    private static final int DIAMOND = 1;
+    private static final int SQUIGGLE = 2;
+    // COLOR
+    private static final int RED = 0;
+    private static final int GREEN = 1;
+    private static final int PURPLE = 2;
+    // COUNT
+    private static final int ONE = 0;
+    private static final int TWO = 1;
+    private static final int THREE = 2;
+    // FILL
+    private static final int SOLID = 0;
+    private static final int OPEN = 1;
+    private static final int STRIPE = 2;
+
+    /**
      * Set Card attributes. Defaults to 0:0:0:0
      * which is Oval:Red:One:Solid
      */
@@ -36,6 +58,7 @@ public class SetGameCard extends CardView {
     private int mColor;
     private int mCount;
     private int mFill;
+    private int[][] mShapeFill = new int[3][3];
 
     /**
      * Keep an reference to the view's context
@@ -92,6 +115,24 @@ public class SetGameCard extends CardView {
         }
 
         /**
+         * Set up 2D array to get the correct drawable based on shape and fill
+         * +--------------------------------------------------+
+         * | oval_solid     | oval_open     | oval_stripe     |
+         * | diamond_solid  | diamond_open  | diamond_stripe  |
+         * | squiggle_solid | squiggle_open | squiggle_stripe |
+         * +--------------------------------------------------+
+         */
+        mShapeFill[0][0] = R.drawable.ic_set_icons_oval_solid;
+        mShapeFill[0][1] = R.drawable.ic_set_icons_oval_open;
+        mShapeFill[0][2] = R.drawable.ic_set_icons_oval_stripe;
+        mShapeFill[1][0] = R.drawable.ic_set_icons_diamond_solid;
+        mShapeFill[1][1] = R.drawable.ic_set_icons_diamond_open;
+        mShapeFill[1][2] = R.drawable.ic_set_icons_diamond_stripe;
+        mShapeFill[2][0] = R.drawable.ic_set_icons_squiggle_solid;
+        mShapeFill[2][1] = R.drawable.ic_set_icons_squiggle_open;
+        mShapeFill[2][2] = R.drawable.ic_set_icons_squiggle_stripe;
+
+        /**
          * Registers a listener to fire once the initial layout pass is done so we can
          * add a child LinearLayout and ImageView and have access to their measure height and width
          */
@@ -119,16 +160,28 @@ public class SetGameCard extends CardView {
                 view.addView(linearLayout);
 
                 // Add an image to the LinearLayout in the card
-                addImage(myContext, linearLayout);
-                addImage(myContext, linearLayout);
-                addImage(myContext, linearLayout);
+                switch( mCount ){
+                    case ONE:
+                        addImage(myContext, linearLayout);
+                        break;
+                    case TWO:
+                        addImage(myContext, linearLayout);
+                        addImage(myContext, linearLayout);
+                        break;
+                    case THREE:
+                        addImage(myContext, linearLayout);
+                        addImage(myContext, linearLayout);
+                        addImage(myContext, linearLayout);
+                        break;
+                }
             }
         });
     }
 
     /**
-     * Adds the appropriate symbol image to the center of the card. This will takes the
-     * class attributes and displays the image with the correct shape, color, count, and fill.
+     * Adds the appropriate symbol to the center of the card. This takes the
+     * class attributes and displays the image with the correct shape, color, and fill
+     * and can be called multiple times to display the correct count of symbols.
      *
      * @param context Context of our view
      */
@@ -147,10 +200,37 @@ public class SetGameCard extends CardView {
         params.setMarginStart(5);
         symbolView.setLayoutParams(params);
 
-        // Set placeholder image
-        symbolView.setImageDrawable(context.getDrawable(R.drawable.ic_set_icons_squiggle_open));
+        // Get drawable resource from ShapeFill array
+        Drawable symbol = context.getDrawable(mShapeFill[mShape][mFill]);
 
+        // Set symbol color based on defaults or user preferences
+        setSymbolColor(symbol);
+
+        // Set the drawable to the imageview
+        symbolView.setImageDrawable(symbol);
+
+        // Add the completed imageview to the layout
         linearLayout.addView(symbolView, 0);
+    }
+
+
+    /**
+     * Tints the symbol drawable based on default colors or user preferences if set.
+     * Set default colors for now. Eventually this will be the users preference colors
+     * @param symbol The drawable to be tinted
+     */
+    private void setSymbolColor(Drawable symbol) {
+        switch ( mColor ){
+            case RED:
+                symbol.setTint(ContextCompat.getColor(mContext, R.color.set_red));
+                break;
+            case GREEN:
+                symbol.setTint(ContextCompat.getColor(mContext, R.color.set_green));
+                break;
+            case PURPLE:
+                symbol.setTint(ContextCompat.getColor(mContext, R.color.set_purple));
+                break;
+        }
     }
 
 

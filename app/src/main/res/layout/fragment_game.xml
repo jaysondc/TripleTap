@@ -59,10 +59,25 @@
     <com.shakeup.setofthree.CustomView.SetGameCard
         android:layout_width="150dp"
         android:layout_height="100dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        app:symbol_shape="oval">
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        app:cardElevation="8dp"
+        app:symbol_color="red"
+        app:symbol_count="two"
+        app:symbol_fill="open"
+        app:symbol_shape="oval" />
 
-    </com.shakeup.setofthree.CustomView.SetGameCard>
+    <com.shakeup.setofthree.CustomView.SetGameCard
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
+        app:cardElevation="8dp"
+        app:symbol_color="purple"
+        app:symbol_count="three"
+        app:symbol_fill="solid"
+        app:symbol_shape="diamond" />
 
 </RelativeLayout>
