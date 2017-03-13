@@ -1,12 +1,14 @@
 package com.shakeup.setofthree.SetGame;
 
 import android.database.DataSetObserver;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
-import android.widget.TextView;
 
 import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setofthree.CustomView.SetGameCard;
+import com.shakeup.setofthree.R;
 
 import java.util.ArrayList;
 
@@ -31,13 +33,29 @@ public class SetGameGridAdapter implements ListAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Create attribute set to be applied to the new card
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        TextView text = new TextView(parent.getContext());
+        if(convertView == null){
+            // Create a new card from the setgame_card_main layout template
+            SetGameCard cardView = (SetGameCard) inflater.inflate(
+                    R.layout.setgame_card_main,
+                    parent,
+                    false);
 
-        text.setText("TESTING");
+            // Change attributes to match the Set Deck
+            SetCard currentCard = mSetHand.get(position);
 
-        return text;
+            cardView.setColor(currentCard.getColor().ordinal());
+            cardView.setShape(currentCard.getShape().ordinal());
+            cardView.setCount(currentCard.getCount().ordinal());
+            cardView.setFill(currentCard.getFill().ordinal());
+
+            return cardView;
+        } else {
+            // recycle convertView argument
+            return convertView;
+        }
+
     }
 
 
