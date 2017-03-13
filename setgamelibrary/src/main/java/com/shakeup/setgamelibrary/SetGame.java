@@ -172,6 +172,10 @@ public class SetGame {
         return mFoundSets;
     }
 
+    public ArrayList<SetCard> getSetHand(){
+        return mSetHand;
+    }
+
     public int getHandSize(){
         return mSetHand.size();
     }

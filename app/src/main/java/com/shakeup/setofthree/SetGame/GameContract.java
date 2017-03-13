@@ -1,5 +1,9 @@
 package com.shakeup.setofthree.SetGame;
 
+import com.shakeup.setgamelibrary.SetCard;
+
+import java.util.ArrayList;
+
 /**
  * Created by Jayson on 3/2/2017.
  *
@@ -13,12 +17,20 @@ public class GameContract {
      */
     interface View {
 
+        void displayGame(ArrayList<SetCard> setHand);
+
+        // Some actions to interact with the SetGame
+
     }
 
     /**
      * Methods that need to be implemented by the Game Presenter
      */
     interface UserActionsListener {
+
+        void initGame();
+
+        void submitSet(int indexOne, int indexTwo, int indexThree);
 
     }
 
