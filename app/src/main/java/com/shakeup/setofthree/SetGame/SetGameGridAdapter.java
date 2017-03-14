@@ -1,7 +1,6 @@
 package com.shakeup.setofthree.SetGame;
 
 import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,15 +50,6 @@ public class SetGameGridAdapter implements ListAdapter {
             cardView.setCount(currentCard.getCount().ordinal());
             cardView.setFill(currentCard.getFill().ordinal());
 
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int i = (int) Math.floor(Math.random() * 3);
-                    Log.d("SetGameGridAdapter", "Set to " + i);
-                    cardView.setShape(i);
-                }
-            });
-
             return cardView;
         } else {
             // recycle convertView argument
@@ -70,12 +60,12 @@ public class SetGameGridAdapter implements ListAdapter {
 
     @Override
     public boolean areAllItemsEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled(int position) {
-        return false;
+        return true;
     }
 
     @Override

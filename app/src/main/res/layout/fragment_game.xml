@@ -46,13 +46,16 @@
 
     <GridView
         android:id="@+id/game_grid"
-        android:layout_width="390dp"
+        android:layout_width="400dp"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:numColumns="3"
+        android:clipToPadding="false"
         android:columnWidth="130dp"
         android:horizontalSpacing="@dimen/default_gap"
-        android:verticalSpacing="@dimen/default_gap">
-    </GridView>
+        android:numColumns="3"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:verticalSpacing="@dimen/default_gap"
+        android:clickable="true"/>
 
 </RelativeLayout>

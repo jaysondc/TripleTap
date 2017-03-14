@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +26,7 @@ import com.shakeup.setofthree.R;
  * The card will always be 2:3 aspect ratio. Orientation can be set but defaults to vertical.
  */
 
-public class SetGameCard extends CardView {
+public class SetGameCard extends CardView implements Checkable{
 
     // Width and height aspect ratio. Defaults to 2:3
     private int mAspectRatioWidth;
@@ -66,6 +67,13 @@ public class SetGameCard extends CardView {
      */
     private Context mContext;
     private AttributeSet mAttrs;
+
+    /**
+     * Member variables for other state info
+     */
+    private boolean mIsChecked;
+
+
 
     public SetGameCard(Context context) {
         super(context);
@@ -247,6 +255,33 @@ public class SetGameCard extends CardView {
         }
     }
 
+
+    // IMPLEMENTATION FOR CHECKABLE INTERFACE //
+    @Override
+    public void setChecked(boolean checked) {
+        mIsChecked = checked;
+        if ( mIsChecked ){
+            this.setElevation(20);
+        } else {
+            this.setElevation(4);
+        }
+        invalidate();
+    }
+
+    @Override
+    public boolean isChecked() {
+        return mIsChecked;
+    }
+
+    @Override
+    public void toggle() {
+        if ( mIsChecked ){
+            setChecked(false);
+        } else {
+            setChecked(true);
+        }
+    }
+
     /**
      * Custom aspect ratios have proven difficult to work right. Implement feature later.
      */
@@ -310,7 +345,6 @@ public class SetGameCard extends CardView {
     public void setShape(int mShape) {
         this.mShape = mShape;
         invalidate();
-        requestLayout();
     }
 
     public int getColor() {
@@ -320,7 +354,6 @@ public class SetGameCard extends CardView {
     public void setColor(int mColor) {
         this.mColor = mColor;
         invalidate();
-        requestLayout();
     }
 
     public int getCount() {
@@ -330,7 +363,6 @@ public class SetGameCard extends CardView {
     public void setCount(int mCount) {
         this.mCount = mCount;
         invalidate();
-        requestLayout();
     }
 
     public int getFill() {
@@ -340,6 +372,5 @@ public class SetGameCard extends CardView {
     public void setFill(int mFill) {
         this.mFill = mFill;
         invalidate();
-        requestLayout();
     }
 }

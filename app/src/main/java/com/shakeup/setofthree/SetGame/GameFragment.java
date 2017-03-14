@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setofthree.CustomView.SetGameCard;
 import com.shakeup.setofthree.R;
 
 import java.util.ArrayList;
@@ -69,6 +71,13 @@ public class GameFragment extends Fragment implements GameContract.View {
 
         // Display the board
         mGridView.setAdapter(mGridAdapter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SetGameCard card = (SetGameCard) view;
+                card.toggle();
+            }
+        });
     }
 
 }
