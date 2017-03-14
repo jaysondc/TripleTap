@@ -5,6 +5,7 @@
     android:layout_width="130dp"
     android:layout_height="100dp"
     android:layout_margin="5dp"
+    android:clickable="true"
     app:symbol_color="red"
     app:symbol_count="two"
     app:symbol_fill="open"

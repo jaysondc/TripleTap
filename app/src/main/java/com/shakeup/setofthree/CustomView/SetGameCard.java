@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
@@ -61,9 +62,10 @@ public class SetGameCard extends CardView {
     private int[][] mShapeFill = new int[3][3];
 
     /**
-     * Keep an reference to the view's context
+     * Keep an reference to the view's and attributes
      */
     private Context mContext;
+    private AttributeSet mAttrs;
 
     public SetGameCard(Context context) {
         super(context);
@@ -79,14 +81,18 @@ public class SetGameCard extends CardView {
     public SetGameCard(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+        mAttrs = attrs;
         init(context, attrs);
     }
 
     public SetGameCard(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
+        mAttrs = attrs;
         init(context, attrs);
     }
+
+
 
     /**
      * Initialize our card with passed in attributes.
@@ -95,6 +101,7 @@ public class SetGameCard extends CardView {
      * @param attrs   Attributes passed into the constructor from code or the layout xml
      */
     private void init(Context context, AttributeSet attrs) {
+
 
         /**
          * Get custom attributes
@@ -189,6 +196,13 @@ public class SetGameCard extends CardView {
 
         ImageView symbolView = new ImageView(context);
 
+        /**
+         * Turn of hardware acceleration for this View otherwise
+         * the colors don't get drawn correctly
+         */
+        symbolView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+
         // Set the height of the image to 1/2 the card height
         int imageHeight = (int) Math.floor( getHeight() * 0.7);
         int imageWidth = imageHeight / 2;
@@ -232,7 +246,6 @@ public class SetGameCard extends CardView {
                 break;
         }
     }
-
 
     /**
      * Custom aspect ratios have proven difficult to work right. Implement feature later.
