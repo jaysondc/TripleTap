@@ -2,6 +2,7 @@ package com.shakeup.setofthree.SetGame;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.CustomView.SetGameCard;
 import com.shakeup.setofthree.R;
 
@@ -36,6 +38,9 @@ public class GameFragment extends Fragment
 
     // Adapter containing the current Set Hand displayed on the board
     private SetGameGridAdapter mGridAdapter;
+
+    // ArrayList holding the current valid locations of sets
+    private ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
 
     // Adapter to hold this fragment as a usable context
     private SetGameGridCallback mGameFragment;
@@ -94,22 +99,20 @@ public class GameFragment extends Fragment
                 SetGameCard card = (SetGameCard) view;
                 card.toggle();
 
-                // Let the fragment know we've been clicked
-                mGameFragment.onSetCardClicked();
+                // Let the presenter know we've been clicked
+                mActionsListener.setCardClicked();
             }
         });
-
     }
 
 
     /**
-     * This is called whenever a SET card is clicked by the user.
+     * This is called by the presenter whenever a SET card is clicked by the user.
      * If 3 cards are selected those indices are sent to the presenter
      * who will check if they are a valid set.
      */
     @Override
     public void onSetCardClicked() {
-        Log.d("TEST", mGridView.getCheckedItemCount() + " items selected.");
 
         // If we have 3 items selected, check if they are a set
         if (mGridView.getCheckedItemCount() == 3){
@@ -126,6 +129,12 @@ public class GameFragment extends Fragment
                 }
             }
 
+            // Submit the set instances to the presenter
+            mActionsListener.submitSet(
+                    positions[0],
+                    positions[1],
+                    positions[2]);
+
             Log.d(LOG_TAG, String.format(
                     "Checked %d, %d, %d",
                     positions[0],
@@ -136,4 +145,38 @@ public class GameFragment extends Fragment
             mGridView.clearChoices();
         }
     }
+
+    /**
+     * Updates the board and score in response to a successful set claim
+     */
+    @Override
+    public void claimSetSuccess(ArrayList<SetCard> newHand) {
+        // Do stuff in response to successful set claim
+        Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
+
+        mGridAdapter = new SetGameGridAdapter(newHand);
+    }
+
+    @Override
+    public void claimSetFailure() {
+        // Do stuff in response to a failed set claim
+        Snackbar.make(getView(), "That's not a SET!", Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
+     * Get the current locations of all sets and store them for later use
+     */
+    public void getSetLocations(){
+        mSetLocations = mActionsListener.getSetLocations();
+    }
+
+    /**
+     * Get the current locations of all sets for use in testing
+     * @return
+     */
+    public ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocationsForTest(){
+        return mActionsListener.getSetLocations();
+    }
+
+
 }

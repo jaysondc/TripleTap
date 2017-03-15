@@ -168,6 +168,11 @@ public class SetGame {
         return mLocationOfSets;
     }
 
+    /**
+     * Returns a list possible sets in a hand in the form of an List of Triplets.
+     * @returna A list of Triplets containing 3 integers, each integer being
+     * the index of a card required to make that set.
+     */
     public List<Triplet<SetCard, SetCard, SetCard>> getFoundSets(){
         return mFoundSets;
     }

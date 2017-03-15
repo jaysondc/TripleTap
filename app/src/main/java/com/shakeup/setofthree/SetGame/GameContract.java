@@ -1,6 +1,7 @@
 package com.shakeup.setofthree.SetGame;
 
 import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setgamelibrary.SetGame;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,11 @@ public class GameContract {
         void displayGame(ArrayList<SetCard> setHand);
 
         // Some actions to interact with the SetGame
+        void claimSetSuccess(ArrayList<SetCard> newHand);
+
+        void claimSetFailure();
+
+        void onSetCardClicked();
 
     }
 
@@ -31,6 +37,12 @@ public class GameContract {
         void initGame();
 
         void submitSet(int indexOne, int indexTwo, int indexThree);
+
+        void setSetGame(SetGame game);
+
+        void setCardClicked();
+
+        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations();
 
     }
 

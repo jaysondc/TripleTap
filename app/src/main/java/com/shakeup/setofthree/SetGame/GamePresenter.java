@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.shakeup.setgamelibrary.SetGame;
 
+import java.util.ArrayList;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -38,8 +40,46 @@ public class GamePresenter implements GameContract.UserActionsListener {
         mGameView.displayGame(mSetGame.getSetHand());
     }
 
+    /**
+     * Handles SET claims thrown from the GameFragment
+     * Calls the GameFragment success and failure handlers when appropriate.
+     * @param indexOne Index of the first card in the set.
+     * @param indexTwo Index of the second card in the set.
+     * @param indexThree Index of the third card in the set.
+     */
     @Override
     public void submitSet(int indexOne, int indexTwo, int indexThree) {
 
+        // Resolve set claim and obtain result
+        boolean result = mSetGame.claimSet(indexOne, indexTwo, indexThree);
+
+        if ( result ){
+            // Receive 3 new cards and their indexes, pass them to the UI fragment
+            mGameView.claimSetSuccess(mSetGame.getSetHand());
+        } else {
+            // Pass back failure message.
+            mGameView.claimSetFailure();
+        }
+    }
+
+    public void setCardClicked(){
+        mGameView.onSetCardClicked();
+    }
+
+    /**
+     * Manually set an instance of the SetGame object.
+     * @param game SetGame instance to be used.
+     */
+    public void setSetGame(SetGame game){
+        mSetGame = game;
+    }
+
+    /**
+     * Get the location of all available sets in the current board
+     * @return An ArrayLilst of Triplets containing the indexes of
+     * all available sets
+     */
+    public ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations(){
+        return mSetGame.getLocationOfSets();
     }
 }

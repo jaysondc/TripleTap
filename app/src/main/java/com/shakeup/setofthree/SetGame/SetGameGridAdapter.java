@@ -113,4 +113,5 @@ public class SetGameGridAdapter implements ListAdapter {
     public boolean isEmpty() {
         return mSetHand.isEmpty();
     }
+
 }
