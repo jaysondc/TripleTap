@@ -72,6 +72,7 @@ public class SetGameCard extends CardView implements Checkable{
      * Member variables for other state info
      */
     private boolean mIsChecked;
+    private boolean mIsHighlighted;
 
 
 
@@ -111,10 +112,12 @@ public class SetGameCard extends CardView implements Checkable{
     private void init(Context context, AttributeSet attrs) {
 
 
-        /**
-         * Get custom attributes
-         */
+        // Get custom attributes
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SetGameCard);
+
+        // Set some defaults
+        mIsChecked = false;
+        mIsHighlighted = false;
 
         try {
             mAspectRatioWidth = attributes.getInt(R.styleable.SetGameCard_aspectWidth, 2);
@@ -279,6 +282,32 @@ public class SetGameCard extends CardView implements Checkable{
             setChecked(false);
         } else {
             setChecked(true);
+        }
+    }
+
+    // Implement Highlighted tag to highlight cards as hints//
+    public void setHighlighted(boolean highlighted){
+        mIsHighlighted = highlighted;
+        // Do something to highlight the card
+        if ( mIsHighlighted ){
+            this.setBackgroundColor(
+                    ContextCompat.getColor(mContext, R.color.card_background_highlighted));
+        } else {
+            this.setBackgroundColor(
+                    ContextCompat.getColor(mContext, R.color.card_background_normal));
+        }
+        invalidate();
+    }
+
+    public boolean isHighlighted(){
+        return mIsHighlighted;
+    }
+
+    public void toggleHighlighted(){
+        if ( mIsHighlighted ){
+            setHighlighted(false);
+        } else {
+            setHighlighted(true);
         }
     }
 

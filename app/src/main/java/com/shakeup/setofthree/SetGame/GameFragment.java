@@ -103,6 +103,50 @@ public class GameFragment extends Fragment
                 mActionsListener.setCardClicked();
             }
         });
+
+        // Get the locations of all available sets
+        getSetLocations();
+
+        // If we are in debug mode, highlight a valid set
+        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
+            // Queue up a runnable since we can't highlight anything
+            // before the GridView is set up
+            mGridView.post(new Runnable() {
+                @Override
+                public void run() {
+                    highlightSet();
+                }
+            });
+        }
+    }
+
+    /**
+     * Highlight a random available set for testing
+     */
+    public void highlightSet(){
+        SetGame.Triplet<Integer, Integer, Integer> location = getRandomSet();
+        int[] locationArray = new int[3];
+        locationArray[0] = location.getFirst();
+        locationArray[1] = location.getSecond();
+        locationArray[2] = location.getThird();
+
+        // Holds a reference to the card so we can highlight it
+        SetGameCard card;
+
+        for(int i = 0; i < 3; i++){
+            card = (SetGameCard) mGridView.getChildAt(locationArray[i]);
+            card.setHighlighted(true);
+        }
+    }
+
+    /**
+     * Get a random set location from the possible sets
+     * @return Triplet of set indexes
+     */
+    public SetGame.Triplet<Integer, Integer, Integer> getRandomSet(){
+        int index = (int) Math.floor(Math.random() * mSetLocations.size());
+
+        return mSetLocations.get(index);
     }
 
 

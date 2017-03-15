@@ -76,11 +76,8 @@ public class SetGameFragmentTests{
     @Test
     public void findSetTest(){
 
-        // Get locations for the current set
-        mSetLocations = mGameFragment.getSetLocationsForTest();
-
         // Pick a random valid SET
-        SetGame.Triplet location = getRandomSet();
+        SetGame.Triplet location = mGameFragment.getRandomSet();
 
         int first = (int) location.getFirst();
         int second = (int) location.getSecond();
