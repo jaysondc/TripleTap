@@ -1,6 +1,7 @@
 package com.shakeup.setofthree.SetGame;
 
 import android.database.DataSetObserver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,10 @@ import java.util.ArrayList;
  */
 
 public class SetGameGridAdapter implements ListAdapter {
+    // Hold the current SetHand to be displayed to the GridView
     ArrayList<SetCard> mSetHand;
 
+    private final String LOG_TAG = getClass().getSimpleName();
 
     // Public constructor takes a ArrayList of Set Cards
     public SetGameGridAdapter(ArrayList<SetCard> setHand){
@@ -53,10 +56,15 @@ public class SetGameGridAdapter implements ListAdapter {
             return cardView;
         } else {
             // recycle convertView argument
+            Log.d(LOG_TAG, "Attempted to recycle a card");
             return convertView;
         }
-
     }
+
+    public void setSetHand(ArrayList<SetCard> hand){
+        this.mSetHand = hand;
+    }
+
 
     @Override
     public boolean areAllItemsEnabled() {

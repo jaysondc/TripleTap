@@ -45,6 +45,9 @@ public class GameFragment extends Fragment
     // Adapter to hold this fragment as a usable context
     private SetGameGridCallback mGameFragment;
 
+    // Holds the positions of a set we're currently trying to claim
+    private int[] positions = new int[3];
+
     private String LOG_TAG = this.getClass().getSimpleName();
 
     /**
@@ -109,14 +112,7 @@ public class GameFragment extends Fragment
 
         // If we are in debug mode, highlight a valid set
         if( getContext().getResources().getBoolean(R.bool.is_debug) ){
-            // Queue up a runnable since we can't highlight anything
-            // before the GridView is set up
-            mGridView.post(new Runnable() {
-                @Override
-                public void run() {
-                    highlightSet();
-                }
-            });
+            highlightSet();
         }
     }
 
@@ -124,19 +120,30 @@ public class GameFragment extends Fragment
      * Highlight a random available set for testing
      */
     public void highlightSet(){
-        SetGame.Triplet<Integer, Integer, Integer> location = getRandomSet();
-        int[] locationArray = new int[3];
-        locationArray[0] = location.getFirst();
-        locationArray[1] = location.getSecond();
-        locationArray[2] = location.getThird();
 
-        // Holds a reference to the card so we can highlight it
-        SetGameCard card;
+        // Wrap the whole thing in a runnable that fires after the GridView is populated
+        mGridView.post(new Runnable() {
+            @Override
+            public void run() {
+                // Get the location of a valid set and assign it to an array
+                SetGame.Triplet<Integer, Integer, Integer> location = getRandomSet();
+                int[] locationArray = new int[3];
 
-        for(int i = 0; i < 3; i++){
-            card = (SetGameCard) mGridView.getChildAt(locationArray[i]);
-            card.setHighlighted(true);
-        }
+                locationArray[0] = location.getFirst();
+                locationArray[1] = location.getSecond();
+                locationArray[2] = location.getThird();
+
+                // Holds a reference to the card so we can highlight it
+                SetGameCard card;
+
+                // Get the associated gridview children and highlight them
+                for(int i = 0; i < 3; i++){
+                    card = (SetGameCard) mGridView.getChildAt(locationArray[i]);
+                    card.setHighlighted(true);
+                }
+            }
+        });
+
     }
 
     /**
@@ -163,7 +170,6 @@ public class GameFragment extends Fragment
             SparseBooleanArray checkedItemPositions = mGridView.getCheckedItemPositions();
 
             int positionIndex = 0;
-            int[] positions = new int[3];
 
             // Loop through SparseBooleanArray and grab the 3 positions that are checked
             for( int i = 0; i < checkedItemPositions.size() ; i++ ){
@@ -198,7 +204,14 @@ public class GameFragment extends Fragment
         // Do stuff in response to successful set claim
         Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
 
-        mGridAdapter = new SetGameGridAdapter(newHand);
+        mGridAdapter.setSetHand(newHand);
+        mGridView.setAdapter(mGridAdapter);
+//        mGridView.getChildAt(positions[0]).invalidate();
+//        mGridView.getChildAt(positions[1]).invalidate();
+//        mGridView.getChildAt(positions[2]).invalidate();
+
+        getSetLocations();
+        highlightSet();
     }
 
     @Override
