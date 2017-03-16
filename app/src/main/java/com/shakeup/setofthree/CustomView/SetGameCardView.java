@@ -25,7 +25,7 @@ import com.shakeup.setofthree.R;
  * The card will always be 2:3 aspect ratio. Orientation can be set but defaults to vertical.
  */
 
-public class SetGameCard extends CardView{
+public class SetGameCardView extends CardView{
 
     // Width and height aspect ratio. Defaults to 2:3
     private int mAspectRatioWidth;
@@ -75,7 +75,7 @@ public class SetGameCard extends CardView{
 
 
 
-    public SetGameCard(Context context) {
+    public SetGameCardView(Context context) {
         super(context);
     }
 
@@ -86,14 +86,14 @@ public class SetGameCard extends CardView{
      * @param context Context containing our view
      * @param attrs   Attributes passed from constructing code
      */
-    public SetGameCard(Context context, AttributeSet attrs) {
+    public SetGameCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
         mAttrs = attrs;
         init(context, attrs);
     }
 
-    public SetGameCard(Context context, AttributeSet attrs, int defStyle) {
+    public SetGameCardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
         mAttrs = attrs;
@@ -112,21 +112,21 @@ public class SetGameCard extends CardView{
 
 
         // Get custom attributes
-        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SetGameCard);
+        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SetGameCardView);
 
         // Set some defaults
         mIsChecked = false;
         mIsHighlighted = false;
 
         try {
-            mAspectRatioWidth = attributes.getInt(R.styleable.SetGameCard_aspectWidth, 2);
-            mAspectRatioHeight = attributes.getInt(R.styleable.SetGameCard_aspectHeight, 3);
+            mAspectRatioWidth = attributes.getInt(R.styleable.SetGameCardView_aspectWidth, 2);
+            mAspectRatioHeight = attributes.getInt(R.styleable.SetGameCardView_aspectHeight, 3);
 
             // Defaults to Oval:Red:One:Solid if not set
-            mShape = attributes.getInt(R.styleable.SetGameCard_symbol_shape, 0);
-            mColor = attributes.getInt(R.styleable.SetGameCard_symbol_color, 0);
-            mCount = attributes.getInt(R.styleable.SetGameCard_symbol_count, 0);
-            mFill = attributes.getInt(R.styleable.SetGameCard_symbol_fill, 0);
+            mShape = attributes.getInt(R.styleable.SetGameCardView_symbol_shape, 0);
+            mColor = attributes.getInt(R.styleable.SetGameCardView_symbol_color, 0);
+            mCount = attributes.getInt(R.styleable.SetGameCardView_symbol_count, 0);
+            mFill = attributes.getInt(R.styleable.SetGameCardView_symbol_fill, 0);
         } finally {
             attributes.recycle();
         }

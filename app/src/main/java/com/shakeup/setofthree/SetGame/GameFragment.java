@@ -6,13 +6,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
-import com.shakeup.setofthree.CustomView.SetGameCard;
+import com.shakeup.setofthree.CustomView.SetGameCardView;
 import com.shakeup.setofthree.R;
 
 import java.util.ArrayList;
@@ -120,11 +122,11 @@ public class GameFragment extends Fragment
                 locationArray[2] = location.getThird();
 
                 // Holds a reference to the card so we can highlight it
-                SetGameCard card;
+                SetGameCardView card;
 
                 // Get the associated gridview children and highlight them
                 for(int i = 0; i < 3; i++){
-                    card = (SetGameCard) mRecyclerGridView.getChildAt(locationArray[i]);
+                    card = (SetGameCardView) mRecyclerGridView.getChildAt(locationArray[i]);
                     card.setHighlighted(true);
                 }
             }
@@ -152,35 +154,84 @@ public class GameFragment extends Fragment
     public void onSetCardClicked() {
 
         //TODO Uncomment this when we're ready to handle clicks again
-//        // If we have 3 items selected, check if they are a set
-//        if (mRecyclerGridView.getCheckedItemCount() == 3){
-//            SparseBooleanArray checkedItemPositions = mRecyclerGridView.getCheckedItemPositions();
-//
-//            int positionIndex = 0;
-//
-//            // Loop through SparseBooleanArray and grab the 3 positions that are checked
-//            for( int i = 0; i < checkedItemPositions.size() ; i++ ){
-//                if( checkedItemPositions.valueAt(i) ){
-//                    positions[positionIndex] = checkedItemPositions.keyAt(i);
-//                    positionIndex++;
-//                }
-//            }
-//
-//            // Submit the set instances to the presenter
-//            mActionsListener.submitSet(
-//                    positions[0],
-//                    positions[1],
-//                    positions[2]);
-//
-//            Log.d(LOG_TAG, String.format(
-//                    "Checked %d, %d, %d",
-//                    positions[0],
-//                    positions[1],
-//                    positions[2]));
-//
-//            // Clear all selections from GridView
-//            mRecyclerGridView.clearChoices();
-//        }
+        // If we have 3 items selected, check if they are a set
+        if (getCheckedItemCount() == 3){
+            SparseBooleanArray checkedItemPositions = getCheckedItemPositions();
+
+            int positionIndex = 0;
+
+            // Loop through SparseBooleanArray and grab the 3 positions that are checked
+            for( int i = 0; i < checkedItemPositions.size() ; i++ ){
+                if( checkedItemPositions.valueAt(i) ){
+                    positions[positionIndex] = checkedItemPositions.keyAt(i);
+                    positionIndex++;
+                }
+            }
+
+            // Submit the set instances to the presenter
+            mActionsListener.submitSet(
+                    positions[0],
+                    positions[1],
+                    positions[2]);
+
+            Log.d(LOG_TAG, String.format(
+                    "Checked %d, %d, %d",
+                    positions[0],
+                    positions[1],
+                    positions[2]));
+
+            // Clear all selections from GridView
+            clearChoices();
+        }
+    }
+
+    /**
+     * Gets the number of items currently selected in the RecyclerView
+     * @return Count of the items
+     */
+    public int getCheckedItemCount(){
+        int checkedCount = 0;
+
+        // Loop through all SetGameCardViews in the adapter and count how many are checked
+        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+            SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+            if ( cardView.isChecked() ){
+                checkedCount++;
+            }
+        }
+        return checkedCount;
+    }
+
+    /**
+     * Gets all locations of checked items in the RecyclerGrid
+     * @return SparseBooleanArray containing key-value pairs of locations where checked == true
+     */
+    public SparseBooleanArray getCheckedItemPositions(){
+        SparseBooleanArray checkedLocations = new SparseBooleanArray();
+
+        // Loop through all SetGameCardViews in the adapter and add locations and values for
+        // those that are checked
+        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+            SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+            if ( cardView.isChecked() ){
+                checkedLocations.append(i, true);
+            }
+        }
+
+        return checkedLocations;
+    }
+
+    /**
+     * Uncheck all views in the RecyclerGrid
+     */
+    public void clearChoices(){
+        // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
+        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+            SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+            if ( cardView.isChecked() ){
+                cardView.setChecked(false);
+            }
+        }
     }
 
     /**
@@ -189,7 +240,7 @@ public class GameFragment extends Fragment
     @Override
     public void claimSetSuccess(ArrayList<SetCard> newHand) {
         // Do stuff in response to successful set claim
-//        Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
 //
 //        mSetGameRecyclerAdapter.setSetHand(newHand);
 //        mRecyclerGridView.setAdapter(mSetGameRecyclerAdapter);

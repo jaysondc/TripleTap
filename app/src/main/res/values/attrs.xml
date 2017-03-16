@@ -11,7 +11,7 @@
 
 
     <!-- Declare custom attribues for the SetGameCard object -->
-    <declare-styleable name="SetGameCard">
+    <declare-styleable name="SetGameCardView">
 
         <!-- SetGame attributes should accessible -->
         <attr name="symbol_shape" format="enum">

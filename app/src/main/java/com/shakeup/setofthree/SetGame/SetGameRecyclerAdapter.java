@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shakeup.setgamelibrary.SetCard;
-import com.shakeup.setofthree.CustomView.SetGameCard;
+import com.shakeup.setofthree.CustomView.SetGameCardView;
 import com.shakeup.setofthree.R;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class SetGameRecyclerAdapter
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         // Create a new card from the setgame_card_main layout template
-        final SetGameCard cardView = (SetGameCard) inflater.inflate(
+        final SetGameCardView cardView = (SetGameCardView) inflater.inflate(
                 R.layout.setgame_card_main,
                 parent,
                 false);
@@ -88,7 +88,7 @@ public class SetGameRecyclerAdapter
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        SetGameCard cardView;
+        SetGameCardView cardView;
         boolean isHighlighted;
         boolean isChecked;
 
@@ -99,9 +99,9 @@ public class SetGameRecyclerAdapter
         public SetCardViewHolder(View itemView) {
             super(itemView);
 
-            cardView = (SetGameCard) itemView;
-            isHighlighted = ((SetGameCard) itemView).isHighlighted();
-            isChecked = ((SetGameCard) itemView).isChecked();
+            cardView = (SetGameCardView) itemView;
+            isHighlighted = ((SetGameCardView) itemView).isHighlighted();
+            isChecked = ((SetGameCardView) itemView).isChecked();
 
             // Use our own implementation of OnClickListener to handle clicks
             cardView.setOnClickListener(this);
@@ -113,11 +113,11 @@ public class SetGameRecyclerAdapter
          */
         @Override
         public void onClick(View v) {
-            SetGameCard card = (SetGameCard) v;
+            SetGameCardView card = (SetGameCardView) v;
 
             // Toggle checked state and store new state in the ViewHolder
             card.toggleChecked();
-            isChecked = ((SetGameCard) v).isChecked();
+            isChecked = ((SetGameCardView) v).isChecked();
 
             // Notify the GamePresenter that we've been clicked
             mActionsListener.setCardClicked();

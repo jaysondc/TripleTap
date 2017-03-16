@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 
 import com.shakeup.setgamelibrary.SetCard;
-import com.shakeup.setofthree.CustomView.SetGameCard;
+import com.shakeup.setofthree.CustomView.SetGameCardView;
 import com.shakeup.setofthree.R;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class SetGameGridAdapter implements ListAdapter {
 
         if(convertView == null){
             // Create a new card from the setgame_card_main layout template
-            final SetGameCard cardView = (SetGameCard) inflater.inflate(
+            final SetGameCardView cardView = (SetGameCardView) inflater.inflate(
                     R.layout.setgame_card_main,
                     parent,
                     false);

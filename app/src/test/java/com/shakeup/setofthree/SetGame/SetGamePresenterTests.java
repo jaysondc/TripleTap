@@ -107,4 +107,15 @@ public class SetGamePresenterTests {
 
     }
 
+    /**
+     * Tests that the UI card click handler is called after the presenter
+     * is notified a card has been clicked
+     */
+    @Test
+    public void setCardClickedTest(){
+        mGamePresenter.setCardClicked();
+
+        verify(mGameView).onSetCardClicked();
+    }
+
 }

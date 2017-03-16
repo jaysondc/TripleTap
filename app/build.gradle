@@ -49,6 +49,12 @@ dependencies {
     // Espresso UI Testing dependencies.
     androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.2"
     androidTestCompile "com.android.support.test.espresso:espresso-intents:2.2.2"
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude module: 'recyclerview-v7'
+    }
 
     // Re-add support dependencies to ensure androidTestCompile uses the latest versions
     androidTestCompile 'com.android.support:appcompat-v7:25.3.0'

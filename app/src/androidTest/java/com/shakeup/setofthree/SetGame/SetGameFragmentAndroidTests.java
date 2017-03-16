@@ -3,9 +3,10 @@ package com.shakeup.setofthree.SetGame;
 import android.content.Intent;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewAssertion;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.GridView;
 
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
@@ -16,11 +17,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 
@@ -30,7 +29,7 @@ import static org.junit.Assert.assertThat;
  * Tests to be run on the Set Game UI
  */
 
-public class SetGameFragmentTests{
+public class SetGameFragmentAndroidTests{
 
     // Refrences to the activity and fragment
     private GameFragment mGameFragment;
@@ -66,8 +65,8 @@ public class SetGameFragmentTests{
      */
     @Test
     public void displayGameTest(){
-        onView(withId(R.id.game_grid))
-                .check(new GridViewItemCountAssertion(12));
+        onView(withId(R.id.game_recycler_grid))
+                .check(new RecyclerViewItemCountAssertion(12));
     }
 
     /**
@@ -83,12 +82,15 @@ public class SetGameFragmentTests{
         int second = (int) location.getSecond();
         int third = (int) location.getThird();
 
-        onData(anything()).inAdapterView(withId(R.id.game_grid))
-                .atPosition(first).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.game_grid))
-                .atPosition(second).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.game_grid))
-                .atPosition(third).perform(click());
+        onView(withId(R.id.game_recycler_grid))
+                        .perform(RecyclerViewActions
+                        .actionOnItemAtPosition(first, click()));
+        onView(withId(R.id.game_recycler_grid))
+                        .perform(RecyclerViewActions
+                        .actionOnItemAtPosition(second, click()));
+        onView(withId(R.id.game_recycler_grid))
+                        .perform(RecyclerViewActions
+                        .actionOnItemAtPosition(third, click()));
 
         // Assert that valid set was found
     }
@@ -107,10 +109,10 @@ public class SetGameFragmentTests{
      * Custom view assertion method that checks that a GridView's
      * item count is greater or equal to expectedCount
      */
-    public class GridViewItemCountAssertion implements ViewAssertion {
+    public class RecyclerViewItemCountAssertion implements ViewAssertion {
         private final int expectedCount;
 
-        public GridViewItemCountAssertion(int expectedCount) {
+        public RecyclerViewItemCountAssertion(int expectedCount) {
             this.expectedCount = expectedCount;
         }
 
@@ -120,10 +122,10 @@ public class SetGameFragmentTests{
                 throw noViewFoundException;
             }
 
-            GridView gridView = (GridView) view;
+            RecyclerView recyclerView = (RecyclerView) view;
 
-            SetGameGridAdapter adapter = (SetGameGridAdapter) gridView.getAdapter();
-            assertThat(adapter.getCount(), greaterThanOrEqualTo(expectedCount));
+            SetGameRecyclerAdapter adapter = (SetGameRecyclerAdapter) recyclerView.getAdapter();
+            assertThat(adapter.getItemCount(), greaterThanOrEqualTo(expectedCount));
         }
     }
 }
