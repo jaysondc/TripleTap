@@ -35,7 +35,7 @@ public class GameFragment extends Fragment
     private RecyclerView mRecyclerGridView;
 
     // Adapter containing the current Set Hand displayed on the board
-    private SetGameRecyclerAdapter setGameRecyclerAdapter;
+    private SetGameRecyclerAdapter mSetGameRecyclerAdapter;
 
     // ArrayList holding the current valid locations of sets
     private ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
@@ -84,31 +84,21 @@ public class GameFragment extends Fragment
     @Override
     public void displayGame(ArrayList<SetCard> setCards) {
         // Initialize a new adapter with the Set Hand
-        setGameRecyclerAdapter = new SetGameRecyclerAdapter(getContext(), setCards);
+        mSetGameRecyclerAdapter = new SetGameRecyclerAdapter(
+                getContext(), mActionsListener, setCards);
 
         // Display the board
         // RecyclerView requires a LayoutManager and RecyclerView.Adapter to work
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         mRecyclerGridView.setLayoutManager(gridLayoutManager);
-        mRecyclerGridView.setAdapter(setGameRecyclerAdapter);
-
-//        mRecyclerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                SetGameCard card = (SetGameCard) view;
-//                card.toggle();
-//
-//                // Let the presenter know we've been clicked
-//                mActionsListener.setCardClicked();
-//            }
-//        });
+        mRecyclerGridView.setAdapter(mSetGameRecyclerAdapter);
 
         // Get the locations of all available sets
         getSetLocations();
 
         // If we are in debug mode, highlight a valid set
         if( getContext().getResources().getBoolean(R.bool.is_debug) ){
-            // highlightSet();
+            highlightSet();
         }
     }
 
@@ -201,8 +191,8 @@ public class GameFragment extends Fragment
         // Do stuff in response to successful set claim
 //        Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
 //
-//        setGameRecyclerAdapter.setSetHand(newHand);
-//        mRecyclerGridView.setAdapter(setGameRecyclerAdapter);
+//        mSetGameRecyclerAdapter.setSetHand(newHand);
+//        mRecyclerGridView.setAdapter(mSetGameRecyclerAdapter);
 //
 ////        mRecyclerGridView.getChildAt(positions[0]).invalidate();
 ////        mRecyclerGridView.getChildAt(positions[1]).invalidate();

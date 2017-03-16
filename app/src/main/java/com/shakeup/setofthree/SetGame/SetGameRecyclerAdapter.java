@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Jayson on 3/15/2017.
+ *
+ * RecyclerView Adapter for displaying an array of SetCards to a RecyclerView
  */
 
 public class SetGameRecyclerAdapter
@@ -23,6 +25,10 @@ public class SetGameRecyclerAdapter
     private ArrayList<SetCard> mSetHand;
     private Context mContext;
 
+    // Store a reference to the GamePresenter so we can let it know when items
+    // are clicked
+    private final GamePresenter mActionsListener;
+
     private final String LOG_TAG = getClass().getSimpleName();
 
     /**
@@ -31,10 +37,14 @@ public class SetGameRecyclerAdapter
      * @param context The current context.
      * @param setHand An ArrayList of SetCard objects to be displayed.
      */
-    public SetGameRecyclerAdapter(Context context, ArrayList<SetCard> setHand) {
+    public SetGameRecyclerAdapter(
+            Context context,
+            GamePresenter actionsListener,
+            ArrayList<SetCard> setHand) {
         super();
         mSetHand = setHand;
         mContext = context;
+        mActionsListener = actionsListener;
     }
 
     // Method used to create a ViewHolder for each item in our list
@@ -79,21 +89,38 @@ public class SetGameRecyclerAdapter
             implements View.OnClickListener {
 
         SetGameCard cardView;
+        boolean isHighlighted;
+        boolean isChecked;
 
         /**
-         * Populate data handlers using the given view. In our case there
-         * aren't any since the Card is just an image.
+         * Populate data handlers using the given view.
          * @param itemView
          */
         public SetCardViewHolder(View itemView) {
             super(itemView);
 
             cardView = (SetGameCard) itemView;
+            isHighlighted = ((SetGameCard) itemView).isHighlighted();
+            isChecked = ((SetGameCard) itemView).isChecked();
+
+            // Use our own implementation of OnClickListener to handle clicks
+            cardView.setOnClickListener(this);
         }
 
+        /**
+         * Cusom onClick handler to let cards know they've been clicked
+         * @param v
+         */
         @Override
         public void onClick(View v) {
-            // Do things when we are clicked.
+            SetGameCard card = (SetGameCard) v;
+
+            // Toggle checked state and store new state in the ViewHolder
+            card.toggleChecked();
+            isChecked = ((SetGameCard) v).isChecked();
+
+            // Notify the GamePresenter that we've been clicked
+            mActionsListener.setCardClicked();
         }
     }
 }

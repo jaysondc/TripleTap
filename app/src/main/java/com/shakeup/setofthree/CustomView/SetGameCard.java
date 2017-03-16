@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,7 +25,7 @@ import com.shakeup.setofthree.R;
  * The card will always be 2:3 aspect ratio. Orientation can be set but defaults to vertical.
  */
 
-public class SetGameCard extends CardView implements Checkable{
+public class SetGameCard extends CardView{
 
     // Width and height aspect ratio. Defaults to 2:3
     private int mAspectRatioWidth;
@@ -260,7 +259,6 @@ public class SetGameCard extends CardView implements Checkable{
 
 
     // IMPLEMENTATION FOR CHECKABLE INTERFACE //
-    @Override
     public void setChecked(boolean checked) {
         mIsChecked = checked;
         if ( mIsChecked ){
@@ -271,14 +269,12 @@ public class SetGameCard extends CardView implements Checkable{
         invalidate();
     }
 
-    @Override
     public boolean isChecked() {
         return mIsChecked;
     }
 
-    @Override
-    public void toggle() {
-        if ( mIsChecked ){
+    public void toggleChecked() {
+        if ( isChecked() ){
             setChecked(false);
         } else {
             setChecked(true);
@@ -304,7 +300,7 @@ public class SetGameCard extends CardView implements Checkable{
     }
 
     public void toggleHighlighted(){
-        if ( mIsHighlighted ){
+        if ( isHighlighted() ){
             setHighlighted(false);
         } else {
             setHighlighted(true);
