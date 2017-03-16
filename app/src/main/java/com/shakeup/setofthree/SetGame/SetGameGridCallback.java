@@ -5,6 +5,8 @@ package com.shakeup.setofthree.SetGame;
  *
  * The game fragment must implement this interface so we can handle
  * actions after each SET card is clicked
+ *
+ * THIS ISN'T USED OR NEEDED YET
  */
 
 public interface SetGameGridCallback {

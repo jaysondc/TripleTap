@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.util.SparseBooleanArray;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
@@ -34,16 +32,13 @@ public class GameFragment extends Fragment
     private GamePresenter mActionsListener;
 
     // GridView displaying the game board
-    private GridView mGridView;
+    private RecyclerView mRecyclerGridView;
 
     // Adapter containing the current Set Hand displayed on the board
-    private SetGameGridAdapter mGridAdapter;
+    private SetGameRecyclerAdapter setGameRecyclerAdapter;
 
     // ArrayList holding the current valid locations of sets
     private ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
-
-    // Adapter to hold this fragment as a usable context
-    private SetGameGridCallback mGameFragment;
 
     // Holds the positions of a set we're currently trying to claim
     private int[] positions = new int[3];
@@ -72,11 +67,8 @@ public class GameFragment extends Fragment
         // Instance the presenter our fragment uses
         mActionsListener = new GamePresenter(this);
 
-        // Keep an instance of this fragment to be used by subclasses
-        mGameFragment = this;
-
         // Grab handlers for UI elements
-        mGridView = (GridView) root.findViewById(R.id.game_grid);
+        mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
 
         // Initialize a game
         mActionsListener.initGame();
@@ -92,27 +84,31 @@ public class GameFragment extends Fragment
     @Override
     public void displayGame(ArrayList<SetCard> setCards) {
         // Initialize a new adapter with the Set Hand
-        mGridAdapter = new SetGameGridAdapter(setCards);
+        setGameRecyclerAdapter = new SetGameRecyclerAdapter(getContext(), setCards);
 
         // Display the board
-        mGridView.setAdapter(mGridAdapter);
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SetGameCard card = (SetGameCard) view;
-                card.toggle();
+        // RecyclerView requires a LayoutManager and RecyclerView.Adapter to work
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+        mRecyclerGridView.setLayoutManager(gridLayoutManager);
+        mRecyclerGridView.setAdapter(setGameRecyclerAdapter);
 
-                // Let the presenter know we've been clicked
-                mActionsListener.setCardClicked();
-            }
-        });
+//        mRecyclerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                SetGameCard card = (SetGameCard) view;
+//                card.toggle();
+//
+//                // Let the presenter know we've been clicked
+//                mActionsListener.setCardClicked();
+//            }
+//        });
 
         // Get the locations of all available sets
         getSetLocations();
 
         // If we are in debug mode, highlight a valid set
         if( getContext().getResources().getBoolean(R.bool.is_debug) ){
-            highlightSet();
+            // highlightSet();
         }
     }
 
@@ -122,7 +118,7 @@ public class GameFragment extends Fragment
     public void highlightSet(){
 
         // Wrap the whole thing in a runnable that fires after the GridView is populated
-        mGridView.post(new Runnable() {
+        mRecyclerGridView.post(new Runnable() {
             @Override
             public void run() {
                 // Get the location of a valid set and assign it to an array
@@ -138,7 +134,7 @@ public class GameFragment extends Fragment
 
                 // Get the associated gridview children and highlight them
                 for(int i = 0; i < 3; i++){
-                    card = (SetGameCard) mGridView.getChildAt(locationArray[i]);
+                    card = (SetGameCard) mRecyclerGridView.getChildAt(locationArray[i]);
                     card.setHighlighted(true);
                 }
             }
@@ -165,35 +161,36 @@ public class GameFragment extends Fragment
     @Override
     public void onSetCardClicked() {
 
-        // If we have 3 items selected, check if they are a set
-        if (mGridView.getCheckedItemCount() == 3){
-            SparseBooleanArray checkedItemPositions = mGridView.getCheckedItemPositions();
-
-            int positionIndex = 0;
-
-            // Loop through SparseBooleanArray and grab the 3 positions that are checked
-            for( int i = 0; i < checkedItemPositions.size() ; i++ ){
-                if( checkedItemPositions.valueAt(i) ){
-                    positions[positionIndex] = checkedItemPositions.keyAt(i);
-                    positionIndex++;
-                }
-            }
-
-            // Submit the set instances to the presenter
-            mActionsListener.submitSet(
-                    positions[0],
-                    positions[1],
-                    positions[2]);
-
-            Log.d(LOG_TAG, String.format(
-                    "Checked %d, %d, %d",
-                    positions[0],
-                    positions[1],
-                    positions[2]));
-
-            // Clear all selections from GridView
-            mGridView.clearChoices();
-        }
+        //TODO Uncomment this when we're ready to handle clicks again
+//        // If we have 3 items selected, check if they are a set
+//        if (mRecyclerGridView.getCheckedItemCount() == 3){
+//            SparseBooleanArray checkedItemPositions = mRecyclerGridView.getCheckedItemPositions();
+//
+//            int positionIndex = 0;
+//
+//            // Loop through SparseBooleanArray and grab the 3 positions that are checked
+//            for( int i = 0; i < checkedItemPositions.size() ; i++ ){
+//                if( checkedItemPositions.valueAt(i) ){
+//                    positions[positionIndex] = checkedItemPositions.keyAt(i);
+//                    positionIndex++;
+//                }
+//            }
+//
+//            // Submit the set instances to the presenter
+//            mActionsListener.submitSet(
+//                    positions[0],
+//                    positions[1],
+//                    positions[2]);
+//
+//            Log.d(LOG_TAG, String.format(
+//                    "Checked %d, %d, %d",
+//                    positions[0],
+//                    positions[1],
+//                    positions[2]));
+//
+//            // Clear all selections from GridView
+//            mRecyclerGridView.clearChoices();
+//        }
     }
 
     /**
@@ -202,16 +199,17 @@ public class GameFragment extends Fragment
     @Override
     public void claimSetSuccess(ArrayList<SetCard> newHand) {
         // Do stuff in response to successful set claim
-        Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
-
-        mGridAdapter.setSetHand(newHand);
-        mGridView.setAdapter(mGridAdapter);
-//        mGridView.getChildAt(positions[0]).invalidate();
-//        mGridView.getChildAt(positions[1]).invalidate();
-//        mGridView.getChildAt(positions[2]).invalidate();
-
-        getSetLocations();
-        highlightSet();
+//        Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
+//
+//        setGameRecyclerAdapter.setSetHand(newHand);
+//        mRecyclerGridView.setAdapter(setGameRecyclerAdapter);
+//
+////        mRecyclerGridView.getChildAt(positions[0]).invalidate();
+////        mRecyclerGridView.getChildAt(positions[1]).invalidate();
+////        mRecyclerGridView.getChildAt(positions[2]).invalidate();
+//
+//        getSetLocations();
+//        highlightSet();
     }
 
     @Override

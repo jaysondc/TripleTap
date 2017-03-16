@@ -26,13 +26,14 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project (':setgamelibrary')
 
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:support-v4:25.2.0'
-    compile 'com.android.support:cardview-v7:25.2.0'
-    compile 'com.android.support:gridlayout-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:support-v4:25.3.0'
+    compile 'com.android.support:cardview-v7:25.3.0'
+    compile 'com.android.support:gridlayout-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
 
-    compile "com.google.guava:guava:18.0"
+    compile "com.google.guava:guava:20.0"
 
     // Dependencies for local unit tests
     testCompile "junit:junit:4.12"
@@ -50,9 +51,9 @@ dependencies {
     androidTestCompile "com.android.support.test.espresso:espresso-intents:2.2.2"
 
     // Re-add support dependencies to ensure androidTestCompile uses the latest versions
-    androidTestCompile 'com.android.support:appcompat-v7:25.2.0'
-    androidTestCompile 'com.android.support:support-v4:25.2.0'
-    androidTestCompile 'com.android.support:support-annotations:25.2.0'
+    androidTestCompile 'com.android.support:appcompat-v7:25.3.0'
+    androidTestCompile 'com.android.support:support-v4:25.3.0'
+    androidTestCompile 'com.android.support:support-annotations:25.3.0'
 
     // For some reason this dependency causes resource errors and breaks everything
 //    androidTestCompile "com.android.support.test.espresso:espresso-contrib:2.2.2"
