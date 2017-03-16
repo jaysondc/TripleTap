@@ -34,6 +34,7 @@ public class GameFragment extends Fragment
     private GamePresenter mActionsListener;
 
     // GridView displaying the game board
+    @javax.annotation.Resource
     private RecyclerView mRecyclerGridView;
 
     // Adapter containing the current Set Hand displayed on the board
@@ -153,7 +154,6 @@ public class GameFragment extends Fragment
     @Override
     public void onSetCardClicked() {
 
-        //TODO Uncomment this when we're ready to handle clicks again
         // If we have 3 items selected, check if they are a set
         if (getCheckedItemCount() == 3){
             SparseBooleanArray checkedItemPositions = getCheckedItemPositions();

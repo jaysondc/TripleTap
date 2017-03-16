@@ -64,4 +64,5 @@ dependencies {
     // For some reason this dependency causes resource errors and breaks everything
 //    androidTestCompile "com.android.support.test.espresso:espresso-contrib:2.2.2"
 
+    compile 'javax.annotation:javax.annotation-api:1.2'
 }
