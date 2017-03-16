@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.shakeup.setgamelibrary.SetGame;
+import com.shakeup.setofthree.CustomView.SetGameCardView;
 import com.shakeup.setofthree.R;
 
 import org.junit.Before;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 
@@ -70,7 +72,7 @@ public class SetGameFragmentAndroidTests{
     }
 
     /**
-     * Test finding a set of 3 cards
+     * Test finding and clicking set of 3 cards
      */
     @Test
     public void findSetTest(){
@@ -94,6 +96,36 @@ public class SetGameFragmentAndroidTests{
 
         // Assert that valid set was found
     }
+
+    /**
+     * Test that 3 cards are highlighted to indicate a set is available
+     */
+    @Test
+    public void highlightSetTest(){
+        // Get a reference to the grid
+        RecyclerView mRecycleGridView =
+                (RecyclerView) mGameActivity.findViewById(R.id.game_recycler_grid);
+
+        int highlightedCellCount = 0;
+
+        for (int i = 0; i < mRecycleGridView.getChildCount(); i++){
+            if(((SetGameCardView) mRecycleGridView.getChildAt(i)).isHighlighted())
+                highlightedCellCount++;
+        }
+        assertEquals(3, highlightedCellCount);
+    }
+
+    /**
+     * Test finding multiple sets in succession
+     */
+    @Test
+    public void findMultipleSetsTest(){
+        for (int i = 0; i < 12; i++){
+            highlightSetTest();
+            findSetTest();
+        }
+    }
+
 
     /**
      * Get a random set location from the possible sets

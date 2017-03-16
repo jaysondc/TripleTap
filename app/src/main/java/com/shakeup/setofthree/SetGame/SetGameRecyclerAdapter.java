@@ -2,6 +2,7 @@ package com.shakeup.setofthree.SetGame;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,16 @@ public class SetGameRecyclerAdapter
     }
 
     /**
+     * Replace the current hand with an updated one after cards are replaced
+     * @param newHand
+     */
+    public void setSetHand(ArrayList<SetCard> newHand){
+        mSetHand = newHand;
+    }
+
+
+
+    /**
      * ViewHolder implmentation for our SetCard views.
      */
     public class SetCardViewHolder
@@ -113,7 +124,11 @@ public class SetGameRecyclerAdapter
          */
         @Override
         public void onClick(View v) {
+
             SetGameCardView card = (SetGameCardView) v;
+
+            // Output clicked card to log
+            Log.d(LOG_TAG, "Clicked " + card.toString());
 
             // Toggle checked state and store new state in the ViewHolder
             card.toggleChecked();

@@ -175,7 +175,7 @@ public class GameFragment extends Fragment
                     positions[2]);
 
             Log.d(LOG_TAG, String.format(
-                    "Checked %d, %d, %d",
+                    "Submitted set at positions %d, %d, %d",
                     positions[0],
                     positions[1],
                     positions[2]));
@@ -217,7 +217,6 @@ public class GameFragment extends Fragment
                 checkedLocations.append(i, true);
             }
         }
-
         return checkedLocations;
     }
 
@@ -235,22 +234,43 @@ public class GameFragment extends Fragment
     }
 
     /**
+     * Un-highlight all views in the RecyclerGrid
+     */
+    public void clearHighlights(){
+        // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
+        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+            SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+            if ( cardView.isHighlighted() ){
+                cardView.setHighlighted(false);
+            }
+        }
+    }
+
+    /**
      * Updates the board and score in response to a successful set claim
      */
     @Override
     public void claimSetSuccess(ArrayList<SetCard> newHand) {
         // Do stuff in response to successful set claim
         Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
-//
-//        mSetGameRecyclerAdapter.setSetHand(newHand);
-//        mRecyclerGridView.setAdapter(mSetGameRecyclerAdapter);
-//
-////        mRecyclerGridView.getChildAt(positions[0]).invalidate();
-////        mRecyclerGridView.getChildAt(positions[1]).invalidate();
-////        mRecyclerGridView.getChildAt(positions[2]).invalidate();
-//
-//        getSetLocations();
-//        highlightSet();
+
+        mSetGameRecyclerAdapter.setSetHand(newHand);
+        mSetGameRecyclerAdapter.notifyItemChanged(positions[0]);
+        mSetGameRecyclerAdapter.notifyItemChanged(positions[1]);
+        mSetGameRecyclerAdapter.notifyItemChanged(positions[2]);
+
+//        mRecyclerGridView.getChildAt(positions[0]).invalidate();
+//        mRecyclerGridView.getChildAt(positions[1]).invalidate();
+//        mRecyclerGridView.getChildAt(positions[2]).invalidate();
+
+        mRecyclerGridView.post(new Runnable() {
+            @Override
+            public void run() {
+                getSetLocations();
+                clearHighlights();
+                highlightSet();
+            }
+        });
     }
 
     @Override

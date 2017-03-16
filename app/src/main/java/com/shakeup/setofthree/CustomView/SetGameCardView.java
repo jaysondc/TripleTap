@@ -14,6 +14,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.shakeup.setgamelibrary.enums.CardColor;
+import com.shakeup.setgamelibrary.enums.CardCount;
+import com.shakeup.setgamelibrary.enums.CardFill;
+import com.shakeup.setgamelibrary.enums.CardShape;
 import com.shakeup.setofthree.R;
 
 /**
@@ -397,5 +401,20 @@ public class SetGameCardView extends CardView{
     public void setFill(int mFill) {
         this.mFill = mFill;
         invalidate();
+    }
+
+    /**
+     * Returns the string representation of the card
+     * @return String representation of the current card
+     */
+    public String toString(){
+        String result;
+
+        String shape = CardShape.values()[this.getShape()].toString();
+        String color = CardColor.values()[this.getColor()].toString();
+        String count = CardCount.values()[this.getCount()].toString();
+        String fill = CardFill.values()[this.getFill()].toString();
+
+        return "[" + shape + "," + color + "," + count + "," + fill + "]";
     }
 }
