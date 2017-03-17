@@ -123,8 +123,8 @@ public class SetGameFragmentAndroidTests{
      */
     @Test
     public void findMultipleSetsTest(){
-        for (int i = 0; i < 27; i++){
-//            highlightSetTest();
+        for (int i = 0; i < 23; i++){
+            highlightSetTest();
             findSetTest();
         }
     }

@@ -128,8 +128,8 @@ public class SetGameRecyclerAdapter
             int lowestIndex = Math.min(Math.min(one, two), three);
 
             // Notify change occurred from lowest index to the end of the array
-            notifyItemRangeRemoved(mSetHand.size()-1, 3);
             notifyItemRangeChanged(lowestIndex, mSetHand.size() - lowestIndex);
+            notifyItemRangeRemoved(mSetHand.size()-1, 3);
         }
 
 

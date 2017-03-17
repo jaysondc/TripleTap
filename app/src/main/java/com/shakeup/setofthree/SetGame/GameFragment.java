@@ -11,6 +11,7 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
@@ -100,9 +101,18 @@ public class GameFragment extends Fragment
         getSetLocations();
 
         // If we are in debug mode, highlight a valid set
-//        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
-//            highlightSet();
-//        }
+        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
+            // Use a ViewTreeObserver to only show highlights once the RecyclerView
+            // is done drawing its layout.
+            ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    highlightSet();
+                }
+            });
+        }
     }
 
     /**
@@ -263,8 +273,21 @@ public class GameFragment extends Fragment
                 deckSize);
 
         getSetLocations();
-//        clearHighlights();
-//        highlightSet();
+
+        // If we're in debug, clear and show new highlights
+        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
+            // Use a ViewTreeObserver to only show highlights once the RecyclerView
+            // is done drawing its layout.
+            ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    clearHighlights();
+                    highlightSet();
+                }
+            });
+        }
     }
 
     @Override
