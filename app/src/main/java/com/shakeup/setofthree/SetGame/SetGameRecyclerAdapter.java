@@ -24,6 +24,7 @@ public class SetGameRecyclerAdapter
 
     // Hold the current SetHand to be displayed to the GridView
     private ArrayList<SetCard> mSetHand;
+    private boolean mOverflowMode = false;
     private Context mContext;
 
     // Store a reference to the GamePresenter so we can let it know when items
@@ -46,6 +47,11 @@ public class SetGameRecyclerAdapter
         mSetHand = setHand;
         mContext = context;
         mActionsListener = actionsListener;
+
+        // Handle edge case where we start the game in overflow mode
+        if( mSetHand.size() > 12 ){
+            mOverflowMode = true;
+        }
     }
 
     // Method used to create a ViewHolder for each item in our list
@@ -83,14 +89,53 @@ public class SetGameRecyclerAdapter
     }
 
     /**
-     * Replace the current hand with an updated one after cards are replaced
-     * @param newHand
+     * Replace the the old cards with the newly drawn cards. The cards have to be updated
+     * differently whether we are moving in and out of overflow mode, or at the end of the
+     * game where the deck is empty.
+     *
+     * Unfortunately the UI SetHand needs to be updated identically to the
+     * internal SetHand in SetGame.java, otherwise they may mismatch and sets
+     * won't be detected properly.
+     * @param newHand Updated SetHand object
+     * @param one Index of the first new card
+     * @param two Index of the second new card
+     * @param three Index of the third new card
+     * @param isNewHandOverflow Whether or not the incoming deck is in overflow
+     * @param deckSize The number of cards remaining in the deck
      */
-    public void setSetHand(ArrayList<SetCard> newHand){
+    public void updateSetHand(
+            ArrayList<SetCard> newHand,
+            int one, int two, int three,
+            boolean isNewHandOverflow, int deckSize){
+
+        // Replace the old hand with the new hand
         mSetHand = newHand;
+
+        if( deckSize > 0 && !mOverflowMode  ){
+            // If we have cards in the deck and we aren't in overflow, update
+            // only the cards have have changed
+            notifyItemChanged(one);
+            notifyItemChanged(two);
+            notifyItemChanged(three);
+
+            // If we're moving into overflow mode, notify that cards have been added
+            if( isNewHandOverflow ){
+                notifyItemRangeInserted(11, 3);
+            }
+        } else {
+            // We are at an endgame or moving out of overflow state we need to reflow all
+            // cards past the lowest index of affected cards
+            int lowestIndex = Math.min(Math.min(one, two), three);
+
+            // Notify change occurred from lowest index to the end of the array
+            notifyItemRangeRemoved(mSetHand.size()-1, 3);
+            notifyItemRangeChanged(lowestIndex, mSetHand.size() - lowestIndex);
+        }
+
+
+        // Store whether or not we are in overflow for later use
+        mOverflowMode = isNewHandOverflow;
     }
-
-
 
     /**
      * ViewHolder implmentation for our SetCard views.

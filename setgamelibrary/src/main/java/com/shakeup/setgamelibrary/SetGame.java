@@ -195,6 +195,10 @@ public class SetGame {
         return mGameOver;
     }
 
+    public boolean getIsOverflow() {
+        return mOverflow;
+    }
+
     /**
      * Checks if the card required to complete a set is in the current hand. Returns it's index
      * if it exists, -1 if it doesn't exist.

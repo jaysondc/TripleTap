@@ -54,9 +54,10 @@ public class SetGamePresenterTests {
     public void initGameTest(){
         mGamePresenter.initGame();
 
-        ArgumentCaptor argument = ArgumentCaptor.forClass(ArrayList.class);
+        ArgumentCaptor arrayListCapture = ArgumentCaptor.forClass(ArrayList.class);
+
         // intercept the created game and chekc that it's passed to mGameView
-        verify(mGameView).displayGame((ArrayList) argument.capture());
+        verify(mGameView).displayGame((ArrayList) arrayListCapture.capture());
     }
 
     @Test
@@ -92,10 +93,15 @@ public class SetGamePresenterTests {
 
         // Verify the success method was called
         ArgumentCaptor argument = ArgumentCaptor.forClass(ArrayList.class);
-        verify(mGameView).claimSetSuccess((ArrayList) argument.capture());
+        ArgumentCaptor booleanCapture = ArgumentCaptor.forClass(boolean.class);
+        ArgumentCaptor intCapture = ArgumentCaptor.forClass(int.class);
+        verify(mGameView).claimSetSuccess(
+                (ArrayList) argument.capture(),
+                (boolean) booleanCapture.capture(),
+                (int) intCapture.capture());
 
 
-        // Submit the set expectinng false
+        // Submit the set expecting false
         mGamePresenter.submitSet(
                 third,
                 second,

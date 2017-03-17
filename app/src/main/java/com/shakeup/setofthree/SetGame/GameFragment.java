@@ -100,9 +100,9 @@ public class GameFragment extends Fragment
         getSetLocations();
 
         // If we are in debug mode, highlight a valid set
-        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
-            highlightSet();
-        }
+//        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
+//            highlightSet();
+//        }
     }
 
     /**
@@ -110,29 +110,22 @@ public class GameFragment extends Fragment
      */
     public void highlightSet(){
 
-        // Wrap the whole thing in a runnable that fires after the GridView is populated
-        mRecyclerGridView.post(new Runnable() {
-            @Override
-            public void run() {
-                // Get the location of a valid set and assign it to an array
-                SetGame.Triplet<Integer, Integer, Integer> location = getRandomSet();
-                int[] locationArray = new int[3];
+        // Get the location of a valid set and assign it to an array
+        SetGame.Triplet<Integer, Integer, Integer> location = getRandomSet();
+        int[] locationArray = new int[3];
 
-                locationArray[0] = location.getFirst();
-                locationArray[1] = location.getSecond();
-                locationArray[2] = location.getThird();
+        locationArray[0] = location.getFirst();
+        locationArray[1] = location.getSecond();
+        locationArray[2] = location.getThird();
 
-                // Holds a reference to the card so we can highlight it
-                SetGameCardView card;
+        // Holds a reference to the card so we can highlight it
+        SetGameCardView card;
 
-                // Get the associated gridview children and highlight them
-                for(int i = 0; i < 3; i++){
-                    card = (SetGameCardView) mRecyclerGridView.getChildAt(locationArray[i]);
-                    card.setHighlighted(true);
-                }
-            }
-        });
-
+        // Get the associated gridview children and highlight them
+        for(int i = 0; i < 3; i++) {
+            card = (SetGameCardView) mRecyclerGridView.getChildAt(locationArray[i]);
+            card.setHighlighted(true);
+        }
     }
 
     /**
@@ -248,35 +241,37 @@ public class GameFragment extends Fragment
 
     /**
      * Updates the board and score in response to a successful set claim
+     * @param newHand Updated state of the Set hand
+     * @param isOverflow State whether or not the hand is in overflow mode
+     * @param deckSize The number of cards remaining in the deck
      */
     @Override
-    public void claimSetSuccess(ArrayList<SetCard> newHand) {
+    public void claimSetSuccess(
+            ArrayList<SetCard> newHand,
+            boolean isOverflow,
+            int deckSize) {
         // Do stuff in response to successful set claim
-        Snackbar.make(getView(), "You found a SET!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
+                .show();
 
-        mSetGameRecyclerAdapter.setSetHand(newHand);
-        mSetGameRecyclerAdapter.notifyItemChanged(positions[0]);
-        mSetGameRecyclerAdapter.notifyItemChanged(positions[1]);
-        mSetGameRecyclerAdapter.notifyItemChanged(positions[2]);
+        mSetGameRecyclerAdapter.updateSetHand(
+                newHand,
+                positions[0],
+                positions[1],
+                positions[2],
+                isOverflow,
+                deckSize);
 
-//        mRecyclerGridView.getChildAt(positions[0]).invalidate();
-//        mRecyclerGridView.getChildAt(positions[1]).invalidate();
-//        mRecyclerGridView.getChildAt(positions[2]).invalidate();
-
-        mRecyclerGridView.post(new Runnable() {
-            @Override
-            public void run() {
-                getSetLocations();
-                clearHighlights();
-                highlightSet();
-            }
-        });
+        getSetLocations();
+//        clearHighlights();
+//        highlightSet();
     }
 
     @Override
     public void claimSetFailure() {
         // Do stuff in response to a failed set claim
-        Snackbar.make(getView(), "That's not a SET!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
+                .show();
     }
 
     /**

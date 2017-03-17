@@ -13,4 +13,8 @@
     <string name="menu_leaderboard">Leaderboard</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_exit">Exit</string>
+
+    <!-- Game -->
+    <string name="message_found_set">You found a SET!</string>
+    <string name="message_not_set">Sorry! That\'s not a SET!</string>
 </resources>

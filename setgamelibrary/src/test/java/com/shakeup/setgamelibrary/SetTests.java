@@ -237,4 +237,13 @@ public class SetTests {
         Assert.assertTrue(testGame.getIsGameOver());
 
     }
+
+    @Test
+    public void multipleFullGamesTest(){
+        int numberOfRuns = 1000;
+
+        for( int i = 0; i < numberOfRuns; i++ ){
+            setFullGameTest();
+        }
+    }
 }

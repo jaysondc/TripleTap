@@ -43,6 +43,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
     /**
      * Handles SET claims thrown from the GameFragment
      * Calls the GameFragment success and failure handlers when appropriate.
+     * This also
      * @param indexOne Index of the first card in the set.
      * @param indexTwo Index of the second card in the set.
      * @param indexThree Index of the third card in the set.
@@ -53,9 +54,19 @@ public class GamePresenter implements GameContract.UserActionsListener {
         // Resolve set claim and obtain result
         boolean result = mSetGame.claimSet(indexOne, indexTwo, indexThree);
 
+        // Check if it is game over and call the game over UI handler
+        if( mSetGame.getIsGameOver() ){
+            // Handle game over event
+        }
+
+        // On SET claim success or failure
         if ( result ){
-            // Receive 3 new cards and their indexes, pass them to the UI fragment
-            mGameView.claimSetSuccess(mSetGame.getSetHand());
+            // Receive the updated hand and game state info and pass it to the UI layer
+            // so it can update the display
+            mGameView.claimSetSuccess(
+                    mSetGame.getSetHand(),
+                    mSetGame.getIsOverflow(),
+                    mSetGame.getDeckSize());
         } else {
             // Pass back failure message.
             mGameView.claimSetFailure();

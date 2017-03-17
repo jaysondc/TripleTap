@@ -21,7 +21,10 @@ public class GameContract {
         void displayGame(ArrayList<SetCard> setHand);
 
         // Some actions to interact with the SetGame
-        void claimSetSuccess(ArrayList<SetCard> newHand);
+        void claimSetSuccess(
+                ArrayList<SetCard> newHand,
+                boolean isOverflow,
+                int deckSize);
 
         void claimSetFailure();
 
