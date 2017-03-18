@@ -211,7 +211,7 @@ public class SetGameCardView extends CardView{
         ImageView symbolView = new ImageView(context);
 
         /**
-         * Turn of hardware acceleration for this View otherwise
+         * Turn off hardware acceleration for this View otherwise
          * the colors don't get drawn correctly
          */
         symbolView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -400,6 +400,21 @@ public class SetGameCardView extends CardView{
 
     public void setFill(int mFill) {
         this.mFill = mFill;
+        invalidate();
+    }
+
+    /**
+     * Public method to set all SetCard attributes at once
+     * @param shape
+     * @param color
+     * @param count
+     * @param fill
+     */
+    public void setAll(int shape, int color, int count, int fill){
+        this.mShape = shape;
+        this.mColor = color;
+        this.mCount = count;
+        this.mFill = fill;
         invalidate();
     }
 

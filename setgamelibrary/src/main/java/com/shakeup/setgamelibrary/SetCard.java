@@ -136,5 +136,19 @@ public class SetCard {
         return String.format("%s, %s, %s, %s", mShape, mColor, mCount, mFill);
     }
 
+    /**
+     * Generates a long representation of the card contents
+     * @return Card ID in the form of a long
+     */
+    public long getId(){
+        long id = 0;
+        id += mShape.ordinal() * 1000;
+        id += mColor.ordinal() * 100;
+        id += mCount.ordinal() * 10;
+        id += mFill.ordinal();
+
+        return id;
+    }
+
 }
 

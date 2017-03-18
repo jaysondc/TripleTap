@@ -22,7 +22,6 @@ public class GameContract {
 
         // Some actions to interact with the SetGame
         void claimSetSuccess(
-                ArrayList<SetCard> newHand,
                 boolean isOverflow,
                 int deckSize);
 

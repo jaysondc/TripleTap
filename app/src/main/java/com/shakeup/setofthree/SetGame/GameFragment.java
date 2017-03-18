@@ -83,13 +83,14 @@ public class GameFragment extends Fragment
 
     /**
      * Receives the generated Set Hand and displays it to the game grid
-     * @param setCards ArrayList of SetCards to be displayed in the grid
+     * @param setHand ArrayList of SetCards to be displayed in the grid
      */
     @Override
-    public void displayGame(ArrayList<SetCard> setCards) {
+    public void displayGame(ArrayList<SetCard> setHand) {
         // Initialize a new adapter with the Set Hand
         mSetGameRecyclerAdapter = new SetGameRecyclerAdapter(
-                getContext(), mActionsListener, setCards);
+                getContext(), mActionsListener, setHand);
+        mSetGameRecyclerAdapter.setHasStableIds(true);
 
         // Display the board
         // RecyclerView requires a LayoutManager and RecyclerView.Adapter to work
@@ -257,7 +258,6 @@ public class GameFragment extends Fragment
      */
     @Override
     public void claimSetSuccess(
-            ArrayList<SetCard> newHand,
             boolean isOverflow,
             int deckSize) {
         // Do stuff in response to successful set claim
@@ -265,7 +265,6 @@ public class GameFragment extends Fragment
                 .show();
 
         mSetGameRecyclerAdapter.updateSetHand(
-                newHand,
                 positions[0],
                 positions[1],
                 positions[2],
@@ -274,8 +273,9 @@ public class GameFragment extends Fragment
 
         getSetLocations();
 
-        // If we're in debug, clear and show new highlights
-        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
+        // If we're in debug and there are sets available, clear highlights and show new highlights
+        if( getContext().getResources().getBoolean(R.bool.is_debug) &&
+                mSetLocations.size() != 0){
             // Use a ViewTreeObserver to only show highlights once the RecyclerView
             // is done drawing its layout.
             ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();

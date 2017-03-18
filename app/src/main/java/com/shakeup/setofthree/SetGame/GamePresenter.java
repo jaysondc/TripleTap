@@ -64,7 +64,6 @@ public class GamePresenter implements GameContract.UserActionsListener {
             // Receive the updated hand and game state info and pass it to the UI layer
             // so it can update the display
             mGameView.claimSetSuccess(
-                    mSetGame.getSetHand(),
                     mSetGame.getIsOverflow(),
                     mSetGame.getDeckSize());
         } else {

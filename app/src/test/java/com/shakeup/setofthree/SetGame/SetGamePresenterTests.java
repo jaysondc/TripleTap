@@ -96,7 +96,6 @@ public class SetGamePresenterTests {
         ArgumentCaptor booleanCapture = ArgumentCaptor.forClass(boolean.class);
         ArgumentCaptor intCapture = ArgumentCaptor.forClass(int.class);
         verify(mGameView).claimSetSuccess(
-                (ArrayList) argument.capture(),
                 (boolean) booleanCapture.capture(),
                 (int) intCapture.capture());
 
