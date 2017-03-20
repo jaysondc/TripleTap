@@ -72,10 +72,6 @@ public class SetGameRecyclerAdapter
         return new SetCardViewHolder(cardView);
     }
 
-    // TODO Remove these after set drawing is fixed
-    int i = 0;
-    int cardId = 0;
-
     @Override
     public void onBindViewHolder(SetCardViewHolder holder, int position) {
         // Do all the work setting values to the views based on their position
@@ -90,12 +86,8 @@ public class SetGameRecyclerAdapter
 
         holder.cardView.setAll(shape, color, count, fill);
 
-        i++;
-        i = i%3;
-
         // Set debug text
-        holder.debugText.setText("" + shape + color + count + fill);
-        cardId++;
+        holder.debugTextView.setText("" + shape + color + count + fill);
     }
 
     @Override
@@ -127,32 +119,29 @@ public class SetGameRecyclerAdapter
             int one, int two, int three,
             boolean isNewHandOverflow, int deckSize){
 
-        // TODO Change this to more granular refreshing once card draw issue is solved
-        notifyDataSetChanged();
+        if( deckSize > 0 && !mOverflowMode  ){
+            // If we have cards in the deck and we aren't in overflow, update
+            // only the cards have have changed
+            notifyItemChanged(one);
+            notifyItemChanged(two);
+            notifyItemChanged(three);
 
-//        if( deckSize > 0 && !mOverflowMode  ){
-//            // If we have cards in the deck and we aren't in overflow, update
-//            // only the cards have have changed
-//            notifyItemChanged(one);
-//            notifyItemChanged(two);
-//            notifyItemChanged(three);
-//
-//            // If we're moving into overflow mode, notify that cards have been added
-//            if( isNewHandOverflow ){
-//                notifyItemRangeInserted(11, 3);
-//            }
-//        } else {
-//            // We are at an endgame or moving out of overflow state we need to reflow all
-//            // cards past the lowest index of affected cards
-//            int lowestIndex = Math.min(Math.min(one, two), three);
-//
-//            // Notify change occurred from lowest index to the end of the array
-//            notifyItemRangeChanged(lowestIndex, mSetHand.size() - lowestIndex);
-//            notifyItemRangeRemoved(mSetHand.size()-1, 3);
-//        }
-//
-//        // Store whether or not we are in overflow for later use
-//        mOverflowMode = isNewHandOverflow;
+            // If we're moving into overflow mode, notify that cards have been added
+            if( isNewHandOverflow ){
+                notifyItemRangeInserted(11, 3);
+            }
+        } else {
+            // We are at an endgame or moving out of overflow state we need to reflow all
+            // cards past the lowest index of affected cards
+            int lowestIndex = Math.min(Math.min(one, two), three);
+
+            // Notify change occurred from lowest index to the end of the array
+            notifyItemRangeChanged(lowestIndex, mSetHand.size() - lowestIndex);
+            notifyItemRangeRemoved(mSetHand.size()-1, 3);
+        }
+
+        // Store whether or not we are in overflow for later use
+        mOverflowMode = isNewHandOverflow;
     }
 
     /**
@@ -165,7 +154,7 @@ public class SetGameRecyclerAdapter
         SetGameCardView cardView;
         boolean isHighlighted;
         boolean isChecked;
-        TextView debugText;
+        TextView debugTextView;
 
         /**
          * Populate data handlers using the given view.
@@ -182,9 +171,9 @@ public class SetGameRecyclerAdapter
             cardView.setOnClickListener(this);
 
             // If we are in debug, show the ID of the card
-            debugText = new TextView(mContext);
+            debugTextView = new TextView(mContext);
             if( mContext.getResources().getBoolean(R.bool.is_debug) ){
-                ((SetGameCardView) itemView).addView(debugText);
+                ((SetGameCardView) itemView).addView(debugTextView);
             }
         }
 

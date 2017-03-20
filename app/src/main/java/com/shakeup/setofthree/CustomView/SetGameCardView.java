@@ -26,7 +26,6 @@ import com.shakeup.setofthree.R;
  * This view is able to display cards to be used in Set.
  * It's editable from the layout editor should be editable during runtime
  * <p>
- * The card will always be 2:3 aspect ratio. Orientation can be set but defaults to vertical.
  */
 
 public class SetGameCardView extends CardView{
@@ -35,7 +34,7 @@ public class SetGameCardView extends CardView{
     private int mAspectRatioWidth;
     private int mAspectRatioHeight;
 
-    /**
+    /*
      * Constants to map to Enum attributes
      */
     // SHAPE
@@ -55,7 +54,7 @@ public class SetGameCardView extends CardView{
     private static final int OPEN = 1;
     private static final int STRIPE = 2;
 
-    /**
+    /*
      * Set Card attributes. Defaults to 0:0:0:0
      * which is Oval:Red:One:Solid
      */
@@ -65,13 +64,14 @@ public class SetGameCardView extends CardView{
     private int mFill;
     private int[][] mShapeFill = new int[3][3];
 
-    /**
+    /*
      * Keep an reference to the view's and attributes
      */
     private Context mContext;
     private AttributeSet mAttrs;
+    private LinearLayout mLinearLayout;
 
-    /**
+    /*
      * Member variables for other state info
      */
     private boolean mIsChecked;
@@ -114,7 +114,6 @@ public class SetGameCardView extends CardView{
      */
     private void init(Context context, AttributeSet attrs) {
 
-
         // Get custom attributes
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.SetGameCardView);
 
@@ -135,7 +134,7 @@ public class SetGameCardView extends CardView{
             attributes.recycle();
         }
 
-        /**
+        /*
          * Set up 2D array to get the correct drawable based on shape and fill
          * +--------------------------------------------------+
          * | oval_solid     | oval_open     | oval_stripe     |
@@ -153,50 +152,60 @@ public class SetGameCardView extends CardView{
         mShapeFill[2][1] = R.drawable.ic_set_icons_squiggle_open;
         mShapeFill[2][2] = R.drawable.ic_set_icons_squiggle_stripe;
 
-        /**
+        /*
+         * Add a LinearLayout to the card's frame layout to hold the symbols
+         */
+        mLinearLayout = new LinearLayout(mContext);
+        mLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        mLinearLayout.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+        mLinearLayout.setLayoutParams(layoutParams);
+        this.addView(mLinearLayout);
+    }
+
+    /**
+     * Draws the appropriate symbols on the card. This should be called whenever
+     * the symbol attributes change and need to be redrawn
+     */
+    private void drawSymbols(){
+
+        /*
          * Registers a listener to fire once the initial layout pass is done so we can
          * add a child LinearLayout and ImageView and have access to their measure height and width
          */
         final FrameLayout view = this; // Create a final reference to this view
-        final Context myContext = context; // Create a final reference to this context
+        final Context myContext = mContext; // Create a final reference to this context
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 // Immediately unregister the listener so it doesn't fire repeatedly
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                /**
-                 * Add a LinearLayout to the card's frame layout
-                 */
-                LinearLayout linearLayout = new LinearLayout(myContext);
-                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                linearLayout.setGravity(Gravity.CENTER);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                );
-                linearLayout.setLayoutParams(layoutParams);
-
-                // Add the blank LinearLayout to our card
-                view.addView(linearLayout);
+                // Remove any existing views from the LinearLayout we're replacing them
+                mLinearLayout.removeAllViews();
 
                 // Add an image to the LinearLayout in the card
                 switch( mCount ){
                     case ONE:
-                        addImage(myContext, linearLayout);
+                        addImage(myContext, mLinearLayout);
                         break;
                     case TWO:
-                        addImage(myContext, linearLayout);
-                        addImage(myContext, linearLayout);
+                        addImage(myContext, mLinearLayout);
+                        addImage(myContext, mLinearLayout);
                         break;
                     case THREE:
-                        addImage(myContext, linearLayout);
-                        addImage(myContext, linearLayout);
-                        addImage(myContext, linearLayout);
+                        addImage(myContext, mLinearLayout);
+                        addImage(myContext, mLinearLayout);
+                        addImage(myContext, mLinearLayout);
                         break;
                 }
             }
         });
+
+        invalidate();
     }
 
     /**
@@ -210,7 +219,7 @@ public class SetGameCardView extends CardView{
 
         ImageView symbolView = new ImageView(context);
 
-        /**
+        /*
          * Turn off hardware acceleration for this View otherwise
          * the colors don't get drawn correctly
          */
@@ -268,7 +277,7 @@ public class SetGameCardView extends CardView{
         if ( mIsChecked ){
             this.setElevation(20);
         } else {
-            this.setElevation(4);
+            this.setElevation(8);
         }
         invalidate();
     }
@@ -311,7 +320,7 @@ public class SetGameCardView extends CardView{
         }
     }
 
-    /**
+    /*
      * Custom aspect ratios have proven difficult to work right. Implement feature later.
      */
 //    /**
@@ -373,7 +382,7 @@ public class SetGameCardView extends CardView{
 
     public void setShape(int mShape) {
         this.mShape = mShape;
-        invalidate();
+        drawSymbols();
     }
 
     public int getColor() {
@@ -382,7 +391,7 @@ public class SetGameCardView extends CardView{
 
     public void setColor(int mColor) {
         this.mColor = mColor;
-        invalidate();
+        drawSymbols();
     }
 
     public int getCount() {
@@ -391,7 +400,7 @@ public class SetGameCardView extends CardView{
 
     public void setCount(int mCount) {
         this.mCount = mCount;
-        invalidate();
+        drawSymbols();
     }
 
     public int getFill() {
@@ -400,7 +409,7 @@ public class SetGameCardView extends CardView{
 
     public void setFill(int mFill) {
         this.mFill = mFill;
-        invalidate();
+        drawSymbols();
     }
 
     /**
@@ -415,7 +424,7 @@ public class SetGameCardView extends CardView{
         this.mColor = color;
         this.mCount = count;
         this.mFill = fill;
-        invalidate();
+        drawSymbols();
     }
 
     /**
@@ -423,7 +432,6 @@ public class SetGameCardView extends CardView{
      * @return String representation of the current card
      */
     public String toString(){
-        String result;
 
         String shape = CardShape.values()[this.getShape()].toString();
         String color = CardColor.values()[this.getColor()].toString();
