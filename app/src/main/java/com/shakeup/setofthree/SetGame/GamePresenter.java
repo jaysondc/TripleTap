@@ -54,22 +54,24 @@ public class GamePresenter implements GameContract.UserActionsListener {
         // Resolve set claim and obtain result
         boolean result = mSetGame.claimSet(indexOne, indexTwo, indexThree);
 
-        // Check if it is game over and call the game over UI handler
-        if( mSetGame.getIsGameOver() ){
-            // Handle game over event
-        }
-
-        // On SET claim success or failure
-        if ( result ){
-            // Receive the updated hand and game state info and pass it to the UI layer
-            // so it can update the display
-            mGameView.claimSetSuccess(
+        if( !result ){
+            // Call failure handler in UI
+            mGameView.onSetFailure();
+        } else {
+            // Update the set hand
+            mGameView.updateSetHand(
                     mSetGame.getIsOverflow(),
                     mSetGame.getDeckSize());
-        } else {
-            // Pass back failure message.
-            mGameView.claimSetFailure();
+
+            // Call the GameOver method if the game is over,
+            // otherwise handle SetSuccess
+            if( mSetGame.getIsGameOver() ){
+                mGameView.onGameOver();
+            } else {
+                mGameView.onSetSuccess();
+            }
         }
+
     }
 
     public void setCardClicked(){

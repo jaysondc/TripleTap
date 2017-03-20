@@ -1,9 +1,11 @@
 package com.shakeup.setofthree.SetGame;
 
 import android.content.Intent;
+import android.support.annotation.StringRes;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,7 +22,10 @@ import java.util.ArrayList;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertThat;
@@ -72,32 +77,29 @@ public class SetGameFragmentAndroidTests{
     }
 
     /**
-     * Test finding and clicking set of 3 cards
+     * Click a random set on the board
      */
     @Test
-    public void findSetTest(){
+    public void clickRandomSet(){
 
         // Pick a random valid SET
         SetGame.Triplet location = mGameFragment.getRandomSet();
+        if (!mGameFragment.getSetLocationsForTest().isEmpty()){
+            int first = (int) location.getFirst();
+            int second = (int) location.getSecond();
+            int third = (int) location.getThird();
 
-        int first = (int) location.getFirst();
-        int second = (int) location.getSecond();
-        int third = (int) location.getThird();
+            onView(withId(R.id.game_recycler_grid))
+                    .perform(RecyclerViewActions
+                            .actionOnItemAtPosition(first, click()));
+            onView(withId(R.id.game_recycler_grid))
+                    .perform(RecyclerViewActions
+                            .actionOnItemAtPosition(second, click()));
+            onView(withId(R.id.game_recycler_grid))
+                    .perform(RecyclerViewActions
+                            .actionOnItemAtPosition(third, click()));
+        }
 
-        onView(withId(R.id.game_recycler_grid))
-                        .perform(RecyclerViewActions
-                        .actionOnItemAtPosition(first, click()));
-        onView(withId(R.id.game_recycler_grid))
-                        .perform(RecyclerViewActions
-                        .actionOnItemAtPosition(second, click()));
-        onView(withId(R.id.game_recycler_grid))
-                        .perform(RecyclerViewActions
-                        .actionOnItemAtPosition(third, click()));
-
-        // Assert that valid set was found
-//        onView(allOf(withId(android.support.design.R.id.snackbar_text),
-//                withText(R.string.message_found_set)))
-//                .check(matches(isDisplayed()));
     }
 
     /**
@@ -119,14 +121,29 @@ public class SetGameFragmentAndroidTests{
     }
 
     /**
-     * Test finding multiple sets in succession
+     * Test finding multiple sets in succession. This test will never finish a game
+     * as long as i < 23.
      */
     @Test
     public void findMultipleSetsTest(){
         for (int i = 0; i < 23; i++){
             highlightSetTest();
-            findSetTest();
+            clickRandomSet();
+            checkSnackBarDisplayedByMessage(R.string.message_found_set);
         }
+    }
+
+    /**
+     * Tests that the onGameOver method properly handles the GameOver UI state.
+     */
+    @Test
+    public void testGameOverHandler(){
+        while( !mGameFragment.getSetLocationsForTest().isEmpty() ){
+            clickRandomSet();
+        }
+
+        // Assert that the gameover message was shown
+        checkSnackBarDisplayedByMessage(R.string.message_game_over);
     }
 
 
@@ -162,5 +179,18 @@ public class SetGameFragmentAndroidTests{
             SetGameRecyclerAdapter adapter = (SetGameRecyclerAdapter) recyclerView.getAdapter();
             assertThat(adapter.getItemCount(), greaterThanOrEqualTo(expectedCount));
         }
+    }
+
+    /**
+     * Utility used to check snackbar with text is shown.
+     * Gotten from top answer here:
+     * http://stackoverflow.com/questions/35188183/snackbar-and-espresso-failing-sometimes
+     * @param message StringRes of the text that should be in the SnackBara
+     */
+    private void checkSnackBarDisplayedByMessage(@StringRes int message) {
+        onView(withText(message))
+                .check(matches(withEffectiveVisibility(
+                        ViewMatchers.Visibility.VISIBLE
+                )));
     }
 }

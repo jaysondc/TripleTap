@@ -21,13 +21,17 @@ public class GameContract {
         void displayGame(ArrayList<SetCard> setHand);
 
         // Some actions to interact with the SetGame
-        void claimSetSuccess(
+        void updateSetHand(
                 boolean isOverflow,
                 int deckSize);
 
-        void claimSetFailure();
+        void onSetSuccess();
+
+        void onSetFailure();
 
         void onSetCardClicked();
+
+        void onGameOver();
 
     }
 

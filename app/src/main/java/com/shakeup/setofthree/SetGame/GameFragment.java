@@ -99,7 +99,7 @@ public class GameFragment extends Fragment
         mRecyclerGridView.setAdapter(mSetGameRecyclerAdapter);
 
         // Get the locations of all available sets
-        getSetLocations();
+        findSetLocations();
 
         // If we are in debug mode, highlight a valid set
         if( getContext().getResources().getBoolean(R.bool.is_debug) ){
@@ -132,7 +132,7 @@ public class GameFragment extends Fragment
         // Holds a reference to the card so we can highlight it
         SetGameCardView card;
 
-        // Get the associated gridview children and highlight them
+        // Get the associated RecyclerView children and highlight them
         for(int i = 0; i < 3; i++) {
             card = (SetGameCardView) mRecyclerGridView.getChildAt(locationArray[i]);
             card.setHighlighted(true);
@@ -251,19 +251,13 @@ public class GameFragment extends Fragment
     }
 
     /**
-     * Updates the board and score in response to a successful set claim
-     * @param newHand Updated state of the Set hand
+     * Updates the RecyclerView whenever the hand is updated. Updates member variables
+     * with Set Locations and highlights sets if we are in debug mode.
      * @param isOverflow State whether or not the hand is in overflow mode
      * @param deckSize The number of cards remaining in the deck
      */
     @Override
-    public void claimSetSuccess(
-            boolean isOverflow,
-            int deckSize) {
-        // Do stuff in response to successful set claim
-        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
-                .show();
-
+    public void updateSetHand(boolean isOverflow, int deckSize){
         mSetGameRecyclerAdapter.updateSetHand(
                 positions[0],
                 positions[1],
@@ -271,7 +265,8 @@ public class GameFragment extends Fragment
                 isOverflow,
                 deckSize);
 
-        getSetLocations();
+        // Get locations of new sets
+        findSetLocations();
 
         // If we're in debug and there are sets available, clear highlights and show new highlights
         if( getContext().getResources().getBoolean(R.bool.is_debug) &&
@@ -290,17 +285,48 @@ public class GameFragment extends Fragment
         }
     }
 
+    /**
+     * Updates the board in response to a successful set claim. Override this to handle
+     * UI elements in specific game modes
+     */
     @Override
-    public void claimSetFailure() {
+    public void onSetSuccess() {
+        // Do stuff in response to successful set claim
+        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
+                .show();
+    }
+
+    /**
+     * Handle actions that happen if we claimed an invalid set. Override this to handle
+     * UI elements differently in different game modes.
+     */
+    @Override
+    public void onSetFailure() {
         // Do stuff in response to a failed set claim
         Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
                 .show();
     }
 
     /**
+     * Handle UI actions that happen when the game is over
+     */
+    @Override
+    public void onGameOver() {
+        // Do stuff in response to a failed set claim
+        Snackbar.make(getView(), getString(R.string.message_game_over), Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(R.string.message_restart), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mActionsListener.initGame();
+                    }
+                })
+                .show();
+    }
+
+    /**
      * Get the current locations of all sets and store them for later use
      */
-    public void getSetLocations(){
+    public void findSetLocations(){
         mSetLocations = mActionsListener.getSetLocations();
     }
 

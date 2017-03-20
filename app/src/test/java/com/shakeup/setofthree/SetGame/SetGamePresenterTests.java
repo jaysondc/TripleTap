@@ -92,12 +92,12 @@ public class SetGamePresenterTests {
         );
 
         // Verify the success method was called
-        ArgumentCaptor argument = ArgumentCaptor.forClass(ArrayList.class);
         ArgumentCaptor booleanCapture = ArgumentCaptor.forClass(boolean.class);
         ArgumentCaptor intCapture = ArgumentCaptor.forClass(int.class);
-        verify(mGameView).claimSetSuccess(
+        verify(mGameView).updateSetHand(
                 (boolean) booleanCapture.capture(),
                 (int) intCapture.capture());
+        verify(mGameView).onSetSuccess();
 
 
         // Submit the set expecting false
@@ -108,7 +108,7 @@ public class SetGamePresenterTests {
         );
 
         // Verify the failure method was called
-        verify(mGameView).claimSetFailure();
+        verify(mGameView).onSetFailure();
 
     }
 

@@ -17,4 +17,6 @@
     <!-- Game -->
     <string name="message_found_set">You found a SET!</string>
     <string name="message_not_set">Sorry! That\'s not a SET!</string>
+    <string name="message_game_over">Game over!</string>
+    <string name="message_restart">Restart</string>
 </resources>
