@@ -19,4 +19,12 @@
     <string name="message_not_set">Sorry! That\'s not a SET!</string>
     <string name="message_game_over">Game over!</string>
     <string name="message_restart">Restart</string>
+    <string name="button_hint">Hint</string>
+
+    <!-- Multiplayer Buttons -->
+    <string name="button_player_one">Player 1</string>
+    <string name="button_player_two">Player 2</string>
+    <string name="button_player_three">Player 3</string>
+    <string name="button_player_four">Player 4</string>
+
 </resources>

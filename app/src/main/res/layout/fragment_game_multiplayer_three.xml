@@ -9,40 +9,41 @@
     android:layout_marginTop="16dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/deck_remaining_label"
+    <com.github.rongi.rotate_layout.layout.RotateLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Remaining"
-        android:textSize="16sp" />
+        android:layout_centerVertical="true"
+        app:angle="-90">
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="64dp"
+            android:text="@string/button_player_one" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
 
-    <TextView
-        android:id="@+id/deck_remaining"
+    <com.github.rongi.rotate_layout.layout.RotateLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/deck_remaining_label"
-        android:text="48"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/timer_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="Time"
-        android:textSize="16sp" />
+        app:angle="90">
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="64dp"
+            android:text="@string/button_player_two" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
 
-    <TextView
-        android:id="@+id/timer"
+    <com.github.rongi.rotate_layout.layout.RotateLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/timer_label"
-        android:text="1:45"
-        android:textSize="16sp" />
+        app:angle="90">
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="64dp"
+            android:text="@string/button_player_three" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/game_recycler_grid"

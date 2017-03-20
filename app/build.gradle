@@ -35,6 +35,9 @@ dependencies {
 
     compile "com.google.guava:guava:20.0"
 
+    // Library used to display rotated views
+    compile 'rongi.rotate-layout:rotate-layout:3.0.0'
+
     // Dependencies for local unit tests
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-all:1.10.19"
