@@ -11,50 +11,50 @@
     android:orientation="vertical">
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
-        android:id="@+id/button_player_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         app:angle="-90">
         <Button
+            android:id="@+id/button_player_one"
             android:layout_width="128dp"
             android:layout_height="64dp"
             android:text="@string/button_player_one" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
-        android:id="@+id/button_player_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:angle="-90">
         <Button
+            android:id="@+id/button_player_two"
             android:layout_width="128dp"
             android:layout_height="64dp"
             android:text="@string/button_player_two" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
-        android:id="@+id/button_player_three"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         app:angle="90">
         <Button
+            android:id="@+id/button_player_three"
             android:layout_width="128dp"
             android:layout_height="64dp"
             android:text="@string/button_player_three" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
-        android:id="@+id/button_player_four"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         app:angle="90">
         <Button
+            android:id="@+id/button_player_four"
             android:layout_width="128dp"
             android:layout_height="64dp"
             android:text="@string/button_player_four" />

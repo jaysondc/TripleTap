@@ -16,7 +16,7 @@ public class GameContract {
     /**
      * Methods that need to be implemented by the Game View
      */
-    interface View {
+    public interface View {
 
         void displayGame(ArrayList<SetCard> setHand);
 
@@ -38,7 +38,7 @@ public class GameContract {
     /**
      * Methods that need to be implemented by the Game Presenter
      */
-    interface UserActionsListener {
+    public interface UserActionsListener {
 
         void initGame();
 

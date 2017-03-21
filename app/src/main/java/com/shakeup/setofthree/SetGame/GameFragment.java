@@ -1,16 +1,12 @@
 package com.shakeup.setofthree.SetGame;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.shakeup.setgamelibrary.SetCard;
@@ -32,17 +28,17 @@ public class GameFragment extends Fragment
         implements GameContract.View, SetGameGridCallback {
 
     // Listener for presenter to handle all user input
-    private GamePresenter mActionsListener;
+    protected GamePresenter mActionsListener;
 
     // GridView displaying the game board
     @javax.annotation.Resource
-    private RecyclerView mRecyclerGridView;
+    protected RecyclerView mRecyclerGridView;
 
     // Adapter containing the current Set Hand displayed on the board
-    private SetGameRecyclerAdapter mSetGameRecyclerAdapter;
+    protected SetGameRecyclerAdapter mSetGameRecyclerAdapter;
 
     // ArrayList holding the current valid locations of sets
-    private ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
+    protected ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
 
     // Holds the positions of a set we're currently trying to claim
     private int[] positions = new int[3];
@@ -64,25 +60,25 @@ public class GameFragment extends Fragment
      * Any subclasses should override this method and set up
      * the root layout and presenter specific to their game mode.
      */
-    @Nullable
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_game, container, false);
-
-        // Instance the presenter our fragment uses
-        mActionsListener = new GamePresenter(this);
-
-        // Grab handlers for UI elements
-        mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
-
-        // Initialize a game
-        mActionsListener.initGame();
-
-        return root;
-    }
+//    @Nullable
+//    @Override
+//    public View onCreateView(
+//            LayoutInflater inflater,
+//            @Nullable ViewGroup container,
+//            @Nullable Bundle savedInstanceState) {
+//        View root = inflater.inflate(R.layout.fragment_game, container, false);
+//
+//        // Instance the presenter our fragment uses
+//        mActionsListener = new GamePresenter(this);
+//
+//        // Grab handlers for UI elements
+//        mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
+//
+//        // Initialize a game
+//        mActionsListener.initGame();
+//
+//        return root;
+//    }
 
 
     /**
@@ -334,12 +330,28 @@ public class GameFragment extends Fragment
         mSetLocations = mActionsListener.getSetLocations();
     }
 
-    /**
-     * Get the current locations of all sets for use in testing
-     * @return
+
+    /*
+     * GETTERS AND SETTERS
      */
+
     public ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations(){
         return mActionsListener.getSetLocations();
+    }
+
+    /**
+     * Public accessor to set the SetHand cards as Clickable
+     * @param isClickable The value to set the Clickable attribute
+     */
+    public void setGameClickable(boolean isClickable){
+        // Loop through all SetGameCardViews in the adapter set them as isClickble
+        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+            mRecyclerGridView.getChildAt(i).setEnabled(isClickable);
+        }
+    }
+
+    public boolean isClickable(){
+        return mRecyclerGridView.getChildAt(0).isClickable();
     }
 
     public GamePresenter getActionsListener() {

@@ -30,7 +30,15 @@ public class GamePresenter implements GameContract.UserActionsListener {
      */
     public GamePresenter(
             @NonNull GameContract.View gameView) {
-        mGameView = checkNotNull(gameView, "mainMenu cannot be null!");
+        mGameView = checkNotNull(gameView, "gameView cannot be null!");
+    }
+
+    /**
+     * Public method for setting a gameview to be used by subclasses
+     * @param gameView
+     */
+    public void setGameView(GameContract.View gameView){
+        mGameView = gameView;
     }
 
     /**
