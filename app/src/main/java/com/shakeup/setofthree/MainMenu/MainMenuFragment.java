@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameActivity;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameActivity;
 
@@ -67,6 +68,15 @@ public class MainMenuFragment extends android.support.v4.app.Fragment implements
             }
         });
 
+        multiplayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // This will eventually open different multiplayer options but for now
+                // it will just start a 3 player game
+                mActionsListener.startMultiPlayer(3);
+            }
+        });
+
 
         return root;
     }
@@ -81,6 +91,9 @@ public class MainMenuFragment extends android.support.v4.app.Fragment implements
     @Override
     public void openMultiPlayer(int numPlayers) {
         // Launch multi player with specified number of players
+        Intent intent = new Intent(getContext(), MultiplayerGameActivity.class);
+        intent.putExtra(getString(R.string.extra_num_players), numPlayers);
+        startActivity(intent);
     }
 
     @Override

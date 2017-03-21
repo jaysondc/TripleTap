@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.MainMenu;
+package com.shakeup.setofthree.MultiplayerGame;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,27 +9,31 @@ import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
 
 /**
- * This is the activity for the main menu. It doesn't do anything except set up the
+ * Created by Jayson on 3/2/2017.
+ *
+ * This doesn't do anything except set up the correct multiplayer
  * fragment which will contain all the views seen by the user.
  */
 
-public class MainMenuActivity extends FullScreenActivity {
+public class MultiplayerGameActivity extends FullScreenActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+
+        setContentView(R.layout.activity_game);
 
         if (null == savedInstanceState) {
-            initFragment(MainMenuFragment.newInstance());
+            initFragment(MultiplayerGameFragment.newInstance());
         }
     }
 
-    private void initFragment(Fragment mainMenuFragment) {
+    private void initFragment(Fragment fragment) {
         // Add the fragment to the layout
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.content_frame, mainMenuFragment);
+        transaction.add(R.id.content_frame, fragment);
         transaction.commit();
     }
+
 }

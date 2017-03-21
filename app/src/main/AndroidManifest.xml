@@ -21,6 +21,9 @@
         <activity
             android:name=".SetGame.GameActivity"
             android:screenOrientation="landscape"/>
+        <activity
+            android:name=".MultiplayerGame.MultiplayerGameActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

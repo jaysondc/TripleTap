@@ -84,7 +84,7 @@ public class SetGameFragmentAndroidTests{
 
         // Pick a random valid SET
         SetGame.Triplet location = mGameFragment.getRandomSet();
-        if (!mGameFragment.getSetLocationsForTest().isEmpty()){
+        if (!mGameFragment.getSetLocations().isEmpty()){
             int first = (int) location.getFirst();
             int second = (int) location.getSecond();
             int third = (int) location.getThird();
@@ -138,7 +138,7 @@ public class SetGameFragmentAndroidTests{
      */
     @Test
     public void testGameOverHandler(){
-        while( !mGameFragment.getSetLocationsForTest().isEmpty() ){
+        while( !mGameFragment.getSetLocations().isEmpty() ){
             clickRandomSet();
         }
 

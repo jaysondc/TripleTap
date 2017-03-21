@@ -27,4 +27,6 @@
     <string name="button_player_three">Player 3</string>
     <string name="button_player_four">Player 4</string>
 
+    <!-- Extra string constants -->
+    <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>
 </resources>

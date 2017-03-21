@@ -9,41 +9,6 @@
     android:layout_marginTop="16dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/deck_remaining_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Remaining"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/deck_remaining"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/deck_remaining_label"
-        android:text="48"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/timer_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="Time"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/timer_label"
-        android:text="1:45"
-        android:textSize="16sp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/game_recycler_grid"
         android:layout_width="400dp"

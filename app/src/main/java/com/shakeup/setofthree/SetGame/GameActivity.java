@@ -6,13 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.shakeup.setofthree.FullScreenActivity;
-import com.shakeup.setofthree.MainMenu.MainMenuFragment;
 import com.shakeup.setofthree.R;
 
 /**
  * Created by Jayson on 3/2/2017.
  *
- * This is the activity for the main menu. It doesn't do anything except set up the
+ * This doesn't do anything except set up the
  * fragment which will contain all the views seen by the user.
  */
 
@@ -28,11 +27,11 @@ public class GameActivity extends FullScreenActivity {
         }
     }
 
-    private void initFragment(Fragment mainMenuFragment) {
-        // Add the NotesFragment to the layout
+    private void initFragment(Fragment fragment) {
+        // Add the to the layout
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.content_frame, mainMenuFragment);
+        transaction.add(R.id.content_frame, fragment);
         transaction.commit();
     }
 

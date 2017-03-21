@@ -59,7 +59,11 @@ public class GameFragment extends Fragment
         return new GameFragment();
     }
 
-    // Run initial setup for creating a new game
+    /**
+     * Run initial setup for creating a new game.
+     * Any subclasses should override this method and set up
+     * the root layout and presenter specific to their game mode.
+     */
     @Nullable
     @Override
     public View onCreateView(
@@ -334,9 +338,23 @@ public class GameFragment extends Fragment
      * Get the current locations of all sets for use in testing
      * @return
      */
-    public ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocationsForTest(){
+    public ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations(){
         return mActionsListener.getSetLocations();
     }
 
+    public GamePresenter getActionsListener() {
+        return mActionsListener;
+    }
 
+    public void setActionsListener(GamePresenter mActionsListener) {
+        this.mActionsListener = mActionsListener;
+    }
+
+    public RecyclerView getRecyclerGridView() {
+        return mRecyclerGridView;
+    }
+
+    public void setRecyclerGridView(RecyclerView mRecyclerGridView) {
+        this.mRecyclerGridView = mRecyclerGridView;
+    }
 }

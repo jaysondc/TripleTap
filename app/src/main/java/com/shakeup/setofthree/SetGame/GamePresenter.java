@@ -20,6 +20,10 @@ public class GamePresenter implements GameContract.UserActionsListener {
     private SetGame mSetGame;
     private GameContract.View mGameView;
 
+    // Supply a default constructor
+    public GamePresenter(){
+    }
+
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling View.
      * @param gameView A reference to the calling View
