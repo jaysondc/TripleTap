@@ -20,6 +20,10 @@ public class GamePresenter implements GameContract.UserActionsListener {
     private SetGame mSetGame;
     private GameContract.View mGameView;
 
+    // ArrayList holding the current valid locations of sets
+    protected ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
+
+
     // Supply a default constructor
     public GamePresenter(){
     }
@@ -47,9 +51,15 @@ public class GamePresenter implements GameContract.UserActionsListener {
      */
     @Override
     public void initGame() {
+        // Initialize the SetGame object
         mSetGame = new SetGame();
 
+        // Get the location of valid sets on the board
+        mSetLocations = mSetGame.getLocationOfSets();
+
+        // Initialize the game display
         mGameView.displayGame(mSetGame.getSetHand());
+
     }
 
     /**
@@ -82,13 +92,49 @@ public class GamePresenter implements GameContract.UserActionsListener {
             } else {
                 mGameView.onSetSuccess();
             }
+
+            // Get the new SetLocations array
+            mSetLocations = mSetGame.getLocationOfSets();
         }
 
     }
 
     public void setCardClicked(){
+
         mGameView.onSetCardClicked();
+
     }
+
+    /**
+     * Highlight a valid set on the board
+     */
+    public void highlightValidSet(){
+        // If there are any sets left on the board
+        if (mSetGame.getNumAvailableSets() > 0){
+            // Get a random set
+            SetGame.Triplet<Integer, Integer, Integer> randomSet = mSetGame.getRandomSet();
+
+            // Highlight each index
+            mGameView.highlightCard(randomSet.getFirst());
+            mGameView.highlightCard(randomSet.getSecond());
+            mGameView.highlightCard(randomSet.getThird());
+        }
+    }
+
+    /**
+     * Highlight a single card from a valid set as a hint
+     */
+    public void showHint(){
+        // If there are any sets left on the board
+        if (mSetGame.getNumAvailableSets() > 0) {
+            // Get a random set
+            SetGame.Triplet<Integer, Integer, Integer> randomSet = mSetGame.getRandomSet();
+
+            // Highlight the first index
+            mGameView.highlightCard(randomSet.getFirst());
+        }
+    }
+
 
     /**
      * Manually set an instance of the SetGame object.
@@ -96,6 +142,14 @@ public class GamePresenter implements GameContract.UserActionsListener {
      */
     public void setSetGame(SetGame game){
         mSetGame = game;
+    }
+
+    /**
+     * Get a reference to the SetGame for testing
+     * @return Reference to the current SetGame
+     */
+    public SetGame getSetGame(){
+        return mSetGame;
     }
 
     /**

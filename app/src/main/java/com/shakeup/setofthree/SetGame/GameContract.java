@@ -33,6 +33,8 @@ public class GameContract {
 
         void onGameOver();
 
+        void highlightCard(int index);
+
     }
 
     /**
@@ -47,6 +49,10 @@ public class GameContract {
         void setSetGame(SetGame game);
 
         void setCardClicked();
+
+        void highlightValidSet();
+
+        void showHint();
 
         ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations();
 

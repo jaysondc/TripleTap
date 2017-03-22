@@ -164,6 +164,22 @@ public class SetGame {
         return mNumSetsAvailable;
     }
 
+    /**
+     * Returns a Triplet of a random valid set on the board.
+     * @return Triplet representing a valid set. Triplet containing -1 if no sets exist.
+     */
+    public Triplet<Integer, Integer, Integer> getRandomSet() {
+
+        if (!mLocationOfSets.isEmpty()){
+            int index = (int) Math.floor(Math.random() * mLocationOfSets.size());
+
+            return mLocationOfSets.get(index);
+        } else {
+            return new Triplet<Integer, Integer, Integer>(-1, -1, -1);
+        }
+
+    }
+
     public ArrayList<Triplet<Integer, Integer, Integer>> getLocationOfSets(){
         return mLocationOfSets;
     }

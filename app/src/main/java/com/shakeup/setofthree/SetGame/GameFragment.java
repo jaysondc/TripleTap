@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.shakeup.setgamelibrary.SetCard;
-import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.CustomView.SetGameCardView;
 import com.shakeup.setofthree.R;
 
@@ -37,11 +36,8 @@ public class GameFragment extends Fragment
     // Adapter containing the current Set Hand displayed on the board
     protected SetGameRecyclerAdapter mSetGameRecyclerAdapter;
 
-    // ArrayList holding the current valid locations of sets
-    protected ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
-
     // Holds the positions of a set we're currently trying to claim
-    private int[] positions = new int[3];
+    private int[] mCheckedPositions = new int[3];
 
     private String LOG_TAG = this.getClass().getSimpleName();
 
@@ -98,9 +94,6 @@ public class GameFragment extends Fragment
         mRecyclerGridView.setLayoutManager(gridLayoutManager);
         mRecyclerGridView.setAdapter(mSetGameRecyclerAdapter);
 
-        // Get the locations of all available sets
-        findSetLocations();
-
         // If we are in debug mode, highlight a valid set
         if( getContext().getResources().getBoolean(R.bool.is_debug) ){
             // Use a ViewTreeObserver to only show highlights once the RecyclerView
@@ -110,45 +103,22 @@ public class GameFragment extends Fragment
                 @Override
                 public void onGlobalLayout() {
                     mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    highlightSet();
+                    mActionsListener.highlightValidSet();
                 }
             });
         }
     }
 
     /**
-     * Highlight a random available set for testing
+     * Highlight the card at a specific index
+     * @param index Index of the card to highlight
      */
-    public void highlightSet(){
-
-        // Get the location of a valid set and assign it to an array
-        SetGame.Triplet<Integer, Integer, Integer> location = getRandomSet();
-        int[] locationArray = new int[3];
-
-        locationArray[0] = location.getFirst();
-        locationArray[1] = location.getSecond();
-        locationArray[2] = location.getThird();
-
+    public void highlightCard(int index){
         // Holds a reference to the card so we can highlight it
-        SetGameCardView card;
-
-        // Get the associated RecyclerView children and highlight them
-        for(int i = 0; i < 3; i++) {
-            card = (SetGameCardView) mRecyclerGridView.getChildAt(locationArray[i]);
-            card.setHighlighted(true);
-        }
+        SetGameCardView card =
+                (SetGameCardView) mRecyclerGridView.getChildAt(index);
+        card.setHighlighted(true);
     }
-
-    /**
-     * Get a random set location from the possible sets
-     * @return Triplet of set indexes
-     */
-    public SetGame.Triplet<Integer, Integer, Integer> getRandomSet(){
-        int index = (int) Math.floor(Math.random() * mSetLocations.size());
-
-        return mSetLocations.get(index);
-    }
-
 
     /**
      * This is called by the presenter whenever a SET card is clicked by the user.
@@ -167,22 +137,22 @@ public class GameFragment extends Fragment
             // Loop through SparseBooleanArray and grab the 3 positions that are checked
             for( int i = 0; i < checkedItemPositions.size() ; i++ ){
                 if( checkedItemPositions.valueAt(i) ){
-                    positions[positionIndex] = checkedItemPositions.keyAt(i);
+                    mCheckedPositions[positionIndex] = checkedItemPositions.keyAt(i);
                     positionIndex++;
                 }
             }
 
             // Submit the set instances to the presenter
             mActionsListener.submitSet(
-                    positions[0],
-                    positions[1],
-                    positions[2]);
+                    mCheckedPositions[0],
+                    mCheckedPositions[1],
+                    mCheckedPositions[2]);
 
             Log.d(LOG_TAG, String.format(
                     "Submitted set at positions %d, %d, %d",
-                    positions[0],
-                    positions[1],
-                    positions[2]));
+                    mCheckedPositions[0],
+                    mCheckedPositions[1],
+                    mCheckedPositions[2]));
 
             // Clear all selections from GridView
             clearChoices();
@@ -259,18 +229,14 @@ public class GameFragment extends Fragment
     @Override
     public void updateSetHand(boolean isOverflow, int deckSize){
         mSetGameRecyclerAdapter.updateSetHand(
-                positions[0],
-                positions[1],
-                positions[2],
+                mCheckedPositions[0],
+                mCheckedPositions[1],
+                mCheckedPositions[2],
                 isOverflow,
                 deckSize);
 
-        // Get locations of new sets
-        findSetLocations();
-
         // If we're in debug and there are sets available, clear highlights and show new highlights
-        if( getContext().getResources().getBoolean(R.bool.is_debug) &&
-                mSetLocations.size() != 0){
+        if( getContext().getResources().getBoolean(R.bool.is_debug)){
             // Use a ViewTreeObserver to only show highlights once the RecyclerView
             // is done drawing its layout.
             ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
@@ -279,7 +245,7 @@ public class GameFragment extends Fragment
                 public void onGlobalLayout() {
                     mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     clearHighlights();
-                    highlightSet();
+                    mActionsListener.highlightValidSet();
                 }
             });
         }
@@ -321,22 +287,6 @@ public class GameFragment extends Fragment
                     }
                 })
                 .show();
-    }
-
-    /**
-     * Get the current locations of all sets and store them for later use
-     */
-    public void findSetLocations(){
-        mSetLocations = mActionsListener.getSetLocations();
-    }
-
-
-    /*
-     * GETTERS AND SETTERS
-     */
-
-    public ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations(){
-        return mActionsListener.getSetLocations();
     }
 
     /**

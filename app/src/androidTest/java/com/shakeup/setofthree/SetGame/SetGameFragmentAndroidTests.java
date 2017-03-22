@@ -1,21 +1,20 @@
 package com.shakeup.setofthree.SetGame;
 
-import android.content.Intent;
 import android.support.annotation.StringRes;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.rule.ActivityTestRule;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.CustomView.SetGameCardView;
+import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameActivity;
+import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameFragment;
+import com.shakeup.setofthree.MultiplayerGame.MultiplayerGamePresenter;
 import com.shakeup.setofthree.R;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,45 +26,32 @@ import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVi
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 
 /**
  * Created by Jayson on 3/10/2017.
  *
- * Tests to be run on the Set Game UI
+ * Tests to be run on a generic set game. This is to be subclassed by
+ * specific game modes to test game mode specific UI features.
+ *
+ * Specific @Before methods which get the member references should be implemented
+ * by any subclass.
  */
 
-public class SetGameFragmentAndroidTests{
-
-    // Refrences to the activity and fragment
-    private GameFragment mGameFragment;
-    private GameActivity mGameActivity;
-
+public abstract class SetGameFragmentAndroidTests{
+    // References to the activity and fragment
+    protected MultiplayerGameFragment mGameFragment;
+    protected MultiplayerGameActivity mGameActivity;
+    protected MultiplayerGamePresenter mGamePresenter;
+    protected SetGame mSetGame;
     // List of possible sets for the current game
-    private ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
+    protected ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
 
-
-    // Specify we need to launch the GameActivity before these tests
-    @Rule
-    public ActivityTestRule<GameActivity> mGameActivityTestRule =
-            new ActivityTestRule<>(
-                    GameActivity.class,
-                    true /* Initial touch mode  */,
-                    false /* Lazily launch activity */);
-
-    @Before
-    public void setUpTests(){
-        Intent startIntent = new Intent();
-        mGameActivityTestRule.launchActivity(startIntent);
-
-        mGameActivity = mGameActivityTestRule.getActivity();
-        mGameFragment = (GameFragment) mGameActivity.getSupportFragmentManager()
-                .findFragmentById(R.id.content_frame);
-    }
+    // Subclasses need to set their own @Before methods and set these references
+    public abstract void setUpTestEnvironment();
 
     // TESTS
-
     /**
      * Test that the game is displayed correctly.
      * The grid must contain at least 12 cards.
@@ -83,8 +69,8 @@ public class SetGameFragmentAndroidTests{
     public void clickRandomSet(){
 
         // Pick a random valid SET
-        SetGame.Triplet location = mGameFragment.getRandomSet();
-        if (!mGameFragment.getSetLocations().isEmpty()){
+        SetGame.Triplet location = mSetGame.getRandomSet();
+        if (location != null){
             int first = (int) location.getFirst();
             int second = (int) location.getSecond();
             int third = (int) location.getThird();
@@ -129,7 +115,9 @@ public class SetGameFragmentAndroidTests{
         for (int i = 0; i < 23; i++){
             highlightSetTest();
             clickRandomSet();
-            checkSnackBarDisplayedByMessage(R.string.message_found_set);
+
+            // This check isn't valid because we aren't always going to use snackbar messages
+            //checkSnackBarDisplayedByMessage(R.string.message_found_set);
         }
     }
 
@@ -138,7 +126,7 @@ public class SetGameFragmentAndroidTests{
      */
     @Test
     public void testGameOverHandler(){
-        while( !mGameFragment.getSetLocations().isEmpty() ){
+        while( !mSetGame.getIsGameOver() ){
             clickRandomSet();
         }
 
@@ -187,7 +175,7 @@ public class SetGameFragmentAndroidTests{
      * http://stackoverflow.com/questions/35188183/snackbar-and-espresso-failing-sometimes
      * @param message StringRes of the text that should be in the SnackBara
      */
-    private void checkSnackBarDisplayedByMessage(@StringRes int message) {
+    public void checkSnackBarDisplayedByMessage(@StringRes int message) {
         onView(withText(message))
                 .check(matches(withEffectiveVisibility(
                         ViewMatchers.Visibility.VISIBLE

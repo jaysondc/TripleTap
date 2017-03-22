@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 import com.shakeup.setgamelibrary.SetCard;
@@ -32,6 +33,12 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
 
     // The currently active player. 0 if nobody.
     private int mActivePlayer = 0;
+
+    // Scorekeeping
+    private int mScorePlayerOne = 0;
+    private int mScorePlayerTwo = 0;
+    private int mScorePlayerThree = 0;
+    private int mScorePlayerFour = 0;
 
 
     // Default constructor
@@ -126,8 +133,17 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         // Initialize a game
         mMultiplayerActionsListener.initGame();
 
-        // Set the board to be unclickable until a player presses their button
-        this.setGameClickable(false);
+        // Wrap some initialization methods inside a OnGlobalLayoutListener
+        // so they fire once the RecyclerView is populated
+        ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                // Set the board to be unclickable until a player presses their button
+                setGameClickable(false);
+            }
+        });
 
         return root;
     }
@@ -149,7 +165,10 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         this.setGameClickable(true);
     }
 
+    @Override
+    public void onSetSuccess() {
 
 
-
+        super.onSetSuccess();
+    }
 }
