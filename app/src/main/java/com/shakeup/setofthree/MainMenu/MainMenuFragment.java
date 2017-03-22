@@ -72,8 +72,8 @@ public class MainMenuFragment extends android.support.v4.app.Fragment implements
             @Override
             public void onClick(View v) {
                 // This will eventually open different multiplayer options but for now
-                // it will just start a 3 player game
-                mActionsListener.startMultiPlayer(3);
+                // it will just start a 2 player game
+                mActionsListener.startMultiPlayer(2);
             }
         });
 

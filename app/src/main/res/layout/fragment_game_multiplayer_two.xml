@@ -15,11 +15,22 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         app:angle="-90">
-        <Button
+        <com.dd.processbutton.iml.ActionProcessButton
             android:id="@+id/button_player_one"
-            android:layout_width="128dp"
-            android:layout_height="64dp"
-            android:text="@string/button_player_one" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/button_player_one"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:pb_colorComplete="@color/green_complete"
+            app:pb_colorNormal="@color/blue_normal"
+            app:pb_colorPressed="@color/blue_pressed"
+            app:pb_colorProgress="@color/purple_progress"
+            app:pb_textComplete="CLAIM YOUR SET!"
+            app:pb_textProgress="TOO LATE!"
+            app:pb_textError="Error"
+            app:pb_colorError="@color/colorAccent" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
@@ -28,11 +39,22 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         app:angle="90">
-        <Button
+        <com.dd.processbutton.iml.ActionProcessButton
             android:id="@+id/button_player_two"
-            android:layout_width="128dp"
-            android:layout_height="64dp"
-            android:text="@string/button_player_two" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/button_player_two"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:pb_colorComplete="@color/green_complete"
+            app:pb_colorNormal="@color/blue_normal"
+            app:pb_colorPressed="@color/blue_pressed"
+            app:pb_colorProgress="@color/purple_progress"
+            app:pb_textComplete="CLAIM YOUR SET!"
+            app:pb_textProgress="TOO LATE!"
+            app:pb_textError="Error"
+            app:pb_colorError="@color/colorAccent" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
 

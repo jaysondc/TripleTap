@@ -35,8 +35,13 @@ dependencies {
 
     compile "com.google.guava:guava:20.0"
 
-    // Libary used to display rotated views
+    /*
+     * 3rd Party Libraries
+     */
+    // Library to display rotated views
     compile 'rongi.rotate-layout:rotate-layout:3.0.0'
+    // Library to display buttons with progress bars
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
 
     // Dependencies for local unit tests
     testCompile "junit:junit:4.12"

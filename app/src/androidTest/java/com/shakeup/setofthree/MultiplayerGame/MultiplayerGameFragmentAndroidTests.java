@@ -1,17 +1,12 @@
 package com.shakeup.setofthree.SetGame;
 
+import android.app.Application;
 import android.content.Intent;
-import android.support.annotation.StringRes;
-import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.ViewAssertion;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameActivity;
 import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameFragment;
 import com.shakeup.setofthree.MultiplayerGame.MultiplayerGamePresenter;
@@ -23,14 +18,8 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by Jayson on 3/10/2017.
@@ -71,6 +60,7 @@ public class MultiplayerGameFragmentAndroidTests extends SetGameFragmentAndroidT
      * The grid must contain at least 12 cards.
      */
     @Test
+    @Override
     public void displayGameTest(){
         super.displayGameTest();
     }
@@ -79,6 +69,7 @@ public class MultiplayerGameFragmentAndroidTests extends SetGameFragmentAndroidT
      * Click a random set on the board
      */
     @Test
+    @Override
     public void clickRandomSet(){
         // Click our player button first to enable the board
         onView(withId(R.id.button_player_one)).perform(clickExplicit);
@@ -87,18 +78,11 @@ public class MultiplayerGameFragmentAndroidTests extends SetGameFragmentAndroidT
     }
 
     /**
-     * Test that 3 cards are highlighted to indicate a set is available
-     */
-    @Test
-    public void highlightSetTest(){
-        super.highlightSetTest();
-    }
-
-    /**
      * Test finding multiple sets in succession. This test will never finish a game
      * as long as i < 23.
      */
     @Test
+    @Override
     public void findMultipleSetsTest(){
         for (int i = 0; i < 23; i++){
             // Click our player button first to enable the board
@@ -114,6 +98,7 @@ public class MultiplayerGameFragmentAndroidTests extends SetGameFragmentAndroidT
      * Tests that the onGameOver method properly handles the GameOver UI state.
      */
     @Test
+    @Override
     public void testGameOverHandler(){
         while( !mSetGame.getIsGameOver() ){
             clickRandomSet();

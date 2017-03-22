@@ -1,6 +1,7 @@
 package com.shakeup.setofthree.MultiplayerGame;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 
+import com.dd.processbutton.iml.ActionProcessButton;
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
@@ -31,15 +32,8 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
     // Reference to our presenter
     MultiplayerGamePresenter mMultiplayerActionsListener;
 
-    // The currently active player. 0 if nobody.
-    private int mActivePlayer = 0;
-
-    // Scorekeeping
-    private int mScorePlayerOne = 0;
-    private int mScorePlayerTwo = 0;
-    private int mScorePlayerThree = 0;
-    private int mScorePlayerFour = 0;
-
+    // Reference to player buttons
+    ActionProcessButton playerOneButton, playerTwoButton, playerThreeButton, playerFourButton;
 
     // Default constructor
     public MultiplayerGameFragment(){
@@ -94,34 +88,32 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         // Set up the RecyclerView and assign it to the superclass
         mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
 
-        // Set up player buttons
-        Button playerOneButton, playerTwoButton, playerThreeButton, playerFourButton;
         switch( numPlayers ){
-            case 4:
-                playerFourButton = (Button) root.findViewById(R.id.button_player_four);
-                playerFourButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mMultiplayerActionsListener.playerButtonClick(4);
-                    }
-                });
-            case 3:
-                playerThreeButton = (Button) root.findViewById(R.id.button_player_three);
-                playerThreeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mMultiplayerActionsListener.playerButtonClick(3);
-                    }
-                });
+//            case 4:
+//                playerFourButton = (ActionProcessButton) root.findViewById(R.id.button_player_four);
+//                playerFourButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        mMultiplayerActionsListener.playerButtonClick(4);
+//                    }
+//                });
+//            case 3:
+//                playerThreeButton = (ActionProcessButton) root.findViewById(R.id.button_player_three);
+//                playerThreeButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        mMultiplayerActionsListener.playerButtonClick(3);
+//                    }
+//                });
             case 2:
-                playerTwoButton = (Button) root.findViewById(R.id.button_player_two);
+                playerTwoButton = (ActionProcessButton) root.findViewById(R.id.button_player_two);
                 playerTwoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mMultiplayerActionsListener.playerButtonClick(2);
                     }
                 });
-                playerOneButton = (Button) root.findViewById(R.id.button_player_one);
+                playerOneButton = (ActionProcessButton) root.findViewById(R.id.button_player_one);
                 playerOneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -148,16 +140,12 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         return root;
     }
 
-
     /**
      * Handles the UI action for a player clicking his/her button
      * @param playerId ID of the player who clicked their button
      */
     @Override
     public void onPlayerButtonClick(int playerId) {
-        Log.d(LOG_TAG, "Player " + playerId + " clicked their button.");
-
-        mActivePlayer = playerId;
 
         // Start a 4 second timer with visual feedback for the player
 
@@ -166,9 +154,83 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
     }
 
     @Override
+    public void startPlayerCountdown(int playerId){
+        // Timer of 4 seconds, ticking every 0.1 seconds
+        PlayerCountdown timer = new PlayerCountdown(playerId, 4000, 1000);
+        timer.start();
+    }
+
+    @Override
     public void onSetSuccess() {
-
-
         super.onSetSuccess();
     }
+
+
+    /**
+     * Utility to get the button for a particular PlayerID
+     * @param playerId PlayerID of the button we want
+     * @return ActionProcessButton associated with that player
+     */
+    public ActionProcessButton getPlayerButton(int playerId){
+        switch ( playerId ){
+            case 1:
+                return playerOneButton;
+            case 2:
+                return playerTwoButton;
+            case 3:
+                return playerThreeButton;
+            case 4:
+                return playerFourButton;
+            default:
+                return playerOneButton;
+        }
+    }
+
+
+    /**
+     * Timer class to handle setting and displaying the player in the player's button.
+     */
+    public class PlayerCountdown extends CountDownTimer {
+
+        long mStartTime;
+        ActionProcessButton mPlayerButton;
+        int mPlayerId;
+
+        public PlayerCountdown(int playerId, long startTime, long interval) {
+            super(startTime, interval);
+
+            // Save member references
+            mStartTime = startTime;
+            mPlayerButton = getPlayerButton(playerId);
+            mPlayerId = playerId;
+
+            // Specify the button to display progress mode
+            mPlayerButton.setMode(ActionProcessButton.Mode.PROGRESS);
+        }
+
+        @Override
+        public void onFinish() {
+            Log.d(LOG_TAG, "Timer for Player " + mPlayerId + " finished!");
+
+            mPlayerButton.setProgress(0);
+//            text.setText("Time's up!");
+//            timeElapsedView.setText("Time Elapsed: " + String.valueOf(startTime));
+        }
+
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int progressPercent;
+
+            progressPercent = (int) Math.floor((1 - (millisUntilFinished / mStartTime)) * 100);
+
+            mPlayerButton.setProgress(progressPercent);
+//            text.setText("Time remain:" + millisUntilFinished);
+//            timeElapsed = startTime - millisUntilFinished;
+//            timeElapsedView.setText("Time Elapsed: " + String.valueOf(timeElapsed));
+        }
+
+
+    }
+
 }
