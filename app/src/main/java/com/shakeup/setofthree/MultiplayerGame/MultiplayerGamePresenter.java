@@ -56,17 +56,12 @@ public class MultiplayerGamePresenter extends GamePresenter
         // Unlock the board
         mMultiplayerGameView.setGameClickable(true);
 
-        // Start find a set timer
-        mMultiplayerGameView.startFindSetCountdown(playerId);
-        mMultiplayerGameView.setEnablePlayerButton(playerId, false);
+        // Change the game state to show we are waiting for a player action
+        mMultiplayerGameView.setGameState(1);
 
-        // Start waiting for player timer and
-        // lock the other players buttons
+        // Start the find a set timer for each button
         for( int i = 1; i <= 4; i++ ){
-            if( i != playerId ){
-                mMultiplayerGameView.startWaitForPlayerCountdown(i);
-                mMultiplayerGameView.setEnablePlayerButton(i, false);
-            }
+            mMultiplayerGameView.startFindSetCountdown(i);
         }
     }
 
@@ -75,35 +70,19 @@ public class MultiplayerGamePresenter extends GamePresenter
      * @param playerId ID of the player
      */
     public void playerButtonSuccess(int playerId){
-        // Unlock all player buttons
-        for( int i = 1; i <= 4; i++ ){
-            mMultiplayerGameView.setEnablePlayerButton(i, true);
-        }
-
-        // Unlock the button and display a success message
-
-        // Reset the active player
-        mMultiplayerGameView.setActivePlayer(0);
+        // Display success button message
     }
 
     /**
      * This method is called when the player fails to find a set in time or claims
      * something that isn't a set
      * @param playerId ID of the player
-     * @param timedOut True if the player timed out. False if they claimed an invalid set
      */
-    public void playerButtonPunish(int playerId, boolean timedOut){
-        // Unlock all player buttons
-        for( int i = 1; i <= 4; i++ ){
-            mMultiplayerGameView.setEnablePlayerButton(i, true);
-        }
-
+    public void playerButtonPunish(int playerId){
         // Lock the active player's button and display an error message
-        mMultiplayerGameView.setEnablePlayerButton(playerId, false);
-        mMultiplayerGameView.onPunishPlayer(playerId, timedOut);
-
-        // Reset the active player
-        mMultiplayerGameView.setActivePlayer(0);
+        mMultiplayerGameView.onPunishPlayer(playerId);
+        mMultiplayerGameView.setGameClickable(false);
+        mMultiplayerGameView.clearChoices();
     }
 
 

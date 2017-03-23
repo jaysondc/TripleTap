@@ -37,6 +37,10 @@ public class GameContract {
 
         void setGameClickable(boolean isClickable);
 
+        void clearChoices();
+
+        void clearHighlights();
+
     }
 
     /**

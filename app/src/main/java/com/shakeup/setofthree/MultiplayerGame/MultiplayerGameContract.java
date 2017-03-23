@@ -16,11 +16,11 @@ public class MultiplayerGameContract extends GameContract {
 
         void setEnablePlayerButton(int playerId, boolean enable);
 
-        void startWaitForPlayerCountdown(int playerId);
-
         void setActivePlayer(int playerId);
 
-        void onPunishPlayer(int playerId, boolean timedOut);
+        void onPunishPlayer(int playerId);
+
+        void setGameState(int gameState);
 
     }
 
@@ -33,7 +33,7 @@ public class MultiplayerGameContract extends GameContract {
 
         void playerButtonSuccess(int playerId);
 
-        void playerButtonPunish(int playerId, boolean timedOut);
+        void playerButtonPunish(int playerId);
 
     }
 }
