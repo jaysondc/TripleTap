@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import com.dd.processbutton.iml.ActionProcessButton;
+import com.dd.processbutton.iml.SubmitProcessButton;
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
@@ -33,7 +33,7 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
     MultiplayerGamePresenter mMultiplayerActionsListener;
 
     // Reference to player buttons
-    ActionProcessButton playerOneButton, playerTwoButton, playerThreeButton, playerFourButton;
+    SubmitProcessButton playerOneButton, playerTwoButton, playerThreeButton, playerFourButton;
 
     // Default constructor
     public MultiplayerGameFragment(){
@@ -106,14 +106,14 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
 //                    }
 //                });
             case 2:
-                playerTwoButton = (ActionProcessButton) root.findViewById(R.id.button_player_two);
+                playerTwoButton = (SubmitProcessButton) root.findViewById(R.id.button_player_two);
                 playerTwoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mMultiplayerActionsListener.playerButtonClick(2);
                     }
                 });
-                playerOneButton = (ActionProcessButton) root.findViewById(R.id.button_player_one);
+                playerOneButton = (SubmitProcessButton) root.findViewById(R.id.button_player_one);
                 playerOneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -156,8 +156,7 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
     @Override
     public void startPlayerCountdown(int playerId){
         // Timer of 4 seconds, ticking every 0.1 seconds
-        PlayerCountdown timer = new PlayerCountdown(playerId, 4000, 1000);
-        timer.start();
+        PlayerCountdown timer = new PlayerCountdown(playerId, 4000, 100);
     }
 
     @Override
@@ -171,7 +170,7 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
      * @param playerId PlayerID of the button we want
      * @return ActionProcessButton associated with that player
      */
-    public ActionProcessButton getPlayerButton(int playerId){
+    public SubmitProcessButton getPlayerButton(int playerId){
         switch ( playerId ){
             case 1:
                 return playerOneButton;
@@ -193,7 +192,7 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
     public class PlayerCountdown extends CountDownTimer {
 
         long mStartTime;
-        ActionProcessButton mPlayerButton;
+        SubmitProcessButton mPlayerButton;
         int mPlayerId;
 
         public PlayerCountdown(int playerId, long startTime, long interval) {
@@ -204,8 +203,7 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
             mPlayerButton = getPlayerButton(playerId);
             mPlayerId = playerId;
 
-            // Specify the button to display progress mode
-            mPlayerButton.setMode(ActionProcessButton.Mode.PROGRESS);
+            start();
         }
 
         @Override
@@ -222,7 +220,10 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         public void onTick(long millisUntilFinished) {
             int progressPercent;
 
-            progressPercent = (int) Math.floor((1 - (millisUntilFinished / mStartTime)) * 100);
+            double start = (double) mStartTime;
+            double timeLeft = (double) millisUntilFinished;
+
+            progressPercent = (int) Math.floor((1 - (timeLeft / start)) * 100);
 
             mPlayerButton.setProgress(progressPercent);
 //            text.setText("Time remain:" + millisUntilFinished);

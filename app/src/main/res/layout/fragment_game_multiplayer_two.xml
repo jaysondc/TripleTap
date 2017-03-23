@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         app:angle="-90">
-        <com.dd.processbutton.iml.ActionProcessButton
+        <com.dd.processbutton.iml.SubmitProcessButton
             android:id="@+id/button_player_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,8 +27,8 @@
             app:pb_colorNormal="@color/blue_normal"
             app:pb_colorPressed="@color/blue_pressed"
             app:pb_colorProgress="@color/purple_progress"
-            app:pb_textComplete="CLAIM YOUR SET!"
-            app:pb_textProgress="TOO LATE!"
+            app:pb_textComplete="PLAYER 1"
+            app:pb_textProgress="CLAIM YOUR SET!"
             app:pb_textError="Error"
             app:pb_colorError="@color/colorAccent" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
@@ -39,7 +39,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         app:angle="90">
-        <com.dd.processbutton.iml.ActionProcessButton
+        <com.dd.processbutton.iml.SubmitProcessButton
             android:id="@+id/button_player_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
