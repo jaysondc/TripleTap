@@ -25,9 +25,7 @@
         <item name="pb_colorNormal">@color/button_background_normal</item>
         <item name="pb_colorPressed">@color/button_background_pressed</item>
         <item name="pb_colorProgress">@color/button_background_progress</item>
-        <item name="pb_textComplete">@string/button_found_set</item>
         <item name="pb_textProgress">@string/button_claim_set</item>
-        <item name="pb_textError">@string/button_not_a_set</item>
         <item name="pb_colorError">@color/button_background_error</item>
     </style>
 
