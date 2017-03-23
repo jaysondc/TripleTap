@@ -61,24 +61,8 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
 
         View root;
 
-        switch( numPlayers ){
-            case 2:
-                root = inflater.inflate(
-                        R.layout.fragment_game_multiplayer_two, container, false);
-                break;
-            case 3:
-                root = inflater.inflate(
-                        R.layout.fragment_game_multiplayer_three, container, false);
-                break;
-            case 4:
-                root = inflater.inflate(
-                        R.layout.fragment_game_multiplayer_four, container, false);
-                break;
-            default: // Default to 2 players if somehow it isn't specified
-                root = inflater.inflate(
-                        R.layout.fragment_game_multiplayer_two, container, false);
-                break;
-        }
+        root = inflater.inflate(
+                R.layout.fragment_game_multiplayer, container, false);
 
         // Instance the presenter our fragment uses and grab a reference
         mMultiplayerActionsListener = new MultiplayerGamePresenter(this);
@@ -88,39 +72,46 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         // Set up the RecyclerView and assign it to the superclass
         mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
 
+        // Hide unused player spaces
         switch( numPlayers ){
-//            case 4:
-//                playerFourButton = (ActionProcessButton) root.findViewById(R.id.button_player_four);
-//                playerFourButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mMultiplayerActionsListener.playerButtonClick(4);
-//                    }
-//                });
-//            case 3:
-//                playerThreeButton = (ActionProcessButton) root.findViewById(R.id.button_player_three);
-//                playerThreeButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mMultiplayerActionsListener.playerButtonClick(3);
-//                    }
-//                });
+            case 3:
+                // Hide player 4
+                root.findViewById(R.id.space_player_four).setVisibility(View.GONE);
             case 2:
-                playerTwoButton = (SubmitProcessButton) root.findViewById(R.id.button_player_two);
-                playerTwoButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mMultiplayerActionsListener.playerButtonClick(2);
-                    }
-                });
-                playerOneButton = (SubmitProcessButton) root.findViewById(R.id.button_player_one);
-                playerOneButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mMultiplayerActionsListener.playerButtonClick(1);
-                    }
-                });
+                root.findViewById(R.id.space_player_four).setVisibility(View.GONE);
+                root.findViewById(R.id.space_player_three).setVisibility(View.GONE);
+
         }
+
+        playerOneButton = (SubmitProcessButton) root.findViewById(R.id.button_player_one);
+        playerTwoButton = (SubmitProcessButton) root.findViewById(R.id.button_player_two);
+        playerThreeButton = (SubmitProcessButton) root.findViewById(R.id.button_player_three);
+        playerFourButton = (SubmitProcessButton) root.findViewById(R.id.button_player_four);
+
+        playerThreeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMultiplayerActionsListener.playerButtonClick(3);
+            }
+        });
+        playerTwoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMultiplayerActionsListener.playerButtonClick(2);
+            }
+        });
+        playerOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMultiplayerActionsListener.playerButtonClick(1);
+            }
+        });
+        playerFourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMultiplayerActionsListener.playerButtonClick(4);
+            }
+        });
 
         // Initialize a game
         mMultiplayerActionsListener.initGame();

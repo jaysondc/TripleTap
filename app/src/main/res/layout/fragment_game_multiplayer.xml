@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp">
+
+    <!-- Player 1 and 3 space -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/space_player_one"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <com.github.rongi.rotate_layout.layout.RotateLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:angle="-90">
+                <com.dd.processbutton.iml.SubmitProcessButton
+                    android:id="@+id/button_player_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_player_one"
+                    style="@style/MultiplayerButtonStyle"/>
+            </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/space_player_three"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <com.github.rongi.rotate_layout.layout.RotateLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:angle="-90">
+                <com.dd.processbutton.iml.SubmitProcessButton
+                    android:id="@+id/button_player_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_player_three"
+                    style="@style/MultiplayerButtonStyle" />
+            </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Game Board -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/game_recycler_grid"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+    </android.support.v7.widget.RecyclerView>
+
+
+    <!-- Player 2 and 4 space -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/space_player_two"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <com.github.rongi.rotate_layout.layout.RotateLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:angle="90">
+                <com.dd.processbutton.iml.SubmitProcessButton
+                    android:id="@+id/button_player_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_player_two"
+                    style="@style/MultiplayerButtonStyle" />
+            </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/space_player_four"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <com.github.rongi.rotate_layout.layout.RotateLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:angle="90">
+                <com.dd.processbutton.iml.SubmitProcessButton
+                    android:id="@+id/button_player_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_player_four"
+                    style="@style/MultiplayerButtonStyle" />
+            </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

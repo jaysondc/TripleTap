@@ -49,6 +49,7 @@
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/game_recycler_grid"
         android:layout_width="400dp"

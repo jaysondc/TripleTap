@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="primary">#673AB7</color>
+    <color name="primary_dark">#512DA8</color>
+    <color name="primary_light">#D1C4E9</color>
+    <color name="accent">#4CAF50</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 
     <color name="black_overlay">#66000000</color>
 
@@ -11,7 +16,14 @@
     <color name="set_green">#008000</color>
     <color name="set_purple">#551A8B</color>
 
-    <!-- Misc colors -->
+    <!-- Card colors -->
     <color name="card_background_normal">#FFFFFF</color>
     <color name="card_background_highlighted">#ffecb3</color>
+
+    <!-- Button colors -->
+    <color name="button_background_normal">@color/primary</color>
+    <color name="button_background_pressed">@color/primary_dark</color>
+    <color name="button_background_progress">@color/primary_light</color>
+    <color name="button_background_complete">@color/accent</color>
+    <color name="button_background_error">#FF0000</color>
 </resources>

@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme.FullScreen" parent="@style/Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
@@ -14,6 +14,21 @@
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <!-- Styles for Multiplayer Buttons -->
+    <style name="MultiplayerButtonStyle">
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">24sp</item>
+        <item name="pb_colorComplete">@color/button_background_complete</item>
+        <item name="pb_colorNormal">@color/button_background_normal</item>
+        <item name="pb_colorPressed">@color/button_background_pressed</item>
+        <item name="pb_colorProgress">@color/button_background_progress</item>
+        <item name="pb_textComplete">@string/button_found_set</item>
+        <item name="pb_textProgress">@string/button_claim_set</item>
+        <item name="pb_textError">@string/button_not_a_set</item>
+        <item name="pb_colorError">@color/button_background_error</item>
     </style>
 
 </resources>
