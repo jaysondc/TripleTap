@@ -31,7 +31,7 @@ public class SetGameRecyclerAdapter
 
     // Store a reference to the GamePresenter so we can let it know when items
     // are clicked
-    private final GamePresenter mActionsListener;
+    private final GameContract.UserActionsListener mActionsListener;
 
     private final String LOG_TAG = getClass().getSimpleName();
 
@@ -43,7 +43,7 @@ public class SetGameRecyclerAdapter
      */
     public SetGameRecyclerAdapter(
             Context context,
-            GamePresenter actionsListener,
+            GameContract.UserActionsListener actionsListener,
             ArrayList<SetCard> setHand) {
         super();
         mSetHand = setHand;

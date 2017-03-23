@@ -30,6 +30,7 @@
     <string name="button_found_set">YOU FOUND A SET!</string>
     <string name="button_out_of_time">OUT OF TIME!</string>
     <string name="button_not_a_set">THAT\'S NOT A SET!</string>
+    <string name="button_wait">WAITING</string>
 
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>

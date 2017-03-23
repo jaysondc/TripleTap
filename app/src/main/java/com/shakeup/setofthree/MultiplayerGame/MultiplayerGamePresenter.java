@@ -19,9 +19,6 @@ public class MultiplayerGamePresenter extends GamePresenter
 
     private MultiplayerGameContract.View mMultiplayerGameView;
 
-    // The currently active player. 0 if nobody.
-    private int mActivePlayer = 0;
-
     // Scorekeeping
     private int mScorePlayerOne = 0;
     private int mScorePlayerTwo = 0;
@@ -51,16 +48,62 @@ public class MultiplayerGamePresenter extends GamePresenter
      */
     @Override
     public void playerButtonClick(int playerId) {
-        mActivePlayer = playerId;
         Log.d(LOG_TAG, "Player " + playerId + " clicked their button.");
 
-        mMultiplayerGameView.onPlayerButtonClick(playerId);
+        // Set the player as active
+        mMultiplayerGameView.setActivePlayer(playerId);
 
         // Unlock the board
         mMultiplayerGameView.setGameClickable(true);
 
-        // Start the appropriate button timer
-        mMultiplayerGameView.startPlayerCountdown(playerId);
+        // Start find a set timer
+        mMultiplayerGameView.startFindSetCountdown(playerId);
+        mMultiplayerGameView.setEnablePlayerButton(playerId, false);
+
+        // Start waiting for player timer and
+        // lock the other players buttons
+        for( int i = 1; i <= 4; i++ ){
+            if( i != playerId ){
+                mMultiplayerGameView.startWaitForPlayerCountdown(i);
+                mMultiplayerGameView.setEnablePlayerButton(i, false);
+            }
+        }
+    }
+
+    /**
+     * This method is called when the player finds a successful set
+     * @param playerId ID of the player
+     */
+    public void playerButtonSuccess(int playerId){
+        // Unlock all player buttons
+        for( int i = 1; i <= 4; i++ ){
+            mMultiplayerGameView.setEnablePlayerButton(i, true);
+        }
+
+        // Unlock the button and display a success message
+
+        // Reset the active player
+        mMultiplayerGameView.setActivePlayer(0);
+    }
+
+    /**
+     * This method is called when the player fails to find a set in time or claims
+     * something that isn't a set
+     * @param playerId ID of the player
+     * @param timedOut True if the player timed out. False if they claimed an invalid set
+     */
+    public void playerButtonPunish(int playerId, boolean timedOut){
+        // Unlock all player buttons
+        for( int i = 1; i <= 4; i++ ){
+            mMultiplayerGameView.setEnablePlayerButton(i, true);
+        }
+
+        // Lock the active player's button and display an error message
+        mMultiplayerGameView.setEnablePlayerButton(playerId, false);
+        mMultiplayerGameView.onPunishPlayer(playerId, timedOut);
+
+        // Reset the active player
+        mMultiplayerGameView.setActivePlayer(0);
     }
 
 

@@ -1,12 +1,15 @@
 package com.shakeup.setofthree.SetGame;
 
-import android.support.design.widget.Snackbar;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.shakeup.setgamelibrary.SetCard;
@@ -23,11 +26,11 @@ import java.util.ArrayList;
  */
 
 
-public class GameFragment extends Fragment
+public abstract class GameFragment extends Fragment
         implements GameContract.View, SetGameGridCallback {
 
     // Listener for presenter to handle all user input
-    protected GamePresenter mActionsListener;
+    protected GameContract.UserActionsListener mActionsListener;
 
     // GridView displaying the game board
     @javax.annotation.Resource
@@ -42,39 +45,31 @@ public class GameFragment extends Fragment
     private String LOG_TAG = this.getClass().getSimpleName();
 
     /**
-     * Allow another class to construct us
-     */
-    public GameFragment() {
-        // Requires empty public constructor
-    }
-    public static GameFragment newInstance() {
-        return new GameFragment();
-    }
-
-    /**
      * Run initial setup for creating a new game.
      * Any subclasses should override this method and set up
      * the root layout and presenter specific to their game mode.
      */
-//    @Nullable
-//    @Override
-//    public View onCreateView(
-//            LayoutInflater inflater,
-//            @Nullable ViewGroup container,
-//            @Nullable Bundle savedInstanceState) {
-//        View root = inflater.inflate(R.layout.fragment_game, container, false);
-//
-//        // Instance the presenter our fragment uses
-//        mActionsListener = new GamePresenter(this);
-//
-//        // Grab handlers for UI elements
-//        mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
-//
-//        // Initialize a game
-//        mActionsListener.initGame();
-//
-//        return root;
-//    }
+    public abstract View onCreateView(
+            LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState);
+
+    /**
+     * Updates the board in response to a successful set claim. Override this to handle
+     * UI elements in specific game modes
+     */
+    public abstract void onSetSuccess();
+
+    /**
+     * Handle actions that happen if we claimed an invalid set. Override this to handle
+     * UI elements differently in different game modes.
+     */
+    public abstract void onSetFailure();
+
+    /**
+     * Handle UI actions that happen when the game is over
+     */
+    public abstract void onGameOver();
 
 
     /**
@@ -251,43 +246,6 @@ public class GameFragment extends Fragment
         }
     }
 
-    /**
-     * Updates the board in response to a successful set claim. Override this to handle
-     * UI elements in specific game modes
-     */
-    @Override
-    public void onSetSuccess() {
-        // Do stuff in response to successful set claim
-        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
-                .show();
-    }
-
-    /**
-     * Handle actions that happen if we claimed an invalid set. Override this to handle
-     * UI elements differently in different game modes.
-     */
-    @Override
-    public void onSetFailure() {
-        // Do stuff in response to a failed set claim
-        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
-                .show();
-    }
-
-    /**
-     * Handle UI actions that happen when the game is over
-     */
-    @Override
-    public void onGameOver() {
-        // Do stuff in response to a failed set claim
-        Snackbar.make(getView(), getString(R.string.message_game_over), Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.message_restart), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mActionsListener.initGame();
-                    }
-                })
-                .show();
-    }
 
     /**
      * Public accessor to set the SetHand cards as Clickable
@@ -304,11 +262,11 @@ public class GameFragment extends Fragment
         return mRecyclerGridView.getChildAt(0).isClickable();
     }
 
-    public GamePresenter getActionsListener() {
+    public GameContract.UserActionsListener getActionsListener() {
         return mActionsListener;
     }
 
-    public void setActionsListener(GamePresenter mActionsListener) {
+    public void setActionsListener(GameContract.UserActionsListener mActionsListener) {
         this.mActionsListener = mActionsListener;
     }
 

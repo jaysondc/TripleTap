@@ -39,8 +39,8 @@ public class SetGameFragmentTests {
     @Mock SparseBooleanArray checkedLocations;
 
     // Create instance of game fragment to test and inject mock RecyclerGridView
-    @InjectMocks
-    private GameFragment mGameView = new GameFragment();
+    //@InjectMocks
+    //private GameFragment mGameView = new GameFragment();
 
     @Before
     public void setUpGameFragment(){
