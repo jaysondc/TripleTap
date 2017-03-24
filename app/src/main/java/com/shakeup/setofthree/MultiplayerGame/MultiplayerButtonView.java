@@ -18,7 +18,7 @@ public class MultiplayerButtonView {
     // Constants for Timers
     public static final long BUTTON_FIND_SET_TIMER_LENGTH = 3000;
     public static final long BUTTON_TIMER_TICK_INTERVAL = 15;
-    public static final long BUTTON_MESSAGE_LENGTH = 1000;
+    public static final long BUTTON_MESSAGE_LENGTH = 2000;
 
     private SubmitProcessButton mButton;
     private CountDownTimer mTimer;
@@ -126,6 +126,7 @@ public class MultiplayerButtonView {
             // Set the message differently depending on if its a Complete
             // or Error message
             if( progress == 100 ){
+                mButton.setClickable(true);
                 mButton.setCompleteText(message);
             } else {
                 mButton.setClickable(false);

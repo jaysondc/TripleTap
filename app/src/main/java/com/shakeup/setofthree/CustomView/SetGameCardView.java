@@ -275,9 +275,21 @@ public class SetGameCardView extends CardView{
     public void setChecked(boolean checked) {
         mIsChecked = checked;
         if ( mIsChecked ){
+            this.setBackgroundColor(
+                    ContextCompat.getColor(
+                            mContext,
+                            R.color.card_background_selected
+                    )
+            );
             this.setElevation(20);
         } else {
             this.setElevation(8);
+            this.setBackgroundColor(
+                    ContextCompat.getColor(
+                            mContext,
+                            R.color.card_background_normal
+                    )
+            );
         }
         invalidate();
     }
