@@ -13,8 +13,8 @@
 
     <!-- Default SET colors -->
     <color name="set_red">#FF0000</color>
-    <color name="set_green">#008000</color>
-    <color name="set_purple">#551A8B</color>
+    <color name="set_green">#000000</color>
+    <color name="set_purple">#03A9F4</color>
 
     <!-- Card colors -->
     <color name="card_background_normal">#FFFFFF</color>
