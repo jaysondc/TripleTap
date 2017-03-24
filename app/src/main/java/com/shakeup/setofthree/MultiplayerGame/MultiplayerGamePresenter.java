@@ -60,9 +60,7 @@ public class MultiplayerGamePresenter extends GamePresenter
         mMultiplayerGameView.setGameState(1);
 
         // Start the find a set timer for each button
-        for( int i = 1; i <= 4; i++ ){
-            mMultiplayerGameView.startFindSetCountdown(i);
-        }
+        mMultiplayerGameView.startFindSetCountdown();
     }
 
     /**
@@ -74,15 +72,20 @@ public class MultiplayerGamePresenter extends GamePresenter
     }
 
     /**
-     * This method is called when the player fails to find a set in time or claims
-     * something that isn't a set
-     * @param playerId ID of the player
+     * This method is called when the player fails to find a set in time
      */
-    public void playerButtonPunish(int playerId){
-        // Lock the active player's button and display an error message
-        mMultiplayerGameView.onPunishPlayer(playerId);
+    public void playerButtonTimedOut(){
+        // Set all buttons to their timeout state
+        mMultiplayerGameView.onPlayerTimedOut();
+
+        // Disable the board again
         mMultiplayerGameView.setGameClickable(false);
+
+        // Clear any cards that were clicked
         mMultiplayerGameView.clearChoices();
+
+        // Set the game state back to idle
+        mMultiplayerGameView.setGameState(0);
     }
 
 

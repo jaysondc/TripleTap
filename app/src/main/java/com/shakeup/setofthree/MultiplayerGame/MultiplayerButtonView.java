@@ -16,17 +16,17 @@ import com.shakeup.setofthree.R;
 public class MultiplayerButtonView {
 
     // Constants for Timers
-    public final long BUTTON_FIND_SET_TIMER_LENGTH = 3000;
-    public final long BUTTON_TIMER_TICK_INTERVAL = 15;
-    public final long BUTTON_MESSAGE_LENGTH = 1000;
+    public static final long BUTTON_FIND_SET_TIMER_LENGTH = 3000;
+    public static final long BUTTON_TIMER_TICK_INTERVAL = 15;
+    public static final long BUTTON_MESSAGE_LENGTH = 1000;
 
     private SubmitProcessButton mButton;
     private CountDownTimer mTimer;
     private Context mContext;
 
-    public void MultiplayerButtonView(SubmitProcessButton button, Context context){
-        mButton = mButton;
-        mContext = context
+    public MultiplayerButtonView(SubmitProcessButton button, Context context){
+        mButton = button;
+        mContext = context;
     }
 
 
@@ -92,11 +92,22 @@ public class MultiplayerButtonView {
             mTimer.cancel();
         }
         mTimer = new ButtonMessageCountdownTimer(
-                BUTTON_FIND_SET_TIMER_LENGTH,
+                BUTTON_MESSAGE_LENGTH,
                 BUTTON_TIMER_TICK_INTERVAL,
                 -1,
                 mContext.getResources().getString(R.string.button_not_a_set)
         );
+    }
+
+    /**
+     * Turns the button back to normal
+     */
+    public void resetButton(){
+        if(mTimer != null){
+            mTimer.cancel();
+        }
+        mButton.setClickable(true);
+        mButton.setProgress(0);
     }
 
     /**
@@ -123,6 +134,8 @@ public class MultiplayerButtonView {
 
             // Set the progress state
             mButton.setProgress(progress);
+
+            start();
         }
 
         @Override
@@ -168,6 +181,7 @@ public class MultiplayerButtonView {
             // Set the button as unclickable
             mButton.setClickable(false);
 
+            start();
         }
 
         @Override
@@ -188,9 +202,8 @@ public class MultiplayerButtonView {
 
         @Override
         public void onFinish() {
-            // Reset the button state
-            mButton.setProgress(0);
-            mButton.setClickable(true);
+            // No nothing as this state should get reset from the outside
+            // by the time the timer finishes
         }
     }
 }

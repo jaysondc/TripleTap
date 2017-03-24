@@ -12,13 +12,11 @@ public class MultiplayerGameContract extends GameContract {
      */
     interface View extends GameContract.View {
 
-        void startFindSetCountdown(int playerId);
-
-        void setEnablePlayerButton(int playerId, boolean enable);
+        void startFindSetCountdown();
 
         void setActivePlayer(int playerId);
 
-        void onPunishPlayer(int playerId);
+        void onPlayerTimedOut();
 
         void setGameState(int gameState);
 
@@ -33,7 +31,7 @@ public class MultiplayerGameContract extends GameContract {
 
         void playerButtonSuccess(int playerId);
 
-        void playerButtonPunish(int playerId);
+        void playerButtonTimedOut();
 
     }
 }

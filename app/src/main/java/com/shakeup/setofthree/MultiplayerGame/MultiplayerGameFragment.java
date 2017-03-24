@@ -17,18 +17,35 @@ import com.shakeup.setofthree.SetGame.GameFragment;
 
 import java.util.ArrayList;
 
+import static com.shakeup.setofthree.MultiplayerGame.MultiplayerButtonView.BUTTON_TIMER_TICK_INTERVAL;
+
 /**
  * Created by Jayson on 3/20/2017.
  *
  * This Fragment handles the UI for the Multiplayer variant of SetGame
+ *
+ * These timers handle displaying messages on individual player buttons.
+ * The message flow is represented by the following chart
+ *
+ *                Game Idle
+ *                    |
+ *          Player Clicks their Button
+ *                    |
+ *  Unlock the Board, Lock other players buttons,
+ *     Display "Find a Set" or "Wait" messages <TIMER>
+ *        |                         |
+ * <Found a set>        <Not a set or Out of time>
+ *        |                         |
+ *  Unlock board and          Unlock the board, lock player's
+ * Display success <Timer>   button with error message <TIMER>
+ *           \                  /
+ *       Unlock other players buttons
+ *                   |
+ *               Game Idle
  */
 
-public class MultiplayerGameFragment extends GameFragment implements MultiplayerGameContract.View {
 
-    // Constants for Timers
-    public final long BUTTON_FIND_SET_TIMER_LENGTH = 3000;
-    public final long BUTTON_TIMER_TICK_INTERVAL = 15;
-    public final long BUTTON_MESSAGE_LENGTH = 1000;
+public class MultiplayerGameFragment extends GameFragment implements MultiplayerGameContract.View {
 
     public final String LOG_TAG = this.getClass().getSimpleName();
 
@@ -40,7 +57,10 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
     MultiplayerGameContract.UserActionsListener mMultiplayerActionsListener;
 
     // Reference to player buttons
-    SubmitProcessButton playerOneButton, playerTwoButton, playerThreeButton, playerFourButton;
+    MultiplayerButtonView playerOneButtonView,
+            playerTwoButtonView,
+            playerThreeButtonView,
+            playerFourButtonView;
 
     // Int represents the active player at any given time
     int mActivePlayer = 0;
@@ -52,6 +72,10 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
     // 2 = Failed set claim, Active player disabled on timer, others enabled, board disabled
     // 3 = Successful set claim, all buttons enabled, board disabled
     int mGameState = 0;
+
+    // Reference to the timer we'll use to wait for the active player
+    // to find a set
+    FindSetCountdown mFindSetCountdownTimer;
 
     // Default constructor
     public MultiplayerGameFragment(){
@@ -101,15 +125,25 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
 
         }
 
-        playerOneButton = (SubmitProcessButton) root.findViewById(R.id.button_player_one);
-        playerTwoButton = (SubmitProcessButton) root.findViewById(R.id.button_player_two);
-        playerThreeButton = (SubmitProcessButton) root.findViewById(R.id.button_player_three);
-        playerFourButton = (SubmitProcessButton) root.findViewById(R.id.button_player_four);
+        SubmitProcessButton playerOneButton =
+                (SubmitProcessButton) root.findViewById(R.id.button_player_one);
+        SubmitProcessButton playerTwoButton =
+                (SubmitProcessButton) root.findViewById(R.id.button_player_two);
+        SubmitProcessButton playerThreeButton =
+                (SubmitProcessButton) root.findViewById(R.id.button_player_three);
+        SubmitProcessButton playerFourButton =
+                (SubmitProcessButton) root.findViewById(R.id.button_player_four);
 
-        playerThreeButton.setOnClickListener(new View.OnClickListener() {
+        // Wrap the buttons in our MultiplayerButtonView class so we can easily animate them
+        playerOneButtonView = new MultiplayerButtonView(playerOneButton, getContext());
+        playerTwoButtonView = new MultiplayerButtonView(playerTwoButton, getContext());
+        playerThreeButtonView = new MultiplayerButtonView(playerThreeButton, getContext());
+        playerFourButtonView = new MultiplayerButtonView(playerFourButton, getContext());
+
+        playerOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMultiplayerActionsListener.playerButtonClick(3);
+                mMultiplayerActionsListener.playerButtonClick(1);
             }
         });
         playerTwoButton.setOnClickListener(new View.OnClickListener() {
@@ -118,10 +152,10 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
                 mMultiplayerActionsListener.playerButtonClick(2);
             }
         });
-        playerOneButton.setOnClickListener(new View.OnClickListener() {
+        playerThreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMultiplayerActionsListener.playerButtonClick(1);
+                mMultiplayerActionsListener.playerButtonClick(3);
             }
         });
         playerFourButton.setOnClickListener(new View.OnClickListener() {
@@ -157,12 +191,16 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         // Set the new game state and let the timers handle button states
         setGameState(3);
 
-        // Display success message timer
-        DisplayButtonMessageCountdown timer =
-                new DisplayButtonMessageCountdown(
-                        mActivePlayer,
-                        BUTTON_MESSAGE_LENGTH,
-                        BUTTON_TIMER_TICK_INTERVAL);
+        // Set the buttons to the success state
+        for( int i = 1; i <= 4; i++ ){
+            if( i == mActivePlayer ){
+                getPlayerButton(i).activePlayerSuccess();
+            } else {
+                getPlayerButton(i).resetButton();
+            }
+        }
+        // Cancel the local timer since the user took an action early.
+        mFindSetCountdownTimer.cancel();
 
     }
 
@@ -175,12 +213,17 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         // Set the new game state and let the timers handle button states
         setGameState(2);
 
-        // Display failure message timer
-        DisplayButtonMessageCountdown timer =
-                new DisplayButtonMessageCountdown(
-                        mActivePlayer,
-                        BUTTON_MESSAGE_LENGTH,
-                        BUTTON_TIMER_TICK_INTERVAL);
+        // Set the buttons to the failure state
+        for( int i = 1; i <= 4; i++ ){
+            if( i == mActivePlayer ){
+                getPlayerButton(i).activePlayerFailure();
+            } else {
+                getPlayerButton(i).resetButton();
+            }
+        }
+
+        // Cancel the local timer since the user took an action early.
+        mFindSetCountdownTimer.cancel();
     }
 
     @Override
@@ -208,37 +251,39 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
 
     /**
      * Start a set countdown for a specified player
-     * @param playerId
      */
     @Override
-    public void startFindSetCountdown(int playerId){
-        FindSetCountdown timer = new FindSetCountdown(
-                playerId,
-                BUTTON_FIND_SET_TIMER_LENGTH,
-                BUTTON_TIMER_TICK_INTERVAL);
+    public void startFindSetCountdown(){
+        // Start the State 1 waiting states for every button
+        for( int i = 1; i <= 4; i++ ){
+            if( i == mActivePlayer ){
+                getPlayerButton(i).activePlayerWait();
+            } else {
+                getPlayerButton(i).otherPlayerWait();
+            }
+        }
+
+        // Start a timer to wait for these buttons to timeout
+        mFindSetCountdownTimer = new FindSetCountdown(
+                MultiplayerButtonView.BUTTON_FIND_SET_TIMER_LENGTH,
+                BUTTON_TIMER_TICK_INTERVAL
+        );
     }
 
 
     /**
      * This sets up an error message for the player on a timer while locking their button
-     * @param playerId
      */
     @Override
-    public void onPunishPlayer(int playerId) {
-        DisplayButtonMessageCountdown timer =
-                new DisplayButtonMessageCountdown(
-                        playerId,
-                        BUTTON_MESSAGE_LENGTH,
-                        BUTTON_TIMER_TICK_INTERVAL);
-    }
-
-    /**
-     * This utility sets the Clickable attribute for a specific
-     * @param playerId
-     */
-    @Override
-    public void setEnablePlayerButton(int playerId, boolean enable){
-        getPlayerButton(playerId).setClickable(enable);
+    public void onPlayerTimedOut() {
+        // Handle state where the active player timed out
+        for( int i = 1; i <= 4; i++ ){
+            if( i == mActivePlayer ){
+                getPlayerButton(i).activePlayerTimeout();
+            } else {
+                getPlayerButton(i).resetButton();
+            }
+        }
     }
 
     /**
@@ -246,201 +291,46 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
      * @param playerId PlayerID of the button we want
      * @return ActionProcessButton associated with that player
      */
-    public SubmitProcessButton getPlayerButton(int playerId){
+    public MultiplayerButtonView getPlayerButton(int playerId){
         switch ( playerId ){
             case 1:
-                return playerOneButton;
+                return playerOneButtonView;
             case 2:
-                return playerTwoButton;
+                return playerTwoButtonView;
             case 3:
-                return playerThreeButton;
+                return playerThreeButtonView;
             case 4:
-                return playerFourButton;
+                return playerFourButtonView;
             default:
-                return playerOneButton;
+                return null;
         }
     }
 
 
 
-    /*
-     * These timers handle displaying messages on individual player buttons.
-     * The message flow is represented by the following chart
-     *
-     *                Game Idle
-     *                    |
-     *          Player Clicks their Button
-     *                    |
-     *  Unlock the Board, Lock other players buttons,
-     *     Display "Find a Set" or "Wait" messages <TIMER>
-     *        |                         |
-     * <Found a set>        <Not a set or Out of time>
-     *        |                         |
-     *  Unlock board and          Unlock the board, lock player's
-     * Display success <Timer>   button with error message <TIMER>
-     *           \                  /
-     *       Unlock other players buttons
-     *                   |
-     *               Game Idle
-     */
-
     /**
-     * Timer class to handle starting the "Find a SET countdown"
+     * Timer class to handle starting the "Find a SET countdown". It will notify
+     * the presenter if our buttons time out
      */
     public class FindSetCountdown extends CountDownTimer {
 
-        long mStartTime;
         SubmitProcessButton mPlayerButton;
         int mPlayerId;
 
-        public FindSetCountdown(int playerId, long startTime, long interval) {
+        public FindSetCountdown(long startTime, long interval) {
             super(startTime, interval);
-
-            // Save member references
-            mStartTime = startTime;
-            mPlayerButton = getPlayerButton(playerId);
-            mPlayerId = playerId;
-
-            // Set error messages based on whether we are the active player
-            if( mPlayerId == mActivePlayer ){
-                mPlayerButton.setErrorText(getString(R.string.button_not_a_set));
-            } else {
-                mPlayerButton.setErrorText(getString(R.string.button_wait));
-                mPlayerButton.setProgress(-1);
-            }
-
-            // Disable clicks on this button
-            setEnablePlayerButton(mPlayerId, false);
 
             start();
         }
 
         @Override
         public void onFinish() {
-            if( mPlayerId == mActivePlayer ){
-                // Let the presenter know our button ran out of time
-                mMultiplayerActionsListener.playerButtonPunish(mPlayerId);
-            } else {
-                // Set other buttons back to normal
-                mPlayerButton.setProgress(0);
-                setEnablePlayerButton(mPlayerId, true);
-            }
-        }
-
-        /**
-         * Update the progress bar and handle changes to the GameState
-         */
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-            switch( mGameState ){
-                case 1: // Waiting for set claim
-                    int progressPercent;
-
-                    double start = (double) mStartTime;
-                    double timeLeft = (double) millisUntilFinished;
-
-                    progressPercent = (int) Math.floor((1 - (timeLeft / start)) * 100);
-
-                    // Only display progress for the active player.
-                    // Other players wait in error mode
-                    if( mPlayerId == mActivePlayer ){
-                        mPlayerButton.setProgress(progressPercent);
-                    }
-                    break;
-
-                case 2: // Failed set claim
-                    // Lock the board
-                    setGameClickable(false);
-                    // Stop the timer
-                    cancel();
-                    if( mPlayerId == mActivePlayer ){
-                        mMultiplayerActionsListener.playerButtonPunish(mPlayerId);
-                        // Button remains locked
-                    } else {
-                        // For non-active player buttons, just set normal state
-                        mPlayerButton.setProgress(0);
-                        setEnablePlayerButton(mPlayerId, true);
-                    }
-                    // Reset Game State
-                    setGameState(0);
-                    // Reset the active player
-                    setActivePlayer(0);
-                    break;
-
-                case 3: // Successful set claim
-                    // Lock the board
-                    setGameClickable(false);
-                    // Stop the timer
-                    cancel();
-                    if( mPlayerId == mActivePlayer ){
-                        mPlayerButton.setProgress(100);
-                        setEnablePlayerButton(mPlayerId, true);
-                    } else {
-                        // For non-active player buttons, just set normal state
-                        mPlayerButton.setProgress(0);
-                        setEnablePlayerButton(mPlayerId, true);
-                    }
-                    // Reset Game State
-                    setGameState(0);
-                    // Reset the active player
-                    setActivePlayer(0);
-                    break;
-            }
-        }
-    }
-
-
-    /**
-     * Timer class to handle starting the "You found a set!"
-     * or "Out of time!" or "Not a Set!" countdown
-     */
-    public class DisplayButtonMessageCountdown extends CountDownTimer {
-
-        long mStartTime;
-        SubmitProcessButton mPlayerButton;
-        int mPlayerId;
-
-        public DisplayButtonMessageCountdown(
-                int playerId, long startTime, long interval) {
-            super(startTime, interval);
-
-            // Save member references
-            mStartTime = startTime;
-            mPlayerButton = getPlayerButton(playerId);
-            mPlayerId = playerId;
-
-            // Set the appropriate message depending on whether or not we timed out
-            switch( mGameState ){
-                case 1:
-                    mPlayerButton.setErrorText(getString(R.string.button_out_of_time));
-                    mPlayerButton.setProgress(-1);
-                    setEnablePlayerButton(mPlayerId, false);
-                    break;
-                case 2:
-                    mPlayerButton.setErrorText(getString(R.string.button_not_a_set));
-                    mPlayerButton.setProgress(-1);
-                    setEnablePlayerButton(mPlayerId, false);
-                    break;
-                case 3:
-                    mPlayerButton.setCompleteText(getString(R.string.button_found_set));
-                    mPlayerButton.setProgress(100);
-                    setEnablePlayerButton(mPlayerId, true);
-                    break;
-            }
-            start();
-        }
-
-        @Override
-        public void onFinish() {
-            // Set the button to normal and enable it
-            mPlayerButton.setProgress(0);
-            setEnablePlayerButton(mPlayerId, true);
+            mMultiplayerActionsListener.playerButtonTimedOut();
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            // Nothing to do here
+            // Do nothing
         }
     }
 }
