@@ -20,10 +20,7 @@ public class MultiplayerGamePresenter extends GamePresenter
     private MultiplayerGameContract.View mMultiplayerGameView;
 
     // Scorekeeping
-    private int mScorePlayerOne = 0;
-    private int mScorePlayerTwo = 0;
-    private int mScorePlayerThree = 0;
-    private int mScorePlayerFour = 0;
+    private int[] mScoreArray = new int[4];
 
     // Supply a default constructor
     public MultiplayerGamePresenter(){
@@ -37,6 +34,12 @@ public class MultiplayerGamePresenter extends GamePresenter
             @NonNull MultiplayerGameContract.View multiplayerGameView) {
         mMultiplayerGameView =
                 checkNotNull(multiplayerGameView, "multiplayerGameView cannot be null!");
+
+        // Initialize Score Array
+        mScoreArray[0] = 0;
+        mScoreArray[1] = 0;
+        mScoreArray[2] = 0;
+        mScoreArray[3] = 0;
 
         setGameView((GameContract.View) mMultiplayerGameView);
     }
@@ -67,8 +70,9 @@ public class MultiplayerGamePresenter extends GamePresenter
      * This method is called when the player finds a successful set
      * @param playerId ID of the player
      */
-    public void playerButtonSuccess(int playerId){
-        // Display success button message
+    public void playerSuccess(int playerId){
+        mScoreArray[playerId-1]++;
+        mMultiplayerGameView.updatePlayerScore(playerId, mScoreArray[playerId-1]);
     }
 
     /**

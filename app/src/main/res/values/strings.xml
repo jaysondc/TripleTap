@@ -27,9 +27,9 @@
     <string name="button_player_three">Player 3</string>
     <string name="button_player_four">Player 4</string>
     <string name="button_claim_set">TAP A SET!</string>
-    <string name="button_found_set">YOU FOUND A SET!</string>
+    <string name="button_found_set">SET!</string>
     <string name="button_out_of_time">OUT OF TIME!</string>
-    <string name="button_not_a_set">THAT\'S NOT A SET!</string>
+    <string name="button_not_a_set">NOT A SET!</string>
     <string name="button_wait">WAITING</string>
 
     <!-- Extra string constants -->

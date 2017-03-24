@@ -20,6 +20,8 @@ public class MultiplayerGameContract extends GameContract {
 
         void setGameState(int gameState);
 
+        void updatePlayerScore(int playerId, int playerScore);
+
     }
 
     /**
@@ -29,7 +31,7 @@ public class MultiplayerGameContract extends GameContract {
 
         void playerButtonClick(int playerId);
 
-        void playerButtonSuccess(int playerId);
+        void playerSuccess(int playerId);
 
         void playerButtonTimedOut();
 

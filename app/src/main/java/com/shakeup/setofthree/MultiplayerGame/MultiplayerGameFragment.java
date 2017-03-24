@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import com.dd.processbutton.iml.SubmitProcessButton;
 import com.shakeup.setgamelibrary.SetCard;
@@ -45,7 +46,9 @@ import static com.shakeup.setofthree.MultiplayerGame.MultiplayerButtonView.BUTTO
  */
 
 
-public class MultiplayerGameFragment extends GameFragment implements MultiplayerGameContract.View {
+public class MultiplayerGameFragment
+        extends GameFragment
+        implements MultiplayerGameContract.View {
 
     public final String LOG_TAG = this.getClass().getSimpleName();
 
@@ -61,6 +64,8 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
             playerTwoButtonView,
             playerThreeButtonView,
             playerFourButtonView;
+
+    TextView[] mPlayerScoreArray = new TextView[4];
 
     // Int represents the active player at any given time
     int mActivePlayer = 0;
@@ -165,6 +170,15 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
             }
         });
 
+        // Set up Score displays
+        mPlayerScoreArray[0] = (TextView) root.findViewById(R.id.score_player_one);
+        mPlayerScoreArray[1] = (TextView) root.findViewById(R.id.score_player_two);
+        mPlayerScoreArray[2] = (TextView) root.findViewById(R.id.score_player_three);
+        mPlayerScoreArray[3] = (TextView) root.findViewById(R.id.score_player_four);
+        for(TextView view : mPlayerScoreArray){
+            view.setText("Score: 0");
+        }
+
         // Initialize a game
         mMultiplayerActionsListener.initGame();
 
@@ -185,11 +199,18 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
 
     @Override
     public void onSetSuccess() {
-        // Do stuff in response to successful SET claim
-        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
-                .show();
+//        // Do stuff in response to successful SET claim
+//        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
+//                .show();
+
         // Set the new game state and let the timers handle button states
         setGameState(3);
+
+        // Disable game clicks
+        setGameClickable(false);
+
+        // Let the presenter know someone found a set
+        mMultiplayerActionsListener.playerSuccess(mActivePlayer);
 
         // Set the buttons to the success state
         for( int i = 1; i <= 4; i++ ){
@@ -201,17 +222,19 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
         }
         // Cancel the local timer since the user took an action early.
         mFindSetCountdownTimer.cancel();
-
     }
 
     @Override
     public void onSetFailure() {
-        // Do stuff in response to a failed set claim
-        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
-                .show();
+//        // Do stuff in response to a failed set claim
+//        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
+//                .show();
 
         // Set the new game state and let the timers handle button states
         setGameState(2);
+
+        // Disable game clicks
+        setGameClickable(false);
 
         // Set the buttons to the failure state
         for( int i = 1; i <= 4; i++ ){
@@ -304,6 +327,11 @@ public class MultiplayerGameFragment extends GameFragment implements Multiplayer
             default:
                 return null;
         }
+    }
+
+    public void updatePlayerScore(int playerId, int playerScore){
+        String scoreString = "Score: " + playerScore;
+        mPlayerScoreArray[playerId-1].setText(scoreString);
     }
 
 
