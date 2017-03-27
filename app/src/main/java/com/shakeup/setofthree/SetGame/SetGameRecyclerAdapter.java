@@ -68,6 +68,15 @@ public class SetGameRecyclerAdapter
                 parent,
                 false);
 
+//        UNUSED IMPLEMENTATION FOR DYNAMICALLY SIZED CARDS
+//        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
+//                (parent.getMeasuredWidth() / 3 - 80),
+//                (parent.getMeasuredHeight() / 4 - 30)
+//        );
+//        params.setMargins(15, 15, 15, 15);
+//
+//        cardView.setLayoutParams(params);
+
         // Create a ViewHolder for the configured card
         return new SetCardViewHolder(cardView);
     }
