@@ -116,8 +116,6 @@ public abstract class SetGameFragmentAndroidTests{
             highlightSetTest();
             clickRandomSet();
 
-            // This check isn't valid because we aren't always going to use snackbar messages
-            //checkSnackBarDisplayedByMessage(R.string.message_found_set);
         }
     }
 

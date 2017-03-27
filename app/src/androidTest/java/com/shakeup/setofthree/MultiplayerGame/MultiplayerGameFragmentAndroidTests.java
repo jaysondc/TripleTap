@@ -18,8 +18,10 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
  * Created by Jayson on 3/10/2017.
@@ -86,11 +88,13 @@ public class MultiplayerGameFragmentAndroidTests extends SetGameFragmentAndroidT
     public void findMultipleSetsTest(){
         for (int i = 0; i < 23; i++){
             // Click our player button first to enable the board
-            onView(withId(R.id.button_player_one)).perform(clickExplicit);
+            onView(withId(R.id.button_player_one))
+                    .perform(clickExplicit);
             highlightSetTest();
             clickRandomSet();
 
-            checkSnackBarDisplayedByMessage(R.string.message_found_set);
+//            onView(withId(R.id.button_player_one))
+//                    .check(matches(withText(R.string.button_found_set)));
         }
     }
 

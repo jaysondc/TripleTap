@@ -287,10 +287,18 @@ public class MultiplayerGameFragment
         }
 
         // Start a timer to wait for these buttons to timeout
-        mFindSetCountdownTimer = new FindSetCountdown(
-                MultiplayerButtonView.BUTTON_FIND_SET_TIMER_LENGTH,
-                BUTTON_TIMER_TICK_INTERVAL
-        );
+        // Start a shorter timer if we are in debug mode
+        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
+            mFindSetCountdownTimer = new FindSetCountdown(
+                    MultiplayerButtonView.BUTTON_FIND_SET_TIMER_DEBUG_LENGTH,
+                    BUTTON_TIMER_TICK_INTERVAL
+            );
+        } else {
+            mFindSetCountdownTimer = new FindSetCountdown(
+                    MultiplayerButtonView.BUTTON_FIND_SET_TIMER_LENGTH,
+                    BUTTON_TIMER_TICK_INTERVAL
+            );
+        }
     }
 
 

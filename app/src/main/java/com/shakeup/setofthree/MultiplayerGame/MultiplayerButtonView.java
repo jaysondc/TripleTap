@@ -17,6 +17,7 @@ public class MultiplayerButtonView {
 
     // Constants for Timers
     public static final long BUTTON_FIND_SET_TIMER_LENGTH = 3000;
+    public static final long BUTTON_FIND_SET_TIMER_DEBUG_LENGTH = 1000;
     public static final long BUTTON_TIMER_TICK_INTERVAL = 15;
     public static final long BUTTON_MESSAGE_LENGTH = 2000;
 
@@ -34,24 +35,46 @@ public class MultiplayerButtonView {
         if(mTimer != null){
             mTimer.cancel();
         }
-        mTimer = new ButtonWaitingCountdownTimer(
-                BUTTON_FIND_SET_TIMER_LENGTH,
-                BUTTON_TIMER_TICK_INTERVAL,
-                true,
-                mContext.getResources().getString(R.string.button_claim_set)
-        );
+
+        // Set a shorter timer if we're in debug mode
+        if( mContext.getResources().getBoolean(R.bool.is_debug) ){
+            mTimer = new ButtonWaitingCountdownTimer(
+                    BUTTON_FIND_SET_TIMER_DEBUG_LENGTH,
+                    BUTTON_TIMER_TICK_INTERVAL,
+                    true,
+                    mContext.getResources().getString(R.string.button_claim_set)
+            );
+        } else {
+            mTimer = new ButtonWaitingCountdownTimer(
+                    BUTTON_FIND_SET_TIMER_LENGTH,
+                    BUTTON_TIMER_TICK_INTERVAL,
+                    true,
+                    mContext.getResources().getString(R.string.button_claim_set)
+            );
+        }
     }
 
     public void otherPlayerWait(){
         if(mTimer != null){
             mTimer.cancel();
         }
-        mTimer = new ButtonWaitingCountdownTimer(
-                BUTTON_FIND_SET_TIMER_LENGTH,
-                BUTTON_TIMER_TICK_INTERVAL,
-                false,
-                mContext.getResources().getString(R.string.button_wait)
-        );
+
+        // Set a shorter timer if we're in debug mode
+        if( mContext.getResources().getBoolean(R.bool.is_debug) ){
+            mTimer = new ButtonWaitingCountdownTimer(
+                    BUTTON_FIND_SET_TIMER_DEBUG_LENGTH,
+                    BUTTON_TIMER_TICK_INTERVAL,
+                    true,
+                    mContext.getResources().getString(R.string.button_claim_set)
+            );
+        } else {
+            mTimer = new ButtonWaitingCountdownTimer(
+                    BUTTON_FIND_SET_TIMER_LENGTH,
+                    BUTTON_TIMER_TICK_INTERVAL,
+                    false,
+                    mContext.getResources().getString(R.string.button_wait)
+            );
+        }
     }
 
     /**
@@ -195,8 +218,10 @@ public class MultiplayerButtonView {
             progressPercent = (int) Math.floor((1 - (timeLeft / start)) * 100);
 
             // Only display progress for the active player.
+            // Only display progress animations if we aren't in debug mode
             // Other players wait in error mode
-            if( mIsActivePlayer ){
+            if( mIsActivePlayer &&
+                    !mContext.getResources().getBoolean(R.bool.is_debug)){
                 mButton.setProgress(progressPercent);
             }
         }
