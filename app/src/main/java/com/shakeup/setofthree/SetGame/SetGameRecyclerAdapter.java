@@ -203,7 +203,7 @@ public class SetGameRecyclerAdapter
             isChecked = ((SetGameCardView) v).isChecked();
 
             // Notify the GamePresenter that we've been clicked
-            mActionsListener.setCardClicked();
+            mActionsListener.onSetCardClick();
         }
     }
 }

@@ -10,14 +10,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
 
-    private final MainMenuContract.View mMainMenuView;
+    private final MainMenuContract.MainView mMainMenuView;
 
     /**
-     * Public constructor used to set up the presenter. Requires a reference to the calling View.
-     * @param mainMenuView A reference to the calling View
+     * Public constructor used to set up the presenter. Requires a reference to the calling MainView.
+     * @param mainMenuView A reference to the calling MainView
      */
     public MainMenuPresenter(
-            @NonNull MainMenuContract.View mainMenuView) {
+            @NonNull MainMenuContract.MainView mainMenuView) {
         mMainMenuView = checkNotNull(mainMenuView, "mainMenu cannot be null!");
     }
 
@@ -25,12 +25,17 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
      * Open a single player game in normal mode
      */
     @Override
-    public void startSinglePlayerNormal() {
-        mMainMenuView.openSinglePlayerNormal();
+    public void onSinglePlayerNormalClick() {
+        mMainMenuView.openSinglePlayerOptions();
     }
 
     @Override
-    public void startSinglePlayerTimeAttack() {
+    public void onSinglePlayerTimeAttackClick() {
+
+    }
+
+    @Override
+    public void onSinglePlayerClick() {
 
     }
 
@@ -39,27 +44,35 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
      * @param numPlayers
      */
     @Override
-    public void startMultiPlayer(int numPlayers) {
-        mMainMenuView.openMultiPlayer(numPlayers);
+    public void onMultiPlayerOptionClick(int numPlayers) {
+        mMainMenuView.openMultiplayerOptions();
+    }
+
+    /**
+     * Open start the view handler to show the multiplayer options
+     */
+    @Override
+    public void onMultiplayerClick() {
+        mMainMenuView.openMultiplayerOptions();
     }
 
     @Override
-    public void openLeaderBoard() {
+    public void onLeaderBoardClick() {
 
     }
 
     @Override
-    public void openSettings() {
+    public void onSettingsClick() {
 
     }
 
     @Override
-    public void openHowToPlay() {
+    public void ohHowToPlayClick() {
 
     }
 
     @Override
-    public void exitGame() {
+    public void onExitGameClick() {
         // Open exit confirm dialog in the view
     }
 }

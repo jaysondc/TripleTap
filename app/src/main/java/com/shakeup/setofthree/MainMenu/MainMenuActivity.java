@@ -29,7 +29,7 @@ public class MainMenuActivity extends FullScreenActivity {
         // Add the fragment to the layout
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.content_frame, mainMenuFragment);
+        transaction.add(R.id.menu_frame, mainMenuFragment);
         transaction.commit();
     }
 }

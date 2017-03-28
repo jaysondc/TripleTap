@@ -29,11 +29,11 @@ public class MultiplayerGameContract extends GameContract {
      */
     interface UserActionsListener extends GameContract.UserActionsListener {
 
-        void playerButtonClick(int playerId);
+        void onPlayerButtonClick(int playerId);
 
-        void playerSuccess(int playerId);
+        void onPlayerSuccess(int playerId);
 
-        void playerButtonTimedOut();
+        void onPlayerButtonTimedOut();
 
     }
 }

@@ -50,7 +50,7 @@ public class MultiplayerGamePresenter extends GamePresenter
      * @param playerId ID of the player who clicked their button
      */
     @Override
-    public void playerButtonClick(int playerId) {
+    public void onPlayerButtonClick(int playerId) {
         Log.d(LOG_TAG, "Player " + playerId + " clicked their button.");
 
         // Set the player as active
@@ -70,7 +70,7 @@ public class MultiplayerGamePresenter extends GamePresenter
      * This method is called when the player finds a successful set
      * @param playerId ID of the player
      */
-    public void playerSuccess(int playerId){
+    public void onPlayerSuccess(int playerId){
         mScoreArray[playerId-1]++;
         mMultiplayerGameView.updatePlayerScore(playerId, mScoreArray[playerId-1]);
     }
@@ -78,7 +78,7 @@ public class MultiplayerGamePresenter extends GamePresenter
     /**
      * This method is called when the player fails to find a set in time
      */
-    public void playerButtonTimedOut(){
+    public void onPlayerButtonTimedOut(){
         // Set all buttons to their timeout state
         mMultiplayerGameView.onPlayerTimedOut();
 

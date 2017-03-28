@@ -85,7 +85,7 @@ public class SetGamePresenterTests {
         );
 
         // Submit the SET expecting true
-        mGamePresenter.submitSet(
+        mGamePresenter.onSubmitSet(
                 first,
                 second,
                 third
@@ -101,7 +101,7 @@ public class SetGamePresenterTests {
 
 
         // Submit the set expecting false
-        mGamePresenter.submitSet(
+        mGamePresenter.onSubmitSet(
                 third,
                 second,
                 first
@@ -118,7 +118,7 @@ public class SetGamePresenterTests {
      */
     @Test
     public void setCardClickedTest(){
-        mGamePresenter.setCardClicked();
+        mGamePresenter.onSetCardClick();
 
         verify(mGameView).onSetCardClicked();
     }

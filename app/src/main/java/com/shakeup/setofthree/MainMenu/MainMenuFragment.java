@@ -3,12 +3,13 @@ package com.shakeup.setofthree.MainMenu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameActivity;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameActivity;
 
@@ -16,7 +17,9 @@ import com.shakeup.setofthree.SetGame.GameActivity;
  * Created by Jayson on 3/2/2017.
  */
 
-public class MainMenuFragment extends android.support.v4.app.Fragment implements MainMenuContract.View {
+public class MainMenuFragment
+        extends android.support.v4.app.Fragment
+        implements MainMenuContract.MainView {
 
     // Presenter to handle all user actions
     MainMenuPresenter mActionsListener;
@@ -51,12 +54,18 @@ public class MainMenuFragment extends android.support.v4.app.Fragment implements
          * Set up click listeners for each button
          */
         // Grab all button views
-        AppCompatButton singlePlayerButton = (AppCompatButton) root.findViewById(R.id.button_single_player);
-        AppCompatButton multiplayerButton = (AppCompatButton) root.findViewById(R.id.button_multi_player);
-        AppCompatButton howToPlayButton = (AppCompatButton) root.findViewById(R.id.button_how_to_play);
-        AppCompatButton leaderboardButton = (AppCompatButton) root.findViewById(R.id.button_leaderboard);
-        AppCompatButton settingsButton = (AppCompatButton) root.findViewById(R.id.button_settings);
-        AppCompatButton exitButton = (AppCompatButton) root.findViewById(R.id.button_exit);
+        AppCompatButton singlePlayerButton =
+                (AppCompatButton) root.findViewById(R.id.button_single_player);
+        AppCompatButton multiplayerButton =
+                (AppCompatButton) root.findViewById(R.id.button_multi_player);
+        AppCompatButton howToPlayButton =
+                (AppCompatButton) root.findViewById(R.id.button_how_to_play);
+        AppCompatButton leaderboardButton =
+                (AppCompatButton) root.findViewById(R.id.button_leaderboard);
+        AppCompatButton settingsButton =
+                (AppCompatButton) root.findViewById(R.id.button_settings);
+        AppCompatButton exitButton =
+                (AppCompatButton) root.findViewById(R.id.button_exit);
 
         // Set listeners to call methods in the presenter
         singlePlayerButton.setOnClickListener(new View.OnClickListener() {
@@ -64,45 +73,50 @@ public class MainMenuFragment extends android.support.v4.app.Fragment implements
             public void onClick(View v) {
                 // This will eventually open different single player options but for
                 // now just start a normal single player game
-                mActionsListener.startSinglePlayerNormal();
+                // mActionsListener.onSinglePlayerClick();
             }
         });
 
         multiplayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This will eventually open different multiplayer options but for now
-                // it will just start a 2 player game
-                mActionsListener.startMultiPlayer(4);
+                // Show multiplayer options
+                mActionsListener.onMultiplayerClick();
             }
         });
-
 
         return root;
     }
 
+    /**
+     * Swaps in the Single Player Options Fragment
+     */
     @Override
-    public void openSinglePlayerNormal() {
-        // Launch single player activity
+    public void openSinglePlayerOptions() {
         Intent intent = new Intent(getContext(), GameActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Swaps in the Single Player Options Fragment
+     */
     @Override
-    public void openMultiPlayer(int numPlayers) {
-        // Launch multi player with specified number of players
-        Intent intent = new Intent(getContext(), MultiplayerGameActivity.class);
-        intent.putExtra(getString(R.string.extra_num_players), numPlayers);
-        startActivity(intent);
+    public void openMultiplayerOptions() {
+        // Swap in the Multiplayer Menu Fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.menu_frame, MainMenuMultiplayerFragment.newInstance());
+        transaction.commit();
     }
 
-    @Override
-    public void showSinglePlayerOptions() {
+//    @Override
+//    public void openMultiPlayer(int numPlayers) {
+//        // Launch multi player with specified number of players
+//        Intent intent = new Intent(getContext(), MultiplayerGameActivity.class);
+//        intent.putExtra(getString(R.string.extra_num_players), numPlayers);
+//        startActivity(intent);
+//    }
 
-    }
 
-    @Override
-    public void showMultiPlayerOptions() {
 
-    }
 }

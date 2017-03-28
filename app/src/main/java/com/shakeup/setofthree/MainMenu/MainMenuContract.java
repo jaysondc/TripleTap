@@ -14,15 +14,11 @@ public class MainMenuContract {
      * The view must implement the following methods to be used by the presenter
      */
 
-    interface View {
+    interface MainView {
 
-        void showSinglePlayerOptions();
+        void openMultiplayerOptions();
 
-        void showMultiPlayerOptions();
-
-        void openSinglePlayerNormal();
-
-        void openMultiPlayer(int numPlayers);
+        void openSinglePlayerOptions();
 
     }
 
@@ -32,19 +28,23 @@ public class MainMenuContract {
 
     interface UserActionsListener {
 
-        void startSinglePlayerNormal();
+        void onSinglePlayerNormalClick();
 
-        void startSinglePlayerTimeAttack();
+        void onSinglePlayerTimeAttackClick();
 
-        void startMultiPlayer(int numPlayers);
+        void onMultiPlayerOptionClick(int numPlayers);
 
-        void openLeaderBoard();
+        void onSinglePlayerClick();
 
-        void openHowToPlay();
+        void onMultiplayerClick();
 
-        void openSettings();
+        void onLeaderBoardClick();
 
-        void exitGame();
+        void ohHowToPlayClick();
+
+        void onSettingsClick();
+
+        void onExitGameClick();
 
     }
 }

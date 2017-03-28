@@ -71,7 +71,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
      * @param indexThree Index of the third card in the set.
      */
     @Override
-    public void submitSet(int indexOne, int indexTwo, int indexThree) {
+    public void onSubmitSet(int indexOne, int indexTwo, int indexThree) {
 
         // Resolve set claim and obtain result
         boolean result = mSetGame.claimSet(indexOne, indexTwo, indexThree);
@@ -88,7 +88,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
             // Call the GameOver method if the game is over,
             // otherwise handle SetSuccess
             if( mSetGame.getIsGameOver() ){
-                mGameView.onGameOver();
+                mGameView.showGameOver();
             } else {
                 mGameView.onSetSuccess();
             }
@@ -99,7 +99,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
 
     }
 
-    public void setCardClicked(){
+    public void onSetCardClick(){
 
         mGameView.onSetCardClicked();
 
@@ -124,7 +124,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
     /**
      * Highlight a single card from a valid set as a hint
      */
-    public void showHint(){
+    public void onShowHintClick(){
         // If there are any sets left on the board
         if (mSetGame.getNumAvailableSets() > 0) {
             // Get a random set

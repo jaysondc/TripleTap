@@ -124,10 +124,11 @@ public class MultiplayerGameFragment
             case 3:
                 // Hide player 4
                 root.findViewById(R.id.space_player_four).setVisibility(View.GONE);
+                break;
             case 2:
                 root.findViewById(R.id.space_player_four).setVisibility(View.GONE);
                 root.findViewById(R.id.space_player_three).setVisibility(View.GONE);
-
+                break;
         }
 
         SubmitProcessButton playerOneButton =
@@ -148,25 +149,25 @@ public class MultiplayerGameFragment
         playerOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMultiplayerActionsListener.playerButtonClick(1);
+                mMultiplayerActionsListener.onPlayerButtonClick(1);
             }
         });
         playerTwoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMultiplayerActionsListener.playerButtonClick(2);
+                mMultiplayerActionsListener.onPlayerButtonClick(2);
             }
         });
         playerThreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMultiplayerActionsListener.playerButtonClick(3);
+                mMultiplayerActionsListener.onPlayerButtonClick(3);
             }
         });
         playerFourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMultiplayerActionsListener.playerButtonClick(4);
+                mMultiplayerActionsListener.onPlayerButtonClick(4);
             }
         });
 
@@ -210,7 +211,7 @@ public class MultiplayerGameFragment
         setGameClickable(false);
 
         // Let the presenter know someone found a set
-        mMultiplayerActionsListener.playerSuccess(mActivePlayer);
+        mMultiplayerActionsListener.onPlayerSuccess(mActivePlayer);
 
         // Set the buttons to the success state
         for( int i = 1; i <= 4; i++ ){
@@ -250,7 +251,7 @@ public class MultiplayerGameFragment
     }
 
     @Override
-    public void onGameOver() {
+    public void showGameOver() {
         // Do stuff in response to a failed set claim
         Snackbar.make(getView(), getString(R.string.message_game_over), Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(R.string.message_restart), new View.OnClickListener() {
@@ -361,7 +362,7 @@ public class MultiplayerGameFragment
 
         @Override
         public void onFinish() {
-            mMultiplayerActionsListener.playerButtonTimedOut();
+            mMultiplayerActionsListener.onPlayerButtonTimedOut();
         }
 
         @Override

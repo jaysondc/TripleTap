@@ -18,7 +18,7 @@ public class MainMenuPresenterTests {
     private MainMenuPresenter mMainMenuPresenter;
 
     @Mock
-    private MainMenuContract.View mMainMenuView;
+    private MainMenuContract.MainView mMainMenuView;
 
 
     @Before
@@ -35,13 +35,13 @@ public class MainMenuPresenterTests {
      */
     @Test
     public void clickSinglePlayerNormal_StartSinglePlayerNormal(){
-        mMainMenuPresenter.startSinglePlayerNormal();
-        verify(mMainMenuView).openSinglePlayerNormal();
+        mMainMenuPresenter.onSinglePlayerNormalClick();
+        verify(mMainMenuView).openSinglePlayerOptions();
     }
 
     @Test
     public void clickMultiPlayer_StartMultiPlayer(){
-        mMainMenuPresenter.startMultiPlayer(2);
+        mMainMenuPresenter.onMultiPlayerOptionClick(2);
         verify(mMainMenuView).openMultiPlayer(2);
     }
 }

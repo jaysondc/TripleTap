@@ -27,6 +27,7 @@ android {
         }
         debug {
             applicationIdSuffix 'debug'
+            debuggable true
         }
     }
     productFlavors {
@@ -45,8 +46,8 @@ dependencies {
     compile 'com.android.support:percent:25.3.0'
     compile 'com.google.guava:guava:20.0'
     /*
-                                 * 3rd Party Libraries
-                                 */
+                                     * 3rd Party Libraries
+                                     */
     // Library to display rotated views
     compile 'rongi.rotate-layout:rotate-layout:3.0.0'
     // Library to display buttons with progress bars

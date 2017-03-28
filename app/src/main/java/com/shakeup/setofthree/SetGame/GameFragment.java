@@ -69,7 +69,7 @@ public abstract class GameFragment extends Fragment
     /**
      * Handle UI actions that happen when the game is over
      */
-    public abstract void onGameOver();
+    public abstract void showGameOver();
 
 
     /**
@@ -138,7 +138,7 @@ public abstract class GameFragment extends Fragment
             }
 
             // Submit the set instances to the presenter
-            mActionsListener.submitSet(
+            mActionsListener.onSubmitSet(
                     mCheckedPositions[0],
                     mCheckedPositions[1],
                     mCheckedPositions[2]);

@@ -31,7 +31,7 @@ public class GameContract {
 
         void onSetCardClicked();
 
-        void onGameOver();
+        void showGameOver();
 
         void highlightCard(int index);
 
@@ -50,15 +50,15 @@ public class GameContract {
 
         void initGame();
 
-        void submitSet(int indexOne, int indexTwo, int indexThree);
+        void onSubmitSet(int indexOne, int indexTwo, int indexThree);
 
         void setSetGame(SetGame game);
 
-        void setCardClicked();
+        void onSetCardClick();
 
         void highlightValidSet();
 
-        void showHint();
+        void onShowHintClick();
 
         ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations();
 
