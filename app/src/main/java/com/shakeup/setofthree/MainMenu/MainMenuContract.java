@@ -28,12 +28,6 @@ public class MainMenuContract {
 
     interface UserActionsListener {
 
-        void onSinglePlayerNormalClick();
-
-        void onSinglePlayerTimeAttackClick();
-
-        void onMultiPlayerOptionClick(int numPlayers);
-
         void onSinglePlayerClick();
 
         void onMultiplayerClick();

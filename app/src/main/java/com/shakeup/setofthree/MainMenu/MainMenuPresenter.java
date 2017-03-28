@@ -21,31 +21,9 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
         mMainMenuView = checkNotNull(mainMenuView, "mainMenu cannot be null!");
     }
 
-    /**
-     * Open a single player game in normal mode
-     */
-    @Override
-    public void onSinglePlayerNormalClick() {
-        mMainMenuView.openSinglePlayerOptions();
-    }
-
-    @Override
-    public void onSinglePlayerTimeAttackClick() {
-
-    }
-
     @Override
     public void onSinglePlayerClick() {
 
-    }
-
-    /**
-     * Open a multi-player game with the specified number of players
-     * @param numPlayers
-     */
-    @Override
-    public void onMultiPlayerOptionClick(int numPlayers) {
-        mMainMenuView.openMultiplayerOptions();
     }
 
     /**

@@ -6,15 +6,11 @@ import android.util.SparseBooleanArray;
 import com.shakeup.setofthree.CustomView.SetGameCardView;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by Jayson on 3/16/2017.
@@ -39,8 +35,8 @@ public class SetGameFragmentTests {
     @Mock SparseBooleanArray checkedLocations;
 
     // Create instance of game fragment to test and inject mock RecyclerGridView
-    //@InjectMocks
-    //private GameFragment mGameView = new GameFragment();
+//    @InjectMocks
+//    private GameFragment mGameView = new GameFragment();
 
     @Before
     public void setUpGameFragment(){
@@ -68,11 +64,11 @@ public class SetGameFragmentTests {
     /**
      * Test that we properly we can properly count the number of checked items in RecyclerView
      */
-    @Test
-    public void recyclerViewCheckedItemsTest(){
-        int checkedItemCount = mGameView.getCheckedItemCount();
-        assertEquals(3, checkedItemCount);
-    }
+//    @Test
+//    public void recyclerViewCheckedItemsTest(){
+//        int checkedItemCount = mGameView.getCheckedItemCount();
+//        assertEquals(3, checkedItemCount);
+//    }
 
     /**
      * Test that we properly we can properly get the location of checked items in RecyclerView
