@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 
 public abstract class GameFragment extends Fragment
-        implements GameContract.View, SetGameGridCallback {
+        implements GameContract.View{
 
     // Listener for presenter to handle all user input
     protected GameContract.UserActionsListener mActionsListener;

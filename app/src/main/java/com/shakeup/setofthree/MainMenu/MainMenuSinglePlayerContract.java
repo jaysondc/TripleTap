@@ -14,7 +14,7 @@ public class MainMenuSinglePlayerContract {
 
         void openNormal();
 
-        void openTimeAttack();
+        void openTimeAttack(long timeAttackLength);
 
         void openPreviousFragment();
 

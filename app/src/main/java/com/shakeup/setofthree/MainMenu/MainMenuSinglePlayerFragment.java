@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.MainMenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.TimeAttackGame.TimeAttackGameActivity;
 
 /**
  * Created by Jayson on 3/29/2017.
@@ -101,10 +103,11 @@ public class MainMenuSinglePlayerFragment
      * Launch a Single Player Time Attack game.
      */
     @Override
-    public void openTimeAttack() {
+    public void openTimeAttack(long timeAttackLength) {
         Log.d(LOG_TAG, "Started a Single Player Time Attack game.");
-//        Intent intent = new Intent(getContext(), SinglePlayerTimeAttackActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(getContext(), TimeAttackGameActivity.class);
+        intent.putExtra(getString(R.string.extra_time_attack_length), timeAttackLength);
+        startActivity(intent);
     }
 
     /**

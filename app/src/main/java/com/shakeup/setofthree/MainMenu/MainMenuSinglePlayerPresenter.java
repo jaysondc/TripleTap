@@ -37,7 +37,8 @@ public class MainMenuSinglePlayerPresenter
      */
     @Override
     public void onTimeAttackClick() {
-
+        // Start a 1 minute time attack mode
+        mSinglePlayerView.openTimeAttack(60000);
     }
 
     @Override

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp">
+
+    <TextView
+        android:id="@+id/game_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:text="45" />
+
+    <!-- Game Board -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/game_recycler_grid"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:overScrollMode="never"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_widthPercent="60%" />
+
+    <TextView
+        android:id="@+id/game_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        tools:text="10" />
+
+
+</android.support.percent.PercentRelativeLayout>
