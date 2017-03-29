@@ -21,9 +21,12 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
         mMainMenuView = checkNotNull(mainMenuView, "mainMenu cannot be null!");
     }
 
+    /**
+     * Open the view handler to show the single player options
+     */
     @Override
     public void onSinglePlayerClick() {
-
+        mMainMenuView.openSinglePlayerOptions();
     }
 
     /**

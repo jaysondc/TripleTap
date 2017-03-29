@@ -1,6 +1,5 @@
 package com.shakeup.setofthree.MainMenu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -9,39 +8,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameActivity;
 import com.shakeup.setofthree.R;
 
 /**
- * Created by Jayson on 3/2/2017.
+ * Created by Jayson on 3/29/2017.
  *
- * This fragment handles the UI for the multiplayer buttons in the main menu
+ * This fragment handles the UI for the Single Player buttons in the main menu
  */
 
-public class MainMenuMultiplayerFragment
+public class MainMenuSinglePlayerFragment
         extends android.support.v4.app.Fragment
-        implements MainMenuMultiplayerContract.MultiplayerView {
+        implements MainMenuSinglePlayerContract.SinglePlayerView {
 
     // Presenter to handle all user actions
-    MainMenuMultiplayerPresenter mActionsListener;
+    MainMenuSinglePlayerContract.UserActionsListener mActionsListener;
 
     public final String LOG_TAG = this.getClass().getSimpleName();
 
     /**
      * Allow another class to construct us
      */
-    public MainMenuMultiplayerFragment() {
+    public MainMenuSinglePlayerFragment() {
         // Requires empty public constructor
     }
-    public static MainMenuMultiplayerFragment newInstance() {
-        return new MainMenuMultiplayerFragment();
+    public static MainMenuSinglePlayerFragment newInstance() {
+        return new MainMenuSinglePlayerFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mActionsListener = new MainMenuMultiplayerPresenter(this);
+        mActionsListener = new MainMenuSinglePlayerPresenter(this);
 
     }
 
@@ -51,15 +49,13 @@ public class MainMenuMultiplayerFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_multiplayer_menu, container, false);
+        View root = inflater.inflate(R.layout.fragment_single_player_menu, container, false);
 
         // Grab all button views
         AppCompatButton twoPlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_two_players);
+                (AppCompatButton) root.findViewById(R.id.button_normal);
         AppCompatButton threePlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_three_players);
-        AppCompatButton fourPlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_four_players);
+                (AppCompatButton) root.findViewById(R.id.button_time_attack);
         AppCompatButton backButton =
                 (AppCompatButton) root.findViewById(R.id.button_back);
 
@@ -67,27 +63,20 @@ public class MainMenuMultiplayerFragment
         twoPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Call presenter handler for 2 player click
-                mActionsListener.onMultiPlayerOptionClick(2);
+                // Call presenter handler for a Normal game
+                mActionsListener.onNormalClick();
             }
         });
 
         threePlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Call presenter handler for 3 player click
-                mActionsListener.onMultiPlayerOptionClick(3);
+                // Call presenter handler for a Time Attack game
+                mActionsListener.onTimeAttackClick();
             }
         });
 
-        fourPlayerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Call presenter handler for 4 player click
-                mActionsListener.onMultiPlayerOptionClick(4);
-            }
-        });
-
+        // Call the presenter handler for clicking the back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,15 +88,23 @@ public class MainMenuMultiplayerFragment
     }
 
     /**
-     * Launch multi player with specified number of players
-     * @param numPlayers The number of players desired in a multiplayer game
+     * Launch a Single Player Normal game.
      */
     @Override
-    public void openMultiPlayer(int numPlayers) {
-        Log.d(LOG_TAG, "Started a " + numPlayers + " player Multiplayer game.");
-        Intent intent = new Intent(getContext(), MultiplayerGameActivity.class);
-        intent.putExtra(getString(R.string.extra_num_players), numPlayers);
-        startActivity(intent);
+    public void openNormal() {
+        Log.d(LOG_TAG, "Started a Single Player Normal game.");
+//        Intent intent = new Intent(getContext(), SinglePlayerNormalGameActivity.class);
+//        startActivity(intent);
+    }
+
+    /**
+     * Launch a Single Player Time Attack game.
+     */
+    @Override
+    public void openTimeAttack() {
+        Log.d(LOG_TAG, "Started a Single Player Time Attack game.");
+//        Intent intent = new Intent(getContext(), SinglePlayerTimeAttackActivity.class);
+//        startActivity(intent);
     }
 
     /**

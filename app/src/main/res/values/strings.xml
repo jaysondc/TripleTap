@@ -13,12 +13,16 @@
     <string name="menu_leaderboard">Leaderboard</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_exit">Exit</string>
+    <string name="menu_back">Back</string>
 
     <!-- Multiplayer Menu -->
     <string name="menu_two_players">Two Players</string>
     <string name="menu_three_players">Three Players</string>
     <string name="menu_four_players">Four Players</string>
-    <string name="menu_back">Back</string>
+
+    <!-- Single Player Menu -->
+    <string name="menu_normal">Normal</string>
+    <string name="menu_time_attack">Time Attack</string>
 
     <!-- Game -->
     <string name="message_found_set">You found a SET!</string>

@@ -1,6 +1,5 @@
 package com.shakeup.setofthree.MainMenu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.SetGame.GameActivity;
 
 /**
  * Created by Jayson on 3/2/2017.
@@ -71,9 +69,8 @@ public class MainMenuFragment
         singlePlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This will eventually open different single player options but for
-                // now just start a normal single player game
-                // mActionsListener.onSinglePlayerClick();
+                // Show single player options
+                 mActionsListener.onSinglePlayerClick();
             }
         });
 
@@ -93,8 +90,12 @@ public class MainMenuFragment
      */
     @Override
     public void openSinglePlayerOptions() {
-        Intent intent = new Intent(getContext(), GameActivity.class);
-        startActivity(intent);
+        // Swap in the Single Player Menu Fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.menu_frame, MainMenuSinglePlayerFragment.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     /**
@@ -106,16 +107,9 @@ public class MainMenuFragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.menu_frame, MainMenuMultiplayerFragment.newInstance());
+        transaction.addToBackStack(null);
         transaction.commit();
     }
-
-//    @Override
-//    public void openMultiPlayer(int numPlayers) {
-//        // Launch multi player with specified number of players
-//        Intent intent = new Intent(getContext(), MultiplayerGameActivity.class);
-//        intent.putExtra(getString(R.string.extra_num_players), numPlayers);
-//        startActivity(intent);
-//    }
 
 
 
