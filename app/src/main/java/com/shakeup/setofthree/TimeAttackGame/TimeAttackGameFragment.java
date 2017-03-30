@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
@@ -30,6 +31,13 @@ public class TimeAttackGameFragment
 
     // Length for our Time Attack mode
     long mTimeAttackLength;
+    // Timer updates every second
+    long mTimeAttackTickLength = 1000;
+
+    TextView mGameTimer, mGameScore;
+
+    // Reference to the timer for the game
+    TimeAttackCountdown mTimeAttackCountdown;
 
 
     // Default constructor
@@ -51,11 +59,6 @@ public class TimeAttackGameFragment
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-        // Get the length of our time attack mode as an extra
-        long mTimeAttackLength = getActivity().getIntent()
-                .getLongExtra(getString(R.string.extra_time_attack_length), 60000);
-
         View root;
 
         root = inflater.inflate(
@@ -69,46 +72,17 @@ public class TimeAttackGameFragment
         // Set up the RecyclerView and assign it to the superclass
         mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
 
+        // Get the desired time attack length from the intent extras
+        mTimeAttackLength = getActivity().getIntent().getLongExtra(
+                getString(R.string.extra_time_attack_length),
+                60000
+        );
+
         // Grab references to our views
-//        SubmitProcessButton playerOneButton =
-//                (SubmitProcessButton) root.findViewById(R.id.button_player_one);
-//        SubmitProcessButton playerTwoButton =
-//                (SubmitProcessButton) root.findViewById(R.id.button_player_two);
-//        SubmitProcessButton playerThreeButton =
-//                (SubmitProcessButton) root.findViewById(R.id.button_player_three);
-//        SubmitProcessButton playerFourButton =
-//                (SubmitProcessButton) root.findViewById(R.id.button_player_four);
-
-        // Wrap the buttons in our MultiplayerButtonView class so we can easily animate them
-//        playerOneButtonView = new MultiplayerButtonView(playerOneButton, getContext());
-//        playerTwoButtonView = new MultiplayerButtonView(playerTwoButton, getContext());
-//        playerThreeButtonView = new MultiplayerButtonView(playerThreeButton, getContext());
-//        playerFourButtonView = new MultiplayerButtonView(playerFourButton, getContext());
-
-//        playerOneButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mTimeAttackActionsListener.onPlayerButtonClick(1);
-//            }
-//        });
-//        playerTwoButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mTimeAttackActionsListener.onPlayerButtonClick(2);
-//            }
-//        });
-//        playerThreeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mTimeAttackActionsListener.onPlayerButtonClick(3);
-//            }
-//        });
-//        playerFourButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mTimeAttackActionsListener.onPlayerButtonClick(4);
-//            }
-//        });
+        mGameTimer =
+                (TextView) root.findViewById(R.id.game_timer);
+        mGameScore =
+                (TextView) root.findViewById(R.id.game_score);
 
         // Initialize a game
         mTimeAttackActionsListener.initGame();
@@ -152,7 +126,14 @@ public class TimeAttackGameFragment
 
     @Override
     public void startTimeAttackCountdown() {
+        mTimeAttackCountdown = new TimeAttackCountdown(
+                mTimeAttackLength,
+                mTimeAttackTickLength);
+    }
 
+    @Override
+    public void updateScore(int playerScore) {
+        mGameScore.setText(Integer.toString(playerScore));
     }
 
     @Override
@@ -164,9 +145,9 @@ public class TimeAttackGameFragment
      * Timer class to handle starting the time attack countdown. It will notify
      * the presenter if our time runs out
      */
-    public class FindSetCountdown extends CountDownTimer {
+    public class TimeAttackCountdown extends CountDownTimer {
 
-        public FindSetCountdown(long startTime, long interval) {
+        public TimeAttackCountdown(long startTime, long interval) {
             super(startTime, interval);
 
             start();
@@ -180,7 +161,9 @@ public class TimeAttackGameFragment
         @Override
         public void onTick(long millisUntilFinished) {
             // Update the time display in our timer view
-            // TODO: Update timer display
+
+            int secsUntilFinished = (int) millisUntilFinished / 1000;
+            mGameTimer.setText(Integer.toString(secsUntilFinished));
         }
     }
 }

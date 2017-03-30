@@ -20,6 +20,8 @@ public class TimeAttackGamePresenter extends GamePresenter
 
     private TimeAttackGameContract.View mTimeAttackGameView;
 
+    int mPlayerScore = 0;
+
     // Supply a default constructor
     public TimeAttackGamePresenter(){
     }
@@ -37,9 +39,20 @@ public class TimeAttackGamePresenter extends GamePresenter
         setGameView((GameContract.View) mTimeAttackGameView);
     }
 
+    /**
+     * Initialize the timer and scoreboard for a new game
+     */
+    @Override
+    public void initGame() {
+        super.initGame();
+
+        mTimeAttackGameView.startTimeAttackCountdown();
+    }
+
     @Override
     public void onFindSetSuccess() {
-
+        mPlayerScore++;
+        mTimeAttackGameView.updateScore(mPlayerScore);
     }
 
     @Override
