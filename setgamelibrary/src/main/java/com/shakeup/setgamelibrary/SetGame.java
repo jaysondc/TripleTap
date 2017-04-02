@@ -256,13 +256,14 @@ public class SetGame {
      */
     public class SetDeck {
 
-        ArrayList<SetCard> mDeck;
+        ArrayList<SetCard> mDeck, mDiscardPile;
 
         /**
          * Constructor creates the 81 card deck using all card possibilities
          */
         public SetDeck(){
             mDeck = new ArrayList<>();
+            mDiscardPile = new ArrayList<>();
 
             // Generate all possible SetCards and add them to the deck
             for (CardShape shape : CardShape.values()) {
@@ -287,7 +288,27 @@ public class SetGame {
          * @return A SetCard object
          */
         public SetCard drawCard(){
-            return mDeck.remove(mDeck.size()-1);
+            // Remove a card
+            SetCard removedCard = mDeck.remove(0);
+            // Add it to the discard pile
+            mDiscardPile.add(removedCard);
+            // Return the removed card
+            return removedCard;
+        }
+
+        /**
+         * Re-shuffle the discard pile into the deck
+         */
+        public void refillDeck(){
+            // Shuffle the discard deck
+            Collections.shuffle(mDiscardPile);
+            // Add cards from the discard pile to the live deck
+            for(SetCard card : mDiscardPile){
+                mDeck.add(card);
+            }
+            for(int i = 0; i < mDiscardPile.size(); i++){
+                mDiscardPile.remove(i);
+            }
         }
 
         public int getCount(){

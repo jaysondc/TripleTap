@@ -129,6 +129,9 @@ public class SetTests {
         }
 
         Assert.assertTrue(testDeck.isEmpty());
+
+        testDeck.refillDeck();
+        Assert.assertEquals(81, testDeck.getCount());
     }
 
     @Test
