@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class GamePresenter implements GameContract.UserActionsListener {
 
-    private SetGame mSetGame;
+    protected SetGame mSetGame;
     private GameContract.View mGameView;
 
     // ArrayList holding the current valid locations of sets

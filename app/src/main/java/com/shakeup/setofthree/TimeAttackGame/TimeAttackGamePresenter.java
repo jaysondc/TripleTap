@@ -46,6 +46,9 @@ public class TimeAttackGamePresenter extends GamePresenter
     public void initGame() {
         super.initGame();
 
+        // Set our deck to endless mode
+        mSetGame.setEndlessMode(true);
+        // Start a time attack counter
         mTimeAttackGameView.startTimeAttackCountdown();
     }
 
