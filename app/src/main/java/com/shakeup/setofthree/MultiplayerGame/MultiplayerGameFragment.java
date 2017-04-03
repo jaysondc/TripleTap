@@ -123,14 +123,16 @@ public class MultiplayerGameFragment
         switch( numPlayers ){
             case 2:
                 // Hide player 3 and 4
-                root.findViewById(R.id.button_player_three).setVisibility(View.GONE);
-                root.findViewById(R.id.score_player_three).setVisibility(View.GONE);
+                root.findViewById(R.id.rotateLayoutButtonThree).setVisibility(View.GONE);
+                root.findViewById(R.id.rotateLayoutScoreThree).setVisibility(View.GONE);
             case 3:
                 // Hide player 4 only
-                root.findViewById(R.id.button_player_four).setVisibility(View.GONE);
-                root.findViewById(R.id.score_player_four).setVisibility(View.GONE);
+                root.findViewById(R.id.rotateLayoutButtonFour).setVisibility(View.GONE);
+                root.findViewById(R.id.rotateLayoutScoreFour).setVisibility(View.GONE);
                 break;
         }
+
+        root.invalidate();
 
         SubmitProcessButton playerOneButton =
                 (SubmitProcessButton) root.findViewById(R.id.button_player_one);
