@@ -121,13 +121,14 @@ public class MultiplayerGameFragment
 
         // Hide unused player spaces
         switch( numPlayers ){
-            case 3:
-                // Hide player 4
-                root.findViewById(R.id.space_player_four).setVisibility(View.GONE);
-                break;
             case 2:
-                root.findViewById(R.id.space_player_four).setVisibility(View.GONE);
-                root.findViewById(R.id.space_player_three).setVisibility(View.GONE);
+                // Hide player 3 and 4
+                root.findViewById(R.id.button_player_three).setVisibility(View.GONE);
+                root.findViewById(R.id.score_player_three).setVisibility(View.GONE);
+            case 3:
+                // Hide player 4 only
+                root.findViewById(R.id.button_player_four).setVisibility(View.GONE);
+                root.findViewById(R.id.score_player_four).setVisibility(View.GONE);
                 break;
         }
 
