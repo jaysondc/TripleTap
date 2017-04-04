@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.TimeAttackGame;
+package com.shakeup.setofthree.NormalGame;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,38 +14,38 @@ import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
 /**
- * Created by Jayson on 3/20/2017.
+ * Created by Jayson on 4/4/2017.
  *
  * This Fragment handles the UI for the Time Attack game mode
  */
 
 
-public class TimeAttackGameFragment
+public class NormalGameFragment
         extends GameFragment
-        implements TimeAttackGameContract.View {
+        implements NormalGameContract.View {
 
     public final String LOG_TAG = this.getClass().getSimpleName();
 
     // Reference to our presenter
-    TimeAttackGameContract.UserActionsListener mTimeAttackActionsListener;
+    NormalGameContract.UserActionsListener mNormalActionsListener;
 
     // Length for our Time Attack mode
     long mTimeAttackLength;
     // Timer updates every second
     long mTimeAttackTickLength = 1000;
 
-    TextView mGameTimer, mGameScore;
+    TextView mGameTimer, mDeckRemaining;
 
     // Reference to the timer for the game
     TimeAttackCountdown mTimeAttackCountdown;
 
 
     // Default constructor
-    public TimeAttackGameFragment(){
+    public NormalGameFragment(){
     }
 
-    public static TimeAttackGameFragment newInstance(){
-        return new TimeAttackGameFragment();
+    public static NormalGameFragment newInstance(){
+        return new NormalGameFragment();
     }
 
     /*
@@ -62,12 +62,12 @@ public class TimeAttackGameFragment
         View root;
 
         root = inflater.inflate(
-                R.layout.fragment_game_time_attack, container, false);
+                R.layout.fragment_game_normal, container, false);
 
         // Instance the presenter our fragment uses and grab a reference
-        mTimeAttackActionsListener = new TimeAttackGamePresenter(this);
+        mNormalActionsListener = new NormalGamePresenter(this);
         // Have the superclass use the MultiplayerGamePresenter as its GamePresenter
-        mActionsListener = mTimeAttackActionsListener;
+        mActionsListener = mNormalActionsListener;
 
         // Set up the RecyclerView and assign it to the superclass
         mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
@@ -81,11 +81,11 @@ public class TimeAttackGameFragment
         // Grab references to our views
         mGameTimer =
                 (TextView) root.findViewById(R.id.game_timer);
-        mGameScore =
-                (TextView) root.findViewById(R.id.game_score);
+        mDeckRemaining =
+                (TextView) root.findViewById(R.id.deck_remaining);
 
         // Initialize a game
-        mTimeAttackActionsListener.initGame();
+        mNormalActionsListener.initGame();
 
         return root;
     }
@@ -96,8 +96,6 @@ public class TimeAttackGameFragment
 //        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
 //                .show();
 
-        // Let the presenter know someone found a set
-        mTimeAttackActionsListener.onFindSetSuccess();
 
     }
 
@@ -107,21 +105,15 @@ public class TimeAttackGameFragment
 //        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
 //                .show();
 
-        mTimeAttackActionsListener.onFindSetFailure();
-
     }
+
 
     @Override
     public void onGameOver() {
-
-    }
-
-    @Override
-    public void showGameOver(int playerScore) {
         // Do stuff when the game is over
         Snackbar.make(
                 getView(),
-                getString(R.string.message_game_over) + " You found " + playerScore + " SETs!",
+                getString(R.string.message_game_over),
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(R.string.message_restart), new View.OnClickListener() {
                     @Override
@@ -133,15 +125,15 @@ public class TimeAttackGameFragment
     }
 
     @Override
-    public void startTimeAttackCountdown() {
+    public void startTimer() {
         mTimeAttackCountdown = new TimeAttackCountdown(
                 mTimeAttackLength,
                 mTimeAttackTickLength);
     }
 
     @Override
-    public void updateScore(int playerScore) {
-        mGameScore.setText(Integer.toString(playerScore));
+    public void updateDeckRemaining(int deckRemaining) {
+        mDeckRemaining.setText(Integer.toString(deckRemaining));
     }
 
     @Override
@@ -164,7 +156,6 @@ public class TimeAttackGameFragment
         @Override
         public void onFinish() {
             mGameTimer.setText(Integer.toString(0));
-            mTimeAttackActionsListener.onTimeUp();
         }
 
         @Override

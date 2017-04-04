@@ -254,7 +254,7 @@ public class MultiplayerGameFragment
     }
 
     @Override
-    public void showGameOver() {
+    public void onGameOver() {
 
         // Show the game over state
         Snackbar.make(getView(), getString(R.string.message_game_over), Snackbar.LENGTH_INDEFINITE)

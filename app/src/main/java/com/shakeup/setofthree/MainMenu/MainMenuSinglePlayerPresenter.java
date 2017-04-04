@@ -29,7 +29,7 @@ public class MainMenuSinglePlayerPresenter
      */
     @Override
     public void onNormalClick() {
-
+        mSinglePlayerView.openNormal();
     }
 
     /**

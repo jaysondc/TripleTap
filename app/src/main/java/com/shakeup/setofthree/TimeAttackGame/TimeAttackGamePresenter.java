@@ -52,6 +52,8 @@ public class TimeAttackGamePresenter extends GamePresenter
         mTimeAttackGameView.setGameClickable(true);
         // Start a time attack counter
         mTimeAttackGameView.startTimeAttackCountdown();
+        // Reset the score
+        mTimeAttackGameView.updateScore(0);
     }
 
     @Override

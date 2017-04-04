@@ -45,6 +45,9 @@
     <!-- Time Attack Game -->
     <string name="time_attack_score">0</string>
 
+    <!-- Normal Game -->
+    <string name="normal_deck_remaining">81</string>
+
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>
     <string name="extra_time_attack_length">EXTRA_TIME_ATTACK_LENGTH</string>

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shakeup.setofthree.NormalGame.NormalGameActivity;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.TimeAttackGame.TimeAttackGameActivity;
 
@@ -95,8 +96,8 @@ public class MainMenuSinglePlayerFragment
     @Override
     public void openNormal() {
         Log.d(LOG_TAG, "Started a Single Player Normal game.");
-//        Intent intent = new Intent(getContext(), SinglePlayerNormalGameActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(getContext(), NormalGameActivity.class);
+        startActivity(intent);
     }
 
     /**

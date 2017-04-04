@@ -44,6 +44,24 @@ public class MultiplayerGamePresenter extends GamePresenter
         setGameView((GameContract.View) mMultiplayerGameView);
     }
 
+    /*
+     * Override the init method to reset the score when we start a new game
+     */
+    @Override
+    public void initGame() {
+        super.initGame();
+
+        // Initialize Score Array
+        mScoreArray[0] = 0;
+        mScoreArray[1] = 0;
+        mScoreArray[2] = 0;
+        mScoreArray[3] = 0;
+        mMultiplayerGameView.updatePlayerScore(1, 0);
+        mMultiplayerGameView.updatePlayerScore(2, 0);
+        mMultiplayerGameView.updatePlayerScore(3, 0);
+        mMultiplayerGameView.updatePlayerScore(4, 0);
+    }
+
     /**
      * Handles the click in the Presenter layer and passes it back to the appropriate
      * method in the View layer.

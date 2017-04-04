@@ -64,7 +64,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
 
     /**
      * Handles SET claims thrown from the GameFragment
-     * Calls the GameFragment success and failure handlers when appropriate.
+     * Calls the GamePresenter success and failure handlers when appropriate.
      * This also
      * @param indexOne Index of the first card in the set.
      * @param indexTwo Index of the second card in the set.
@@ -77,20 +77,20 @@ public class GamePresenter implements GameContract.UserActionsListener {
         boolean result = mSetGame.claimSet(indexOne, indexTwo, indexThree);
 
         if( !result ){
-            // Call failure handler in UI
-            mGameView.onSetFailure();
+            // Call presenter method to handle failure
+            this.onSetFailure();
         } else {
             // Update the set hand
             mGameView.updateSetHand(
                     mSetGame.getIsOverflow(),
                     mSetGame.getDeckSize());
 
-            // Call the View to react to the success state
-            mGameView.onSetSuccess();
+            // Call presenter method to handle success
+            this.onSetSuccess();
 
             // Call the GameOver method if the game is over,
             if( mSetGame.getIsGameOver() ){
-                mGameView.showGameOver();
+                this.onGameOver();
             }
 
             // Get the new SetLocations array
@@ -99,10 +99,40 @@ public class GamePresenter implements GameContract.UserActionsListener {
 
     }
 
+    /**
+     * Subclasses should override this method to perform additional actions to react
+     * to SetFailure before the view is affected.
+     */
+    @Override
+    public void onSetFailure(){
+        mGameView.onSetFailure();
+    }
+
+    /**
+     * Subclasses should override this method to perform additional actions to react
+     * to SetSuccess before the view is affected.
+     */
+    @Override
+    public void onSetSuccess() {
+        mGameView.onSetSuccess();
+    }
+
+    /**
+     * Subclasses should override this method to perform additional actions to react
+     * to GameOver before the view is affected.
+     */
+    @Override
+    public void onGameOver() {
+        mGameView.onGameOver();
+    }
+
+    /**
+     * Handle clicks thrown from the board and react to them. This can be overridden
+     * to perform additional actions whenever a card on the board is clicked
+     */
+    @Override
     public void onSetCardClick(){
-
         mGameView.onSetCardClicked();
-
     }
 
     /**

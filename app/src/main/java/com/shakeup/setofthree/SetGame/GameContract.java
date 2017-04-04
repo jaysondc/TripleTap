@@ -31,7 +31,7 @@ public class GameContract {
 
         void onSetCardClicked();
 
-        void showGameOver();
+        void onGameOver();
 
         void highlightCard(int index);
 
@@ -55,6 +55,12 @@ public class GameContract {
         void setSetGame(SetGame game);
 
         void onSetCardClick();
+
+        void onSetFailure();
+
+        void onSetSuccess();
+
+        void onGameOver();
 
         void highlightValidSet();
 

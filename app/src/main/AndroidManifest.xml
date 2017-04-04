@@ -27,6 +27,9 @@
         <activity
             android:name=".TimeAttackGame.TimeAttackGameActivity"
             android:screenOrientation="landscape"/>
+        <activity
+            android:name=".NormalGame.NormalGameActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
