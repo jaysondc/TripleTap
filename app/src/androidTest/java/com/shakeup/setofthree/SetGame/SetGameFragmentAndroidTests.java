@@ -10,9 +10,7 @@ import android.view.View;
 
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.CustomView.SetGameCardView;
-import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameActivity;
-import com.shakeup.setofthree.MultiplayerGame.MultiplayerGameFragment;
-import com.shakeup.setofthree.MultiplayerGame.MultiplayerGamePresenter;
+import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
 
 import org.junit.Test;
@@ -41,9 +39,9 @@ import static org.junit.Assert.assertThat;
 
 public abstract class SetGameFragmentAndroidTests{
     // References to the activity and fragment
-    protected MultiplayerGameFragment mGameFragment;
-    protected MultiplayerGameActivity mGameActivity;
-    protected MultiplayerGamePresenter mGamePresenter;
+    protected GameFragment mGameFragment;
+    protected FullScreenActivity mGameActivity;
+    protected GamePresenter mGamePresenter;
     protected SetGame mSetGame;
     // List of possible sets for the current game
     protected ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
