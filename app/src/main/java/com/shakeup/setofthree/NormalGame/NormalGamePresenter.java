@@ -69,6 +69,7 @@ public class NormalGamePresenter extends GamePresenter
     @Override
     public void onGameOver() {
         super.onGameOver();
+        mNormalGameView.stopTimer();
     }
 
 }

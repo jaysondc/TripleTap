@@ -16,9 +16,9 @@ public class NormalGameContract extends GameContract {
 
         void startTimer();
 
-        void updateDeckRemaining(int deckRemaining);
+        void stopTimer();
 
-        void onGameOver();
+        void updateDeckRemaining(int deckRemaining);
 
         void showLeaderBoard();
 

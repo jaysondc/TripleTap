@@ -1,13 +1,14 @@
 package com.shakeup.setofthree.NormalGame;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.shakeup.setofthree.R;
@@ -29,16 +30,8 @@ public class NormalGameFragment
     // Reference to our presenter
     NormalGameContract.UserActionsListener mNormalActionsListener;
 
-    // Length for our Time Attack mode
-    long mTimeAttackLength;
-    // Timer updates every second
-    long mTimeAttackTickLength = 1000;
-
-    TextView mGameTimer, mDeckRemaining;
-
-    // Reference to the timer for the game
-    TimeAttackCountdown mTimeAttackCountdown;
-
+    Chronometer mGameTimerView;
+    TextView mDeckRemainingView;
 
     // Default constructor
     public NormalGameFragment(){
@@ -72,16 +65,10 @@ public class NormalGameFragment
         // Set up the RecyclerView and assign it to the superclass
         mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
 
-        // Get the desired time attack length from the intent extras
-        mTimeAttackLength = getActivity().getIntent().getLongExtra(
-                getString(R.string.extra_time_attack_length),
-                60000
-        );
-
         // Grab references to our views
-        mGameTimer =
-                (TextView) root.findViewById(R.id.game_timer);
-        mDeckRemaining =
+        mGameTimerView =
+                (Chronometer) root.findViewById(R.id.game_timer);
+        mDeckRemainingView =
                 (TextView) root.findViewById(R.id.deck_remaining);
 
         // Initialize a game
@@ -126,14 +113,18 @@ public class NormalGameFragment
 
     @Override
     public void startTimer() {
-        mTimeAttackCountdown = new TimeAttackCountdown(
-                mTimeAttackLength,
-                mTimeAttackTickLength);
+        mGameTimerView.setBase(SystemClock.elapsedRealtime());
+        mGameTimerView.start();
+    }
+
+    @Override
+    public void stopTimer() {
+        mGameTimerView.stop();
     }
 
     @Override
     public void updateDeckRemaining(int deckRemaining) {
-        mDeckRemaining.setText(Integer.toString(deckRemaining));
+        mDeckRemainingView.setText(Integer.toString(deckRemaining));
     }
 
     @Override
@@ -141,29 +132,4 @@ public class NormalGameFragment
 
     }
 
-    /**
-     * Timer class to handle starting the time attack countdown. It will notify
-     * the presenter if our time runs out
-     */
-    public class TimeAttackCountdown extends CountDownTimer {
-
-        public TimeAttackCountdown(long startTime, long interval) {
-            super(startTime, interval);
-
-            start();
-        }
-
-        @Override
-        public void onFinish() {
-            mGameTimer.setText(Integer.toString(0));
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            // Update the time display in our timer view
-
-            int secsUntilFinished = (int) millisUntilFinished / 1000;
-            mGameTimer.setText(Integer.toString(secsUntilFinished));
-        }
-    }
 }
