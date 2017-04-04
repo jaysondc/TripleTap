@@ -113,8 +113,16 @@ public class TimeAttackGameFragment
 
     @Override
     public void showGameOver() {
+
+    }
+
+    @Override
+    public void showGameOver(int playerScore) {
         // Do stuff when the game is over
-        Snackbar.make(getView(), getString(R.string.message_game_over), Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(
+                getView(),
+                getString(R.string.message_game_over) + " You found " + playerScore + " SETs!",
+                Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(R.string.message_restart), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -155,6 +163,7 @@ public class TimeAttackGameFragment
 
         @Override
         public void onFinish() {
+            mGameTimer.setText(Integer.toString(0));
             mTimeAttackActionsListener.onTimeUp();
         }
 

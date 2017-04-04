@@ -94,7 +94,6 @@
 
 
     <!-- Game Board -->
-
     <FrameLayout
         android:id="@+id/game_frame"
         android:layout_width="0dp"

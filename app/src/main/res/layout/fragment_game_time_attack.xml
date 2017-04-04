@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/content_frame"
@@ -17,26 +17,49 @@
         android:textSize="48sp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:text="45" />
+        tools:text="45"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
 
     <!-- Game Board -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/game_recycler_grid"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+    <FrameLayout
+        android:id="@+id/game_frame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:overScrollMode="never"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        app:layout_widthPercent="60%" />
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="W, 1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/game_recycler_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:layout_gravity="center"
+            tools:listitem="@layout/setgame_card_main" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/game_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="48sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/time_attack_score"
+        android:textSize="48sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="10" />
 
 
-</android.support.percent.PercentRelativeLayout>
+</android.support.constraint.ConstraintLayout>

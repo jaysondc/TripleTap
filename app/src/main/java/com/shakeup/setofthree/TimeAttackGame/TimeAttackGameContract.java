@@ -18,7 +18,7 @@ public class TimeAttackGameContract extends GameContract {
 
         void updateScore(int playerScore);
 
-        void showGameOver();
+        void showGameOver(int playerScore);
 
         void showLeaderBoard();
 

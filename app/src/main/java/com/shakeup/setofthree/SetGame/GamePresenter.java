@@ -85,12 +85,12 @@ public class GamePresenter implements GameContract.UserActionsListener {
                     mSetGame.getIsOverflow(),
                     mSetGame.getDeckSize());
 
+            // Call the View to react to the success state
+            mGameView.onSetSuccess();
+
             // Call the GameOver method if the game is over,
-            // otherwise handle SetSuccess
             if( mSetGame.getIsGameOver() ){
                 mGameView.showGameOver();
-            } else {
-                mGameView.onSetSuccess();
             }
 
             // Get the new SetLocations array

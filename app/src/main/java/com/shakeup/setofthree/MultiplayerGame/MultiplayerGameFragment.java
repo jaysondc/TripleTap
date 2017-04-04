@@ -255,7 +255,8 @@ public class MultiplayerGameFragment
 
     @Override
     public void showGameOver() {
-        // Do stuff in response to a failed set claim
+
+        // Show the game over state
         Snackbar.make(getView(), getString(R.string.message_game_over), Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(R.string.message_restart), new View.OnClickListener() {
                     @Override

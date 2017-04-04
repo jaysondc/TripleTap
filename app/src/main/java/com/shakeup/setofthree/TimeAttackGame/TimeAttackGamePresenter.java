@@ -48,6 +48,8 @@ public class TimeAttackGamePresenter extends GamePresenter
 
         // Set our deck to endless mode
         mSetGame.setEndlessMode(true);
+        // Enable clicks
+        mTimeAttackGameView.setGameClickable(true);
         // Start a time attack counter
         mTimeAttackGameView.startTimeAttackCountdown();
     }
@@ -65,6 +67,7 @@ public class TimeAttackGamePresenter extends GamePresenter
 
     @Override
     public void onTimeUp() {
-
+        mTimeAttackGameView.showGameOver(mPlayerScore);
+        mTimeAttackGameView.setGameClickable(false);
     }
 }
