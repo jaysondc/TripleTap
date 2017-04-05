@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">SetLogic</string>
-
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_main_menu">Set of Three</string>
+    <string name="app_name">SetOfThree</string>
+    <string name="app_label">Set of Three</string>
+    <string name="app_id">621902016607</string>
 
     <!-- Main Menu -->
     <string name="menu_title">Set of Three</string>
@@ -51,4 +49,7 @@
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>
     <string name="extra_time_attack_length">EXTRA_TIME_ATTACK_LENGTH</string>
+
+    <!-- Google Play Services -->
+    <string name="signin_other_error">There was an issue signing in. Please try again later.</string>
 </resources>

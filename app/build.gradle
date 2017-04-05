@@ -33,7 +33,7 @@ android {
             debuggable true
         }
         debug {
-            applicationIdSuffix 'debug'
+            applicationIdSuffix '.debug'
             debuggable true
         }
     }
@@ -43,10 +43,7 @@ android {
 
 dependencies {
     // Declare dependencies for project modules
-    compile (project(':BaseGameUtils')){
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'support-v4'
-    }
+    compile (project(':BaseGameUtils'))
     compile project(':setgamelibrary')
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
