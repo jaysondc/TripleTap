@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SetOfThree</string>
+    <string name="app_name">Set of Three</string>
     <string name="app_label">Set of Three</string>
     <string name="app_id">621902016607</string>
 
@@ -12,6 +12,7 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_exit">Exit</string>
     <string name="menu_back">Back</string>
+    <string name="leaderboards_not_available">Leaderboards are unavailable unless you are signed into Google Play Games.</string>
 
     <!-- Multiplayer Menu -->
     <string name="menu_two_players">Two Players</string>

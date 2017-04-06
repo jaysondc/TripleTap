@@ -1,15 +1,11 @@
 package com.shakeup.setofthree.MainMenu;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
@@ -29,11 +25,15 @@ public class MainMenuActivity
         extends FullScreenActivity
         implements View.OnClickListener,
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener,
+        MainMenuFragment.googleApiClientCallback{
 
     private String LOG_TAG = this.getClass().getSimpleName();
 
-    private static int RC_SIGN_IN = 9001;
+    // request codes we use when invoking an external activity
+    private static final int RC_RESOLVE = 5000;
+    private static final int RC_UNUSED = 5001;
+    private static final int RC_SIGN_IN = 9001;
 
     private static final int MY_PERMISSIONS_REQUEST_INTERNET = 1;
 
@@ -73,6 +73,10 @@ public class MainMenuActivity
 
     }
 
+    /**
+     * Initialize the fragment showing the menu buttons
+     * @param mainMenuFragment Fragment to be displayed in our activity
+     */
     private void initFragment(Fragment mainMenuFragment) {
         // Add the fragment to the layout
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -84,13 +88,16 @@ public class MainMenuActivity
     @Override
     protected void onStart() {
         super.onStart();
-        // Don't sign in automatically for now
-//        if (!mInSignInFlow && !mExplicitSignOut) {
-//            // auto sign in
-//            mGoogleApiClient.connect();
-//        }
+        // Enable auto-sign in on start
+        if (!mInSignInFlow && !mExplicitSignOut) {
+            // auto sign in
+            mGoogleApiClient.connect();
+        }
     }
 
+    /*
+     * Update the UI once we know we're connected to the GoogleApiClient
+     */
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(LOG_TAG, "GoogleApi connected!");
@@ -102,6 +109,9 @@ public class MainMenuActivity
         // (your code here: update UI, enable functionality that depends on sign in, etc)
     }
 
+    /*
+     * Attempt to reconnect when the Client is suspended
+     */
     @Override
     public void onConnectionSuspended(int i) {
         Log.d(LOG_TAG, "GoogleApi connection suspended!");
@@ -109,6 +119,10 @@ public class MainMenuActivity
         mGoogleApiClient.connect();
     }
 
+    /*
+     * Attempt to resolve the connection failure by showing the sign-in UI from the
+     * BaseGameUtils. If we still can't connect then disable the leaderboard
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(LOG_TAG, "GoogleApi connection failed!");
@@ -140,13 +154,15 @@ public class MainMenuActivity
         findViewById(R.id.sign_out_button).setVisibility(View.GONE);
     }
 
+    /*
+     * Handle clicks of the sign in/out buttons
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.sign_in_button) {
             // start the asynchronous sign in flow
             mSignInClicked = true;
-            // Check internet permission
-            checkInternetPermission();
+            mGoogleApiClient.connect();
         } else if (view.getId() == R.id.sign_out_button) {
             mExplicitSignOut = true;
             // sign out.
@@ -162,53 +178,13 @@ public class MainMenuActivity
         }
     }
 
-    public void checkInternetPermission() {
-        Log.d(LOG_TAG, "Checking internet permission...");
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            Log.d(LOG_TAG, "Requesting internet permission...");
-
-            // No explanation needed, we can request the permission.
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.INTERNET},
-                    MY_PERMISSIONS_REQUEST_INTERNET);
-
-            // MY_PERMISSIONS_REQUEST_INTERNET is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-        } else {
-            Log.d(LOG_TAG, "Permission is already granted!");
-            mGoogleApiClient.connect();
-        }
+    @Override
+    public GoogleApiClient getGoogleApiClient() {
+        return mGoogleApiClient;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_INTERNET: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(LOG_TAG, "Internet permission granted!");
-
-                    // permission was granted, yay! Do the
-                    // internet related task you need to do.
-                    mGoogleApiClient.connect();
-                } else {
-                    Log.d(LOG_TAG, "Internet permission denied!");
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
+    public boolean isApiConnected() {
+        return mGoogleApiClient.isConnected();
     }
 }

@@ -39,7 +39,7 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
 
     @Override
     public void onLeaderBoardClick() {
-
+        mMainMenuView.openLeaderboard();
     }
 
     @Override

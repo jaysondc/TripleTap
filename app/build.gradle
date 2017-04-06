@@ -16,11 +16,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.shakeup.setlogic"
+        applicationId "com.shakeup.setofthree"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // Add support library use for vector drawables
         vectorDrawables.useSupportLibrary = true

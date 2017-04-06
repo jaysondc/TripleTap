@@ -5,10 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+import com.google.example.games.basegameutils.BaseGameUtils;
 import com.shakeup.setofthree.R;
 
 /**
@@ -19,6 +23,13 @@ public class MainMenuFragment
         extends android.support.v4.app.Fragment
         implements MainMenuContract.MainView {
 
+    // request codes we use when invoking an external activity
+    private static final int RC_RESOLVE = 5000;
+    private static final int RC_UNUSED = 5001;
+    private static final int RC_SIGN_IN = 9001;
+
+    private String LOG_TAG = getClass().getSimpleName();
+
     // Presenter to handle all user actions
     MainMenuPresenter mActionsListener;
 
@@ -28,6 +39,7 @@ public class MainMenuFragment
     public MainMenuFragment() {
         // Requires empty public constructor
     }
+
     public static MainMenuFragment newInstance() {
         return new MainMenuFragment();
     }
@@ -70,7 +82,7 @@ public class MainMenuFragment
             @Override
             public void onClick(View v) {
                 // Show single player options
-                 mActionsListener.onSinglePlayerClick();
+                mActionsListener.onSinglePlayerClick();
             }
         });
 
@@ -79,6 +91,14 @@ public class MainMenuFragment
             public void onClick(View v) {
                 // Show multiplayer options
                 mActionsListener.onMultiplayerClick();
+            }
+        });
+
+        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the leaderboard
+                mActionsListener.onLeaderBoardClick();
             }
         });
 
@@ -111,6 +131,27 @@ public class MainMenuFragment
         transaction.commit();
     }
 
+    @Override
+    public void openLeaderboard() {
+        Log.d(LOG_TAG, "The user opened the leaderboard");
+        googleApiClientCallback myActivity = (googleApiClientCallback) getActivity();
+        if (myActivity.isApiConnected()) {
+            startActivityForResult(
+                    Games.Leaderboards.getAllLeaderboardsIntent(myActivity.getGoogleApiClient()),
+                    RC_UNUSED);
+        } else {
+            BaseGameUtils.makeSimpleDialog(
+                    getActivity(),
+                    getString(R.string.leaderboards_not_available))
+                    .show();
+        }
+    }
 
+    public interface googleApiClientCallback{
+
+        GoogleApiClient getGoogleApiClient();
+        boolean isApiConnected();
+
+    }
 
 }

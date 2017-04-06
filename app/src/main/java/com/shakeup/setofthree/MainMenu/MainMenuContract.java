@@ -20,6 +20,8 @@ public class MainMenuContract {
 
         void openSinglePlayerOptions();
 
+        void openLeaderboard();
+
     }
 
     /**
