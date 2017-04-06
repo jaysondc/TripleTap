@@ -1,11 +1,15 @@
 package com.shakeup.setofthree.MainMenu;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
@@ -30,6 +34,8 @@ public class MainMenuActivity
     private String LOG_TAG = this.getClass().getSimpleName();
 
     private static int RC_SIGN_IN = 9001;
+
+    private static final int MY_PERMISSIONS_REQUEST_INTERNET = 1;
 
     private boolean mResolvingConnectionFailure = false;
     private boolean mAutoStartSignInFlow = true;
@@ -58,8 +64,8 @@ public class MainMenuActivity
                 .build();
 
         // Specify the sign in pop up to show at the bottom of the screen
-        // TODO This doesn't work yetgi
-        Games.GamesOptions.builder().setShowConnectingPopup(false).build();
+        // TODO This doesn't work yet
+        // Games.GamesOptions.builder().setShowConnectingPopup(false).build();
 
         // Set onClickListeners for the sign in and out buttons
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -73,6 +79,16 @@ public class MainMenuActivity
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.menu_frame, mainMenuFragment);
         transaction.commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Don't sign in automatically for now
+//        if (!mInSignInFlow && !mExplicitSignOut) {
+//            // auto sign in
+//            mGoogleApiClient.connect();
+//        }
     }
 
     @Override
@@ -125,22 +141,13 @@ public class MainMenuActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if (!mInSignInFlow && !mExplicitSignOut) {
-            // auto sign in
-            mGoogleApiClient.connect();
-        }
-    }
-
-    @Override
-    public void onClick (View view) {
+    public void onClick(View view) {
         if (view.getId() == R.id.sign_in_button) {
             // start the asynchronous sign in flow
             mSignInClicked = true;
-            mGoogleApiClient.connect();
-        }
-        else if (view.getId() == R.id.sign_out_button) {
+            // Check internet permission
+            checkInternetPermission();
+        } else if (view.getId() == R.id.sign_out_button) {
             mExplicitSignOut = true;
             // sign out.
             mSignInClicked = false;
@@ -152,6 +159,56 @@ public class MainMenuActivity
             // show sign-in button, hide the sign-out button
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+        }
+    }
+
+    public void checkInternetPermission() {
+        Log.d(LOG_TAG, "Checking internet permission...");
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            Log.d(LOG_TAG, "Requesting internet permission...");
+
+            // No explanation needed, we can request the permission.
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.INTERNET},
+                    MY_PERMISSIONS_REQUEST_INTERNET);
+
+            // MY_PERMISSIONS_REQUEST_INTERNET is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+        } else {
+            Log.d(LOG_TAG, "Permission is already granted!");
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_INTERNET: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(LOG_TAG, "Internet permission granted!");
+
+                    // permission was granted, yay! Do the
+                    // internet related task you need to do.
+                    mGoogleApiClient.connect();
+                } else {
+                    Log.d(LOG_TAG, "Internet permission denied!");
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 }
