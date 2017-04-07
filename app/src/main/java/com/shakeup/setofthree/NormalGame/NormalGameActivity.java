@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
 
@@ -44,5 +45,10 @@ public class NormalGameActivity extends FullScreenActivity {
     @Override
     public void onSignInSucceeded() {
         // Let the user know we're signed in and can save high scores
+    }
+
+    @Override
+    protected GoogleApiClient getApiClient() {
+        return super.getApiClient();
     }
 }

@@ -20,7 +20,7 @@
     <string name="menu_four_players">Four Players</string>
 
     <!-- Single Player Menu -->
-    <string name="menu_normal">Normal</string>
+    <string name="menu_normal">Classic</string>
     <string name="menu_time_attack">Time Attack</string>
 
     <!-- Game -->
@@ -50,6 +50,10 @@
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>
     <string name="extra_time_attack_length">EXTRA_TIME_ATTACK_LENGTH</string>
+
+    <!-- Leaderboard IDs -->
+    <string name="leaderboard_normal">CgkI3-D-4YwSEAIQAQ</string>
+    <string name="leaderboard_time_attack">CgkI3-D-4YwSEAIQAg</string>
 
     <!-- Google Play Services -->
     <string name="signin_other_error">There was an issue signing in. Please try again later.</string>

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
@@ -109,6 +111,10 @@ public class NormalGameFragment
                     }
                 })
                 .show();
+
+        // Send the score to the presenter
+        long elapsedMillis = SystemClock.elapsedRealtime() - mGameTimerView.getBase();
+        mNormalActionsListener.onSubmitScore(elapsedMillis);
     }
 
     @Override
@@ -130,6 +136,21 @@ public class NormalGameFragment
     @Override
     public void showLeaderBoard() {
 
+    }
+
+
+    @Override
+    public void uploadScore(long score){
+        // Get the GoogleApiClient from our parent activity
+        NormalGameActivity myActivity = (NormalGameActivity) getActivity();
+        GoogleApiClient myClient = myActivity.getApiClient();
+        // Submit our score
+        if(myClient.isConnected()){
+            Games.Leaderboards.submitScore(
+                    myClient,
+                    getString(R.string.leaderboard_normal),
+                    score);
+        }
     }
 
 }

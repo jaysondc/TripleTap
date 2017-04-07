@@ -22,12 +22,16 @@ public class NormalGameContract extends GameContract {
 
         void showLeaderBoard();
 
+        void uploadScore(long score);
+
     }
 
     /**
      * Methods that need to be implemented by the Normal Game Presenter
      */
     interface UserActionsListener extends GameContract.UserActionsListener {
+
+        void onSubmitScore(long score);
 
     }
 }

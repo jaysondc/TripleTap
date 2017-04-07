@@ -18,7 +18,8 @@ import com.shakeup.setofthree.R;
 
 public class MainMenuActivity
         extends FullScreenActivity
-        implements View.OnClickListener{
+        implements View.OnClickListener,
+        MainMenuFragment.googleApiClientCallback{
 
     private String LOG_TAG = this.getClass().getSimpleName();
 
@@ -114,5 +115,13 @@ public class MainMenuActivity
         // show sign-out button, hide the sign-in button
         findViewById(R.id.sign_in_button).setVisibility(View.GONE);
         findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+    }
+
+    /*
+     * Callback methods used by fragments to obtain the API client
+     */
+    @Override
+    public GoogleApiClient getGoogleApiClient() {
+        return getApiClient();
     }
 }

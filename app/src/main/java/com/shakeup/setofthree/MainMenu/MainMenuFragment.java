@@ -134,10 +134,13 @@ public class MainMenuFragment
     @Override
     public void openLeaderboard() {
         Log.d(LOG_TAG, "The user opened the leaderboard");
+
         googleApiClientCallback myActivity = (googleApiClientCallback) getActivity();
-        if (myActivity.isApiConnected()) {
+        GoogleApiClient myClient = myActivity.getGoogleApiClient();
+
+        if (myClient.isConnected()) {
             startActivityForResult(
-                    Games.Leaderboards.getAllLeaderboardsIntent(myActivity.getGoogleApiClient()),
+                    Games.Leaderboards.getAllLeaderboardsIntent(myClient),
                     RC_UNUSED);
         } else {
             BaseGameUtils.makeSimpleDialog(
@@ -147,10 +150,12 @@ public class MainMenuFragment
         }
     }
 
+    /*
+     * Interface implemented by the parent activity to grant access to the GoogleApiClient
+     */
     public interface googleApiClientCallback{
 
         GoogleApiClient getGoogleApiClient();
-        boolean isApiConnected();
 
     }
 

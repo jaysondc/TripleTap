@@ -72,4 +72,8 @@ public class NormalGamePresenter extends GamePresenter
         mNormalGameView.stopTimer();
     }
 
+    @Override
+    public void onSubmitScore(long score) {
+        mNormalGameView.uploadScore(score);
+    }
 }
