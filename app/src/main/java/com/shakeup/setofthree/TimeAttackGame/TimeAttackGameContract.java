@@ -16,11 +16,11 @@ public class TimeAttackGameContract extends GameContract {
 
         void startTimeAttackCountdown();
 
-        void updateScore(int playerScore);
-
-        void showGameOver(int playerScore);
+        void updateScore(long playerScore);
 
         void showLeaderBoard();
+
+        void uploadScore(long score);
 
     }
 
@@ -34,6 +34,8 @@ public class TimeAttackGameContract extends GameContract {
         void onFindSetFailure();
 
         void onTimeUp();
+
+        long getPlayerScore();
 
     }
 }

@@ -24,6 +24,8 @@ public class NormalGameContract extends GameContract {
 
         void uploadScore(long score);
 
+        long getScore();
+
     }
 
     /**
@@ -31,7 +33,6 @@ public class NormalGameContract extends GameContract {
      */
     interface UserActionsListener extends GameContract.UserActionsListener {
 
-        void onSubmitScore(long score);
 
     }
 }

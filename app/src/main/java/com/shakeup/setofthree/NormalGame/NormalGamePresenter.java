@@ -55,25 +55,34 @@ public class NormalGamePresenter extends GamePresenter
     }
 
 
+    /*
+     * Update the deck
+     */
     @Override
     public void onSetSuccess() {
         mNormalGameView.updateDeckRemaining(mSetGame.getDeckSize() / 3);
         super.onSetSuccess();
     }
 
+    /*
+     * Show visual feedback that the set was invalid
+     */
     @Override
     public void onSetFailure() {
         super.onSetFailure();
     }
 
+    /*
+     * Stop the timer and show the game over screen
+     */
     @Override
     public void onGameOver() {
         super.onGameOver();
         mNormalGameView.stopTimer();
+
+        // Upload the final score
+        long finalScore = mNormalGameView.getScore();
+        mNormalGameView.uploadScore(finalScore);
     }
 
-    @Override
-    public void onSubmitScore(long score) {
-        mNormalGameView.uploadScore(score);
-    }
 }

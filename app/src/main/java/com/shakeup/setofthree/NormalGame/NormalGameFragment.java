@@ -111,16 +111,26 @@ public class NormalGameFragment
                     }
                 })
                 .show();
-
-        // Send the score to the presenter
-        long elapsedMillis = SystemClock.elapsedRealtime() - mGameTimerView.getBase();
-        mNormalActionsListener.onSubmitScore(elapsedMillis);
     }
 
+    /**
+     * Start the chronograph
+     */
     @Override
     public void startTimer() {
         mGameTimerView.setBase(SystemClock.elapsedRealtime());
         mGameTimerView.start();
+    }
+
+    /**
+     * Get the score
+     * @return The time in mills
+     */
+    @Override
+    public long getScore(){
+        // Send the score to the presenter
+        long elapsedMillis = SystemClock.elapsedRealtime() - mGameTimerView.getBase();
+        return elapsedMillis;
     }
 
     @Override
@@ -137,7 +147,6 @@ public class NormalGameFragment
     public void showLeaderBoard() {
 
     }
-
 
     @Override
     public void uploadScore(long score){

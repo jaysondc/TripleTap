@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
@@ -91,6 +93,12 @@ public class TimeAttackGameFragment
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mTimeAttackCountdown.cancel();
+    }
+
+    @Override
     public void onSetSuccess() {
 //        // Do stuff in response to successful SET claim
 //        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
@@ -113,12 +121,9 @@ public class TimeAttackGameFragment
 
     @Override
     public void onGameOver() {
-
-    }
-
-    @Override
-    public void showGameOver(int playerScore) {
         // Do stuff when the game is over
+        long playerScore = mTimeAttackActionsListener.getPlayerScore();
+
         Snackbar.make(
                 getView(),
                 getString(R.string.message_game_over) + " You found " + playerScore + " SETs!",
@@ -126,11 +131,12 @@ public class TimeAttackGameFragment
                 .setAction(getString(R.string.message_restart), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mActionsListener.initGame();
+                        mTimeAttackActionsListener.initGame();
                     }
                 })
                 .show();
     }
+
 
     @Override
     public void startTimeAttackCountdown() {
@@ -140,8 +146,22 @@ public class TimeAttackGameFragment
     }
 
     @Override
-    public void updateScore(int playerScore) {
-        mGameScore.setText(Integer.toString(playerScore));
+    public void updateScore(long playerScore) {
+        mGameScore.setText(Long.toString(playerScore));
+    }
+
+    @Override
+    public void uploadScore(long score) {
+        // Get the GoogleApiClient from our parent activity
+        TimeAttackGameActivity myActivity = (TimeAttackGameActivity) getActivity();
+        GoogleApiClient myClient = myActivity.getApiClient();
+        // Submit our score
+        if(myClient.isConnected()){
+            Games.Leaderboards.submitScore(
+                    myClient,
+                    getString(R.string.leaderboard_time_attack),
+                    score);
+        }
     }
 
     @Override

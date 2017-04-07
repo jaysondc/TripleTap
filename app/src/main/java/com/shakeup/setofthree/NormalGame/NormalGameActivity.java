@@ -47,6 +47,9 @@ public class NormalGameActivity extends FullScreenActivity {
         // Let the user know we're signed in and can save high scores
     }
 
+    /*
+     * Allow our fragments to get the API client
+     */
     @Override
     protected GoogleApiClient getApiClient() {
         return super.getApiClient();

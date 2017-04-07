@@ -20,7 +20,7 @@ public class TimeAttackGamePresenter extends GamePresenter
 
     private TimeAttackGameContract.View mTimeAttackGameView;
 
-    int mPlayerScore = 0;
+    long mPlayerScore = 0;
 
     // Supply a default constructor
     public TimeAttackGamePresenter(){
@@ -68,9 +68,28 @@ public class TimeAttackGamePresenter extends GamePresenter
 
     }
 
+    /*
+     * Once the timer ends, let the presenter know the game is over
+     */
     @Override
     public void onTimeUp() {
-        mTimeAttackGameView.showGameOver(mPlayerScore);
-        mTimeAttackGameView.setGameClickable(false);
+        onGameOver();
     }
+
+    @Override
+    public long getPlayerScore() {
+        return mPlayerScore;
+    }
+
+    /*
+         * Show game over, upload score, save locally
+         */
+    @Override
+    public void onGameOver() {
+        super.onGameOver();
+
+        mTimeAttackGameView.setGameClickable(false);
+        mTimeAttackGameView.uploadScore(mPlayerScore);
+    }
+
 }
