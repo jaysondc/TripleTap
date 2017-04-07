@@ -10,7 +10,7 @@
     <string name="menu_how_to_play">How to Play</string>
     <string name="menu_leaderboard">Leaderboard</string>
     <string name="menu_settings">Settings</string>
-    <string name="menu_exit">Exit</string>
+    <string name="menu_exit">Quit</string>
     <string name="menu_back">Back</string>
     <string name="leaderboards_not_available">Leaderboards are unavailable unless you are signed into Google Play Games.</string>
 

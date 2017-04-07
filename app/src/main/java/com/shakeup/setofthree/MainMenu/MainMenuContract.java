@@ -22,6 +22,12 @@ public class MainMenuContract {
 
         void openLeaderboard();
 
+        void openSettings();
+
+        void exitGame();
+
+        void showHowToPlay();
+
     }
 
     /**
@@ -36,7 +42,7 @@ public class MainMenuContract {
 
         void onLeaderBoardClick();
 
-        void ohHowToPlayClick();
+        void onHowToPlayClick();
 
         void onSettingsClick();
 

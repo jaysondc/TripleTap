@@ -44,16 +44,17 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
 
     @Override
     public void onSettingsClick() {
-
+        mMainMenuView.openSettings();
     }
 
     @Override
-    public void ohHowToPlayClick() {
-
+    public void onHowToPlayClick() {
+        mMainMenuView.showHowToPlay();
     }
 
     @Override
     public void onExitGameClick() {
         // Open exit confirm dialog in the view
+        mMainMenuView.exitGame();
     }
 }

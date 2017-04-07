@@ -1,5 +1,7 @@
 package com.shakeup.setofthree.MainMenu;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -31,7 +34,7 @@ public class MainMenuFragment
     private String LOG_TAG = getClass().getSimpleName();
 
     // Presenter to handle all user actions
-    MainMenuPresenter mActionsListener;
+    MainMenuContract.UserActionsListener mActionsListener;
 
     /**
      * Allow another class to construct us
@@ -102,6 +105,30 @@ public class MainMenuFragment
             }
         });
 
+        howToPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the how to play tutorial
+                mActionsListener.onHowToPlayClick();
+            }
+        });
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Exit the game
+                mActionsListener.onExitGameClick();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the settings
+                mActionsListener.onSettingsClick();
+            }
+        });
+
         return root;
     }
 
@@ -150,9 +177,31 @@ public class MainMenuFragment
         }
     }
 
+    @Override
+    public void openSettings() {
+        Toast.makeText(
+                getContext(),
+                "No settings yet!",
+                Toast.LENGTH_LONG)
+        .show();
+    }
+
+    @Override
+    public void exitGame() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void showHowToPlay() {
+        Intent intent = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=yJ_eUUvDXKs"));
+        startActivity(intent);
+    }
+
     /*
-     * Interface implemented by the parent activity to grant access to the GoogleApiClient
-     */
+         * Interface implemented by the parent activity to grant access to the GoogleApiClient
+         */
     public interface googleApiClientCallback{
 
         GoogleApiClient getGoogleApiClient();
