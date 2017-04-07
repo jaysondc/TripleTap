@@ -36,4 +36,13 @@ public class MultiplayerGameActivity extends FullScreenActivity {
         transaction.commit();
     }
 
+    @Override
+    public void onSignInFailed() {
+        // Do nothing
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        // Do nothing
+    }
 }

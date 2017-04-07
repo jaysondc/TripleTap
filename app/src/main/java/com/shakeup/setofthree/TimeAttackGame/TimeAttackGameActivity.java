@@ -36,4 +36,13 @@ public class TimeAttackGameActivity extends FullScreenActivity {
         transaction.commit();
     }
 
+    @Override
+    public void onSignInFailed() {
+        // Let the user know we aren't signed in and high scores won't be saved (for now)
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        // Let the user know we're signed in and can save high scores
+    }
 }

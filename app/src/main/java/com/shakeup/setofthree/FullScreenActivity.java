@@ -1,14 +1,15 @@
 package com.shakeup.setofthree;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.google.example.games.basegameutils.BaseGameActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullScreenActivity extends AppCompatActivity {
+public abstract class FullScreenActivity extends BaseGameActivity {
 
     View mDecorView;
 
@@ -53,4 +54,5 @@ public class FullScreenActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
+
 }
