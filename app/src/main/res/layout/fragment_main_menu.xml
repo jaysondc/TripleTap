@@ -47,6 +47,15 @@
         app:layout_constraintTop_toBottomOf="@+id/button_how_to_play" />
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_achievements"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="@string/menu_achievements"
+        app:layout_constraintBottom_toTopOf="@+id/button_leaderboard"
+        app:layout_constraintLeft_toLeftOf="@+id/button_leaderboard"
+        app:layout_constraintRight_toRightOf="@+id/button_leaderboard" />
+
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/button_leaderboard"
         android:layout_width="0dp"
         android:layout_height="48dp"

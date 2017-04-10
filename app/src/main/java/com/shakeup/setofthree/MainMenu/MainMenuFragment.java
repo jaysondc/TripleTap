@@ -75,6 +75,8 @@ public class MainMenuFragment
                 (AppCompatButton) root.findViewById(R.id.button_how_to_play);
         AppCompatButton leaderboardButton =
                 (AppCompatButton) root.findViewById(R.id.button_leaderboard);
+        AppCompatButton achievementsButton =
+                (AppCompatButton) root.findViewById(R.id.button_achievements);
         AppCompatButton settingsButton =
                 (AppCompatButton) root.findViewById(R.id.button_settings);
         AppCompatButton exitButton =
@@ -102,6 +104,14 @@ public class MainMenuFragment
             public void onClick(View v) {
                 // Show the leaderboard
                 mActionsListener.onLeaderBoardClick();
+            }
+        });
+
+        achievementsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the achievements
+                mActionsListener.onAchievementsClick();
             }
         });
 
@@ -173,6 +183,24 @@ public class MainMenuFragment
             BaseGameUtils.makeSimpleDialog(
                     getActivity(),
                     getString(R.string.leaderboards_not_available))
+                    .show();
+        }
+    }
+
+    @Override
+    public void openAchievements() {
+        Log.d(LOG_TAG, "The user opened achievements");
+
+        googleApiClientCallback myActivity = (googleApiClientCallback) getActivity();
+        GoogleApiClient myClient = myActivity.getGoogleApiClient();
+
+        if (myClient.isConnected()) {
+            startActivityForResult(Games.Achievements.getAchievementsIntent(myClient),
+                    RC_UNUSED);
+        } else {
+            BaseGameUtils.makeSimpleDialog(
+                    getActivity(),
+                    getString(R.string.achievements_not_available))
                     .show();
         }
     }

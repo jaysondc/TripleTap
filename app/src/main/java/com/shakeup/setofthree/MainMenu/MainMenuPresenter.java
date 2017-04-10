@@ -43,6 +43,11 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
     }
 
     @Override
+    public void onAchievementsClick() {
+        mMainMenuView.openAchievements();
+    }
+
+    @Override
     public void onSettingsClick() {
         mMainMenuView.openSettings();
     }

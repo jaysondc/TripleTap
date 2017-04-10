@@ -22,6 +22,8 @@ public class MainMenuContract {
 
         void openLeaderboard();
 
+        void openAchievements();
+
         void openSettings();
 
         void exitGame();
@@ -41,6 +43,8 @@ public class MainMenuContract {
         void onMultiplayerClick();
 
         void onLeaderBoardClick();
+
+        void onAchievementsClick();
 
         void onHowToPlayClick();
 
