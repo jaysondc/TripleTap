@@ -216,6 +216,14 @@ public abstract class GameFragment extends Fragment
     }
 
     /**
+     * The method refreshes the entire board display and should be used in the event
+     * the board contents has been changed manually.
+     */
+    public void refreshBoard(){
+        mSetGameRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    /**
      * Updates the RecyclerView whenever the hand is updated. Updates member variables
      * with Set Locations and highlights sets if we are in debug mode.
      * @param isOverflow State whether or not the hand is in overflow mode

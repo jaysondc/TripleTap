@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class NormalGameFragment
 
     Chronometer mGameTimerView;
     TextView mDeckRemainingView;
+    Button mDebugRefreshView;
 
     // Default constructor
     public NormalGameFragment(){
@@ -72,6 +74,20 @@ public class NormalGameFragment
                 (Chronometer) root.findViewById(R.id.game_timer);
         mDeckRemainingView =
                 (TextView) root.findViewById(R.id.deck_remaining);
+        mDebugRefreshView =
+                (Button) root.findViewById(R.id.button_debug_refresh);
+
+        mDebugRefreshView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshBoard();
+            }
+        });
+
+        // If we are in debug mode, show the refresh button
+        if(getResources().getBoolean(R.bool.is_debug)){
+            mDebugRefreshView.setVisibility(View.VISIBLE);
+        }
 
         // Initialize a game
         mNormalActionsListener.initGame();

@@ -46,6 +46,7 @@
 
     <!-- Normal Game -->
     <string name="normal_deck_remaining">81</string>
+    <string name="debug_refresh_board">Refresh</string>
 
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>

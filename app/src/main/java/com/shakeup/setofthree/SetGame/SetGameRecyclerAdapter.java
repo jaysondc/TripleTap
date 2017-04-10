@@ -111,6 +111,14 @@ public class SetGameRecyclerAdapter
     }
 
     /**
+     * Set the set-hand manually
+     * @param newHand
+     */
+    public void setSethand(ArrayList<SetCard> newHand){
+        mSetHand = newHand;
+    }
+
+    /**
      * Replace the the old cards with the newly drawn cards. The cards have to be updated
      * differently whether we are moving in and out of overflow mode, or at the end of the
      * game where the deck is empty.
@@ -146,7 +154,12 @@ public class SetGameRecyclerAdapter
 
             // Notify change occurred from lowest index to the end of the array
             notifyItemRangeChanged(lowestIndex, mSetHand.size() - lowestIndex);
-            notifyItemRangeRemoved(mSetHand.size()-1, 3);
+            if(mSetHand.isEmpty()){
+                // Handle edge case if mSetHand has been emptied (entire board is clear)
+                notifyItemRangeRemoved(0, 3);
+            } else {
+                notifyItemRangeRemoved(mSetHand.size()-1, 3);
+            }
         }
 
         // Store whether or not we are in overflow for later use

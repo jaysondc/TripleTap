@@ -116,21 +116,24 @@ public class SetTests {
     public void setDeckTest(){
         SetGame.SetDeck testDeck = new SetGame().new SetDeck();
 
+        // Create a discard pile
+        ArrayList<SetCard> discardPile = new ArrayList<>();
+
         Assert.assertEquals(81, testDeck.getCount());
 
         // Draw a single card
-        testDeck.drawCard();
+        discardPile.add(testDeck.drawCard());
 
         Assert.assertEquals(80, testDeck.getCount());
 
         // Draw the rest of the cards
         for(int i = 0; i < 80; i++){
-            testDeck.drawCard();
+            discardPile.add(testDeck.drawCard());
         }
 
         Assert.assertTrue(testDeck.isEmpty());
 
-        testDeck.refillDeck();
+        testDeck.refillDeck(discardPile);
         Assert.assertEquals(81, testDeck.getCount());
     }
 
@@ -191,6 +194,29 @@ public class SetTests {
         }
 
         Assert.assertEquals(detectedSets, countedSets);
+    }
+
+    @Test
+    public void setAnalysisEmptyTest(){
+        // Test whether the set analysis is correct. Detect and validate all found sets in a hand.
+        SetGame testGame = new SetGame();
+
+        // Set SetHand to be empty
+        testGame.setSetHand(new ArrayList<SetCard>());
+        // Create a new deck and empty it
+        SetGame.SetDeck emptyDeck = testGame.new SetDeck();
+        while(!emptyDeck.isEmpty()){
+            emptyDeck.drawCard();
+        }
+
+        // Set the empty deck as the game's deck
+        testGame.setSetDeck(emptyDeck);
+        // Re-analyze sets
+        testGame.analyzeSets();
+
+        int detectedSets = testGame.getNumAvailableSets();
+
+        Assert.assertEquals(0, detectedSets);
     }
 
     @Test

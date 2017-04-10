@@ -6,15 +6,23 @@ import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.SetGameFragmentAndroidTests;
+import com.shakeup.setofthree.SetGame.SetGameRecyclerAdapter;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
  * Created by Jayson on 3/10/2017.
@@ -99,6 +107,55 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
 
         // Assert that the gameover message was shown
         checkSnackBarDisplayedByMessage(R.string.message_game_over);
+    }
+
+    /**
+     * Test edge case where the player completely clears the board
+     */
+    @Test
+    public void testClearBoardGameOver() throws InterruptedException {
+
+        // Get the deck and empty it
+        SetGame.SetDeck deck = mSetGame.getSetDeck();
+        while(!deck.isEmpty()){
+            deck.drawCard();
+        }
+        // Use the empty deck
+        mSetGame.setSetDeck(deck);
+
+        // Get a random set
+        ArrayList<SetCard> someHand = mSetGame.getSetHand();
+        SetGame.Triplet<Integer, Integer, Integer> someSetLocation = mSetGame.getRandomSet();
+        SetCard cardOne = someHand.get(someSetLocation.getFirst());
+        SetCard cardTwo = someHand.get(someSetLocation.getSecond());
+        SetCard cardThree = someHand.get(someSetLocation.getThird());
+
+        // Empty the hand and populate it with a single set
+        while(!someHand.isEmpty()){
+            someHand.remove(0);
+        }
+        someHand.add(cardOne);
+        someHand.add(cardTwo);
+        someHand.add(cardThree);
+
+        // Put the new hand in our game
+        mSetGame.setSetHand(someHand);
+        mSetGame.analyzeSets();
+        // Put the new hand in our board adapter
+        SetGameRecyclerAdapter myAdapter =
+                (SetGameRecyclerAdapter) mGameFragment.getRecyclerGridView().getAdapter();
+        // Set the adapter to be empty temporarily to clear any old view holders
+        myAdapter.setSethand(new ArrayList<SetCard>());
+        // Click the refresh button
+        onView(withId(R.id.button_debug_refresh))
+                .perform(click());
+
+        myAdapter.setSethand(someHand);
+        onView(withId(R.id.button_debug_refresh))
+                .perform(click());
+
+        //Thread.sleep(20000);
+        clickRandomSet();
     }
 
     /*

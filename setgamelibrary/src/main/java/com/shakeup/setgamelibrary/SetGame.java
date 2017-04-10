@@ -143,7 +143,7 @@ public class SetGame {
      * 5. 0i0j
      * ...
      */
-    private void analyzeSets() {
+    public void analyzeSets() {
         int setsFound = 0;
         mLocationOfSets = new ArrayList<>();
 
@@ -215,6 +215,10 @@ public class SetGame {
         return mSetHand;
     }
 
+    public void setSetHand(ArrayList<SetCard> setHand) {
+        this.mSetHand = setHand;
+    }
+
     public int getHandSize() {
         return mSetHand.size();
     }
@@ -223,8 +227,16 @@ public class SetGame {
         return mCurrentDeck;
     }
 
+    public void setSetDeck(SetDeck newDeck){
+        mCurrentDeck = newDeck;
+    }
+
     public int getDeckSize() {
         return mCurrentDeck.getCount();
+    }
+
+    public ArrayList<SetCard> getDiscardPile() {
+        return mDiscardPile;
     }
 
     public boolean getIsGameOver() {
@@ -316,7 +328,7 @@ public class SetGame {
         /**
          * Draw a card from the deck
          *
-         * @return A SetCard object
+         * @return A SetCard object of the drawn card
          */
         public SetCard drawCard() {
             // Return the removed card
