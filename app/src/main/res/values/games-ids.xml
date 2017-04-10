@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <string name="app_id">621902016607</string>
+    <string name="package_name">com.shakeup.setofthree</string>
+    <string name="achievement_patience">CgkI3-D-4YwSEAIQBQ</string>
+    <string name="achievement_persistence">CgkI3-D-4YwSEAIQBg</string>
+    <string name="achievement_speed_beginner">CgkI3-D-4YwSEAIQDA</string>
+    <string name="achievement_speed_intermediate">CgkI3-D-4YwSEAIQBw</string>
+    <string name="achievement_speed_master">CgkI3-D-4YwSEAIQCA</string>
+    <string name="achievement_youre_getting_the_hang_of_this">CgkI3-D-4YwSEAIQCQ</string>
+    <string name="achievement_youre_pretty_good_at_this">CgkI3-D-4YwSEAIQCg</string>
+    <string name="achievement_youre_crazy">CgkI3-D-4YwSEAIQCw</string>
+    <string name="leaderboard_classic_mode">CgkI3-D-4YwSEAIQAQ</string>
+    <string name="leaderboard_time_attack">CgkI3-D-4YwSEAIQAg</string>
+</resources>

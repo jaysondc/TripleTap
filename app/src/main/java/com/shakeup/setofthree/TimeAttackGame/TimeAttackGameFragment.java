@@ -155,12 +155,43 @@ public class TimeAttackGameFragment
         // Get the GoogleApiClient from our parent activity
         TimeAttackGameActivity myActivity = (TimeAttackGameActivity) getActivity();
         GoogleApiClient myClient = myActivity.getApiClient();
+
         // Submit our score
-        if(myClient.isConnected()){
+        if(!myClient.isConnected()){
+            // Let the user know they aren't signed in but their high score will be saved
+            // and uploaded when once they sign in
+        } else {
             Games.Leaderboards.submitScore(
                     myClient,
                     getString(R.string.leaderboard_time_attack),
                     score);
+
+            // Increment number of Classic games played
+            Games.Achievements.increment(
+                    myClient,
+                    getString(R.string.achievement_persistence),
+                    1
+            );
+
+            // Check for high score achievements
+            if(score >= 2){
+                Games.Achievements.unlock(
+                        myClient,
+                        getString(R.string.achievement_speed_beginner)
+                );
+            }
+            if(score >= 6){
+                Games.Achievements.unlock(
+                        myClient,
+                        getString(R.string.achievement_speed_intermediate)
+                );
+            }
+            if(score >= 10){
+                Games.Achievements.unlock(
+                        myClient,
+                        getString(R.string.achievement_speed_master)
+                );
+            }
         }
     }
 

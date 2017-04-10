@@ -164,17 +164,53 @@ public class NormalGameFragment
 
     }
 
+    /**
+     * Uploads the score to the GoogleGamesApi. Unlocks any relevant achievements
+     * @param score
+     */
     @Override
     public void uploadScore(long score){
         // Get the GoogleApiClient from our parent activity
         NormalGameActivity myActivity = (NormalGameActivity) getActivity();
         GoogleApiClient myClient = myActivity.getApiClient();
+
         // Submit our score
-        if(myClient.isConnected()){
+        if(!myClient.isConnected()){
+            // Let the user know they aren't signed in but their high score will be saved
+            // and uploaded when once they sign in
+        } else {
+            // Submit score to leaderboard
             Games.Leaderboards.submitScore(
                     myClient,
-                    getString(R.string.leaderboard_normal),
+                    getString(R.string.leaderboard_classic_mode),
                     score);
+
+            // Increment number of Classic games played
+            Games.Achievements.increment(
+                    myClient,
+                    getString(R.string.achievement_patience),
+                    1
+            );
+
+            // Check for high score achievements
+            if(score <= 900000){ // 15 minutes
+                Games.Achievements.unlock(
+                        myClient,
+                        getString(R.string.achievement_youre_getting_the_hang_of_this)
+                );
+            }
+            if(score <= 600000){ // 10 minutes
+                Games.Achievements.unlock(
+                        myClient,
+                        getString(R.string.achievement_youre_pretty_good_at_this)
+                );
+            }
+            if(score <= 300000){ // 5 minutes
+                Games.Achievements.unlock(
+                        myClient,
+                        getString(R.string.achievement_youre_crazy)
+                );
+            }
         }
     }
 
