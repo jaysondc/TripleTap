@@ -13,7 +13,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
 @ContentProvider(authority = ScoreProvider.AUTHORITY, database = SetDatabase.class)
 public final class ScoreProvider {
 
-    public static final String AUTHORITY = "com.shakeup.setofthree.ScoreProvider";
+    public static final String AUTHORITY = "com.shakeup.setofthree.provider";
 
     @TableEndpoint(table = SetDatabase.SCORES)
     public static class Scores {

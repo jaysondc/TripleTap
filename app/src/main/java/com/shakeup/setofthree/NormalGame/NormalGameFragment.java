@@ -1,10 +1,13 @@
 package com.shakeup.setofthree.NormalGame;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.shakeup.setofthree.ContentProvider.ScoreColumns;
+import com.shakeup.setofthree.ContentProvider.ScoreProvider;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
@@ -212,6 +217,59 @@ public class NormalGameFragment
                 );
             }
         }
+    }
+
+    void saveLocalScore(long score){
+        ContentValues values = new ContentValues();
+        values.put(ScoreColumns.MODE, "CLASSIC");
+        values.put(ScoreColumns.DIFFICULTY, "NORMAL");
+        values.put(ScoreColumns.SCORE, score);
+        values.put(ScoreColumns.TIME, System.currentTimeMillis());
+
+        getContext().getContentResolver().insert(
+                ScoreProvider.Scores.SCORES,
+                values
+        );
+
+        Log.d(LOG_TAG, "Saved score locally!");
+    }
+
+    void readAllScores(){
+        Cursor cursor = getContext().getContentResolver().query(
+                ScoreProvider.Scores.SCORES,
+                ScoreColumns._ALL,
+                null,
+                new String[]{},
+                ScoreColumns._ID
+        );
+
+
+        System.out.println("Cursor has " + cursor.getCount() + " items.");
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            int id = cursor.getInt(cursor.getColumnIndex(ScoreColumns._ID));
+            long score = cursor.getLong(cursor.getColumnIndex(ScoreColumns.SCORE));
+            long time = cursor.getLong(cursor.getColumnIndex(ScoreColumns.TIME));
+            String mode = cursor.getString(cursor.getColumnIndex(ScoreColumns.MODE));
+            String difficulty = cursor.getString(cursor.getColumnIndex(ScoreColumns.DIFFICULTY));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(id)
+                    .append(" ")
+                    .append(score)
+                    .append(" ")
+                    .append(time)
+                    .append(" ")
+                    .append(mode)
+                    .append(" ")
+                    .append(difficulty);
+
+            Log.d(LOG_TAG, stringBuilder.toString());
+
+            cursor.moveToNext();
+        }
+        cursor.close();
     }
 
 }

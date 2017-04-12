@@ -28,4 +28,13 @@ public interface ScoreColumns {
 
     @DataType(DataType.Type.TEXT) @NotNull
     String DIFFICULTY = "difficulty";
+
+    // Default projection
+    public static final String[] _ALL = {
+            _ID,
+            SCORE,
+            TIME,
+            MODE,
+            DIFFICULTY
+    };
 }

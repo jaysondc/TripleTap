@@ -17,7 +17,7 @@
             android:value="@string/app_id" />
 
         <provider
-            android:authorities="com.shakeup.setofthree.ContentProvider.ScoreProvider"
+            android:authorities="com.shakeup.setofthree.provider"
             android:name=".ContentProvider.generated.ScoreProvider"/>
 
         <activity

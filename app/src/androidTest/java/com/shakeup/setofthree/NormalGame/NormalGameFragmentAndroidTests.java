@@ -158,6 +158,18 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
         clickRandomSet();
     }
 
+    /**
+     * Tests uploading and reading scores locally
+     */
+    @Test
+    public void testSaveLocalScore(){
+        NormalGameFragment normalFragment = (NormalGameFragment) mGameFragment;
+        //normalFragment.saveLocalScore(1000000);
+
+        normalFragment.readAllScores();
+    }
+
+
     /*
      * Create our own explicit click action that overrides the "90% of the view must be visible"
      * error. Our buttons are rotated and as a result the bounds of the view extend past the sides
