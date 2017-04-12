@@ -16,6 +16,10 @@
         <meta-data android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/app_id" />
 
+        <provider
+            android:authorities="com.shakeup.setofthree.ContentProvider.ScoreProvider"
+            android:name=".ContentProvider.generated.ScoreProvider"/>
+
         <activity
             android:name=".MainMenu.MainMenuActivity"
             android:label="@string/app_label"

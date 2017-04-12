@@ -64,6 +64,9 @@ dependencies {
     compile 'rongi.rotate-layout:rotate-layout:3.0.0'
     // Library to display buttons with progress bars
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
+    // Content Provider Generation library
+    annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.7.0'
+    compile 'net.simonvt.schematic:schematic:0.7.0'
 
     // Dependencies for local unit tests
     testCompile 'junit:junit:4.12'
