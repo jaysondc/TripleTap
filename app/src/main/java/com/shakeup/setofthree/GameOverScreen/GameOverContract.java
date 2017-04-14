@@ -12,6 +12,13 @@ public class GameOverContract {
      */
     interface View {
 
+        void restartGame();
+
+        void openLeaderboard();
+
+        void openFoundSets();
+
+        void openMainMenu();
 
     }
 
@@ -20,6 +27,15 @@ public class GameOverContract {
      */
     interface UserActionsListener {
 
+        void onRestartClicked();
+
+        void onLeaderboardClicked();
+
+        void onViewSetsClicked();
+
+        void onMainMenuClicked();
+
+        void onViewCreated();
 
     }
 }

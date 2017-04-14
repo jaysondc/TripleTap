@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
@@ -120,7 +121,7 @@ public class TimeAttackGameFragment
     }
 
     @Override
-    public void onGameOver() {
+    public void showGameOver() {
         // Do stuff when the game is over
         long playerScore = mTimeAttackActionsListener.getPlayerScore();
 
@@ -153,8 +154,8 @@ public class TimeAttackGameFragment
     @Override
     public void uploadScore(long score) {
         // Get the GoogleApiClient from our parent activity
-        TimeAttackGameActivity myActivity = (TimeAttackGameActivity) getActivity();
-        GoogleApiClient myClient = myActivity.getApiClient();
+        GoogleApiClientCallback myActivity = (GoogleApiClientCallback) getActivity();
+        GoogleApiClient myClient = myActivity.getGoogleApiClient();
 
         // Submit our score
         if(!myClient.isConnected()){

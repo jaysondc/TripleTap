@@ -96,7 +96,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
     }
 
     /**
-     * Tests that the onGameOver method properly handles the GameOver UI state.
+     * Tests that the showGameOver method properly handles the GameOver UI state.
      */
     @Test
     @Override

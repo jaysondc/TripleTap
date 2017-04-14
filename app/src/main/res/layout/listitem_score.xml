@@ -36,7 +36,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
-        app:layout_constraintBottom_toTopOf="@id/text_date"
+        app:layout_constraintBottom_toTopOf="@+id/text_date"
         app:layout_constraintLeft_toLeftOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"

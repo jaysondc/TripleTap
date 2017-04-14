@@ -31,7 +31,7 @@ public class GameContract {
 
         void onSetCardClicked();
 
-        void onGameOver();
+        void showGameOver();
 
         void highlightCard(int index);
 

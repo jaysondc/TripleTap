@@ -123,7 +123,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
      */
     @Override
     public void onGameOver() {
-        mGameView.onGameOver();
+        mGameView.showGameOver();
     }
 
     /**

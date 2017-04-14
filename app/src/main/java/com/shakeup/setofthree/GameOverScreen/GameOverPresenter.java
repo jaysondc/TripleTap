@@ -31,8 +31,46 @@ public class GameOverPresenter
                 checkNotNull(gameOverView, "gameOverView cannot be null!");
     }
 
+    /*
+     * Gets the cursor for the appropriate high scores and passes
+     * it back to the view
+     */
+    @Override
+    public void onViewCreated() {
 
+    }
 
+    /*
+     * Starts a new game
+     */
+    @Override
+    public void onRestartClicked() {
+        mGameOverView.restartGame();
+    }
+
+    /*
+     * Opens the global leaderboard
+     */
+    @Override
+    public void onLeaderboardClicked() {
+        mGameOverView.openLeaderboard();
+    }
+
+    /*
+     * Opens the view showing all found sets
+     */
+    @Override
+    public void onViewSetsClicked() {
+        mGameOverView.openFoundSets();
+    }
+
+    /*
+     * Opens the main menu
+     */
+    @Override
+    public void onMainMenuClicked() {
+        mGameOverView.openMainMenu();
+    }
 
 
 }

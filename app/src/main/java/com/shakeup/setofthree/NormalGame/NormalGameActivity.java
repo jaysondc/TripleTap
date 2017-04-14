@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
+import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 
 /**
@@ -16,7 +17,9 @@ import com.shakeup.setofthree.R;
  * fragment which will contain all the views seen by the user.
  */
 
-public class NormalGameActivity extends FullScreenActivity {
+public class NormalGameActivity
+        extends FullScreenActivity
+        implements GoogleApiClientCallback{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class NormalGameActivity extends FullScreenActivity {
      * Allow our fragments to get the API client
      */
     @Override
-    protected GoogleApiClient getApiClient() {
+    public GoogleApiClient getGoogleApiClient() {
         return super.getApiClient();
     }
 }

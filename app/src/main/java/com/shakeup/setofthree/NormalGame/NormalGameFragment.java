@@ -5,7 +5,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.ContentProvider.ScoreProvider;
+import com.shakeup.setofthree.GameOverScreen.GameOverFragment;
+import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
@@ -119,19 +122,24 @@ public class NormalGameFragment
 
 
     @Override
-    public void onGameOver() {
+    public void showGameOver() {
         // Do stuff when the game is over
-        Snackbar.make(
-                getView(),
-                getString(R.string.message_game_over),
-                Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.message_restart), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mActionsListener.initGame();
-                    }
-                })
-                .show();
+//        Snackbar.make(
+//                getView(),
+//                getString(R.string.message_game_over),
+//                Snackbar.LENGTH_INDEFINITE)
+//                .setAction(getString(R.string.message_restart), new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        mActionsListener.initGame();
+//                    }
+//                })
+//                .show();
+        // Swap in the Game Over Fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content_frame, GameOverFragment.newInstance());
+        transaction.commit();
     }
 
     /**
@@ -176,8 +184,8 @@ public class NormalGameFragment
     @Override
     public void uploadScore(long score){
         // Get the GoogleApiClient from our parent activity
-        NormalGameActivity myActivity = (NormalGameActivity) getActivity();
-        GoogleApiClient myClient = myActivity.getApiClient();
+        GoogleApiClientCallback myActivity = (GoogleApiClientCallback) getActivity();
+        GoogleApiClient myClient = myActivity.getGoogleApiClient();
 
         // Submit our score
         if(!myClient.isConnected()){

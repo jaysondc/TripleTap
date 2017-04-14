@@ -69,7 +69,7 @@ public abstract class GameFragment extends Fragment
     /**
      * Handle UI actions that happen when the game is over
      */
-    public abstract void onGameOver();
+    public abstract void showGameOver();
 
 
     /**

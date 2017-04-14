@@ -42,6 +42,13 @@
     <string name="button_not_a_set">NOT A SET!</string>
     <string name="button_wait">WAITING</string>
 
+    <!-- Game Over Screen -->
+    <string name="game_over">Game Over!</string>
+    <string name="button_restart">New Game</string>
+    <string name="button_leaderboard">Leaderboard</string>
+    <string name="button_view_sets">View Sets</string>
+    <string name="button_main_menu">Main Menu</string>
+
     <!-- Time Attack Game -->
     <string name="time_attack_score">0</string>
 

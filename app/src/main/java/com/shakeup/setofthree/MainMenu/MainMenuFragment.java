@@ -228,8 +228,8 @@ public class MainMenuFragment
     }
 
     /*
-         * Interface implemented by the parent activity to grant access to the GoogleApiClient
-         */
+     * Interface implemented by the parent activity to grant access to the GoogleApiClient
+     */
     public interface googleApiClientCallback{
 
         GoogleApiClient getGoogleApiClient();
