@@ -1,6 +1,12 @@
 package com.shakeup.setofthree.GameOverScreen;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
+
+import com.shakeup.setofthree.ContentProvider.ScoreColumns;
+import com.shakeup.setofthree.ContentProvider.ScoreProvider;
+import com.shakeup.setofthree.R;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -36,8 +42,25 @@ public class GameOverPresenter
      * it back to the view
      */
     @Override
-    public void onViewCreated() {
+    public void onViewCreated(Context context, String mode, String difficulty) {
 
+        // Set up selection string
+        String selection = ScoreColumns.MODE + "=?";
+
+        // Set up selection args
+        String[] selectionArgs = new String[1];
+        selectionArgs[0] = context.getString(R.string.value_mode_normal);
+
+
+        Cursor cursor = context.getContentResolver().query(
+                ScoreProvider.Scores.SCORES,
+                ScoreColumns._ALL,
+                selection,
+                selectionArgs,
+                ScoreColumns.SCORE + " DESC"
+        );
+
+        cursor.close();
     }
 
     /*

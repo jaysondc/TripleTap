@@ -59,6 +59,14 @@
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>
     <string name="extra_time_attack_length">EXTRA_TIME_ATTACK_LENGTH</string>
+    <string name="extra_game_mode">EXTRA_GAME_MODE</string>
+    <string name="extra_difficulty">EXTRA_DIFFICULTY</string>
+    
+    <!-- Extra Constant Values -->
+    <string name="value_mode_normal">CLASSIC</string>
+    <string name="value_mode_time_attack">TIME_ATTACK</string>
+    <string name="value_difficulty_easy">EASY</string>
+    <string name="value_difficulty_normal">NORMAL</string>
 
     <!-- Google Play Services -->
     <string name="signin_other_error">There was an issue signing in. Please try again later.</string>

@@ -66,6 +66,9 @@ public class GameOverFragment
         root = inflater.inflate(
                 R.layout.fragment_game_over_single_player, container, false);
 
+        // Get arguments from the fragment that called us
+        Bundle arguments = this.getArguments();
+
         // Instance the presenter our fragment uses and grab a reference
         mGameOverActionsListener = new GameOverPresenter(this);
 
@@ -109,8 +112,15 @@ public class GameOverFragment
             }
         });
 
-        // Initialize a game
-        mGameOverActionsListener.onViewCreated();
+        String gameMode = arguments.getString(getString(R.string.extra_game_mode));
+        String gameDifficulty = arguments.getString(getString(R.string.extra_difficulty));
+
+        // Initialize a game, letting the presenter know what mode and difficulty we're in
+        mGameOverActionsListener.onViewCreated(
+                getContext(),
+                gameMode,
+                gameDifficulty
+        );
 
         return root;
     }

@@ -1,5 +1,7 @@
 package com.shakeup.setofthree.GameOverScreen;
 
+import android.content.Context;
+
 /**
  * Created by Jayson on 4/13/2017.
  *
@@ -35,7 +37,7 @@ public class GameOverContract {
 
         void onMainMenuClicked();
 
-        void onViewCreated();
+        void onViewCreated(Context context, String mode, String difficulty);
 
     }
 }

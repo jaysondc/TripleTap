@@ -123,22 +123,22 @@ public class NormalGameFragment
 
     @Override
     public void showGameOver() {
-        // Do stuff when the game is over
-//        Snackbar.make(
-//                getView(),
-//                getString(R.string.message_game_over),
-//                Snackbar.LENGTH_INDEFINITE)
-//                .setAction(getString(R.string.message_restart), new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mActionsListener.initGame();
-//                    }
-//                })
-//                .show();
         // Swap in the Game Over Fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.content_frame, GameOverFragment.newInstance());
+        GameOverFragment gameOverFragment = GameOverFragment.newInstance();
+
+        // Add args so the game over fragment knows what game mode we're in
+        Bundle args = new Bundle();
+        args.putString(
+                getString(R.string.extra_game_mode),
+                getString(R.string.value_mode_normal));
+        args.putString(
+                getString(R.string.extra_difficulty),
+                getString(R.string.value_difficulty_normal));
+        gameOverFragment.setArguments(args);
+
+        transaction.replace(R.id.content_frame, gameOverFragment);
         transaction.commit();
     }
 
@@ -229,10 +229,12 @@ public class NormalGameFragment
 
     void saveLocalScore(long score){
         ContentValues values = new ContentValues();
-        values.put(ScoreColumns.MODE, "CLASSIC");
-        values.put(ScoreColumns.DIFFICULTY, "NORMAL");
+        values.put(ScoreColumns.MODE, getString(R.string.value_mode_normal));
+        values.put(ScoreColumns.DIFFICULTY, getString(R.string.value_difficulty_normal));
         values.put(ScoreColumns.SCORE, score);
         values.put(ScoreColumns.TIME, System.currentTimeMillis());
+        values.put(ScoreColumns.UPLOADED, false); // This should represent
+                    // whether or not we actually uploaded the score
 
         getContext().getContentResolver().insert(
                 ScoreProvider.Scores.SCORES,
