@@ -73,7 +73,7 @@ public class GameOverFragmentTests {
     @Test
     public void testSetup(){
         try{
-            Thread.sleep(500);
+            Thread.sleep(50000);
         } catch (Exception e){
             // Do stuff
         }

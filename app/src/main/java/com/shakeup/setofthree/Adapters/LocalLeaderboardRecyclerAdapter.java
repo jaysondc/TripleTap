@@ -10,6 +10,11 @@ import android.widget.TextView;
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Jayson on 4/14/2017.
  *
@@ -60,10 +65,34 @@ public class LocalLeaderboardRecyclerAdapter
         long score = mScoreCursor.getLong(scoreColumnIndex);
         long time = mScoreCursor.getLong(timeColumnIndex);
 
+        long scoreMinutes =
+                TimeUnit.MILLISECONDS.toMinutes(score);
+        long scoreSeconds =
+                TimeUnit.MILLISECONDS.toSeconds(score)
+                - TimeUnit.MINUTES.toSeconds(scoreMinutes);
+        long scoreHundreths =
+                (score
+                - TimeUnit.MINUTES.toMillis(scoreMinutes)
+                - TimeUnit.SECONDS.toMillis(scoreSeconds))
+                /10;
+
+        String scoreString = String.format(
+                Locale.getDefault(),
+                "%02d:%02d:%02d",
+                scoreMinutes,
+                scoreSeconds,
+                scoreHundreths
+        );
+
+        String timeString = new SimpleDateFormat(
+                "MM/dd/yyyy hh:mm a",
+                Locale.getDefault())
+                .format(new Date(time));
+
         // Set our position to display the current adapter position
         holder.mPosition.setText(Integer.toString(position + 1));
-        holder.mScore.setText(Long.toString(score));
-        holder.mDate.setText(Long.toString(time));
+        holder.mScore.setText(scoreString);
+        holder.mDate.setText(timeString);
 
     }
 
