@@ -69,6 +69,11 @@ public class GameOverFragmentTests {
         mGameActivity.finish();
     }
 
+    @Test
+    public void testSetup(){
+
+    }
+
     // Check that the game has successfully restarted
     @Test
     public void restartGame() throws Exception {

@@ -1,12 +1,6 @@
 package com.shakeup.setofthree.GameOverScreen;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
-
-import com.shakeup.setofthree.ContentProvider.ScoreColumns;
-import com.shakeup.setofthree.ContentProvider.ScoreProvider;
-import com.shakeup.setofthree.R;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -38,29 +32,12 @@ public class GameOverPresenter
     }
 
     /*
-     * Gets the cursor for the appropriate high scores and passes
-     * it back to the view
+     * Loads the local leaderboard. Model logic would normally go here
+     * but we need to use Loaders so all the logic is in the GameOverFragment
      */
     @Override
-    public void onViewCreated(Context context, String mode, String difficulty) {
-
-        // Set up selection string
-        String selection = ScoreColumns.MODE + "=?";
-
-        // Set up selection args
-        String[] selectionArgs = new String[1];
-        selectionArgs[0] = context.getString(R.string.value_mode_normal);
-
-
-        Cursor cursor = context.getContentResolver().query(
-                ScoreProvider.Scores.SCORES,
-                ScoreColumns._ALL,
-                selection,
-                selectionArgs,
-                ScoreColumns.SCORE + " DESC"
-        );
-
-        cursor.close();
+    public void onOnCreateViewFinished() {
+        mGameOverView.loadLocalLeaderboard();
     }
 
     /*
