@@ -12,6 +12,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+
 /**
  * Created by Jayson on 4/14/2017.
  */
@@ -28,7 +33,7 @@ public class GameOverFragmentTests {
             new ActivityTestRule<>(
                     NormalGameActivity.class,
                     true /* Initial touch mode  */,
-                    false /* Lazily launch activity */);
+                    true /* Lazily launch activity */);
     @Before
     public void setUp() throws Exception {
         Intent startIntent = new Intent();
@@ -44,7 +49,10 @@ public class GameOverFragmentTests {
         // Launch the GameOver fragment
         mGameFragment.showGameOver();
 
-        Thread.sleep(1500);
+        // Wait for the fragment to switch before continuing.
+        // Espresso doesn't automatically wait because fragment
+        // transactions are asynchronous
+        Thread.sleep(500);
 
         // Get the Game Over Fragment
         mGameOverFragment =
@@ -61,14 +69,22 @@ public class GameOverFragmentTests {
         mGameActivity.finish();
     }
 
+    // Check that the game has successfully restarted
     @Test
     public void restartGame() throws Exception {
+        mGameOverFragment.restartGame();
 
+        Thread.sleep(500);
+
+        onView(withId(R.id.game_recycler_grid))
+                .check(matches(isDisplayed()));
     }
 
+    // Test opening the leaderboard
     @Test
     public void openLeaderboard() throws Exception {
         mGameOverFragment.openLeaderboard();
+        // No assertions here because the leaderboard UI is pre-built
     }
 
     @Test
@@ -78,7 +94,12 @@ public class GameOverFragmentTests {
 
     @Test
     public void openMainMenu() throws Exception {
+        mGameOverFragment.openMainMenu();
 
+        Thread.sleep(500);
+
+        onView(withId(R.id.button_single_player))
+                .check(matches(isDisplayed()));
     }
 
 }
