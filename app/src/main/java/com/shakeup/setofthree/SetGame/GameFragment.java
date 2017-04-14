@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.shakeup.setgamelibrary.SetCard;
-import com.shakeup.setofthree.CustomView.SetGameCardView;
+import com.shakeup.setofthree.Adapters.SetGameRecyclerAdapter;
+import com.shakeup.setofthree.CustomViews.SetGameCardView;
 import com.shakeup.setofthree.R;
 
 import java.util.ArrayList;

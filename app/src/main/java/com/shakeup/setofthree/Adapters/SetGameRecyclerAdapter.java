@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.SetGame;
+package com.shakeup.setofthree.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shakeup.setgamelibrary.SetCard;
-import com.shakeup.setofthree.CustomView.SetGameCardView;
+import com.shakeup.setofthree.CustomViews.SetGameCardView;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.SetGame.GameContract;
 
 import java.util.ArrayList;
 

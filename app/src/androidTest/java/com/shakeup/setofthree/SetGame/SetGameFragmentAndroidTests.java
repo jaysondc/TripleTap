@@ -9,7 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.shakeup.setgamelibrary.SetGame;
-import com.shakeup.setofthree.CustomView.SetGameCardView;
+import com.shakeup.setofthree.Adapters.SetGameRecyclerAdapter;
+import com.shakeup.setofthree.CustomViews.SetGameCardView;
 import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
 

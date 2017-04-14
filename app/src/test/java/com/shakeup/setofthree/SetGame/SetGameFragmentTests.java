@@ -3,7 +3,7 @@ package com.shakeup.setofthree.SetGame;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 
-import com.shakeup.setofthree.CustomView.SetGameCardView;
+import com.shakeup.setofthree.CustomViews.SetGameCardView;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;

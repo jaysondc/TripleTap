@@ -10,7 +10,7 @@ import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.SetGameFragmentAndroidTests;
-import com.shakeup.setofthree.SetGame.SetGameRecyclerAdapter;
+import com.shakeup.setofthree.Adapters.SetGameRecyclerAdapter;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;

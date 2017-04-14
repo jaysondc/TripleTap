@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.CustomView;
+package com.shakeup.setofthree.CustomViews;
 
 import android.content.Context;
 import android.content.res.TypedArray;

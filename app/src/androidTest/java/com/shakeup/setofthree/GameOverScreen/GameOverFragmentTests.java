@@ -69,9 +69,14 @@ public class GameOverFragmentTests {
         mGameActivity.finish();
     }
 
+    // Test that nothing goes wrong during initial GameOverFragment setup
     @Test
     public void testSetup(){
-
+        try{
+            Thread.sleep(500);
+        } catch (Exception e){
+            // Do stuff
+        }
     }
 
     // Check that the game has successfully restarted

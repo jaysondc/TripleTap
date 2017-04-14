@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
+import com.shakeup.setofthree.Adapters.LocalLeaderboardRecyclerAdapter;
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.ContentProvider.ScoreProvider;
 import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
@@ -195,7 +197,11 @@ public class GameOverFragment
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Set up selection string
-        String selection = ScoreColumns.MODE + "=? AND " + ScoreColumns.DIFFICULTY + "=?";
+        String selection =
+                ScoreColumns.MODE
+                        + "=? AND "
+                        + ScoreColumns.DIFFICULTY
+                        + "=?";
 
         // Set up selection args
         String[] selectionArgs = new String[2];
@@ -209,7 +215,7 @@ public class GameOverFragment
                     ScoreColumns._ALL,
                     selection,
                     selectionArgs,
-                    ScoreColumns.SCORE + " DESC"
+                    ScoreColumns.SCORE + " ASC"
         );
     }
 
@@ -217,6 +223,16 @@ public class GameOverFragment
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Now we have a cursor for the local scores.
         Log.d(LOG_TAG, "Data loaded!");
+
+        // Create our adapter
+        LocalLeaderboardRecyclerAdapter adapter =
+                new LocalLeaderboardRecyclerAdapter(data);
+        // Creat our layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        // Set them both to the RecyclerView
+        mRecyclerLeaderboard.setLayoutManager(layoutManager);
+        mRecyclerLeaderboard.setAdapter(adapter);
     }
 
     @Override
