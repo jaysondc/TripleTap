@@ -1,7 +1,6 @@
 package com.shakeup.setofthree.NormalGame;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -105,19 +104,12 @@ public class NormalGameFragment
 
     @Override
     public void onSetSuccess() {
-//        // Do stuff in response to successful SET claim
-//        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
-//                .show();
-
-
+        // Nothing to do here
     }
 
     @Override
     public void onSetFailure() {
-//        // Do stuff in response to a failed set claim
-//        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
-//                .show();
-
+        // Nothing to do here
     }
 
 
@@ -162,24 +154,26 @@ public class NormalGameFragment
         return elapsedMillis;
     }
 
+    /**
+     * Stop the timer if it's currently active
+     */
     @Override
     public void stopTimer() {
         mGameTimerView.stop();
     }
 
+    /**
+     * Update the display with the number of draws remaining in the deck
+     * @param deckRemaining Number of draws left in the deck
+     */
     @Override
     public void updateDeckRemaining(int deckRemaining) {
         mDeckRemainingView.setText(Integer.toString(deckRemaining));
     }
 
-    @Override
-    public void showLeaderBoard() {
-
-    }
-
     /**
      * Uploads the score to the GoogleGamesApi. Unlocks any relevant achievements
-     * @param score
+     * @param score Score to be uploaded
      */
     @Override
     public void uploadScore(long score){
@@ -197,6 +191,8 @@ public class NormalGameFragment
                     myClient,
                     getString(R.string.leaderboard_classic_mode),
                     score);
+            // Set flag to know we've uploaded this score.
+            mNormalActionsListener.onScoreUploaded(true);
 
             // Increment number of Classic games played
             Games.Achievements.increment(
@@ -227,14 +223,14 @@ public class NormalGameFragment
         }
     }
 
-    void saveLocalScore(long score){
+    @Override
+    public void saveLocalScore(long score, boolean uploaded){
         ContentValues values = new ContentValues();
         values.put(ScoreColumns.MODE, getString(R.string.value_mode_normal));
         values.put(ScoreColumns.DIFFICULTY, getString(R.string.value_difficulty_normal));
         values.put(ScoreColumns.SCORE, score);
         values.put(ScoreColumns.TIME, System.currentTimeMillis());
-        values.put(ScoreColumns.UPLOADED, false); // This should represent
-                    // whether or not we actually uploaded the score
+        values.put(ScoreColumns.UPLOADED, uploaded);
 
         getContext().getContentResolver().insert(
                 ScoreProvider.Scores.SCORES,
@@ -243,43 +239,4 @@ public class NormalGameFragment
 
         Log.d(LOG_TAG, "Saved score locally!");
     }
-
-    void readAllScores(){
-        Cursor cursor = getContext().getContentResolver().query(
-                ScoreProvider.Scores.SCORES,
-                ScoreColumns._ALL,
-                null,
-                new String[]{},
-                ScoreColumns._ID
-        );
-
-
-        System.out.println("Cursor has " + cursor.getCount() + " items.");
-
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
-            int id = cursor.getInt(cursor.getColumnIndex(ScoreColumns._ID));
-            long score = cursor.getLong(cursor.getColumnIndex(ScoreColumns.SCORE));
-            long time = cursor.getLong(cursor.getColumnIndex(ScoreColumns.TIME));
-            String mode = cursor.getString(cursor.getColumnIndex(ScoreColumns.MODE));
-            String difficulty = cursor.getString(cursor.getColumnIndex(ScoreColumns.DIFFICULTY));
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(id)
-                    .append(" ")
-                    .append(score)
-                    .append(" ")
-                    .append(time)
-                    .append(" ")
-                    .append(mode)
-                    .append(" ")
-                    .append(difficulty);
-
-            Log.d(LOG_TAG, stringBuilder.toString());
-
-            cursor.moveToNext();
-        }
-        cursor.close();
-    }
-
 }

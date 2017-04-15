@@ -20,9 +20,9 @@ public class NormalGameContract extends GameContract {
 
         void updateDeckRemaining(int deckRemaining);
 
-        void showLeaderBoard();
-
         void uploadScore(long score);
+
+        void saveLocalScore(long score, boolean uploaded);
 
         long getScore();
 
@@ -33,6 +33,7 @@ public class NormalGameContract extends GameContract {
      */
     interface UserActionsListener extends GameContract.UserActionsListener {
 
+        void onScoreUploaded(boolean uploaded);
 
     }
 }

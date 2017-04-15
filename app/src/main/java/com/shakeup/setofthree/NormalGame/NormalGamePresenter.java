@@ -21,6 +21,7 @@ public class NormalGamePresenter extends GamePresenter
     private NormalGameContract.View mNormalGameView;
 
     int mPlayerScore = 0;
+    boolean mScoreUploaded = false;
 
     // Supply a default constructor
     public NormalGamePresenter(){
@@ -52,6 +53,8 @@ public class NormalGamePresenter extends GamePresenter
         mNormalGameView.startTimer();
         // Show the cards remaining in the deck
         mNormalGameView.updateDeckRemaining(mSetGame.getDeckSize() / 3);
+        // Reset the score uploaded state
+        mScoreUploaded = false;
     }
 
 
@@ -83,6 +86,11 @@ public class NormalGamePresenter extends GamePresenter
         // Upload the final score
         long finalScore = mNormalGameView.getScore();
         mNormalGameView.uploadScore(finalScore);
+        mNormalGameView.saveLocalScore(finalScore, mScoreUploaded);
     }
 
+    @Override
+    public void onScoreUploaded(boolean uploaded) {
+        mScoreUploaded = uploaded;
+    }
 }

@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.Adapters;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +10,7 @@ import android.widget.TextView;
 
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+import com.shakeup.setofthree.Utilities.Utilities;
 
 /**
  * Created by Jayson on 4/14/2017.
@@ -28,6 +25,7 @@ public class LocalLeaderboardRecyclerAdapter
 
     // Score cursor this adapter will use
     Cursor mScoreCursor;
+    Context mContext;
 
     public LocalLeaderboardRecyclerAdapter(Cursor cursor) {
         super();
@@ -40,7 +38,9 @@ public class LocalLeaderboardRecyclerAdapter
     @Override
     public LocalScoreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        mContext = parent.getContext();
+
+        LayoutInflater inflater = LayoutInflater.from(mContext);
 
         View scoreView = inflater.inflate(
                 R.layout.listitem_score,
@@ -59,38 +59,29 @@ public class LocalLeaderboardRecyclerAdapter
         // Move the cursor to our position
         mScoreCursor.moveToPosition(position);
 
+        // Get indexes of the desired columns
         int scoreColumnIndex = mScoreCursor.getColumnIndex(ScoreColumns.SCORE);
         int timeColumnIndex = mScoreCursor.getColumnIndex(ScoreColumns.TIME);
+        int modeIndex = mScoreCursor.getColumnIndex(ScoreColumns.MODE);
 
+        // Retrieve the score and time as a long
         long score = mScoreCursor.getLong(scoreColumnIndex);
         long time = mScoreCursor.getLong(timeColumnIndex);
+        String mode = mScoreCursor.getString(modeIndex);
 
-        long scoreMinutes =
-                TimeUnit.MILLISECONDS.toMinutes(score);
-        long scoreSeconds =
-                TimeUnit.MILLISECONDS.toSeconds(score)
-                - TimeUnit.MINUTES.toSeconds(scoreMinutes);
-        long scoreHundreths =
-                (score
-                - TimeUnit.MINUTES.toMillis(scoreMinutes)
-                - TimeUnit.SECONDS.toMillis(scoreSeconds))
-                /10;
-
-        String scoreString = String.format(
-                Locale.getDefault(),
-                "%02d:%02d:%02d",
-                scoreMinutes,
-                scoreSeconds,
-                scoreHundreths
-        );
-
-        String timeString = new SimpleDateFormat(
-                "MM/dd/yyyy hh:mm a",
-                Locale.getDefault())
-                .format(new Date(time));
+        String scoreString = "";
+        // Convert to String format using utility methods
+        if(mode.equals(mContext.getString(R.string.value_mode_normal))){
+            // If the score is for normal mode, format to time
+            scoreString = Utilities.scoreTimeToString(score);
+        } else if(mode.equals(mContext.getString(R.string.value_mode_time_attack))){
+            // If the score is for time attack, format to string
+            scoreString = Utilities.longToString(score);
+        }
+        String timeString = Utilities.dateToString(time);
 
         // Set our position to display the current adapter position
-        holder.mPosition.setText(Integer.toString(position + 1));
+        holder.mPosition.setText(Utilities.longToString(position + 1));
         holder.mScore.setText(scoreString);
         holder.mDate.setText(timeString);
 
