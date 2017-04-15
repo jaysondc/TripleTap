@@ -260,6 +260,7 @@ public class GameOverFragment
 
     @Override
     public void onLoaderReset(Loader loader) {
-        // Do stuff when the loader resets
+        // The loader resets and the data is invalid. Stop displaying the cursor
+        mRecyclerLeaderboard.setAdapter(null);
     }
 }

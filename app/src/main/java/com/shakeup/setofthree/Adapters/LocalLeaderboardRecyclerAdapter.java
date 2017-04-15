@@ -84,12 +84,12 @@ public class LocalLeaderboardRecyclerAdapter
         }
         String timeString = Utilities.dateToString(time);
 
-        // Set our position to display the current adapter position
+        // Set our view to display the data
         holder.mPosition.setText(Utilities.longToString(position + 1));
         holder.mScore.setText(scoreString);
         holder.mDate.setText(timeString);
 
-        // Set a highlight if we have one
+        // Set a highlight if we are at the designated highlight position.
         if(position == mHighlightedIndex){
             holder.mView.setBackgroundColor(
                     ContextCompat.getColor(
@@ -134,6 +134,7 @@ public class LocalLeaderboardRecyclerAdapter
             // If time is the later, save the index
             if(recordTime >= time){
                 index = mScoreCursor.getPosition();
+                time = recordTime;
             }
 
             // Move to the next record
