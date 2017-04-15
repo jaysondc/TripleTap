@@ -164,7 +164,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
     @Test
     public void testSaveLocalScore(){
         NormalGameFragment normalFragment = (NormalGameFragment) mGameFragment;
-        normalFragment.saveLocalScore(300000, true);
+        normalFragment.saveLocalScore(1500000, true);
 
         normalFragment.showGameOver();
 

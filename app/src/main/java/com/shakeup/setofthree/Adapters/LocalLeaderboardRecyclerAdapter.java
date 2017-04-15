@@ -2,6 +2,7 @@ package com.shakeup.setofthree.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,9 @@ public class LocalLeaderboardRecyclerAdapter
     // Score cursor this adapter will use
     Cursor mScoreCursor;
     Context mContext;
+
+    // Index of the record we want to highlight, -1 if none
+    int mHighlightedIndex = -1;
 
     public LocalLeaderboardRecyclerAdapter(Cursor cursor) {
         super();
@@ -85,6 +89,13 @@ public class LocalLeaderboardRecyclerAdapter
         holder.mScore.setText(scoreString);
         holder.mDate.setText(timeString);
 
+        // Set a highlight if we have one
+        if(position == mHighlightedIndex){
+            holder.mView.setBackgroundColor(
+                    ContextCompat.getColor(
+                            mContext,
+                            R.color.card_background_highlighted));
+        }
     }
 
     @Override
@@ -94,10 +105,50 @@ public class LocalLeaderboardRecyclerAdapter
 
     @Override
     public long getItemId(int position) {
-        // Use the time in milliseconds as an ID for each view
+        // Use the record ID as the ItemID
         return mScoreCursor.getLong(
-                mScoreCursor.getColumnIndex(ScoreColumns.TIME)
+                mScoreCursor.getColumnIndex(ScoreColumns._ID)
         );
+    }
+
+    /**
+     * Get the ID of the most recent record
+     * @return The ID of the most recent record, -1 if the cursor is null
+     */
+    public int getLatestRecordId(){
+        if(mScoreCursor == null){
+            return -1;
+        }
+
+        // Iterate through the whole cursor
+        mScoreCursor.moveToFirst();
+        int index = 0;
+        long time = 0;
+
+        while(!mScoreCursor.isAfterLast()){
+            // Get the time
+            long recordTime = mScoreCursor
+                            .getLong(mScoreCursor
+                            .getColumnIndex(ScoreColumns.TIME));
+
+            // If time is the later, save the index
+            if(recordTime >= time){
+                index = mScoreCursor.getPosition();
+            }
+
+            // Move to the next record
+            mScoreCursor.moveToNext();
+        }
+
+        // Return the ID of the latest time
+        return index;
+    }
+
+    /**
+     * Highlight a record in the display
+     */
+    public void highlightRecord(int indexToHighlight){
+        mHighlightedIndex = indexToHighlight;
     }
 
     /**
@@ -107,6 +158,7 @@ public class LocalLeaderboardRecyclerAdapter
             extends RecyclerView.ViewHolder {
 
         public TextView mPosition, mScore, mDate;
+        public View mView;
 
         /**
          * Populate data handlers using the given view.
@@ -115,6 +167,7 @@ public class LocalLeaderboardRecyclerAdapter
         public LocalScoreViewHolder(View itemView) {
             super(itemView);
 
+            mView = itemView;
             mPosition = (TextView) itemView.findViewById(R.id.text_position);
             mScore = (TextView) itemView.findViewById(R.id.text_score);
             mDate = (TextView) itemView.findViewById(R.id.text_date);

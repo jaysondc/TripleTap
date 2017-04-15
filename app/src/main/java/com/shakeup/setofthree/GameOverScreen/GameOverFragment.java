@@ -243,12 +243,19 @@ public class GameOverFragment
         // Create our adapter
         LocalLeaderboardRecyclerAdapter adapter =
                 new LocalLeaderboardRecyclerAdapter(data);
-        // Creat our layout manager
+        // Create our layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        // Set them both to the RecyclerView
+        // Get the ID of the latest record
+        int latestRecordId = adapter.getLatestRecordId();
+        adapter.highlightRecord(latestRecordId);
+
+        // Set up the RecyclerView
         mRecyclerLeaderboard.setLayoutManager(layoutManager);
         mRecyclerLeaderboard.setAdapter(adapter);
+
+        // Scroll to the most recent score
+        mRecyclerLeaderboard.scrollToPosition(adapter.getLatestRecordId());
     }
 
     @Override
