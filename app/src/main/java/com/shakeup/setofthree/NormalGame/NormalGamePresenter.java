@@ -89,6 +89,11 @@ public class NormalGamePresenter extends GamePresenter
         mNormalGameView.saveLocalScore(finalScore, mScoreUploaded);
     }
 
+    /**
+     * Set our member flag to show whether or not the score was
+     * successfully uploaded
+     * @param uploaded Whether or not the score was uploaded
+     */
     @Override
     public void onScoreUploaded(boolean uploaded) {
         mScoreUploaded = uploaded;

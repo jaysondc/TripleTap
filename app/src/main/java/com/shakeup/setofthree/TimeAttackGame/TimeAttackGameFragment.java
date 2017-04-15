@@ -1,10 +1,13 @@
 package com.shakeup.setofthree.TimeAttackGame;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.shakeup.setofthree.ContentProvider.ScoreColumns;
+import com.shakeup.setofthree.ContentProvider.ScoreProvider;
+import com.shakeup.setofthree.GameOverScreen.GameOverFragment;
 import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
@@ -122,20 +128,24 @@ public class TimeAttackGameFragment
 
     @Override
     public void showGameOver() {
-        // Do stuff when the game is over
-        long playerScore = mTimeAttackActionsListener.getPlayerScore();
+        // Swap in the Game Over Fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        GameOverFragment gameOverFragment = GameOverFragment.newInstance();
 
-        Snackbar.make(
-                getView(),
-                getString(R.string.message_game_over) + " You found " + playerScore + " SETs!",
-                Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.message_restart), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mTimeAttackActionsListener.initGame();
-                    }
-                })
-                .show();
+        // Add args so the game over fragment knows what game mode we're in
+        Bundle args = new Bundle();
+        args.putString(
+                getString(R.string.extra_game_mode),
+                getString(R.string.value_mode_time_attack));
+        args.putString(
+                getString(R.string.extra_difficulty),
+                getString(R.string.value_difficulty_normal));
+        gameOverFragment.setArguments(args);
+
+        transaction.replace(R.id.content_frame, gameOverFragment);
+        transaction.disallowAddToBackStack();
+        transaction.commit();
     }
 
 
@@ -197,8 +207,20 @@ public class TimeAttackGameFragment
     }
 
     @Override
-    public void showLeaderBoard() {
+    public void saveLocalScore(long score, boolean uploaded) {
+        ContentValues values = new ContentValues();
+        values.put(ScoreColumns.MODE, getString(R.string.value_mode_time_attack));
+        values.put(ScoreColumns.DIFFICULTY, getString(R.string.value_difficulty_normal)); //TODO Change when easy mode exists
+        values.put(ScoreColumns.SCORE, score);
+        values.put(ScoreColumns.TIME, System.currentTimeMillis());
+        values.put(ScoreColumns.UPLOADED, uploaded);
 
+        getContext().getContentResolver().insert(
+                ScoreProvider.Scores.SCORES,
+                values
+        );
+
+        Log.d(LOG_TAG, "Saved score locally!");
     }
 
     /**

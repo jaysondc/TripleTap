@@ -21,6 +21,7 @@ public class TimeAttackGamePresenter extends GamePresenter
     private TimeAttackGameContract.View mTimeAttackGameView;
 
     long mPlayerScore = 0;
+    boolean mScoreUploaded = false;
 
     // Supply a default constructor
     public TimeAttackGamePresenter(){
@@ -90,6 +91,17 @@ public class TimeAttackGamePresenter extends GamePresenter
 
         mTimeAttackGameView.setGameClickable(false);
         mTimeAttackGameView.uploadScore(mPlayerScore);
+        mTimeAttackGameView.saveLocalScore(mPlayerScore, mScoreUploaded);
+    }
+
+    /**
+     * Set our member flag to show whether or not the score was
+     * successfully uploaded
+     * @param uploaded Whether or not the score was uploaded
+     */
+    @Override
+    public void onScoreUploaded(boolean uploaded) {
+        mScoreUploaded = uploaded;
     }
 
 }

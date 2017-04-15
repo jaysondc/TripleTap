@@ -27,6 +27,7 @@ import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.MainMenu.MainMenuActivity;
 import com.shakeup.setofthree.NormalGame.NormalGameFragment;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.TimeAttackGame.TimeAttackGameFragment;
 
 /**
  * Created by Jayson on 4/4/2017.
@@ -145,7 +146,12 @@ public class GameOverFragment
         // Swap in the Single Player Menu Fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.content_frame, NormalGameFragment.newInstance());
+
+        if(mGameMode.equals(getString(R.string.value_mode_normal))){
+            transaction.replace(R.id.content_frame, NormalGameFragment.newInstance());
+        } else if(mGameMode.equals(getString(R.string.value_mode_time_attack))){
+            transaction.replace(R.id.content_frame, TimeAttackGameFragment.newInstance());
+        }
         transaction.commit();
     }
 
@@ -208,6 +214,16 @@ public class GameOverFragment
         selectionArgs[0] = mGameMode;
         selectionArgs[1] = mGameDifficulty;
 
+        String sortOrder = "";
+        // Set up sortOrder string depending on our mode
+        if(mGameMode.equals(getString(R.string.value_mode_normal))){
+            sortOrder = ScoreColumns.SCORE + " ASC, "
+                    + ScoreColumns.TIME + " DESC";
+        } else if(mGameMode.equals(getString(R.string.value_mode_time_attack))){
+            sortOrder = ScoreColumns.SCORE + " DESC, "
+                    + ScoreColumns.TIME + " DESC";
+        }
+
         // Create the cursorLoader for our scores, sorted in descending order
         return new android.support.v4.content.CursorLoader(
                     getContext(),
@@ -215,7 +231,7 @@ public class GameOverFragment
                     ScoreColumns._ALL,
                     selection,
                     selectionArgs,
-                    ScoreColumns.SCORE + " ASC"
+                    sortOrder
         );
     }
 

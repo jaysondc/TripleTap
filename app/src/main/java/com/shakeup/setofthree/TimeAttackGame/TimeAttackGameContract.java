@@ -18,9 +18,9 @@ public class TimeAttackGameContract extends GameContract {
 
         void updateScore(long playerScore);
 
-        void showLeaderBoard();
-
         void uploadScore(long score);
+
+        void saveLocalScore(long score, boolean uploaded);
 
     }
 
@@ -36,6 +36,8 @@ public class TimeAttackGameContract extends GameContract {
         void onTimeUp();
 
         long getPlayerScore();
+
+        void onScoreUploaded(boolean uploaded);
 
     }
 }

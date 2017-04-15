@@ -131,6 +131,7 @@ public class NormalGameFragment
         gameOverFragment.setArguments(args);
 
         transaction.replace(R.id.content_frame, gameOverFragment);
+        transaction.disallowAddToBackStack();
         transaction.commit();
     }
 
@@ -227,7 +228,7 @@ public class NormalGameFragment
     public void saveLocalScore(long score, boolean uploaded){
         ContentValues values = new ContentValues();
         values.put(ScoreColumns.MODE, getString(R.string.value_mode_normal));
-        values.put(ScoreColumns.DIFFICULTY, getString(R.string.value_difficulty_normal));
+        values.put(ScoreColumns.DIFFICULTY, getString(R.string.value_difficulty_normal)); //TODO Change when easy mode exists
         values.put(ScoreColumns.SCORE, score);
         values.put(ScoreColumns.TIME, System.currentTimeMillis());
         values.put(ScoreColumns.UPLOADED, uploaded);

@@ -47,7 +47,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
         mGameActivityTestRule.launchActivity(startIntent);
 
         // Grab references to all active objects for testing
-        mGameActivity = (NormalGameActivity) mGameActivityTestRule.getActivity();
+        mGameActivity = mGameActivityTestRule.getActivity();
         mGameFragment =
                 (NormalGameFragment) mGameActivity.getSupportFragmentManager()
                 .findFragmentById(R.id.content_frame);
@@ -167,6 +167,13 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
         normalFragment.saveLocalScore(300000, true);
 
         normalFragment.showGameOver();
+
+        // Bad practice but set a Sleep command so we an mess with the UI ourselves
+        try{
+            Thread.sleep(50000);
+        } catch (Exception e){
+
+        }
     }
 
 
