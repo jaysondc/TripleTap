@@ -2,4 +2,8 @@
 <resources>
     <!-- Tag to know whether or not we are in the debug build -->
     <bool name="is_debug">false</bool>
+
+    <!-- Widget Update Period: 6 hours -->
+    <integer name="widget_update_period">21600000</integer>
+
 </resources>

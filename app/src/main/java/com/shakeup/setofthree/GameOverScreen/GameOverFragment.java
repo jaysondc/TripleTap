@@ -224,7 +224,7 @@ public class GameOverFragment
                     + ScoreColumns.TIME + " DESC";
         }
 
-        // Create the cursorLoader for our scores, sorted in descending order
+        // Create the cursorLoader for our scores
         return new android.support.v4.content.CursorLoader(
                     getContext(),
                     ScoreProvider.Scores.SCORES,

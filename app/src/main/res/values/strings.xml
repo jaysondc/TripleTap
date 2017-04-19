@@ -70,4 +70,8 @@
 
     <!-- Google Play Services -->
     <string name="signin_other_error">There was an issue signing in. Please try again later.</string>
+
+    <!-- Leaderboard Widget -->
+    <string name="widget_title">Classic</string>
+    <string name="widget_empty">No scores yet!</string>
 </resources>
