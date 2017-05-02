@@ -2,6 +2,8 @@ package com.shakeup.setofthree.ContentProvider;
 
 import android.net.Uri;
 
+import com.shakeup.setofthree.BuildConfig;
+
 import net.simonvt.schematic.annotation.ContentProvider;
 import net.simonvt.schematic.annotation.ContentUri;
 import net.simonvt.schematic.annotation.TableEndpoint;
@@ -13,7 +15,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
 @ContentProvider(authority = ScoreProvider.AUTHORITY, database = SetDatabase.class)
 public final class ScoreProvider {
 
-    public static final String AUTHORITY = "com.shakeup.setofthree.provider";
+    public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
     @TableEndpoint(table = SetDatabase.SCORES)
     public static class Scores {

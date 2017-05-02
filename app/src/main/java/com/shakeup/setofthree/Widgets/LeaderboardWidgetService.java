@@ -93,7 +93,7 @@ public class LeaderboardWidgetService extends RemoteViewsService {
         @Override
         public RemoteViews getViewAt(int position) {
             // Create our remote view
-            RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.listitem_score);
+            RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.listitem_widget_score);
 
             mCursor.moveToPosition(position);
             // Get column indexes

@@ -17,8 +17,9 @@
             android:value="@string/app_id" />
 
         <provider
-            android:authorities="com.shakeup.setofthree.provider"
-            android:name=".ContentProvider.generated.ScoreProvider"/>
+            android:authorities="@string/score_provider_authority"
+            android:name=".ContentProvider.generated.ScoreProvider"
+            android:exported="true"/>
 
         <service android:name=".Widgets.LeaderboardWidgetService"
         android:permission="android.permission.BIND_REMOTEVIEWS" />

@@ -1,3 +1,4 @@
 <resources>
+    <string name="app_name">Set Debug</string>
     <string name="app_label">Set Debug</string>
 </resources>

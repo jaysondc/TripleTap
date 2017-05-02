@@ -6,4 +6,7 @@
     <!-- Widget Update Period: 6 hours -->
     <integer name="widget_update_period">21600000</integer>
 
+    <!-- Provider Authority -->
+    <string name="score_provider_authority">com.shakeup.setofthree.provider</string>
+
 </resources>
