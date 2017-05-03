@@ -2,7 +2,7 @@ package com.shakeup.setofthree.SetGame;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
  */
 
 
-public abstract class GameFragment extends Fragment
+public abstract class GameFragment extends AppCompatDialogFragment
         implements GameContract.View{
 
     // Listener for presenter to handle all user input

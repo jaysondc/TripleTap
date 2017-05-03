@@ -51,7 +51,7 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".NormalGame.NormalGameActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="fullUser"/>
     </application>
 
 </manifest>
