@@ -223,7 +223,7 @@ public class MainMenuFragment
     public void showHowToPlay() {
         Intent intent = new Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("http://www.youtube.com/watch?v=yJ_eUUvDXKs"));
+                Uri.parse(getString(R.string.how_to_play_url)));
         startActivity(intent);
     }
 

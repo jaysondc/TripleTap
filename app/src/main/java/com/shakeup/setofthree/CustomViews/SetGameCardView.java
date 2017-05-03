@@ -205,6 +205,9 @@ public class SetGameCardView extends CardView{
             }
         });
 
+        // Set content descriptions for each card
+        this.setContentDescription(this.toString());
+
         invalidate();
     }
 

@@ -14,6 +14,7 @@
     <string name="menu_back">Back</string>
     <string name="leaderboards_not_available">Leaderboards are unavailable unless you are signed into Google Play Games.</string>
     <string name="achievements_not_available">Achievements are unavailable unless you are signed into Google Play Games.</string>
+    <string name="how_to_play_url">http://www.youtube.com/watch?v=yJ_eUUvDXKs</string>
 
     <!-- Multiplayer Menu -->
     <string name="menu_two_players">Two Players</string>
@@ -41,6 +42,8 @@
     <string name="button_out_of_time">TOO LATE!</string>
     <string name="button_not_a_set">NOT A SET!</string>
     <string name="button_wait">WAITING</string>
+    <string name="score_initial">Score: 0</string>
+    <string name="score_prefix">Score: %d</string>
 
     <!-- Game Over Screen -->
     <string name="game_over">Game Over!</string>
@@ -61,7 +64,7 @@
     <string name="extra_time_attack_length">EXTRA_TIME_ATTACK_LENGTH</string>
     <string name="extra_game_mode">EXTRA_GAME_MODE</string>
     <string name="extra_difficulty">EXTRA_DIFFICULTY</string>
-    
+
     <!-- Extra Constant Values -->
     <string name="value_mode_normal">CLASSIC</string>
     <string name="value_mode_time_attack">TIME_ATTACK</string>

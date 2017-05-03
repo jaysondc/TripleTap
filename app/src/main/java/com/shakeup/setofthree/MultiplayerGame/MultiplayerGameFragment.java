@@ -17,6 +17,7 @@ import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static com.shakeup.setofthree.MultiplayerGame.MultiplayerButtonView.BUTTON_TIMER_TICK_INTERVAL;
 
@@ -180,7 +181,7 @@ public class MultiplayerGameFragment
         mPlayerScoreArray[2] = (TextView) root.findViewById(R.id.score_player_three);
         mPlayerScoreArray[3] = (TextView) root.findViewById(R.id.score_player_four);
         for(TextView view : mPlayerScoreArray){
-            view.setText("Score: 0");
+            view.setText(R.string.score_initial);
         }
 
         // Initialize a game
@@ -343,7 +344,7 @@ public class MultiplayerGameFragment
     }
 
     public void updatePlayerScore(int playerId, int playerScore){
-        String scoreString = "Score: " + playerScore;
+        String scoreString = String.format(Locale.getDefault(), getString(R.string.score_prefix), playerScore);
         mPlayerScoreArray[playerId-1].setText(scoreString);
     }
 
