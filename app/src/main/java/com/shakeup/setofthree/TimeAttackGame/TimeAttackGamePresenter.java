@@ -2,6 +2,7 @@ package com.shakeup.setofthree.TimeAttackGame;
 
 import android.support.annotation.NonNull;
 
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.SetGame.GameContract;
 import com.shakeup.setofthree.SetGame.GamePresenter;
 
@@ -44,8 +45,8 @@ public class TimeAttackGamePresenter extends GamePresenter
      * Initialize the timer and scoreboard for a new game
      */
     @Override
-    public void initGame() {
-        super.initGame();
+    public void initGame(SetGame existingGame) {
+        super.initGame(existingGame);
 
         // Set our deck to endless mode
         mSetGame.setEndlessMode(true);

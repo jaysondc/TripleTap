@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.ContentProvider.ScoreProvider;
 import com.shakeup.setofthree.GameOverScreen.GameOverFragment;
@@ -24,13 +26,23 @@ import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
+import org.parceler.ParcelClass;
+import org.parceler.ParcelClasses;
+import org.parceler.Parcels;
+
 /**
  * Created by Jayson on 4/4/2017.
  *
  * This Fragment handles the UI for the Time Attack game mode
  */
 
-
+@ParcelClasses({
+        @ParcelClass(SetGame.class),
+        @ParcelClass(SetCard.class),
+        @ParcelClass(SetGame.Triplet.class),
+        @ParcelClass(SetGame.SetTriplet.class),
+        @ParcelClass(SetGame.SetDeck.class)
+})
 public class NormalGameFragment
         extends GameFragment
         implements NormalGameContract.View {
@@ -64,9 +76,20 @@ public class NormalGameFragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root;
+        // Variables for loading an existing game
+        SetGame existingGame = null;
+        long elapsedMills = 0;
 
         root = inflater.inflate(
                 R.layout.fragment_game_normal, container, false);
+
+        if(savedInstanceState!=null){
+            elapsedMills = savedInstanceState.getLong("time");
+            existingGame = Parcels.unwrap(savedInstanceState.getParcelable("game"));
+
+            Log.d(LOG_TAG, "Restored the game from a previous state.");
+        }
+
 
         // Instance the presenter our fragment uses and grab a reference
         mNormalActionsListener = new NormalGamePresenter(this);
@@ -97,7 +120,7 @@ public class NormalGameFragment
         }
 
         // Initialize a game
-        mNormalActionsListener.initGame();
+        mNormalActionsListener.initGame(existingGame);
 
         return root;
     }
@@ -112,6 +135,24 @@ public class NormalGameFragment
         // Nothing to do here
     }
 
+    /*
+     * Save our game state to be restored on rotation or fragment recreation
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Stop the timer and save the elapsed time
+        long elapsedMills = this.getTimerElapsedTime();
+        mGameTimerView.stop();
+
+        // Get the SetGame
+        SetGame game = mActionsListener.getSetGame();
+
+        // Bundle objects
+        outState.putLong("time", elapsedMills);
+        outState.putParcelable("game", Parcels.wrap(game));
+    }
 
     @Override
     public void showGameOver() {
@@ -149,7 +190,7 @@ public class NormalGameFragment
      * @return The time in mills
      */
     @Override
-    public long getScore(){
+    public long getTimerElapsedTime(){
         // Send the score to the presenter
         long elapsedMillis = SystemClock.elapsedRealtime() - mGameTimerView.getBase();
         return elapsedMillis;

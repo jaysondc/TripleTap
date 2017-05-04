@@ -2,6 +2,7 @@ package com.shakeup.setofthree.NormalGame;
 
 import android.support.annotation.NonNull;
 
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.SetGame.GameContract;
 import com.shakeup.setofthree.SetGame.GamePresenter;
 
@@ -44,8 +45,8 @@ public class NormalGamePresenter extends GamePresenter
      * Initialize the timer and scoreboard for a new game
      */
     @Override
-    public void initGame() {
-        super.initGame();
+    public void initGame(SetGame existingGame) {
+        super.initGame(existingGame);
 
         // Enable clicks
         mNormalGameView.setGameClickable(true);
@@ -84,7 +85,7 @@ public class NormalGamePresenter extends GamePresenter
         mNormalGameView.stopTimer();
 
         // Upload the final score
-        long finalScore = mNormalGameView.getScore();
+        long finalScore = mNormalGameView.getTimerElapsedTime();
         mNormalGameView.uploadScore(finalScore);
         mNormalGameView.saveLocalScore(finalScore, mScoreUploaded);
     }

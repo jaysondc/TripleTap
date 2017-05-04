@@ -62,7 +62,7 @@ public class SetGamePresenterTests {
 
     @Test
     public void submitSetTest(){
-        List<SetGame.Triplet<Integer, Integer, Integer>> setLocations =
+        List<SetGame.Triplet> setLocations =
                 mSetGame.getLocationOfSets();
 
         // Specify the indexes of a valid set

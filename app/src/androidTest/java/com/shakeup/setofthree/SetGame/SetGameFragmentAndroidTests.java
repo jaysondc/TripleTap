@@ -45,7 +45,7 @@ public abstract class SetGameFragmentAndroidTests{
     protected GamePresenter mGamePresenter;
     protected SetGame mSetGame;
     // List of possible sets for the current game
-    protected ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
+    protected ArrayList<SetGame.Triplet> mSetLocations;
 
     // Subclasses need to set their own @Before methods and set these references
     public abstract void setUpTestEnvironment();
@@ -136,7 +136,7 @@ public abstract class SetGameFragmentAndroidTests{
      * Get a random set location from the possible sets
      * @return Triplet of set indexes
      */
-    public SetGame.Triplet<Integer, Integer, Integer> getRandomSet(){
+    public SetGame.Triplet getRandomSet(){
         int index = (int) Math.floor(Math.random() * mSetLocations.size());
 
         return mSetLocations.get(index);

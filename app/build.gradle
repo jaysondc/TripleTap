@@ -72,6 +72,9 @@ dependencies {
     // Content Provider Generation library
     annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.7.0'
     compile 'net.simonvt.schematic:schematic:0.7.0'
+    // Parceler library generate parcelable implementations
+    compile 'org.parceler:parceler-api:1.1.6'
+    annotationProcessor 'org.parceler:parceler:1.1.6'
 
     // Dependencies for local unit tests
     testCompile 'junit:junit:4.12'

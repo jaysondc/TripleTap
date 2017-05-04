@@ -24,7 +24,7 @@ public class NormalGameContract extends GameContract {
 
         void saveLocalScore(long score, boolean uploaded);
 
-        long getScore();
+        long getTimerElapsedTime();
 
     }
 

@@ -94,7 +94,7 @@ public class TimeAttackGameFragment
                 (TextView) root.findViewById(R.id.game_score);
 
         // Initialize a game
-        mTimeAttackActionsListener.initGame();
+        mTimeAttackActionsListener.initGame(null);
 
         return root;
     }

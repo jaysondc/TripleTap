@@ -48,11 +48,13 @@ public class GameContract {
      */
     public interface UserActionsListener {
 
-        void initGame();
+        void initGame(SetGame game);
 
         void onSubmitSet(int indexOne, int indexTwo, int indexThree);
 
         void setSetGame(SetGame game);
+
+        SetGame getSetGame();
 
         void onSetCardClick();
 
@@ -66,7 +68,7 @@ public class GameContract {
 
         void onShowHintClick();
 
-        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations();
+        ArrayList<SetGame.Triplet> getSetLocations();
 
     }
 

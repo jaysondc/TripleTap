@@ -179,11 +179,11 @@ public class SetTests {
         // Test whether the set analysis is correct. Detect and validate all found sets in a hand.
         SetGame testGame = new SetGame();
         int detectedSets = testGame.getNumAvailableSets();
-        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> locationOfSets =
+        ArrayList<SetGame.Triplet> locationOfSets =
                 testGame.getLocationOfSets();
         int countedSets = 0;
 
-        for (SetGame.Triplet<Integer, Integer, Integer> set : locationOfSets) {
+        for (SetGame.Triplet set : locationOfSets) {
             boolean isValid = testGame.isValidSet(
                     testGame.getSetCard(set.getFirst()),
                     testGame.getSetCard(set.getSecond()),
@@ -222,7 +222,7 @@ public class SetTests {
     @Test
     public void setFullGameTest(){
         SetGame testGame = new SetGame();
-        ArrayList<SetGame.Triplet<Integer, Integer, Integer>> locationOfSets;
+        ArrayList<SetGame.Triplet> locationOfSets;
         int detectedSets = 0;
         int handSize = 0;
         int deckSize = 0;
@@ -233,7 +233,7 @@ public class SetTests {
         while (!testGame.getIsGameOver()){
 
             // Test pulling sets from the deck
-            SetGame.Triplet<Integer, Integer, Integer> foundSet;
+            SetGame.Triplet foundSet;
             foundSet = testGame.getLocationOfSets().get(0);
 
             // Claim this set
@@ -255,7 +255,7 @@ public class SetTests {
         }
 
         // Get all the sets we found
-        List<SetGame.Triplet<SetCard, SetCard, SetCard>> allFoundSets = testGame.getFoundSets();
+        List<SetGame.SetTriplet> allFoundSets = testGame.getFoundSets();
         // Get the leftover deck which should be empty
         List<SetCard> leftoverDeck = testGame.getSetDeck().getDeckArray();
 

@@ -12,23 +12,23 @@ import java.util.List;
 public class SetGame {
 
     // Number of available sets in the current hand
-    private int mNumSetsAvailable;
+    public int mNumSetsAvailable;
     // Array to hold all drawn cards
-    private ArrayList<SetCard> mSetHand;
+    public ArrayList<SetCard> mSetHand;
     // Array to hold all cards in claimed sets as a discard pile
-    private ArrayList<SetCard> mDiscardPile = new ArrayList<>();
+    public ArrayList<SetCard> mDiscardPile = new ArrayList<>();
     // Deck of shuffled SET cards
-    private SetDeck mCurrentDeck;
+    public SetDeck mCurrentDeck;
     // Location of available sets in hand
-    private ArrayList<Triplet<Integer, Integer, Integer>> mLocationOfSets;
+    public ArrayList<Triplet> mLocationOfSets;
     // List of found sets
-    private List<Triplet<SetCard, SetCard, SetCard>> mFoundSets;
+    public List<SetTriplet> mFoundSets;
     // Detect game over
-    private boolean mGameOver;
+    public boolean mGameOver;
     // Detect hand overflow
-    private boolean mOverflow = false;
+    public boolean mOverflow = false;
     // Whether or not the deck is endless
-    private boolean mEndlessMode = false;
+    public boolean mEndlessMode = false;
 
     /**
      * Constructor to initialize a game of SET
@@ -85,7 +85,7 @@ public class SetGame {
 
             // Store found SET
             mFoundSets.add(
-                    new Triplet<>(
+                    new SetTriplet(
                             firstCard,
                             secondCard,
                             thirdCard
@@ -156,7 +156,7 @@ public class SetGame {
                 if (k > 0) {
                     setsFound++;
                     // Store the location of the set
-                    mLocationOfSets.add(new Triplet<>(i, j, k));
+                    mLocationOfSets.add(new Triplet(i, j, k));
                 }
             }
         }
@@ -185,19 +185,19 @@ public class SetGame {
      *
      * @return Triplet representing a valid set. Triplet containing -1 if no sets exist.
      */
-    public Triplet<Integer, Integer, Integer> getRandomSet() {
+    public Triplet getRandomSet() {
 
         if (!mLocationOfSets.isEmpty()) {
             int index = (int) Math.floor(Math.random() * mLocationOfSets.size());
 
             return mLocationOfSets.get(index);
         } else {
-            return new Triplet<Integer, Integer, Integer>(-1, -1, -1);
+            return new Triplet(-1, -1, -1);
         }
 
     }
 
-    public ArrayList<Triplet<Integer, Integer, Integer>> getLocationOfSets() {
+    public ArrayList<Triplet> getLocationOfSets() {
         return mLocationOfSets;
     }
 
@@ -207,7 +207,7 @@ public class SetGame {
      * @returna A list of Triplets containing 3 integers, each integer being
      * the index of a card required to make that set.
      */
-    public List<Triplet<SetCard, SetCard, SetCard>> getFoundSets() {
+    public List<SetTriplet> getFoundSets() {
         return mFoundSets;
     }
 
@@ -297,7 +297,7 @@ public class SetGame {
     /**
      * Deck to hold all 81 cards
      */
-    public class SetDeck {
+    public static class SetDeck {
 
         ArrayList<SetCard> mDeck;
 
@@ -364,27 +364,56 @@ public class SetGame {
 
     }
 
-    public class Triplet<T, U, V> {
+    public static class Triplet{
 
-        private final T first;
-        private final U second;
-        private final V third;
+        Integer first;
+        Integer second;
+        Integer third;
 
-        public Triplet(T first, U second, V third) {
+        public Triplet(){}
+
+        public Triplet(int first, int second, int third) {
             this.first = first;
             this.second = second;
             this.third = third;
         }
 
-        public T getFirst() {
+        public int getFirst() {
             return first;
         }
 
-        public U getSecond() {
+        public int getSecond() {
             return second;
         }
 
-        public V getThird() {
+        public int getThird() {
+            return third;
+        }
+    }
+
+    public static class SetTriplet{
+
+        SetCard first;
+        SetCard second;
+        SetCard third;
+
+        public SetTriplet(){}
+
+        public SetTriplet(SetCard first, SetCard second, SetCard third) {
+            this.first = first;
+            this.second = second;
+            this.third = third;
+        }
+
+        public SetCard getFirst() {
+            return first;
+        }
+
+        public SetCard getSecond() {
+            return second;
+        }
+
+        public SetCard getThird() {
             return third;
         }
     }

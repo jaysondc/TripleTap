@@ -125,7 +125,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
 
         // Get a random set
         ArrayList<SetCard> someHand = mSetGame.getSetHand();
-        SetGame.Triplet<Integer, Integer, Integer> someSetLocation = mSetGame.getRandomSet();
+        SetGame.Triplet someSetLocation = mSetGame.getRandomSet();
         SetCard cardOne = someHand.get(someSetLocation.getFirst());
         SetCard cardTwo = someHand.get(someSetLocation.getSecond());
         SetCard cardThree = someHand.get(someSetLocation.getThird());

@@ -21,7 +21,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
     private GameContract.View mGameView;
 
     // ArrayList holding the current valid locations of sets
-    protected ArrayList<SetGame.Triplet<Integer, Integer, Integer>> mSetLocations;
+    protected ArrayList<SetGame.Triplet> mSetLocations;
 
 
     // Supply a default constructor
@@ -50,9 +50,14 @@ public class GamePresenter implements GameContract.UserActionsListener {
      * game fragment to be displayed and interacted with
      */
     @Override
-    public void initGame() {
+    public void initGame(SetGame existingGame) {
         // Initialize the SetGame object
-        mSetGame = new SetGame();
+        // Reuse the received game if it exists
+        if(existingGame != null){
+            mSetGame = existingGame;
+        } else {
+            mSetGame = new SetGame();
+        }
 
         // Get the location of valid sets on the board
         mSetLocations = mSetGame.getLocationOfSets();
@@ -142,7 +147,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
         // If there are any sets left on the board
         if (mSetGame.getNumAvailableSets() > 0){
             // Get a random set
-            SetGame.Triplet<Integer, Integer, Integer> randomSet = mSetGame.getRandomSet();
+            SetGame.Triplet randomSet = mSetGame.getRandomSet();
 
             // Highlight each index
             mGameView.highlightCard(randomSet.getFirst());
@@ -158,7 +163,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
         // If there are any sets left on the board
         if (mSetGame.getNumAvailableSets() > 0) {
             // Get a random set
-            SetGame.Triplet<Integer, Integer, Integer> randomSet = mSetGame.getRandomSet();
+            SetGame.Triplet randomSet = mSetGame.getRandomSet();
 
             // Highlight the first index
             mGameView.highlightCard(randomSet.getFirst());
@@ -187,7 +192,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
      * @return An ArrayLilst of Triplets containing the indexes of
      * all available sets
      */
-    public ArrayList<SetGame.Triplet<Integer, Integer, Integer>> getSetLocations(){
+    public ArrayList<SetGame.Triplet> getSetLocations(){
         return mSetGame.getLocationOfSets();
     }
 }

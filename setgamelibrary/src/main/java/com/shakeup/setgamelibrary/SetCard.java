@@ -21,6 +21,10 @@ public class SetCard {
     private CardCount mCount;
     private CardFill mFill;
 
+    // Empty constructor for Parceler support
+    public SetCard(){
+    }
+
     public SetCard(CardShape shape, CardColor color, CardCount count, CardFill fill){
         mShape = shape;
         mColor = color;

@@ -3,6 +3,7 @@ package com.shakeup.setofthree.MultiplayerGame;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.SetGame.GameContract;
 import com.shakeup.setofthree.SetGame.GamePresenter;
 
@@ -48,8 +49,8 @@ public class MultiplayerGamePresenter extends GamePresenter
      * Override the init method to reset the score when we start a new game
      */
     @Override
-    public void initGame() {
-        super.initGame();
+    public void initGame(SetGame existingGame) {
+        super.initGame(existingGame);
 
         // Initialize Score Array
         mScoreArray[0] = 0;

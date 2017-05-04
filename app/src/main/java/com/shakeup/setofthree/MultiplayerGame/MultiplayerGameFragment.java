@@ -185,7 +185,7 @@ public class MultiplayerGameFragment
         }
 
         // Initialize a game
-        mMultiplayerActionsListener.initGame();
+        mMultiplayerActionsListener.initGame(null);
 
         // Wrap some initialization methods inside a OnGlobalLayoutListener
         // so they fire once the RecyclerView is populated
@@ -262,7 +262,7 @@ public class MultiplayerGameFragment
                 .setAction(getString(R.string.message_restart), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mActionsListener.initGame();
+                        mActionsListener.initGame(null);
                     }
                 })
                 .show();
