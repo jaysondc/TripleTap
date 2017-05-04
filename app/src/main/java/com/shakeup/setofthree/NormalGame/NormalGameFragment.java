@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.ContentProvider.ScoreProvider;
@@ -26,8 +25,6 @@ import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
-import org.parceler.ParcelClass;
-import org.parceler.ParcelClasses;
 import org.parceler.Parcels;
 
 /**
@@ -36,13 +33,6 @@ import org.parceler.Parcels;
  * This Fragment handles the UI for the Time Attack game mode
  */
 
-@ParcelClasses({
-        @ParcelClass(SetGame.class),
-        @ParcelClass(SetCard.class),
-        @ParcelClass(SetGame.Triplet.class),
-        @ParcelClass(SetGame.SetTriplet.class),
-        @ParcelClass(SetGame.SetDeck.class)
-})
 public class NormalGameFragment
         extends GameFragment
         implements NormalGameContract.View {
@@ -120,7 +110,7 @@ public class NormalGameFragment
         }
 
         // Initialize a game
-        mNormalActionsListener.initGame(existingGame);
+        mNormalActionsListener.initGame(existingGame, elapsedMills);
 
         return root;
     }
@@ -180,8 +170,8 @@ public class NormalGameFragment
      * Start the chronograph
      */
     @Override
-    public void startTimer() {
-        mGameTimerView.setBase(SystemClock.elapsedRealtime());
+    public void startTimer(long timerElapsedMills) {
+        mGameTimerView.setBase(SystemClock.elapsedRealtime() - timerElapsedMills);
         mGameTimerView.start();
     }
 

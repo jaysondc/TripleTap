@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.NormalGame;
 
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.SetGame.GameContract;
 
 /**
@@ -14,7 +15,7 @@ public class NormalGameContract extends GameContract {
      */
     interface View extends GameContract.View {
 
-        void startTimer();
+        void startTimer(long timerElapsedMills);
 
         void stopTimer();
 
@@ -32,6 +33,8 @@ public class NormalGameContract extends GameContract {
      * Methods that need to be implemented by the Normal Game Presenter
      */
     interface UserActionsListener extends GameContract.UserActionsListener {
+
+        void initGame(SetGame existingGame, long timerElapsedMills);
 
         void onScoreUploaded(boolean uploaded);
 

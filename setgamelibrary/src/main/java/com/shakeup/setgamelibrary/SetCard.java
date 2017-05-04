@@ -16,10 +16,10 @@ import java.util.Arrays;
  */
 
 public class SetCard {
-    private CardShape mShape;
-    private CardColor mColor;
-    private CardCount mCount;
-    private CardFill mFill;
+    CardShape mShape;
+    CardColor mColor;
+    CardCount mCount;
+    CardFill mFill;
 
     // Empty constructor for Parceler support
     public SetCard(){

@@ -52,7 +52,7 @@ public class SetGamePresenterTests {
 
     @Test
     public void initGameTest(){
-        mGamePresenter.initGame();
+        mGamePresenter.initGame(null);
 
         ArgumentCaptor arrayListCapture = ArgumentCaptor.forClass(ArrayList.class);
 

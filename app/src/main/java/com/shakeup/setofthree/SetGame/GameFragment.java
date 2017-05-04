@@ -13,9 +13,13 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.Adapters.SetGameRecyclerAdapter;
 import com.shakeup.setofthree.CustomViews.SetGameCardView;
 import com.shakeup.setofthree.R;
+
+import org.parceler.ParcelClass;
+import org.parceler.ParcelClasses;
 
 import java.util.ArrayList;
 
@@ -26,7 +30,13 @@ import java.util.ArrayList;
  * variants of the main game
  */
 
-
+@ParcelClasses({
+        @ParcelClass(SetGame.class),
+        @ParcelClass(SetCard.class),
+        @ParcelClass(SetGame.Triplet.class),
+        @ParcelClass(SetGame.SetTriplet.class),
+        @ParcelClass(SetGame.SetDeck.class)
+})
 public abstract class GameFragment extends AppCompatDialogFragment
         implements GameContract.View{
 

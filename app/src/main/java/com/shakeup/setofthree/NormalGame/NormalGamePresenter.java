@@ -45,13 +45,13 @@ public class NormalGamePresenter extends GamePresenter
      * Initialize the timer and scoreboard for a new game
      */
     @Override
-    public void initGame(SetGame existingGame) {
+    public void initGame(SetGame existingGame, long timerElapsedMills) {
         super.initGame(existingGame);
 
         // Enable clicks
         mNormalGameView.setGameClickable(true);
         // Start a timer counting up
-        mNormalGameView.startTimer();
+        mNormalGameView.startTimer(timerElapsedMills);
         // Show the cards remaining in the deck
         mNormalGameView.updateDeckRemaining(mSetGame.getDeckSize() / 3);
         // Reset the score uploaded state
