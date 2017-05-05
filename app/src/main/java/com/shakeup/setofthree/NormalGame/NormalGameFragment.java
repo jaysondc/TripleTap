@@ -45,6 +45,7 @@ public class NormalGameFragment
     Chronometer mGameTimerView;
     TextView mDeckRemainingView;
     Button mDebugRefreshView;
+    long mElapsedMillis = 0; // Maintain timer progress between lifecycle changes
 
     // Default constructor
     public NormalGameFragment(){
@@ -68,13 +69,12 @@ public class NormalGameFragment
         View root;
         // Variables for loading an existing game
         SetGame existingGame = null;
-        long elapsedMills = 0;
 
         root = inflater.inflate(
                 R.layout.fragment_game_normal, container, false);
 
         if(savedInstanceState!=null){
-            elapsedMills = savedInstanceState.getLong("time");
+            mElapsedMillis = savedInstanceState.getLong("time");
             existingGame = Parcels.unwrap(savedInstanceState.getParcelable("game"));
 
             Log.d(LOG_TAG, "Restored the game from a previous state.");
@@ -110,19 +110,9 @@ public class NormalGameFragment
         }
 
         // Initialize a game
-        mNormalActionsListener.initGame(existingGame, elapsedMills);
+        mNormalActionsListener.initGame(existingGame, mElapsedMillis);
 
         return root;
-    }
-
-    @Override
-    public void onSetSuccess() {
-        // Nothing to do here
-    }
-
-    @Override
-    public void onSetFailure() {
-        // Nothing to do here
     }
 
     /*
@@ -134,7 +124,6 @@ public class NormalGameFragment
 
         // Stop the timer and save the elapsed time
         long elapsedMills = this.getTimerElapsedTime();
-        mGameTimerView.stop();
 
         // Get the SetGame
         SetGame game = mActionsListener.getSetGame();
@@ -142,6 +131,29 @@ public class NormalGameFragment
         // Bundle objects
         outState.putLong("time", elapsedMills);
         outState.putParcelable("game", Parcels.wrap(game));
+    }
+
+    @Override
+    public void onPause() {
+        stopTimer();
+        mElapsedMillis = getTimerElapsedTime();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        startTimer(mElapsedMillis);
+        super.onResume();
+    }
+
+    @Override
+    public void onSetSuccess() {
+        // Nothing to do here
+    }
+
+    @Override
+    public void onSetFailure() {
+        // Nothing to do here
     }
 
     @Override
