@@ -15,12 +15,15 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.ContentProvider.ScoreProvider;
 import com.shakeup.setofthree.GameOverScreen.GameOverFragment;
 import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
+
+import org.parceler.Parcels;
 
 /**
  * Created by Jayson on 3/20/2017.
@@ -41,7 +44,7 @@ public class TimeAttackGameFragment
     // Length for our Time Attack mode
     long mTimeAttackLength;
     // Timer updates every second
-    long mTimeAttackTickLength = 1000;
+    long mTimeAttackTickLength = 100;
 
     TextView mGameTimer, mGameScore;
 
@@ -69,9 +72,26 @@ public class TimeAttackGameFragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root;
+        // Variables for loading an existing game
+        SetGame existingGame = null;
+        long playerScore = 0;
 
         root = inflater.inflate(
                 R.layout.fragment_game_time_attack, container, false);
+
+        if(savedInstanceState!=null){
+            mTimeAttackLength = savedInstanceState.getLong("time");
+            existingGame = Parcels.unwrap(savedInstanceState.getParcelable("game"));
+            playerScore = savedInstanceState.getLong("score");
+
+            Log.d(LOG_TAG, "Restored the game from a previous state.");
+        } else {
+            // Get the desired time attack length from the intent extras
+            mTimeAttackLength = getActivity().getIntent().getLongExtra(
+                    getString(R.string.extra_time_attack_length),
+                    60000
+            );
+        }
 
         // Instance the presenter our fragment uses and grab a reference
         mTimeAttackActionsListener = new TimeAttackGamePresenter(this);
@@ -81,12 +101,6 @@ public class TimeAttackGameFragment
         // Set up the RecyclerView and assign it to the superclass
         mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
 
-        // Get the desired time attack length from the intent extras
-        mTimeAttackLength = getActivity().getIntent().getLongExtra(
-                getString(R.string.extra_time_attack_length),
-                60000
-        );
-
         // Grab references to our views
         mGameTimer =
                 (TextView) root.findViewById(R.id.game_timer);
@@ -94,16 +108,45 @@ public class TimeAttackGameFragment
                 (TextView) root.findViewById(R.id.game_score);
 
         // Initialize a game
-        mTimeAttackActionsListener.initGame(null);
+        mTimeAttackActionsListener.initGame(existingGame, mTimeAttackLength, playerScore);
 
         return root;
     }
 
+    /*
+     * Save our game state to be restored on rotation or fragment recreation
+     */
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Stop the timer
+        mTimeAttackCountdown.cancel();
+
+        // Get the SetGame
+        SetGame game = mActionsListener.getSetGame();
+        // Get the score
+        long score = mTimeAttackActionsListener.getPlayerScore();
+
+        // Bundle objects
+        outState.putLong("time", mTimeAttackLength);
+        outState.putParcelable("game", Parcels.wrap(game));
+        outState.putLong("score", score);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         mTimeAttackCountdown.cancel();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startTimeAttackCountdown(mTimeAttackLength);
+    }
+
+
 
     @Override
     public void onSetSuccess() {
@@ -150,9 +193,9 @@ public class TimeAttackGameFragment
 
 
     @Override
-    public void startTimeAttackCountdown() {
+    public void startTimeAttackCountdown(long mMillisRemaining) {
         mTimeAttackCountdown = new TimeAttackCountdown(
-                mTimeAttackLength,
+                mMillisRemaining,
                 mTimeAttackTickLength);
     }
 
@@ -229,8 +272,8 @@ public class TimeAttackGameFragment
      */
     public class TimeAttackCountdown extends CountDownTimer {
 
-        public TimeAttackCountdown(long startTime, long interval) {
-            super(startTime, interval);
+        public TimeAttackCountdown(long timerLength, long interval) {
+            super(timerLength, interval);
 
             start();
         }
@@ -244,9 +287,11 @@ public class TimeAttackGameFragment
         @Override
         public void onTick(long millisUntilFinished) {
             // Update the time display in our timer view
-
             int secsUntilFinished = (int) millisUntilFinished / 1000;
             mGameTimer.setText(Integer.toString(secsUntilFinished));
+
+            // Save mills remaining so we can pause and start the timer later
+            mTimeAttackLength = millisUntilFinished;
         }
     }
 }

@@ -48,7 +48,7 @@
             android:screenOrientation="landscape"/>
         <activity
             android:name=".TimeAttackGame.TimeAttackGameActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="fullUser"/>
         <activity
             android:name=".NormalGame.NormalGameActivity"
             android:screenOrientation="fullUser"/>

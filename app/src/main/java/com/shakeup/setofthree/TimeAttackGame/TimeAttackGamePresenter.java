@@ -42,21 +42,22 @@ public class TimeAttackGamePresenter extends GamePresenter
     }
 
     /**
-     * Initialize the timer and scoreboard for a new game
+     * Initialize the timer and scoreboard for a new game. Provide arguments to restore
+     * a previous game.
      */
     @Override
-    public void initGame(SetGame existingGame) {
+    public void initGame(SetGame existingGame, long timerLength, long playerScore) {
         super.initGame(existingGame);
 
         // Set our deck to endless mode
         mSetGame.setEndlessMode(true);
         // Enable clicks
         mTimeAttackGameView.setGameClickable(true);
-        // Start a time attack counter
-        mTimeAttackGameView.startTimeAttackCountdown();
-        // Reset the score
-        mPlayerScore = 0;
-        mTimeAttackGameView.updateScore(0);
+        // Start a time attack counter //TODO: Timer is only started in onResume. Is that ok?
+        //mTimeAttackGameView.startTimeAttackCountdown(timerLength);
+        // Set the score
+        mPlayerScore = playerScore;
+        mTimeAttackGameView.updateScore(playerScore);
     }
 
     @Override

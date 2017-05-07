@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.TimeAttackGame;
 
+import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.SetGame.GameContract;
 
 /**
@@ -14,7 +15,7 @@ public class TimeAttackGameContract extends GameContract {
      */
     interface View extends GameContract.View {
 
-        void startTimeAttackCountdown();
+        void startTimeAttackCountdown(long millisRemaining);
 
         void updateScore(long playerScore);
 
@@ -28,6 +29,8 @@ public class TimeAttackGameContract extends GameContract {
      * Methods that need to be implemented by the Time Attack Game Presenter
      */
     interface UserActionsListener extends GameContract.UserActionsListener {
+
+        void initGame(SetGame game, long timeRemaining, long playerScore);
 
         void onFindSetSuccess();
 
