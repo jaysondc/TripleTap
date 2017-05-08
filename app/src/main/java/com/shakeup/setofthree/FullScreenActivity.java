@@ -23,6 +23,9 @@ public abstract class FullScreenActivity extends BaseGameActivity {
          * Set activity to immersive mode
          */
         hideSystemUI();
+
+        // Turn on auto-sign in if the user failed to sign in already
+        getGameHelper().setMaxAutoSignInAttempts(0);
     }
 
     @Override

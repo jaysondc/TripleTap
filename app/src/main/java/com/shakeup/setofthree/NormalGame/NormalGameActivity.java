@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
@@ -20,6 +21,8 @@ import com.shakeup.setofthree.R;
 public class NormalGameActivity
         extends FullScreenActivity
         implements GoogleApiClientCallback{
+
+    final String LOG_TAG = this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +43,18 @@ public class NormalGameActivity
         transaction.commit();
     }
 
+
+
     @Override
     public void onSignInFailed() {
         // Let the user know we aren't signed in and high scores won't be saved (for now)
+        Log.d(LOG_TAG, "Google Play Games sign in failed!");
     }
 
     @Override
     public void onSignInSucceeded() {
         // Let the user know we're signed in and can save high scores
+        Log.d(LOG_TAG, "Signed into Google Play Games!");
     }
 
     /*
