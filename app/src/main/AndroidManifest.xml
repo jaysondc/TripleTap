@@ -35,7 +35,7 @@
         <activity
             android:name=".MainMenu.MainMenuActivity"
             android:label="@string/app_label"
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullUser"
             android:alwaysRetainTaskState="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
