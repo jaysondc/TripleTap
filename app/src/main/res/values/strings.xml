@@ -77,4 +77,12 @@
     <!-- Leaderboard Widget -->
     <string name="widget_title">Classic</string>
     <string name="widget_empty">No scores yet!</string>
+
+    <!-- Bundle Keys -->
+    <string name="bundle_key_game">saved_game</string>
+    <string name="bundle_key_checked_positions">checked_positions</string>
+    <string name="bundle_key_checked_count">checked_count</string>
+    <string name="bundle_key_elapsed_millis">elapsed_millis</string>
+    <string name="bundle_key_timer_length">timer_length</string>
+    <string name="bundle_key_ta_score">ta_score</string>
 </resources>

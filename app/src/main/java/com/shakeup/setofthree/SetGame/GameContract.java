@@ -35,6 +35,8 @@ public class GameContract {
 
         void highlightCard(int index);
 
+        void selectCard(int index);
+
         void setGameClickable(boolean isClickable);
 
         void clearChoices();

@@ -17,15 +17,12 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.ContentProvider.ScoreColumns;
 import com.shakeup.setofthree.ContentProvider.ScoreProvider;
 import com.shakeup.setofthree.GameOverScreen.GameOverFragment;
 import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
-
-import org.parceler.Parcels;
 
 /**
  * Created by Jayson on 4/4/2017.
@@ -60,26 +57,26 @@ public class NormalGameFragment
      * member variables of the superclass
      * mActionsListener a reference to our presenter
      * mRecyclerGridView a reference to the RecyclerView for the game
+     * As well as restore the previous state if applicable
      */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // Call our superclass to handle basic game state restoration
+        super.onCreateView(inflater, container, savedInstanceState);
+
         View root;
-        // Variables for loading an existing game
-        SetGame existingGame = null;
 
         root = inflater.inflate(
                 R.layout.fragment_game_normal, container, false);
 
+        // Load game mode specific data from a saved state
         if(savedInstanceState!=null){
-            mElapsedMillis = savedInstanceState.getLong("time");
-            existingGame = Parcels.unwrap(savedInstanceState.getParcelable("game"));
-
-            Log.d(LOG_TAG, "Restored the game from a previous state.");
+            mElapsedMillis = savedInstanceState
+                    .getLong(getString(R.string.bundle_key_elapsed_millis));
         }
-
 
         // Instance the presenter our fragment uses and grab a reference
         mNormalActionsListener = new NormalGamePresenter(this);
@@ -110,7 +107,7 @@ public class NormalGameFragment
         }
 
         // Initialize a game
-        mNormalActionsListener.initGame(existingGame, mElapsedMillis);
+        mNormalActionsListener.initGame(mExistingGame, mElapsedMillis);
 
         return root;
     }
@@ -125,12 +122,8 @@ public class NormalGameFragment
         // Stop the timer and save the elapsed time
         long elapsedMills = this.getTimerElapsedTime();
 
-        // Get the SetGame
-        SetGame game = mActionsListener.getSetGame();
-
         // Bundle objects
-        outState.putLong("time", elapsedMills);
-        outState.putParcelable("game", Parcels.wrap(game));
+        outState.putLong(getString(R.string.bundle_key_elapsed_millis), elapsedMills);
     }
 
     @Override

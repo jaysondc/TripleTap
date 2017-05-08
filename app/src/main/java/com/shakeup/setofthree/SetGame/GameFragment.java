@@ -20,12 +20,13 @@ import com.shakeup.setofthree.R;
 
 import org.parceler.ParcelClass;
 import org.parceler.ParcelClasses;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
 /**
  * Created by Jayson on 3/2/2017.
- *
+ * <p>
  * Main fragment for playing a game of SET. May be subclassed to implmeent
  * variants of the main game
  */
@@ -38,7 +39,7 @@ import java.util.ArrayList;
         @ParcelClass(SetGame.SetDeck.class)
 })
 public abstract class GameFragment extends AppCompatDialogFragment
-        implements GameContract.View{
+        implements GameContract.View {
 
     // Listener for presenter to handle all user input
     protected GameContract.UserActionsListener mActionsListener;
@@ -51,19 +52,40 @@ public abstract class GameFragment extends AppCompatDialogFragment
     protected SetGameRecyclerAdapter mSetGameRecyclerAdapter;
 
     // Holds the positions of a set we're currently trying to claim
-    private int[] mCheckedPositions = new int[3];
+    protected int[] mCheckedPositions = new int[3];
+    protected int mCheckedCount;
+    protected SetGame mExistingGame;
 
     private String LOG_TAG = this.getClass().getSimpleName();
+
+    @Nullable
+
 
     /**
      * Run initial setup for creating a new game.
      * Any subclasses should override this method and set up
      * the root layout and presenter specific to their game mode.
      */
-    public abstract View onCreateView(
-            LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // Reload the game state if we've been rotated or restarted
+        if(savedInstanceState!=null){
+            mExistingGame = Parcels
+                    .unwrap(savedInstanceState
+                            .getParcelable(getString(R.string.bundle_key_game)));
+            mCheckedPositions = savedInstanceState
+                    .getIntArray(getString(R.string.bundle_key_checked_positions));
+            mCheckedCount = savedInstanceState
+                    .getInt(getString(R.string.bundle_key_checked_count));
+
+            Log.d(LOG_TAG, "Restored the game from a previous state.");
+        }
+
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     /**
      * Updates the board in response to a successful set claim. Override this to handle
@@ -85,6 +107,7 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
     /**
      * Receives the generated Set Hand and displays it to the game grid
+     *
      * @param setHand ArrayList of SetCards to be displayed in the grid
      */
     @Override
@@ -100,30 +123,52 @@ public abstract class GameFragment extends AppCompatDialogFragment
         mRecyclerGridView.setLayoutManager(gridLayoutManager);
         mRecyclerGridView.setAdapter(mSetGameRecyclerAdapter);
 
-        // If we are in debug mode, highlight a valid set
-        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
-            // Use a ViewTreeObserver to only show highlights once the RecyclerView
-            // is done drawing its layout.
-            ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
-            vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+        // Use a ViewTreeObserver to only show highlights once the RecyclerView
+        // is done drawing its layout.
+        ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                // If we are in debug mode, highlight a valid set
+                if (getContext().getResources().getBoolean(R.bool.is_debug)) {
                     mActionsListener.highlightValidSet();
                 }
-            });
-        }
+
+                // Restore selected positions
+                for(int i = 0; i < mCheckedCount; i++){
+                    selectCard(mCheckedPositions[i]);
+                }
+            }
+        });
+
     }
 
     /**
      * Highlight the card at a specific index
+     *
      * @param index Index of the card to highlight
      */
-    public void highlightCard(int index){
+    @Override
+    public void highlightCard(int index) {
         // Holds a reference to the card so we can highlight it
         SetGameCardView card =
                 (SetGameCardView) mRecyclerGridView.getChildAt(index);
         card.setHighlighted(true);
+    }
+
+    /**
+     * Select the card at a specific index
+     *
+     * @param index Index of the card to select
+     */
+    @Override
+    public void selectCard(int index) {
+        // Holds a reference to the card so we can select it
+        SetGameCardView card =
+                (SetGameCardView) mRecyclerGridView.getChildAt(index);
+        card.setChecked(true);
     }
 
     /**
@@ -134,15 +179,17 @@ public abstract class GameFragment extends AppCompatDialogFragment
     @Override
     public void onSetCardClicked() {
 
+        mCheckedCount = getCheckedItemCount();
+
         // If we have 3 items selected, check if they are a set
-        if (getCheckedItemCount() == 3){
+        if (mCheckedCount == 3) {
             SparseBooleanArray checkedItemPositions = getCheckedItemPositions();
 
             int positionIndex = 0;
 
             // Loop through SparseBooleanArray and grab the 3 positions that are checked
-            for( int i = 0; i < checkedItemPositions.size() ; i++ ){
-                if( checkedItemPositions.valueAt(i) ){
+            for (int i = 0; i < checkedItemPositions.size(); i++) {
+                if (checkedItemPositions.valueAt(i)) {
                     mCheckedPositions[positionIndex] = checkedItemPositions.keyAt(i);
                     positionIndex++;
                 }
@@ -162,20 +209,22 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
             // Clear all selections from GridView
             clearChoices();
+            mCheckedCount = 0;
         }
     }
 
     /**
      * Gets the number of items currently selected in the RecyclerView
+     *
      * @return Count of the items
      */
-    public int getCheckedItemCount(){
+    public int getCheckedItemCount() {
         int checkedCount = 0;
 
         // Loop through all SetGameCardViews in the adapter and count how many are checked
-        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
             SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
-            if ( cardView.isChecked() ){
+            if (cardView.isChecked()) {
                 checkedCount++;
             }
         }
@@ -184,16 +233,17 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
     /**
      * Gets all locations of checked items in the RecyclerGrid
+     *
      * @return SparseBooleanArray containing key-value pairs of locations where checked == true
      */
-    public SparseBooleanArray getCheckedItemPositions(){
+    public SparseBooleanArray getCheckedItemPositions() {
         SparseBooleanArray checkedLocations = new SparseBooleanArray();
 
         // Loop through all SetGameCardViews in the adapter and add locations and values for
         // those that are checked
-        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
             SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
-            if ( cardView.isChecked() ){
+            if (cardView.isChecked()) {
                 checkedLocations.append(i, true);
             }
         }
@@ -203,11 +253,11 @@ public abstract class GameFragment extends AppCompatDialogFragment
     /**
      * Uncheck all views in the RecyclerGrid
      */
-    public void clearChoices(){
+    public void clearChoices() {
         // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
-        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
             SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
-            if ( cardView.isChecked() ){
+            if (cardView.isChecked()) {
                 cardView.setChecked(false);
             }
         }
@@ -216,11 +266,11 @@ public abstract class GameFragment extends AppCompatDialogFragment
     /**
      * Un-highlight all views in the RecyclerGrid
      */
-    public void clearHighlights(){
+    public void clearHighlights() {
         // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
-        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
             SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
-            if ( cardView.isHighlighted() ){
+            if (cardView.isHighlighted()) {
                 cardView.setHighlighted(false);
             }
         }
@@ -230,18 +280,19 @@ public abstract class GameFragment extends AppCompatDialogFragment
      * The method refreshes the entire board display and should be used in the event
      * the board contents has been changed manually.
      */
-    public void refreshBoard(){
+    public void refreshBoard() {
         mSetGameRecyclerAdapter.notifyDataSetChanged();
     }
 
     /**
      * Updates the RecyclerView whenever the hand is updated. Updates member variables
      * with Set Locations and highlights sets if we are in debug mode.
+     *
      * @param isOverflow State whether or not the hand is in overflow mode
-     * @param deckSize The number of cards remaining in the deck
+     * @param deckSize   The number of cards remaining in the deck
      */
     @Override
-    public void updateSetHand(boolean isOverflow, int deckSize){
+    public void updateSetHand(boolean isOverflow, int deckSize) {
         mSetGameRecyclerAdapter.updateSetHand(
                 mCheckedPositions[0],
                 mCheckedPositions[1],
@@ -250,11 +301,11 @@ public abstract class GameFragment extends AppCompatDialogFragment
                 deckSize);
 
         // If we're in debug and there are sets available, clear highlights and show new highlights
-        if( getContext().getResources().getBoolean(R.bool.is_debug)){
+        if (getContext().getResources().getBoolean(R.bool.is_debug)) {
             // Use a ViewTreeObserver to only show highlights once the RecyclerView
             // is done drawing its layout.
             ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
-            vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
                     mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -265,19 +316,42 @@ public abstract class GameFragment extends AppCompatDialogFragment
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Get the SetGame
+        SetGame game = mActionsListener.getSetGame();
+
+        SparseBooleanArray checkedItemPositions = getCheckedItemPositions();
+        int positionIndex = 0;
+        // Loop through SparseBooleanArray and grab the positions that are checked
+        for (int i = 0; i < checkedItemPositions.size(); i++) {
+            if (checkedItemPositions.valueAt(i)) {
+                mCheckedPositions[positionIndex] = checkedItemPositions.keyAt(i);
+                positionIndex++;
+            }
+        }
+
+        // Bundle objects
+        outState.putParcelable(getString(R.string.bundle_key_game), Parcels.wrap(game));
+        outState.putIntArray(getString(R.string.bundle_key_checked_positions), mCheckedPositions);
+        outState.putInt(getString(R.string.bundle_key_checked_count), mCheckedCount);
+    }
 
     /**
      * Public accessor to set the SetHand cards as Clickable
+     *
      * @param isClickable The value to set the Clickable attribute
      */
-    public void setGameClickable(boolean isClickable){
+    public void setGameClickable(boolean isClickable) {
         // Loop through all SetGameCardViews in the adapter set them as isClickble
-        for ( int i = 0; i < mRecyclerGridView.getChildCount(); i++ ){
+        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
             mRecyclerGridView.getChildAt(i).setEnabled(isClickable);
         }
     }
 
-    public boolean isClickable(){
+    public boolean isClickable() {
         return mRecyclerGridView.getChildAt(0).isClickable();
     }
 

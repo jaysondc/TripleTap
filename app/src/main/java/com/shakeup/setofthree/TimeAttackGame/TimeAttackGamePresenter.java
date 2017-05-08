@@ -53,8 +53,8 @@ public class TimeAttackGamePresenter extends GamePresenter
         mSetGame.setEndlessMode(true);
         // Enable clicks
         mTimeAttackGameView.setGameClickable(true);
-        // Start a time attack counter //TODO: Timer is only started in onResume. Is that ok?
-        //mTimeAttackGameView.startTimeAttackCountdown(timerLength);
+        // Start a time attack counter
+        // Timer is actually started in the fragments onResume method
         // Set the score
         mPlayerScore = playerScore;
         mTimeAttackGameView.updateScore(playerScore);

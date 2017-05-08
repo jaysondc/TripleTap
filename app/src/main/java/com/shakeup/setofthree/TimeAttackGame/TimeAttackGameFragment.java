@@ -23,8 +23,6 @@ import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
-import org.parceler.Parcels;
-
 /**
  * Created by Jayson on 3/20/2017.
  *
@@ -71,20 +69,23 @@ public class TimeAttackGameFragment
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // Call our superclass to handle basic game state restoration
+        super.onCreateView(inflater, container, savedInstanceState);
+
         View root;
-        // Variables for loading an existing game
-        SetGame existingGame = null;
+
         long playerScore = 0;
 
         root = inflater.inflate(
                 R.layout.fragment_game_time_attack, container, false);
 
+        // Load game mode specific data from a saved state
         if(savedInstanceState!=null){
-            mTimeAttackLength = savedInstanceState.getLong("time");
-            existingGame = Parcels.unwrap(savedInstanceState.getParcelable("game"));
-            playerScore = savedInstanceState.getLong("score");
+            mTimeAttackLength = savedInstanceState
+                    .getLong(getString(R.string.bundle_key_timer_length));
+            playerScore = savedInstanceState
+                    .getLong(getString(R.string.bundle_key_ta_score));
 
-            Log.d(LOG_TAG, "Restored the game from a previous state.");
         } else {
             // Get the desired time attack length from the intent extras
             mTimeAttackLength = getActivity().getIntent().getLongExtra(
@@ -108,7 +109,7 @@ public class TimeAttackGameFragment
                 (TextView) root.findViewById(R.id.game_score);
 
         // Initialize a game
-        mTimeAttackActionsListener.initGame(existingGame, mTimeAttackLength, playerScore);
+        mTimeAttackActionsListener.initGame(mExistingGame, mTimeAttackLength, playerScore);
 
         return root;
     }
@@ -129,9 +130,8 @@ public class TimeAttackGameFragment
         long score = mTimeAttackActionsListener.getPlayerScore();
 
         // Bundle objects
-        outState.putLong("time", mTimeAttackLength);
-        outState.putParcelable("game", Parcels.wrap(game));
-        outState.putLong("score", score);
+        outState.putLong(getString(R.string.bundle_key_timer_length), mTimeAttackLength);
+        outState.putLong(getString(R.string.bundle_key_ta_score), score);
     }
 
     @Override
@@ -150,10 +150,6 @@ public class TimeAttackGameFragment
 
     @Override
     public void onSetSuccess() {
-//        // Do stuff in response to successful SET claim
-//        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
-//                .show();
-
         // Let the presenter know someone found a set
         mTimeAttackActionsListener.onFindSetSuccess();
 
@@ -161,12 +157,7 @@ public class TimeAttackGameFragment
 
     @Override
     public void onSetFailure() {
-//        // Do stuff in response to a failed set claim
-//        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
-//                .show();
-
         mTimeAttackActionsListener.onFindSetFailure();
-
     }
 
     @Override
