@@ -95,6 +95,11 @@ public class LocalLeaderboardRecyclerAdapter
                     ContextCompat.getColor(
                             mContext,
                             R.color.card_background_highlighted));
+        } else {
+            holder.mView.setBackgroundColor(
+                    ContextCompat.getColor(
+                            mContext,
+                            R.color.card_background_normal));
         }
     }
 

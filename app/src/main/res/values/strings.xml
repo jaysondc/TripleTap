@@ -85,4 +85,5 @@
     <string name="bundle_key_elapsed_millis">elapsed_millis</string>
     <string name="bundle_key_timer_length">timer_length</string>
     <string name="bundle_key_ta_score">ta_score</string>
+    <string name="bundle_key_recycler_state">recycler_state</string>
 </resources>

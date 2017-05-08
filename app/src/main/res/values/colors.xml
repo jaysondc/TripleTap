@@ -17,7 +17,7 @@
     <color name="set_purple">#03A9F4</color>
 
     <!-- Card colors -->
-    <color name="card_background_normal">#FFFFFF</color>
+    <color name="card_background_normal">#FAFAFA</color>
     <color name="card_background_highlighted">#ffecb3</color>
     <color name="card_background_selected">#BDBDBD</color>
 

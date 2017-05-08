@@ -3,6 +3,7 @@ package com.shakeup.setofthree.GameOverScreen;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -55,6 +56,7 @@ public class GameOverFragment
     RecyclerView mRecyclerLeaderboard;
     Button mRestartButton, mLeaderboardButton, mViewSetsButton, mMainMenuButton;
     String mGameMode, mGameDifficulty;
+    Parcelable mRecyclerState = null; // Holds the previous scroll position if it's saved
 
     // Default constructor
     public GameOverFragment(){
@@ -73,6 +75,12 @@ public class GameOverFragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root;
+
+        // Restore our recycler view state
+        if(savedInstanceState != null){
+            mRecyclerState = savedInstanceState
+                    .getParcelable(getString(R.string.bundle_key_recycler_state));
+        }
 
         root = inflater.inflate(
                 R.layout.fragment_game_over_single_player, container, false);
@@ -131,6 +139,17 @@ public class GameOverFragment
         mGameOverActionsListener.onOnCreateViewFinished();
 
         return root;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save and store the recycler view state
+        LinearLayoutManager llm = (LinearLayoutManager) mRecyclerLeaderboard.getLayoutManager();
+        Parcelable layoutState = llm.onSaveInstanceState();
+
+        outState.putParcelable(getString(R.string.bundle_key_recycler_state), layoutState);
     }
 
     @Override
@@ -254,8 +273,13 @@ public class GameOverFragment
         mRecyclerLeaderboard.setLayoutManager(layoutManager);
         mRecyclerLeaderboard.setAdapter(adapter);
 
-        // Scroll to the most recent score
-        mRecyclerLeaderboard.scrollToPosition(adapter.getLatestRecordId());
+        if(mRecyclerState!=null){
+            // Scroll to our previous position
+            layoutManager.onRestoreInstanceState(mRecyclerState);
+        } else {
+            // Scroll to the most recent score
+            mRecyclerLeaderboard.scrollToPosition(adapter.getLatestRecordId());
+        }
     }
 
     @Override
