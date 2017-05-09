@@ -24,6 +24,8 @@ import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
+import java.util.Locale;
+
 /**
  * Created by Jayson on 4/4/2017.
  *
@@ -205,7 +207,7 @@ public class NormalGameFragment
      */
     @Override
     public void updateDeckRemaining(int deckRemaining) {
-        mDeckRemainingView.setText(Integer.toString(deckRemaining));
+        mDeckRemainingView.setText(String.format(Locale.getDefault(), "%d", deckRemaining));
     }
 
     /**

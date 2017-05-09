@@ -23,6 +23,8 @@ import com.shakeup.setofthree.Interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.SetGame.GameFragment;
 
+import java.util.Locale;
+
 /**
  * Created by Jayson on 3/20/2017.
  *
@@ -192,7 +194,7 @@ public class TimeAttackGameFragment
 
     @Override
     public void updateScore(long playerScore) {
-        mGameScore.setText(Long.toString(playerScore));
+        mGameScore.setText(String.format(Locale.getDefault(), "%d", playerScore));
     }
 
     @Override
@@ -271,7 +273,7 @@ public class TimeAttackGameFragment
 
         @Override
         public void onFinish() {
-            mGameTimer.setText(Integer.toString(0));
+            mGameTimer.setText(String.format(Locale.getDefault(), "%d", 0));
             mTimeAttackActionsListener.onTimeUp();
         }
 
@@ -279,7 +281,7 @@ public class TimeAttackGameFragment
         public void onTick(long millisUntilFinished) {
             // Update the time display in our timer view
             int secsUntilFinished = (int) millisUntilFinished / 1000;
-            mGameTimer.setText(Integer.toString(secsUntilFinished));
+            mGameTimer.setText(String.format(Locale.getDefault(), "%d", secsUntilFinished));
 
             // Save mills remaining so we can pause and start the timer later
             mTimeAttackLength = millisUntilFinished;
