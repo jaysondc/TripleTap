@@ -18,13 +18,13 @@
 
         <provider
             android:authorities="@string/score_provider_authority"
-            android:name=".ContentProvider.generated.ScoreProvider"
+            android:name=".contentprovider.generated.ScoreProvider"
             android:exported="true"/>
 
-        <service android:name=".Widgets.LeaderboardWidgetService"
+        <service android:name=".widgets.LeaderboardWidgetService"
         android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <receiver android:name=".Widgets.LeaderboardAppWidgetProvider" >
+        <receiver android:name=".widgets.LeaderboardAppWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -33,7 +33,7 @@
         </receiver>
 
         <activity
-            android:name=".MainMenu.MainMenuActivity"
+            android:name=".mainmenu.MainMenuActivity"
             android:label="@string/app_label"
             android:screenOrientation="fullUser"
             android:alwaysRetainTaskState="true">
@@ -44,13 +44,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MultiplayerGame.MultiplayerGameActivity"
+            android:name=".multiplayergame.MultiplayerGameActivity"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".TimeAttackGame.TimeAttackGameActivity"
+            android:name=".timeattackgame.TimeAttackGameActivity"
             android:screenOrientation="fullUser"/>
         <activity
-            android:name=".NormalGame.NormalGameActivity"
+            android:name=".normalgame.NormalGameActivity"
             android:screenOrientation="fullUser"/>
     </application>
 
