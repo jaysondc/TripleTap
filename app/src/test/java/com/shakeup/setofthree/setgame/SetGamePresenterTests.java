@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 
 /**
  * Created by Jayson on 3/10/2017.
- *
+ * <p>
  * Contains all the unit tests for the GamePresenter class
  */
 
@@ -27,13 +27,13 @@ public class SetGamePresenterTests {
 
     // Boilerplate mockito setup
     @Mock
-    private GameContract.View  mGameView;
+    private GameContract.View mGameView;
 
     @Mock
     private SetGame mSetGame;
 
     @Before
-    public void setUpGamePresenter(){
+    public void setUpGamePresenter() {
         // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
         // inject the mocks in the test the initMocks method needs to be called.
         MockitoAnnotations.initMocks(this);
@@ -51,7 +51,7 @@ public class SetGamePresenterTests {
     // TESTS
 
     @Test
-    public void initGameTest(){
+    public void initGameTest() {
         mGamePresenter.initGame(null);
 
         ArgumentCaptor arrayListCapture = ArgumentCaptor.forClass(ArrayList.class);
@@ -61,7 +61,7 @@ public class SetGamePresenterTests {
     }
 
     @Test
-    public void submitSetTest(){
+    public void submitSetTest() {
         List<SetGame.Triplet> setLocations =
                 mSetGame.getLocationOfSets();
 
@@ -117,7 +117,7 @@ public class SetGamePresenterTests {
      * is notified a card has been clicked
      */
     @Test
-    public void setCardClickedTest(){
+    public void setCardClickedTest() {
         mGamePresenter.onSetCardClick();
 
         verify(mGameView).onSetCardClicked();

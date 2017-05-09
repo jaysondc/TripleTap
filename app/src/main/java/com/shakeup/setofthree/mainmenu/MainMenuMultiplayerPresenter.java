@@ -15,6 +15,7 @@ public class MainMenuMultiplayerPresenter
 
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling MainView.
+     *
      * @param mainMultiplayerView A reference to the calling MainView
      */
     public MainMenuMultiplayerPresenter(
@@ -24,6 +25,7 @@ public class MainMenuMultiplayerPresenter
 
     /**
      * Open a multi-player game with the specified number of players
+     *
      * @param numPlayers Number of players desired in Multiplayer game
      */
     @Override

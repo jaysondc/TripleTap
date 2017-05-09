@@ -6,7 +6,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by Jayson on 3/29/2017.
- *
+ * <p>
  * This is the presenter that handles user input from the MainMenuSinglePlayerFragment
  */
 
@@ -17,6 +17,7 @@ public class MainMenuSinglePlayerPresenter
 
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling MainView.
+     *
      * @param mainSinglePlayerView A reference to the calling MainView
      */
     public MainMenuSinglePlayerPresenter(

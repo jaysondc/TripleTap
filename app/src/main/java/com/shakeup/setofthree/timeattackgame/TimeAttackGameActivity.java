@@ -7,19 +7,19 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
-import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
 
 /**
  * Created by Jayson on 3/29/2017.
- *
+ * <p>
  * This doesn't do anything except set up the correct TimeAttack
  * fragment which will contain all the views seen by the user.
  */
 
 public class TimeAttackGameActivity
         extends FullScreenActivity
-        implements GoogleApiClientCallback{
+        implements GoogleApiClientCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

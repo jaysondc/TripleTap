@@ -6,7 +6,7 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Created by Jayson on 3/2/2017.
- *
+ * <p>
  * This class contains unit tests for the MainMenuPresenter class
  */
 
@@ -19,7 +19,7 @@ public class MainMenuPresenterTests {
 
 
     @Before
-    public void setUpMainMenuPresenter(){
+    public void setUpMainMenuPresenter() {
         // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
         // inject the mocks in the test the initMocks method needs to be called.
         MockitoAnnotations.initMocks(this);

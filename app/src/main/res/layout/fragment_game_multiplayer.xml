@@ -112,12 +112,11 @@
             android:id="@+id/game_recycler_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never"
             android:layout_gravity="center"
+            android:overScrollMode="never"
             tools:listitem="@layout/setgame_card_main" />
 
     </com.github.rongi.rotate_layout.layout.RotateLayout>
-
 
 
     <!-- Player 2 and 4 space -->

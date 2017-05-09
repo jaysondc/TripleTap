@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shakeup.setofthree.multiplayergame.MultiplayerGameActivity;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.multiplayergame.MultiplayerGameActivity;
 
 /**
  * Created by Jayson on 3/2/2017.
- *
+ * <p>
  * This fragment handles the UI for the multiplayer buttons in the main menu
  */
 
@@ -22,10 +22,9 @@ public class MainMenuMultiplayerFragment
         extends android.support.v4.app.Fragment
         implements MainMenuMultiplayerContract.MultiplayerView {
 
+    public final String LOG_TAG = this.getClass().getSimpleName();
     // Presenter to handle all user actions
     MainMenuMultiplayerPresenter mActionsListener;
-
-    public final String LOG_TAG = this.getClass().getSimpleName();
 
     /**
      * Allow another class to construct us
@@ -33,6 +32,7 @@ public class MainMenuMultiplayerFragment
     public MainMenuMultiplayerFragment() {
         // Requires empty public constructor
     }
+
     public static MainMenuMultiplayerFragment newInstance() {
         return new MainMenuMultiplayerFragment();
     }
@@ -100,6 +100,7 @@ public class MainMenuMultiplayerFragment
 
     /**
      * Launch multi player with specified number of players
+     *
      * @param numPlayers The number of players desired in a multiplayer game
      */
     @Override

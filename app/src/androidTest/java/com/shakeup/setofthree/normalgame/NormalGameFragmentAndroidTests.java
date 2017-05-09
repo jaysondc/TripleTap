@@ -9,8 +9,8 @@ import android.view.View;
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.setgame.SetGameFragmentAndroidTests;
 import com.shakeup.setofthree.adapters.SetGameRecyclerAdapter;
+import com.shakeup.setofthree.setgame.SetGameFragmentAndroidTests;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -26,11 +26,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
  * Created by Jayson on 3/10/2017.
- *
+ * <p>
  * Tests to be run on the Set Game Multiplayer UI
  */
 
-public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
+public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests {
 
 
     // Specify we need to launch the NormalGameActivity before these tests
@@ -40,9 +40,34 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
                     NormalGameActivity.class,
                     true /* Initial touch mode  */,
                     false /* Lazily launch activity */);
+    /*
+     * Create our own explicit click action that overrides the "90% of the view must be visible"
+     * error. Our buttons are rotated and as a result the bounds of the view extend past the sides
+     * of the screen, preventing us from clicking them.
+     *
+     * StackoverFlow answer was here: http://stackoverflow.com/a/37994771
+     */
+    ViewAction clickExplicit = new ViewAction() {
+        @Override
+        public Matcher<View> getConstraints() {
+            return isEnabled(); // no constraints, they are checked above
+        }
+
+        @Override
+        public String getDescription() {
+            return "click plus button";
+        }
+
+        @Override
+        public void perform(UiController uiController, View view) {
+            view.performClick();
+        }
+    };
+
+    // TESTS
 
     @Before
-    public void setUpTestEnvironment(){
+    public void setUpTestEnvironment() {
         Intent startIntent = new Intent();
         mGameActivityTestRule.launchActivity(startIntent);
 
@@ -50,13 +75,11 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
         mGameActivity = mGameActivityTestRule.getActivity();
         mGameFragment =
                 (NormalGameFragment) mGameActivity.getSupportFragmentManager()
-                .findFragmentById(R.id.content_frame);
+                        .findFragmentById(R.id.content_frame);
         mGamePresenter =
                 (NormalGamePresenter) mGameFragment.getActionsListener();
         mSetGame = mGamePresenter.getSetGame();
     }
-
-    // TESTS
 
     /**
      * Test that the game is displayed correctly.
@@ -64,7 +87,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
      */
     @Test
     @Override
-    public void displayGameTest(){
+    public void displayGameTest() {
         super.displayGameTest();
     }
 
@@ -73,7 +96,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
      */
     @Test
     @Override
-    public void clickRandomSet(){
+    public void clickRandomSet() {
         // Click our player button first to enable the board
 
 
@@ -86,8 +109,8 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
      */
     @Test
     @Override
-    public void findMultipleSetsTest(){
-        for (int i = 0; i < 23; i++){
+    public void findMultipleSetsTest() {
+        for (int i = 0; i < 23; i++) {
 
             highlightSetTest();
             clickRandomSet();
@@ -100,8 +123,8 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
      */
     @Test
     @Override
-    public void testGameOverHandler(){
-        while( !mSetGame.getIsGameOver() ){
+    public void testGameOverHandler() {
+        while (!mSetGame.getIsGameOver()) {
             clickRandomSet();
         }
 
@@ -117,7 +140,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
 
         // Get the deck and empty it
         SetGame.SetDeck deck = mSetGame.getSetDeck();
-        while(!deck.isEmpty()){
+        while (!deck.isEmpty()) {
             deck.drawCard();
         }
         // Use the empty deck
@@ -131,7 +154,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
         SetCard cardThree = someHand.get(someSetLocation.getThird());
 
         // Empty the hand and populate it with a single set
-        while(!someHand.isEmpty()){
+        while (!someHand.isEmpty()) {
             someHand.remove(0);
         }
         someHand.add(cardOne);
@@ -162,43 +185,18 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests{
      * Tests uploading and reading scores locally
      */
     @Test
-    public void testSaveLocalScore(){
+    public void testSaveLocalScore() {
         NormalGameFragment normalFragment = (NormalGameFragment) mGameFragment;
         normalFragment.saveLocalScore(1500000, true);
 
         normalFragment.showGameOver();
 
         // Bad practice but set a Sleep command so we an mess with the UI ourselves
-        try{
+        try {
             Thread.sleep(50000);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-
-
-    /*
-     * Create our own explicit click action that overrides the "90% of the view must be visible"
-     * error. Our buttons are rotated and as a result the bounds of the view extend past the sides
-     * of the screen, preventing us from clicking them.
-     *
-     * StackoverFlow answer was here: http://stackoverflow.com/a/37994771
-     */
-    ViewAction clickExplicit = new ViewAction() {
-        @Override
-        public Matcher<View> getConstraints() {
-            return isEnabled(); // no constraints, they are checked above
-        }
-
-        @Override
-        public String getDescription() {
-            return "click plus button";
-        }
-
-        @Override
-        public void perform(UiController uiController, View view) {
-            view.performClick();
-        }
-    };
 }
 

@@ -10,7 +10,7 @@ import com.shakeup.setofthree.R;
 
 /**
  * Created by Jayson on 3/2/2017.
- *
+ * <p>
  * This doesn't do anything except set up the correct multiplayer
  * fragment which will contain all the views seen by the user.
  */

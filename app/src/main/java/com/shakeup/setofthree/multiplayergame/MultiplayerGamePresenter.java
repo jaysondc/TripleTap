@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 
 public class MultiplayerGamePresenter extends GamePresenter
-        implements MultiplayerGameContract.UserActionsListener{
+        implements MultiplayerGameContract.UserActionsListener {
 
     private final String LOG_TAG = getClass().getSimpleName();
 
@@ -24,11 +24,12 @@ public class MultiplayerGamePresenter extends GamePresenter
     private int[] mScoreArray = new int[4];
 
     // Supply a default constructor
-    public MultiplayerGamePresenter(){
+    public MultiplayerGamePresenter() {
     }
 
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling View.
+     *
      * @param multiplayerGameView A reference to the calling View
      */
     public MultiplayerGamePresenter(
@@ -66,6 +67,7 @@ public class MultiplayerGamePresenter extends GamePresenter
     /**
      * Handles the click in the Presenter layer and passes it back to the appropriate
      * method in the View layer.
+     *
      * @param playerId ID of the player who clicked their button
      */
     @Override
@@ -87,17 +89,18 @@ public class MultiplayerGamePresenter extends GamePresenter
 
     /**
      * This method is called when the player finds a successful set
+     *
      * @param playerId ID of the player
      */
-    public void onPlayerSuccess(int playerId){
-        mScoreArray[playerId-1]++;
-        mMultiplayerGameView.updatePlayerScore(playerId, mScoreArray[playerId-1]);
+    public void onPlayerSuccess(int playerId) {
+        mScoreArray[playerId - 1]++;
+        mMultiplayerGameView.updatePlayerScore(playerId, mScoreArray[playerId - 1]);
     }
 
     /**
      * This method is called when the player fails to find a set in time
      */
-    public void onPlayerButtonTimedOut(){
+    public void onPlayerButtonTimedOut() {
         // Set all buttons to their timeout state
         mMultiplayerGameView.onPlayerTimedOut();
 

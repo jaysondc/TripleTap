@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.shakeup.setgamelibrary.SetGame;
-import com.shakeup.setofthree.adapters.SetGameRecyclerAdapter;
-import com.shakeup.setofthree.customviews.SetGameCardView;
 import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.adapters.SetGameRecyclerAdapter;
+import com.shakeup.setofthree.customviews.SetGameCardView;
 
 import org.junit.Test;
 
@@ -30,15 +30,15 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Created by Jayson on 3/10/2017.
- *
+ * <p>
  * Tests to be run on a generic set game. This is to be subclassed by
  * specific game modes to test game mode specific UI features.
- *
+ * <p>
  * Specific @Before methods which get the member references should be implemented
  * by any subclass.
  */
 
-public abstract class SetGameFragmentAndroidTests{
+public abstract class SetGameFragmentAndroidTests {
     // References to the activity and fragment
     protected GameFragment mGameFragment;
     protected FullScreenActivity mGameActivity;
@@ -51,12 +51,13 @@ public abstract class SetGameFragmentAndroidTests{
     public abstract void setUpTestEnvironment();
 
     // TESTS
+
     /**
      * Test that the game is displayed correctly.
      * The grid must contain at least 12 cards.
      */
     @Test
-    public void displayGameTest(){
+    public void displayGameTest() {
         onView(withId(R.id.game_recycler_grid))
                 .check(new RecyclerViewItemCountAssertion(12));
     }
@@ -65,11 +66,11 @@ public abstract class SetGameFragmentAndroidTests{
      * Click a random set on the board
      */
     @Test
-    public void clickRandomSet(){
+    public void clickRandomSet() {
 
         // Pick a random valid SET
         SetGame.Triplet location = mSetGame.getRandomSet();
-        if (location != null){
+        if (location != null) {
             int first = (int) location.getFirst();
             int second = (int) location.getSecond();
             int third = (int) location.getThird();
@@ -91,15 +92,15 @@ public abstract class SetGameFragmentAndroidTests{
      * Test that 3 cards are highlighted to indicate a set is available
      */
     @Test
-    public void highlightSetTest(){
+    public void highlightSetTest() {
         // Get a reference to the grid
         RecyclerView mRecycleGridView =
                 (RecyclerView) mGameActivity.findViewById(R.id.game_recycler_grid);
 
         int highlightedCellCount = 0;
 
-        for (int i = 0; i < mRecycleGridView.getChildCount(); i++){
-            if(((SetGameCardView) mRecycleGridView.getChildAt(i)).isHighlighted())
+        for (int i = 0; i < mRecycleGridView.getChildCount(); i++) {
+            if (((SetGameCardView) mRecycleGridView.getChildAt(i)).isHighlighted())
                 highlightedCellCount++;
         }
         assertEquals(3, highlightedCellCount);
@@ -110,8 +111,8 @@ public abstract class SetGameFragmentAndroidTests{
      * as long as i < 23.
      */
     @Test
-    public void findMultipleSetsTest(){
-        for (int i = 0; i < 23; i++){
+    public void findMultipleSetsTest() {
+        for (int i = 0; i < 23; i++) {
             highlightSetTest();
             clickRandomSet();
 
@@ -122,8 +123,8 @@ public abstract class SetGameFragmentAndroidTests{
      * Tests that the showGameOver method properly handles the GameOver UI state.
      */
     @Test
-    public void testGameOverHandler(){
-        while( !mSetGame.getIsGameOver() ){
+    public void testGameOverHandler() {
+        while (!mSetGame.getIsGameOver()) {
             clickRandomSet();
         }
 
@@ -134,12 +135,27 @@ public abstract class SetGameFragmentAndroidTests{
 
     /**
      * Get a random set location from the possible sets
+     *
      * @return Triplet of set indexes
      */
-    public SetGame.Triplet getRandomSet(){
+    public SetGame.Triplet getRandomSet() {
         int index = (int) Math.floor(Math.random() * mSetLocations.size());
 
         return mSetLocations.get(index);
+    }
+
+    /**
+     * Utility used to check snackbar with text is shown.
+     * Gotten from top answer here:
+     * http://stackoverflow.com/questions/35188183/snackbar-and-espresso-failing-sometimes
+     *
+     * @param message StringRes of the text that should be in the SnackBara
+     */
+    public void checkSnackBarDisplayedByMessage(@StringRes int message) {
+        onView(withText(message))
+                .check(matches(withEffectiveVisibility(
+                        ViewMatchers.Visibility.VISIBLE
+                )));
     }
 
     /**
@@ -164,18 +180,5 @@ public abstract class SetGameFragmentAndroidTests{
             SetGameRecyclerAdapter adapter = (SetGameRecyclerAdapter) recyclerView.getAdapter();
             assertThat(adapter.getItemCount(), greaterThanOrEqualTo(expectedCount));
         }
-    }
-
-    /**
-     * Utility used to check snackbar with text is shown.
-     * Gotten from top answer here:
-     * http://stackoverflow.com/questions/35188183/snackbar-and-espresso-failing-sometimes
-     * @param message StringRes of the text that should be in the SnackBara
-     */
-    public void checkSnackBarDisplayedByMessage(@StringRes int message) {
-        onView(withText(message))
-                .check(matches(withEffectiveVisibility(
-                        ViewMatchers.Visibility.VISIBLE
-                )));
     }
 }

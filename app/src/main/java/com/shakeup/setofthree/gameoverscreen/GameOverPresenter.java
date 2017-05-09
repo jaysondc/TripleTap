@@ -6,23 +6,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by Jayson on 4/4/2017.
- *
+ * <p>
  * Presenter for Normal game mode
  */
 
 public class GameOverPresenter
-        implements GameOverContract.UserActionsListener{
+        implements GameOverContract.UserActionsListener {
 
     private final String LOG_TAG = getClass().getSimpleName();
 
     private GameOverContract.View mGameOverView;
 
     // Supply a default constructor
-    public GameOverPresenter(){
+    public GameOverPresenter() {
     }
 
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling View.
+     *
      * @param gameOverView A reference to the calling View
      */
     public GameOverPresenter(

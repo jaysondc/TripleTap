@@ -5,7 +5,7 @@ import com.shakeup.setofthree.setgame.GameContract;
 
 /**
  * Created by Jayson on 4/4/2017.
- *
+ * <p>
  * Contract between the View and Presenter for the Normal game mode
  */
 

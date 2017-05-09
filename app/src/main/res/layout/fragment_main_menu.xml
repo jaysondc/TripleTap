@@ -32,9 +32,9 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:text="@string/menu_how_to_play"
+        app:layout_constraintBottom_toTopOf="@+id/button_exit"
         app:layout_constraintLeft_toLeftOf="@+id/button_multi_player"
         app:layout_constraintTop_toBottomOf="@+id/button_multi_player"
-        app:layout_constraintBottom_toTopOf="@+id/button_exit"
         tools:layout_editor_absoluteY="203dp" />
 
     <android.support.v7.widget.AppCompatButton

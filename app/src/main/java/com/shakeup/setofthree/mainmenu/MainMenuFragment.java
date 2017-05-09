@@ -30,11 +30,9 @@ public class MainMenuFragment
     private static final int RC_RESOLVE = 5000;
     private static final int RC_UNUSED = 5001;
     private static final int RC_SIGN_IN = 9001;
-
-    private String LOG_TAG = getClass().getSimpleName();
-
     // Presenter to handle all user actions
     MainMenuContract.UserActionsListener mActionsListener;
+    private String LOG_TAG = getClass().getSimpleName();
 
     /**
      * Allow another class to construct us
@@ -211,7 +209,7 @@ public class MainMenuFragment
                 getContext(),
                 "No settings yet!",
                 Toast.LENGTH_LONG)
-        .show();
+                .show();
     }
 
     @Override
@@ -230,7 +228,7 @@ public class MainMenuFragment
     /*
      * Interface implemented by the parent activity to grant access to the GoogleApiClient
      */
-    public interface googleApiClientCallback{
+    public interface googleApiClientCallback {
 
         GoogleApiClient getGoogleApiClient();
 

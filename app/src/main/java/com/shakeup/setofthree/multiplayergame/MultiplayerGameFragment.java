@@ -23,27 +23,27 @@ import static com.shakeup.setofthree.multiplayergame.MultiplayerButtonView.BUTTO
 
 /**
  * Created by Jayson on 3/20/2017.
- *
+ * <p>
  * This Fragment handles the UI for the Multiplayer variant of SetGame
- *
+ * <p>
  * These timers handle displaying messages on individual player buttons.
  * The message flow is represented by the following chart
- *
- *                Game Idle
- *                    |
- *          Player Clicks their Button
- *                    |
- *  Unlock the Board, Lock other players buttons,
- *     Display "Find a Set" or "Wait" messages <TIMER>
- *        |                         |
+ * <p>
+ * Game Idle
+ * |
+ * Player Clicks their Button
+ * |
+ * Unlock the Board, Lock other players buttons,
+ * Display "Find a Set" or "Wait" messages <TIMER>
+ * |                         |
  * <Found a set>        <Not a set or Out of time>
- *        |                         |
- *  Unlock board and          Unlock the board, lock player's
+ * |                         |
+ * Unlock board and          Unlock the board, lock player's
  * Display success <Timer>   button with error message <TIMER>
- *           \                  /
- *       Unlock other players buttons
- *                   |
- *               Game Idle
+ * \                  /
+ * Unlock other players buttons
+ * |
+ * Game Idle
  */
 
 
@@ -84,10 +84,10 @@ public class MultiplayerGameFragment
     FindSetCountdown mFindSetCountdownTimer;
 
     // Default constructor
-    public MultiplayerGameFragment(){
+    public MultiplayerGameFragment() {
     }
 
-    public static MultiplayerGameFragment newInstance(){
+    public static MultiplayerGameFragment newInstance() {
         return new MultiplayerGameFragment();
     }
 
@@ -121,7 +121,7 @@ public class MultiplayerGameFragment
         mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
 
         // Hide unused player spaces
-        switch( numPlayers ){
+        switch (numPlayers) {
             case 2:
                 // Hide player 3 and 4
                 root.findViewById(R.id.rotateLayoutButtonThree).setVisibility(View.GONE);
@@ -180,7 +180,7 @@ public class MultiplayerGameFragment
         mPlayerScoreArray[1] = (TextView) root.findViewById(R.id.score_player_two);
         mPlayerScoreArray[2] = (TextView) root.findViewById(R.id.score_player_three);
         mPlayerScoreArray[3] = (TextView) root.findViewById(R.id.score_player_four);
-        for(TextView view : mPlayerScoreArray){
+        for (TextView view : mPlayerScoreArray) {
             view.setText(R.string.score_initial);
         }
 
@@ -190,7 +190,7 @@ public class MultiplayerGameFragment
         // Wrap some initialization methods inside a OnGlobalLayoutListener
         // so they fire once the RecyclerView is populated
         ViewTreeObserver vto = mRecyclerGridView.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 mRecyclerGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -218,8 +218,8 @@ public class MultiplayerGameFragment
         mMultiplayerActionsListener.onPlayerSuccess(mActivePlayer);
 
         // Set the buttons to the success state
-        for( int i = 1; i <= 4; i++ ){
-            if( i == mActivePlayer ){
+        for (int i = 1; i <= 4; i++) {
+            if (i == mActivePlayer) {
                 getPlayerButton(i).activePlayerSuccess();
             } else {
                 getPlayerButton(i).resetButton();
@@ -242,8 +242,8 @@ public class MultiplayerGameFragment
         setGameClickable(false);
 
         // Set the buttons to the failure state
-        for( int i = 1; i <= 4; i++ ){
-            if( i == mActivePlayer ){
+        for (int i = 1; i <= 4; i++) {
+            if (i == mActivePlayer) {
                 getPlayerButton(i).activePlayerFailure();
             } else {
                 getPlayerButton(i).resetButton();
@@ -274,7 +274,7 @@ public class MultiplayerGameFragment
     }
 
     @Override
-    public void setGameState(int gameState){
+    public void setGameState(int gameState) {
         mGameState = gameState;
     }
 
@@ -282,10 +282,10 @@ public class MultiplayerGameFragment
      * Start a set countdown for a specified player
      */
     @Override
-    public void startFindSetCountdown(){
+    public void startFindSetCountdown() {
         // Start the State 1 waiting states for every button
-        for( int i = 1; i <= 4; i++ ){
-            if( i == mActivePlayer ){
+        for (int i = 1; i <= 4; i++) {
+            if (i == mActivePlayer) {
                 getPlayerButton(i).activePlayerWait();
             } else {
                 getPlayerButton(i).otherPlayerWait();
@@ -294,7 +294,7 @@ public class MultiplayerGameFragment
 
         // Start a timer to wait for these buttons to timeout
         // Start a shorter timer if we are in debug mode
-        if( getContext().getResources().getBoolean(R.bool.is_debug) ){
+        if (getContext().getResources().getBoolean(R.bool.is_debug)) {
             mFindSetCountdownTimer = new FindSetCountdown(
                     MultiplayerButtonView.BUTTON_FIND_SET_TIMER_DEBUG_LENGTH,
                     BUTTON_TIMER_TICK_INTERVAL
@@ -314,8 +314,8 @@ public class MultiplayerGameFragment
     @Override
     public void onPlayerTimedOut() {
         // Handle state where the active player timed out
-        for( int i = 1; i <= 4; i++ ){
-            if( i == mActivePlayer ){
+        for (int i = 1; i <= 4; i++) {
+            if (i == mActivePlayer) {
                 getPlayerButton(i).activePlayerTimeout();
             } else {
                 getPlayerButton(i).resetButton();
@@ -325,11 +325,12 @@ public class MultiplayerGameFragment
 
     /**
      * Utility to get the button for a particular PlayerID
+     *
      * @param playerId PlayerID of the button we want
      * @return ActionProcessButton associated with that player
      */
-    public MultiplayerButtonView getPlayerButton(int playerId){
-        switch ( playerId ){
+    public MultiplayerButtonView getPlayerButton(int playerId) {
+        switch (playerId) {
             case 1:
                 return playerOneButtonView;
             case 2:
@@ -343,11 +344,10 @@ public class MultiplayerGameFragment
         }
     }
 
-    public void updatePlayerScore(int playerId, int playerScore){
+    public void updatePlayerScore(int playerId, int playerScore) {
         String scoreString = String.format(Locale.getDefault(), getString(R.string.score_prefix), playerScore);
-        mPlayerScoreArray[playerId-1].setText(scoreString);
+        mPlayerScoreArray[playerId - 1].setText(scoreString);
     }
-
 
 
     /**

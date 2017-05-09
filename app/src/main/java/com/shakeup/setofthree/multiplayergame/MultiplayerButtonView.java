@@ -8,7 +8,7 @@ import com.shakeup.setofthree.R;
 
 /**
  * Created by Jayson on 3/23/2017.
- *
+ * <p>
  * This is a wrapper for the SubmitProcessButton allowing states to be set
  * more easily
  */
@@ -25,19 +25,19 @@ public class MultiplayerButtonView {
     private CountDownTimer mTimer;
     private Context mContext;
 
-    public MultiplayerButtonView(SubmitProcessButton button, Context context){
+    public MultiplayerButtonView(SubmitProcessButton button, Context context) {
         mButton = button;
         mContext = context;
     }
 
 
-    public void activePlayerWait(){
-        if(mTimer != null){
+    public void activePlayerWait() {
+        if (mTimer != null) {
             mTimer.cancel();
         }
 
         // Set a shorter timer if we're in debug mode
-        if( mContext.getResources().getBoolean(R.bool.is_debug) ){
+        if (mContext.getResources().getBoolean(R.bool.is_debug)) {
             mTimer = new ButtonWaitingCountdownTimer(
                     BUTTON_FIND_SET_TIMER_DEBUG_LENGTH,
                     BUTTON_TIMER_TICK_INTERVAL,
@@ -54,13 +54,13 @@ public class MultiplayerButtonView {
         }
     }
 
-    public void otherPlayerWait(){
-        if(mTimer != null){
+    public void otherPlayerWait() {
+        if (mTimer != null) {
             mTimer.cancel();
         }
 
         // Set a shorter timer if we're in debug mode
-        if( mContext.getResources().getBoolean(R.bool.is_debug) ){
+        if (mContext.getResources().getBoolean(R.bool.is_debug)) {
             mTimer = new ButtonWaitingCountdownTimer(
                     BUTTON_FIND_SET_TIMER_DEBUG_LENGTH,
                     BUTTON_TIMER_TICK_INTERVAL,
@@ -80,8 +80,8 @@ public class MultiplayerButtonView {
     /**
      * Displays a short "You found a SET" message on the button
      */
-    public void activePlayerSuccess(){
-        if(mTimer != null){
+    public void activePlayerSuccess() {
+        if (mTimer != null) {
             mTimer.cancel();
         }
         mTimer = new ButtonMessageCountdownTimer(
@@ -95,8 +95,8 @@ public class MultiplayerButtonView {
     /**
      * Displays a short "Time is up!" message on the button
      */
-    public void activePlayerTimeout(){
-        if(mTimer != null){
+    public void activePlayerTimeout() {
+        if (mTimer != null) {
             mTimer.cancel();
         }
         mTimer = new ButtonMessageCountdownTimer(
@@ -110,8 +110,8 @@ public class MultiplayerButtonView {
     /**
      * Displays a short "That's not a SET" message on the button
      */
-    public void activePlayerFailure(){
-        if(mTimer != null){
+    public void activePlayerFailure() {
+        if (mTimer != null) {
             mTimer.cancel();
         }
         mTimer = new ButtonMessageCountdownTimer(
@@ -125,8 +125,8 @@ public class MultiplayerButtonView {
     /**
      * Turns the button back to normal
      */
-    public void resetButton(){
-        if(mTimer != null){
+    public void resetButton() {
+        if (mTimer != null) {
             mTimer.cancel();
         }
         mButton.setClickable(true);
@@ -148,7 +148,7 @@ public class MultiplayerButtonView {
 
             // Set the message differently depending on if its a Complete
             // or Error message
-            if( progress == 100 ){
+            if (progress == 100) {
                 mButton.setClickable(true);
                 mButton.setCompleteText(message);
             } else {
@@ -196,7 +196,7 @@ public class MultiplayerButtonView {
             mIsActivePlayer = isActivePlayer;
 
             // Set the message differently depending on if we're the active player
-            if( isActivePlayer ){
+            if (isActivePlayer) {
                 mButton.setLoadingText(message);
             } else {
                 mButton.setErrorText(message);
@@ -220,8 +220,8 @@ public class MultiplayerButtonView {
             // Only display progress for the active player.
             // Only display progress animations if we aren't in debug mode
             // Other players wait in error mode
-            if( mIsActivePlayer &&
-                    !mContext.getResources().getBoolean(R.bool.is_debug)){
+            if (mIsActivePlayer &&
+                    !mContext.getResources().getBoolean(R.bool.is_debug)) {
                 mButton.setProgress(progressPercent);
             }
         }

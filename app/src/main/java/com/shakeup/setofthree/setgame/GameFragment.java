@@ -14,9 +14,9 @@ import android.view.ViewTreeObserver;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
+import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.adapters.SetGameRecyclerAdapter;
 import com.shakeup.setofthree.customviews.SetGameCardView;
-import com.shakeup.setofthree.R;
 
 import org.parceler.ParcelClass;
 import org.parceler.ParcelClasses;
@@ -72,7 +72,7 @@ public abstract class GameFragment extends AppCompatDialogFragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Reload the game state if we've been rotated or restarted
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             mExistingGame = Parcels
                     .unwrap(savedInstanceState
                             .getParcelable(getString(R.string.bundle_key_game)));
@@ -137,7 +137,7 @@ public abstract class GameFragment extends AppCompatDialogFragment
                 }
 
                 // Restore selected positions
-                for(int i = 0; i < mCheckedCount; i++){
+                for (int i = 0; i < mCheckedCount; i++) {
                     selectCard(mCheckedPositions[i]);
                 }
             }

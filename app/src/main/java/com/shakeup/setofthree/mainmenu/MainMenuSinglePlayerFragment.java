@@ -9,13 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shakeup.setofthree.normalgame.NormalGameActivity;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.normalgame.NormalGameActivity;
 import com.shakeup.setofthree.timeattackgame.TimeAttackGameActivity;
 
 /**
  * Created by Jayson on 3/29/2017.
- *
+ * <p>
  * This fragment handles the UI for the Single Player buttons in the main menu
  */
 
@@ -23,10 +23,9 @@ public class MainMenuSinglePlayerFragment
         extends android.support.v4.app.Fragment
         implements MainMenuSinglePlayerContract.SinglePlayerView {
 
+    public final String LOG_TAG = this.getClass().getSimpleName();
     // Presenter to handle all user actions
     MainMenuSinglePlayerContract.UserActionsListener mActionsListener;
-
-    public final String LOG_TAG = this.getClass().getSimpleName();
 
     /**
      * Allow another class to construct us
@@ -34,6 +33,7 @@ public class MainMenuSinglePlayerFragment
     public MainMenuSinglePlayerFragment() {
         // Requires empty public constructor
     }
+
     public static MainMenuSinglePlayerFragment newInstance() {
         return new MainMenuSinglePlayerFragment();
     }

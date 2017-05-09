@@ -35,38 +35,38 @@ import com.google.android.gms.common.api.GoogleApiClient;
  * PlusClient and GamesClient, use BaseGameActivity(CLIENT_GAMES | CLIENT_PLUS).
  * To request all available clients, use BaseGameActivity(CLIENT_ALL).
  * Alternatively, you can also specify the requested clients via
- * @link{#setRequestedClients}, but you must do so before @link{#onCreate}
- * gets called, otherwise the call will have no effect.
  *
  * @author Bruno Oliveira (Google)
+ * @link{#setRequestedClients}, but you must do so before @link{#onCreate}
+ * gets called, otherwise the call will have no effect.
  */
 public abstract class BaseGameActivity extends FragmentActivity implements
         GameHelper.GameHelperListener {
-
-    // The game helper object. This class is mainly a wrapper around this object.
-    protected GameHelper mHelper;
 
     // We expose these constants here because we don't want users of this class
     // to have to know about GameHelper at all.
     public static final int CLIENT_GAMES = GameHelper.CLIENT_GAMES;
     public static final int CLIENT_PLUS = GameHelper.CLIENT_PLUS;
     public static final int CLIENT_ALL = GameHelper.CLIENT_ALL;
-
+    private final static String TAG = "BaseGameActivity";
+    // The game helper object. This class is mainly a wrapper around this object.
+    protected GameHelper mHelper;
     // Requested clients. By default, that's just the games client.
     protected int mRequestedClients = CLIENT_GAMES;
-
-    private final static String TAG = "BaseGameActivity";
     protected boolean mDebugLog = false;
 
-    /** Constructs a BaseGameActivity with default client (GamesClient). */
+    /**
+     * Constructs a BaseGameActivity with default client (GamesClient).
+     */
     protected BaseGameActivity() {
         super();
     }
 
     /**
      * Constructs a BaseGameActivity with the requested clients.
+     *
      * @param requestedClients The requested clients (a combination of CLIENT_GAMES,
-     *         CLIENT_PLUS).
+     *                         CLIENT_PLUS).
      */
     protected BaseGameActivity(int requestedClients) {
         super();
@@ -81,7 +81,7 @@ public abstract class BaseGameActivity extends FragmentActivity implements
      * is a no-op.
      *
      * @param requestedClients A combination of the flags CLIENT_GAMES, CLIENT_PLUS
-     *         or CLIENT_ALL to request all available clients.
+     *                         or CLIENT_ALL to request all available clients.
      */
     protected void setRequestedClients(int requestedClients) {
         mRequestedClients = requestedClients;

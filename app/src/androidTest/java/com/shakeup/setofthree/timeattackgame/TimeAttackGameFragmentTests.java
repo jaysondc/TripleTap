@@ -14,7 +14,7 @@ import org.junit.Test;
 /**
  * Created by Jayson on 4/14/2017.
  */
-public class TimeAttackGameFragmentTests extends SetGameFragmentAndroidTests{
+public class TimeAttackGameFragmentTests extends SetGameFragmentAndroidTests {
 
     // Specify we need to launch the TimeAttackActivity before these tests
     @Rule
@@ -25,7 +25,7 @@ public class TimeAttackGameFragmentTests extends SetGameFragmentAndroidTests{
                     false /* Lazily launch activity */);
 
     @Before
-    public void setUpTestEnvironment(){
+    public void setUpTestEnvironment() {
         Intent startIntent = new Intent();
         mGameActivityTestRule.launchActivity(startIntent);
 
@@ -45,18 +45,18 @@ public class TimeAttackGameFragmentTests extends SetGameFragmentAndroidTests{
     }
 
     @Test
-    public void testGameOverHandler(){
+    public void testGameOverHandler() {
         mGameFragment.showGameOver();
 
-        try{
+        try {
             Thread.sleep(50000);
-        } catch (Exception e){
+        } catch (Exception e) {
             // do nothing
         }
     }
 
     @Test
-    public void saveLocalScoreTest(){
+    public void saveLocalScoreTest() {
 
     }
 

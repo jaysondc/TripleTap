@@ -5,7 +5,7 @@ import com.shakeup.setofthree.setgame.GameContract;
 
 /**
  * Created by Jayson on 3/29/2017.
- *
+ * <p>
  * Contract between the View and Presenter for the Time Attack game mode
  */
 

@@ -26,7 +26,7 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         // Variable to provide different Content Provider Authorities to different builds
-        manifestPlaceholders = [ score_provider_authority:"" ]
+        manifestPlaceholders = [score_provider_authority: ""]
     }
     buildTypes {
         release {
@@ -34,12 +34,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
-            manifestPlaceholders = [ score_provider_authority:"com.shakeup.setofthree.provider" ]
+            manifestPlaceholders = [score_provider_authority: "com.shakeup.setofthree.provider"]
         }
         debug {
             applicationIdSuffix '.debug'
             debuggable true
-            manifestPlaceholders = [ score_provider_authority:"com.shakeup.setofthree.debug.provider" ]
+            manifestPlaceholders = [score_provider_authority: "com.shakeup.setofthree.debug.provider"]
         }
     }
     productFlavors {
@@ -48,7 +48,7 @@ android {
 
 dependencies {
     // Declare dependencies for project modules
-    compile (project(':BaseGameUtils'))
+    compile(project(':BaseGameUtils'))
     compile project(':setgamelibrary')
 
     compile fileTree(include: ['*.jar'], dir: 'libs')

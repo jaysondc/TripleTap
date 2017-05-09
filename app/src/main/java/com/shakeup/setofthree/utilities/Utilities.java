@@ -13,10 +13,11 @@ public class Utilities {
 
     /**
      * Convert miliseconds to the format mm:ss:dd
+     *
      * @param millis The time to convert
      * @return A string conversion of the given time
      */
-    public static String scoreTimeToString(long millis){
+    public static String scoreTimeToString(long millis) {
 
         // Calculate the minutes, seconds, and hundreths manually
         long scoreMinutes =
@@ -25,9 +26,9 @@ public class Utilities {
                 TimeUnit.MILLISECONDS.toSeconds(millis)
                         - TimeUnit.MINUTES.toSeconds(scoreMinutes);
         long scoreHundreths = (millis
-                        - TimeUnit.MINUTES.toMillis(scoreMinutes)
-                        - TimeUnit.SECONDS.toMillis(scoreSeconds))
-                        /10;
+                - TimeUnit.MINUTES.toMillis(scoreMinutes)
+                - TimeUnit.SECONDS.toMillis(scoreSeconds))
+                / 10;
 
         // Format the string
         return String.format(
@@ -42,10 +43,11 @@ public class Utilities {
     /**
      * Converts a timestamp to a time and date in the form
      * MM/dd/yyyy hh:mm a
+     *
      * @param millis The time and date to convert in milliseconds
      * @return A string representation of the input time
      */
-    public static String dateToString(long millis){
+    public static String dateToString(long millis) {
         return new SimpleDateFormat(
                 "MM/dd/yyyy hh:mm a",
                 Locale.getDefault())
@@ -55,7 +57,7 @@ public class Utilities {
     /**
      * Converts a long to a string
      */
-    public static String longToString(long number){
+    public static String longToString(long number) {
         return String.format(
                 Locale.getDefault(),
                 "%d",

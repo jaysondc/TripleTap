@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shakeup.setofthree">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,30 +13,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.FullScreen">
 
-        <meta-data android:name="com.google.android.gms.games.APP_ID"
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/app_id" />
 
         <provider
-            android:authorities="@string/score_provider_authority"
             android:name=".contentprovider.generated.ScoreProvider"
-            android:exported="true"/>
+            android:authorities="@string/score_provider_authority"
+            android:exported="true" />
 
-        <service android:name=".widgets.LeaderboardWidgetService"
-        android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".widgets.LeaderboardWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <receiver android:name=".widgets.LeaderboardAppWidgetProvider" >
+        <receiver android:name=".widgets.LeaderboardAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/leaderboard_widget_provider_info" />
         </receiver>
 
         <activity
             android:name=".mainmenu.MainMenuActivity"
+            android:alwaysRetainTaskState="true"
             android:label="@string/app_label"
-            android:screenOrientation="fullUser"
-            android:alwaysRetainTaskState="true">
+            android:screenOrientation="fullUser">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,13 +48,13 @@
         </activity>
         <activity
             android:name=".multiplayergame.MultiplayerGameActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".timeattackgame.TimeAttackGameActivity"
-            android:screenOrientation="fullUser"/>
+            android:screenOrientation="fullUser" />
         <activity
             android:name=".normalgame.NormalGameActivity"
-            android:screenOrientation="fullUser"/>
+            android:screenOrientation="fullUser" />
     </application>
 
 </manifest>

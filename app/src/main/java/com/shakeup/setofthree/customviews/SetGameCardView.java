@@ -28,11 +28,7 @@ import com.shakeup.setofthree.R;
  * <p>
  */
 
-public class SetGameCardView extends CardView{
-
-    // Width and height aspect ratio. Defaults to 2:3
-    private int mAspectRatioWidth;
-    private int mAspectRatioHeight;
+public class SetGameCardView extends CardView {
 
     /*
      * Constants to map to Enum attributes
@@ -53,7 +49,9 @@ public class SetGameCardView extends CardView{
     private static final int SOLID = 0;
     private static final int OPEN = 1;
     private static final int STRIPE = 2;
-
+    // Width and height aspect ratio. Defaults to 2:3
+    private int mAspectRatioWidth;
+    private int mAspectRatioHeight;
     /*
      * Set Card attributes. Defaults to 0:0:0:0
      * which is Oval:Red:One:Solid
@@ -76,7 +74,6 @@ public class SetGameCardView extends CardView{
      */
     private boolean mIsChecked;
     private boolean mIsHighlighted;
-
 
 
     public SetGameCardView(Context context) {
@@ -103,7 +100,6 @@ public class SetGameCardView extends CardView{
         mAttrs = attrs;
         init(context, attrs);
     }
-
 
 
     /**
@@ -170,7 +166,7 @@ public class SetGameCardView extends CardView{
      * Draws the appropriate symbols on the card. This should be called whenever
      * the symbol attributes change and need to be redrawn
      */
-    private void drawSymbols(){
+    private void drawSymbols() {
 
         /*
          * Registers a listener to fire once the initial layout pass is done so we can
@@ -188,7 +184,7 @@ public class SetGameCardView extends CardView{
                 mLinearLayout.removeAllViews();
 
                 // Add an image to the LinearLayout in the card
-                switch( mCount ){
+                switch (mCount) {
                     case ONE:
                         addImage(myContext, mLinearLayout);
                         break;
@@ -230,7 +226,7 @@ public class SetGameCardView extends CardView{
 
 
         // Set the height of the image to 1/2 the card height
-        int imageHeight = (int) Math.floor( getHeight() * 0.7);
+        int imageHeight = (int) Math.floor(getHeight() * 0.7);
         int imageWidth = imageHeight / 2;
         LayoutParams params = new LayoutParams(
                 imageWidth,
@@ -257,10 +253,11 @@ public class SetGameCardView extends CardView{
     /**
      * Tints the symbol drawable based on default colors or user preferences if set.
      * Set default colors for now. Eventually this will be the users preference colors
+     *
      * @param symbol The drawable to be tinted
      */
     private void setSymbolColor(Drawable symbol) {
-        switch ( mColor ){
+        switch (mColor) {
             case RED:
                 symbol.setTint(ContextCompat.getColor(mContext, R.color.set_red));
                 break;
@@ -273,11 +270,14 @@ public class SetGameCardView extends CardView{
         }
     }
 
+    public boolean isChecked() {
+        return mIsChecked;
+    }
 
     // IMPLEMENTATION FOR CHECKABLE INTERFACE //
     public void setChecked(boolean checked) {
         mIsChecked = checked;
-        if ( mIsChecked ){
+        if (mIsChecked) {
             this.setBackgroundColor(
                     ContextCompat.getColor(
                             mContext,
@@ -297,23 +297,23 @@ public class SetGameCardView extends CardView{
         invalidate();
     }
 
-    public boolean isChecked() {
-        return mIsChecked;
-    }
-
     public void toggleChecked() {
-        if ( isChecked() ){
+        if (isChecked()) {
             setChecked(false);
         } else {
             setChecked(true);
         }
     }
 
+    public boolean isHighlighted() {
+        return mIsHighlighted;
+    }
+
     // Implement Highlighted tag to highlight cards as hints//
-    public void setHighlighted(boolean highlighted){
+    public void setHighlighted(boolean highlighted) {
         mIsHighlighted = highlighted;
         // Do something to highlight the card
-        if ( mIsHighlighted ){
+        if (mIsHighlighted) {
             this.setBackgroundColor(
                     ContextCompat.getColor(mContext, R.color.card_background_highlighted));
         } else {
@@ -323,12 +323,8 @@ public class SetGameCardView extends CardView{
         invalidate();
     }
 
-    public boolean isHighlighted(){
-        return mIsHighlighted;
-    }
-
-    public void toggleHighlighted(){
-        if ( isHighlighted() ){
+    public void toggleHighlighted() {
+        if (isHighlighted()) {
             setHighlighted(false);
         } else {
             setHighlighted(true);
@@ -429,12 +425,13 @@ public class SetGameCardView extends CardView{
 
     /**
      * Public method to set all SetCard attributes at once
+     *
      * @param shape
      * @param color
      * @param count
      * @param fill
      */
-    public void setAll(int shape, int color, int count, int fill){
+    public void setAll(int shape, int color, int count, int fill) {
         this.mShape = shape;
         this.mColor = color;
         this.mCount = count;
@@ -444,9 +441,10 @@ public class SetGameCardView extends CardView{
 
     /**
      * Returns the string representation of the card
+     *
      * @return String representation of the current card
      */
-    public String toString(){
+    public String toString() {
 
         String shape = CardShape.values()[this.getShape()].toString();
         String color = CardColor.values()[this.getColor()].toString();

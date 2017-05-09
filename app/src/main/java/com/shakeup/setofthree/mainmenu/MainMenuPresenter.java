@@ -14,6 +14,7 @@ public class MainMenuPresenter implements MainMenuContract.UserActionsListener {
 
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling MainView.
+     *
      * @param mainMenuView A reference to the calling MainView
      */
     public MainMenuPresenter(

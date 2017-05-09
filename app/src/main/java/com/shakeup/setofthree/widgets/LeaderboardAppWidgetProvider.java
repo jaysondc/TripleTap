@@ -11,7 +11,7 @@ import com.shakeup.setofthree.R;
 
 /**
  * Created by Jayson on 4/19/2017.
- *
+ * <p>
  * This provider listens for callbacks from any instantiated widgets and handles
  * setup and updates
  */

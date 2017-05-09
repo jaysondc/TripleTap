@@ -21,35 +21,32 @@ import android.widget.Button;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
+import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.adapters.LocalLeaderboardRecyclerAdapter;
 import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.contentprovider.ScoreProvider;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.mainmenu.MainMenuActivity;
 import com.shakeup.setofthree.normalgame.NormalGameFragment;
-import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.timeattackgame.TimeAttackGameFragment;
 
 /**
  * Created by Jayson on 4/4/2017.
- *
+ * <p>
  * This Fragment handles the UI for the Time Attack game mode
  */
 
 
-public class GameOverFragment 
+public class GameOverFragment
         extends Fragment
-        implements GameOverContract.View, LoaderManager.LoaderCallbacks<Cursor>{
-
-    public final String LOG_TAG = this.getClass().getSimpleName();
+        implements GameOverContract.View, LoaderManager.LoaderCallbacks<Cursor> {
 
     // request codes we use when invoking an external activity
     private static final int RC_RESOLVE = 5000;
     private static final int RC_UNUSED = 5001;
     private static final int RC_SIGN_IN = 9001;
-
     private static final int SCORE_LOADER_ID = 0;
-
+    public final String LOG_TAG = this.getClass().getSimpleName();
     // Reference to our presenter
     GameOverContract.UserActionsListener mGameOverActionsListener;
 
@@ -59,10 +56,10 @@ public class GameOverFragment
     Parcelable mRecyclerState = null; // Holds the previous scroll position if it's saved
 
     // Default constructor
-    public GameOverFragment(){
+    public GameOverFragment() {
     }
 
-    public static GameOverFragment newInstance(){
+    public static GameOverFragment newInstance() {
         return new GameOverFragment();
     }
 
@@ -77,7 +74,7 @@ public class GameOverFragment
         View root;
 
         // Restore our recycler view state
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             mRecyclerState = savedInstanceState
                     .getParcelable(getString(R.string.bundle_key_recycler_state));
         }
@@ -92,7 +89,7 @@ public class GameOverFragment
         mGameOverActionsListener = new GameOverPresenter(this);
 
         // Set up the RecyclerView and assign it to the superclass
-        mRecyclerLeaderboard = 
+        mRecyclerLeaderboard =
                 (RecyclerView) root.findViewById(R.id.recycler_game_over_leaderboard);
 
         // Grab references to our views
@@ -166,9 +163,9 @@ public class GameOverFragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if(mGameMode.equals(getString(R.string.value_mode_normal))){
+        if (mGameMode.equals(getString(R.string.value_mode_normal))) {
             transaction.replace(R.id.content_frame, NormalGameFragment.newInstance());
-        } else if(mGameMode.equals(getString(R.string.value_mode_time_attack))){
+        } else if (mGameMode.equals(getString(R.string.value_mode_time_attack))) {
             transaction.replace(R.id.content_frame, TimeAttackGameFragment.newInstance());
         }
         transaction.commit();
@@ -211,7 +208,7 @@ public class GameOverFragment
         getActivity().finish();
     }
 
-    public GameOverContract.UserActionsListener getActionsListener(){
+    public GameOverContract.UserActionsListener getActionsListener() {
         return mGameOverActionsListener;
     }
 
@@ -235,22 +232,22 @@ public class GameOverFragment
 
         String sortOrder = "";
         // Set up sortOrder string depending on our mode
-        if(mGameMode.equals(getString(R.string.value_mode_normal))){
+        if (mGameMode.equals(getString(R.string.value_mode_normal))) {
             sortOrder = ScoreColumns.SCORE + " ASC, "
                     + ScoreColumns.TIME + " DESC";
-        } else if(mGameMode.equals(getString(R.string.value_mode_time_attack))){
+        } else if (mGameMode.equals(getString(R.string.value_mode_time_attack))) {
             sortOrder = ScoreColumns.SCORE + " DESC, "
                     + ScoreColumns.TIME + " DESC";
         }
 
         // Create the cursorLoader for our scores
         return new android.support.v4.content.CursorLoader(
-                    getContext(),
-                    ScoreProvider.Scores.SCORES,
-                    ScoreColumns._ALL,
-                    selection,
-                    selectionArgs,
-                    sortOrder
+                getContext(),
+                ScoreProvider.Scores.SCORES,
+                ScoreColumns._ALL,
+                selection,
+                selectionArgs,
+                sortOrder
         );
     }
 
@@ -273,7 +270,7 @@ public class GameOverFragment
         mRecyclerLeaderboard.setLayoutManager(layoutManager);
         mRecyclerLeaderboard.setAdapter(adapter);
 
-        if(mRecyclerState!=null){
+        if (mRecyclerState != null) {
             // Scroll to our previous position
             layoutManager.onRestoreInstanceState(mRecyclerState);
         } else {

@@ -10,26 +10,25 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by Jayson on 4/4/2017.
- *
+ * <p>
  * Presenter for Normal game mode
  */
 
 public class NormalGamePresenter extends GamePresenter
-        implements NormalGameContract.UserActionsListener{
+        implements NormalGameContract.UserActionsListener {
 
     private final String LOG_TAG = getClass().getSimpleName();
-
-    private NormalGameContract.View mNormalGameView;
-
     int mPlayerScore = 0;
     boolean mScoreUploaded = false;
+    private NormalGameContract.View mNormalGameView;
 
     // Supply a default constructor
-    public NormalGamePresenter(){
+    public NormalGamePresenter() {
     }
 
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling View.
+     *
      * @param normalGameView A reference to the calling View
      */
     public NormalGamePresenter(
@@ -93,6 +92,7 @@ public class NormalGamePresenter extends GamePresenter
     /**
      * Set our member flag to show whether or not the score was
      * successfully uploaded
+     *
      * @param uploaded Whether or not the score was uploaded
      */
     @Override

@@ -10,26 +10,25 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by Jayson on 3/29/2017.
- *
+ * <p>
  * Presenter for Time Attack game mode
  */
 
 public class TimeAttackGamePresenter extends GamePresenter
-        implements TimeAttackGameContract.UserActionsListener{
+        implements TimeAttackGameContract.UserActionsListener {
 
     private final String LOG_TAG = getClass().getSimpleName();
-
-    private TimeAttackGameContract.View mTimeAttackGameView;
-
     long mPlayerScore = 0;
     boolean mScoreUploaded = false;
+    private TimeAttackGameContract.View mTimeAttackGameView;
 
     // Supply a default constructor
-    public TimeAttackGamePresenter(){
+    public TimeAttackGamePresenter() {
     }
 
     /**
      * Public constructor used to set up the presenter. Requires a reference to the calling View.
+     *
      * @param timeAttackGameView A reference to the calling View
      */
     public TimeAttackGamePresenter(
@@ -99,6 +98,7 @@ public class TimeAttackGamePresenter extends GamePresenter
     /**
      * Set our member flag to show whether or not the score was
      * successfully uploaded
+     *
      * @param uploaded Whether or not the score was uploaded
      */
     @Override

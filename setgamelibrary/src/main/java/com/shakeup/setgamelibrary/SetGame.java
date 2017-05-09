@@ -98,7 +98,7 @@ public class SetGame {
             mDiscardPile.add(thirdCard);
 
             // Reset the deck if we are in endless mode
-            if (mCurrentDeck.isEmpty() && mEndlessMode){
+            if (mCurrentDeck.isEmpty() && mEndlessMode) {
                 mCurrentDeck.refillDeck(mDiscardPile);
             }
 
@@ -227,7 +227,7 @@ public class SetGame {
         return mCurrentDeck;
     }
 
-    public void setSetDeck(SetDeck newDeck){
+    public void setSetDeck(SetDeck newDeck) {
         mCurrentDeck = newDeck;
     }
 
@@ -364,13 +364,14 @@ public class SetGame {
 
     }
 
-    public static class Triplet{
+    public static class Triplet {
 
         Integer first;
         Integer second;
         Integer third;
 
-        public Triplet(){}
+        public Triplet() {
+        }
 
         public Triplet(int first, int second, int third) {
             this.first = first;
@@ -391,13 +392,14 @@ public class SetGame {
         }
     }
 
-    public static class SetTriplet{
+    public static class SetTriplet {
 
         SetCard first;
         SetCard second;
         SetCard third;
 
-        public SetTriplet(){}
+        public SetTriplet() {
+        }
 
         public SetTriplet(SetCard first, SetCard second, SetCard third) {
             this.first = first;

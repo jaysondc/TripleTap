@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jayson on 3/2/2017.
- *
+ * <p>
  * This class specifies the interaction between the Game View and the Presenter
  */
 
@@ -54,9 +54,9 @@ public class GameContract {
 
         void onSubmitSet(int indexOne, int indexTwo, int indexThree);
 
-        void setSetGame(SetGame game);
-
         SetGame getSetGame();
+
+        void setSetGame(SetGame game);
 
         void onSetCardClick();
 

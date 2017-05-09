@@ -19,25 +19,22 @@ import com.shakeup.setofthree.R;
 public class MainMenuActivity
         extends FullScreenActivity
         implements View.OnClickListener,
-        MainMenuFragment.googleApiClientCallback{
-
-    private String LOG_TAG = this.getClass().getSimpleName();
+        MainMenuFragment.googleApiClientCallback {
 
     // request codes we use when invoking an external activity
     private static final int RC_RESOLVE = 5000;
     private static final int RC_UNUSED = 5001;
     private static final int RC_SIGN_IN = 9001;
-
     private static final int MY_PERMISSIONS_REQUEST_INTERNET = 1;
-
-    private boolean mResolvingConnectionFailure = false;
-    private boolean mAutoStartSignInFlow = true;
-    private boolean mSignInClicked = false;
     boolean mExplicitSignOut = false;
     boolean mInSignInFlow = false; // set to true when you're in the middle of the
     // sign in flow, to know you should not attempt
     // to connect in onStart()
     GoogleApiClient mGoogleApiClient;
+    private String LOG_TAG = this.getClass().getSimpleName();
+    private boolean mResolvingConnectionFailure = false;
+    private boolean mAutoStartSignInFlow = true;
+    private boolean mSignInClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +53,7 @@ public class MainMenuActivity
 
     /**
      * Initialize the fragment showing the menu buttons
+     *
      * @param mainMenuFragment Fragment to be displayed in our activity
      */
     private void initFragment(Fragment mainMenuFragment) {
@@ -103,7 +101,7 @@ public class MainMenuActivity
 
     @Override
     public void onSignInFailed() {
-        Log.d(LOG_TAG,"User sign-in failed.");
+        Log.d(LOG_TAG, "User sign-in failed.");
         // Put code here to display the sign-in button
         findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
         findViewById(R.id.sign_out_button).setVisibility(View.GONE);
@@ -111,7 +109,7 @@ public class MainMenuActivity
 
     @Override
     public void onSignInSucceeded() {
-        Log.d(LOG_TAG,"User sign-in succeeded!");
+        Log.d(LOG_TAG, "User sign-in succeeded!");
         // show sign-out button, hide the sign-in button
         findViewById(R.id.sign_in_button).setVisibility(View.GONE);
         findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);

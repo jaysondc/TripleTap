@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 /**
  * Created by Jayson on 2/15/2017.
- *
+ * <p>
  * Set cards have 4 characteristics: shape, color, count, fill.
  * These should be set when the card is created and never changed.
  */
@@ -22,10 +22,10 @@ public class SetCard {
     CardFill mFill;
 
     // Empty constructor for Parceler support
-    public SetCard(){
+    public SetCard() {
     }
 
-    public SetCard(CardShape shape, CardColor color, CardCount count, CardFill fill){
+    public SetCard(CardShape shape, CardColor color, CardCount count, CardFill fill) {
         mShape = shape;
         mColor = color;
         mCount = count;
@@ -35,10 +35,11 @@ public class SetCard {
 
     /**
      * Checks if 2 cards are equal to each other
+     *
      * @param card
      * @return
      */
-    public boolean isEqualTo(SetCard card){
+    public boolean isEqualTo(SetCard card) {
         return (
                 card.getShape() == mShape &&
                         card.getColor() == mColor &&
@@ -52,7 +53,7 @@ public class SetCard {
      * This takes a second SetCard and returns a 3rd SetCard that would
      * complete the set.
      */
-    public SetCard getThirdCard(SetCard second){
+    public SetCard getThirdCard(SetCard second) {
         CardShape thirdShape = getThirdShape(mShape, second.getShape());
         CardColor thirdColor = getThirdColor(mColor, second.getColor());
         CardCount thirdCount = getThirdCount(mCount, second.getCount());
@@ -65,9 +66,9 @@ public class SetCard {
      * THIRD FEATURE CALCULATORS
      * Returns compliment if they are the different, same if they are the same
      */
-    
-    private CardShape getThirdShape(CardShape first, CardShape second){
-        if (first == second){
+
+    private CardShape getThirdShape(CardShape first, CardShape second) {
+        if (first == second) {
             return first;
         } else {
             ArrayList<CardShape> shapes =
@@ -78,8 +79,8 @@ public class SetCard {
         }
     }
 
-    private CardColor getThirdColor(CardColor first, CardColor second){
-        if (first == second){
+    private CardColor getThirdColor(CardColor first, CardColor second) {
+        if (first == second) {
             return first;
         } else {
             ArrayList<CardColor> colors =
@@ -90,8 +91,8 @@ public class SetCard {
         }
     }
 
-    private CardCount getThirdCount(CardCount first, CardCount second){
-        if (first == second){
+    private CardCount getThirdCount(CardCount first, CardCount second) {
+        if (first == second) {
             return first;
         } else {
             ArrayList<CardCount> counts =
@@ -102,8 +103,8 @@ public class SetCard {
         }
     }
 
-    private CardFill getThirdFill(CardFill first, CardFill second){
-        if (first == second){
+    private CardFill getThirdFill(CardFill first, CardFill second) {
+        if (first == second) {
             return first;
         } else {
             ArrayList<CardFill> fills =
@@ -119,32 +120,32 @@ public class SetCard {
      */
 
 
-
-    public CardShape getShape(){
+    public CardShape getShape() {
         return mShape;
     }
 
-    public CardColor getColor(){
+    public CardColor getColor() {
         return mColor;
     }
 
-    public CardCount getCount(){
+    public CardCount getCount() {
         return mCount;
     }
 
-    public CardFill getFill(){
+    public CardFill getFill() {
         return mFill;
     }
 
-    public String toString(){
+    public String toString() {
         return String.format("%s, %s, %s, %s", mShape, mColor, mCount, mFill);
     }
 
     /**
      * Generates a long representation of the card contents
+     *
      * @return Card ID in the form of a long
      */
-    public long getId(){
+    public long getId() {
         long id = 0;
         id += mShape.ordinal() * 1000;
         id += mColor.ordinal() * 100;

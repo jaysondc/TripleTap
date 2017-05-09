@@ -2,7 +2,7 @@ package com.shakeup.setofthree.gameoverscreen;
 
 /**
  * Created by Jayson on 4/13/2017.
- *
+ * <p>
  * Contract between the View and Presenter for the game over screen
  */
 

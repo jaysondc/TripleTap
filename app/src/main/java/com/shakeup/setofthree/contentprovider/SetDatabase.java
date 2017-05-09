@@ -6,7 +6,7 @@ import net.simonvt.schematic.annotation.Table;
 
 /**
  * Created by Jayson on 4/12/2017.
- *
+ * <p>
  * Database class setting up our content provider
  */
 
@@ -15,5 +15,6 @@ public final class SetDatabase {
 
     public static final int VERSION = 1;
 
-    @Table(ScoreColumns.class) public static final String SCORES = "scores";
+    @Table(ScoreColumns.class)
+    public static final String SCORES = "scores";
 }

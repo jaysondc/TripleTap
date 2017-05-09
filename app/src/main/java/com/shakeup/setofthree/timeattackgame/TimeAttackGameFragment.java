@@ -16,18 +16,18 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.shakeup.setgamelibrary.SetGame;
+import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.contentprovider.ScoreProvider;
 import com.shakeup.setofthree.gameoverscreen.GameOverFragment;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
-import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.setgame.GameFragment;
 
 import java.util.Locale;
 
 /**
  * Created by Jayson on 3/20/2017.
- *
+ * <p>
  * This Fragment handles the UI for the Time Attack game mode
  */
 
@@ -53,10 +53,10 @@ public class TimeAttackGameFragment
 
 
     // Default constructor
-    public TimeAttackGameFragment(){
+    public TimeAttackGameFragment() {
     }
 
-    public static TimeAttackGameFragment newInstance(){
+    public static TimeAttackGameFragment newInstance() {
         return new TimeAttackGameFragment();
     }
 
@@ -82,7 +82,7 @@ public class TimeAttackGameFragment
                 R.layout.fragment_game_time_attack, container, false);
 
         // Load game mode specific data from a saved state
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             mTimeAttackLength = savedInstanceState
                     .getLong(getString(R.string.bundle_key_timer_length));
             playerScore = savedInstanceState
@@ -149,7 +149,6 @@ public class TimeAttackGameFragment
     }
 
 
-
     @Override
     public void onSetSuccess() {
         // Let the presenter know someone found a set
@@ -204,7 +203,7 @@ public class TimeAttackGameFragment
         GoogleApiClient myClient = myActivity.getGoogleApiClient();
 
         // Submit our score
-        if(!myClient.isConnected()){
+        if (!myClient.isConnected()) {
             // Let the user know they aren't signed in but their high score will be saved
             // and uploaded when once they sign in
         } else {
@@ -221,19 +220,19 @@ public class TimeAttackGameFragment
             );
 
             // Check for high score achievements
-            if(score >= 2){
+            if (score >= 2) {
                 Games.Achievements.unlock(
                         myClient,
                         getString(R.string.achievement_speed_beginner)
                 );
             }
-            if(score >= 6){
+            if (score >= 6) {
                 Games.Achievements.unlock(
                         myClient,
                         getString(R.string.achievement_speed_intermediate)
                 );
             }
-            if(score >= 10){
+            if (score >= 10) {
                 Games.Achievements.unlock(
                         myClient,
                         getString(R.string.achievement_speed_master)

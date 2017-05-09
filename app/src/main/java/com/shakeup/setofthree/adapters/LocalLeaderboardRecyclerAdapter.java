@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.utilities.Utilities;
 
 /**
  * Created by Jayson on 4/14/2017.
- *
+ * <p>
  * RecyclerView Adapter for displaying the local leaderboard
  */
 
@@ -75,10 +75,10 @@ public class LocalLeaderboardRecyclerAdapter
 
         String scoreString = "";
         // Convert to String format using utility methods
-        if(mode.equals(mContext.getString(R.string.value_mode_normal))){
+        if (mode.equals(mContext.getString(R.string.value_mode_normal))) {
             // If the score is for normal mode, format to time
             scoreString = Utilities.scoreTimeToString(score);
-        } else if(mode.equals(mContext.getString(R.string.value_mode_time_attack))){
+        } else if (mode.equals(mContext.getString(R.string.value_mode_time_attack))) {
             // If the score is for time attack, format to string
             scoreString = Utilities.longToString(score);
         }
@@ -90,7 +90,7 @@ public class LocalLeaderboardRecyclerAdapter
         holder.mDate.setText(timeString);
 
         // Set a highlight if we are at the designated highlight position.
-        if(position == mHighlightedIndex){
+        if (position == mHighlightedIndex) {
             holder.mView.setBackgroundColor(
                     ContextCompat.getColor(
                             mContext,
@@ -118,10 +118,11 @@ public class LocalLeaderboardRecyclerAdapter
 
     /**
      * Get the ID of the most recent record
+     *
      * @return The ID of the most recent record, -1 if the cursor is null
      */
-    public int getLatestRecordId(){
-        if(mScoreCursor == null){
+    public int getLatestRecordId() {
+        if (mScoreCursor == null) {
             return -1;
         }
 
@@ -130,14 +131,14 @@ public class LocalLeaderboardRecyclerAdapter
         int index = 0;
         long time = 0;
 
-        while(!mScoreCursor.isAfterLast()){
+        while (!mScoreCursor.isAfterLast()) {
             // Get the time
             long recordTime = mScoreCursor
-                            .getLong(mScoreCursor
+                    .getLong(mScoreCursor
                             .getColumnIndex(ScoreColumns.TIME));
 
             // If time is the later, save the index
-            if(recordTime >= time){
+            if (recordTime >= time) {
                 index = mScoreCursor.getPosition();
                 time = recordTime;
             }
@@ -153,7 +154,7 @@ public class LocalLeaderboardRecyclerAdapter
     /**
      * Highlight a record in the display
      */
-    public void highlightRecord(int indexToHighlight){
+    public void highlightRecord(int indexToHighlight) {
         mHighlightedIndex = indexToHighlight;
     }
 
@@ -168,6 +169,7 @@ public class LocalLeaderboardRecyclerAdapter
 
         /**
          * Populate data handlers using the given view.
+         *
          * @param itemView
          */
         public LocalScoreViewHolder(View itemView) {

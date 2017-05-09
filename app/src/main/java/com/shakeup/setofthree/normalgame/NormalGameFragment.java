@@ -17,18 +17,18 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.contentprovider.ScoreProvider;
 import com.shakeup.setofthree.gameoverscreen.GameOverFragment;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
-import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.setgame.GameFragment;
 
 import java.util.Locale;
 
 /**
  * Created by Jayson on 4/4/2017.
- *
+ * <p>
  * This Fragment handles the UI for the Time Attack game mode
  */
 
@@ -47,10 +47,10 @@ public class NormalGameFragment
     long mElapsedMillis = 0; // Maintain timer progress between lifecycle changes
 
     // Default constructor
-    public NormalGameFragment(){
+    public NormalGameFragment() {
     }
 
-    public static NormalGameFragment newInstance(){
+    public static NormalGameFragment newInstance() {
         return new NormalGameFragment();
     }
 
@@ -75,7 +75,7 @@ public class NormalGameFragment
                 R.layout.fragment_game_normal, container, false);
 
         // Load game mode specific data from a saved state
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             mElapsedMillis = savedInstanceState
                     .getLong(getString(R.string.bundle_key_elapsed_millis));
         }
@@ -104,7 +104,7 @@ public class NormalGameFragment
         });
 
         // If we are in debug mode, show the refresh button
-        if(getResources().getBoolean(R.bool.is_debug)){
+        if (getResources().getBoolean(R.bool.is_debug)) {
             mDebugRefreshView.setVisibility(View.VISIBLE);
         }
 
@@ -184,10 +184,11 @@ public class NormalGameFragment
 
     /**
      * Get the score
+     *
      * @return The time in mills
      */
     @Override
-    public long getTimerElapsedTime(){
+    public long getTimerElapsedTime() {
         // Send the score to the presenter
         long elapsedMillis = SystemClock.elapsedRealtime() - mGameTimerView.getBase();
         return elapsedMillis;
@@ -203,6 +204,7 @@ public class NormalGameFragment
 
     /**
      * Update the display with the number of draws remaining in the deck
+     *
      * @param deckRemaining Number of draws left in the deck
      */
     @Override
@@ -212,16 +214,17 @@ public class NormalGameFragment
 
     /**
      * Uploads the score to the GoogleGamesApi. Unlocks any relevant achievements
+     *
      * @param score Score to be uploaded
      */
     @Override
-    public void uploadScore(long score){
+    public void uploadScore(long score) {
         // Get the GoogleApiClient from our parent activity
         GoogleApiClientCallback myActivity = (GoogleApiClientCallback) getActivity();
         GoogleApiClient myClient = myActivity.getGoogleApiClient();
 
         // Submit our score
-        if(!myClient.isConnected()){
+        if (!myClient.isConnected()) {
             // Let the user know they aren't signed in but their high score will be saved
             // and uploaded when once they sign in
         } else {
@@ -241,19 +244,19 @@ public class NormalGameFragment
             );
 
             // Check for high score achievements
-            if(score <= 900000){ // 15 minutes
+            if (score <= 900000) { // 15 minutes
                 Games.Achievements.unlock(
                         myClient,
                         getString(R.string.achievement_youre_getting_the_hang_of_this)
                 );
             }
-            if(score <= 600000){ // 10 minutes
+            if (score <= 600000) { // 10 minutes
                 Games.Achievements.unlock(
                         myClient,
                         getString(R.string.achievement_youre_pretty_good_at_this)
                 );
             }
-            if(score <= 300000){ // 5 minutes
+            if (score <= 300000) { // 5 minutes
                 Games.Achievements.unlock(
                         myClient,
                         getString(R.string.achievement_youre_crazy)
@@ -263,7 +266,7 @@ public class NormalGameFragment
     }
 
     @Override
-    public void saveLocalScore(long score, boolean uploaded){
+    public void saveLocalScore(long score, boolean uploaded) {
         ContentValues values = new ContentValues();
         values.put(ScoreColumns.MODE, getString(R.string.value_mode_normal));
         values.put(ScoreColumns.DIFFICULTY, getString(R.string.value_difficulty_normal)); //TODO Change when easy mode exists

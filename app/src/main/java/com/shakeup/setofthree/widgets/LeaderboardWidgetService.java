@@ -8,16 +8,16 @@ import android.database.Cursor;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.contentprovider.ScoreProvider;
-import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.utilities.Utilities;
 
 import java.util.Locale;
 
 /**
  * Created by Jayson on 4/19/2017.
- *
+ * <p>
  * This class handles the creation and use of a RemoteViewsFactory to bind data to
  * the RemoveViews of our widget
  */
@@ -80,7 +80,7 @@ public class LeaderboardWidgetService extends RemoteViewsService {
 
         @Override
         public void onDestroy() {
-            if(!mCursor.isClosed()){
+            if (!mCursor.isClosed()) {
                 mCursor.close();
             }
         }
@@ -103,7 +103,7 @@ public class LeaderboardWidgetService extends RemoteViewsService {
             // Set textviews
             rv.setTextViewText(
                     R.id.text_position,
-                    String.format(Locale.getDefault(), "%d", position+1));
+                    String.format(Locale.getDefault(), "%d", position + 1));
             rv.setTextViewText(
                     R.id.text_score,
                     Utilities.scoreTimeToString(mCursor.getLong(scoreIndex)));

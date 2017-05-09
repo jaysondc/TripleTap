@@ -9,36 +9,35 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shakeup.setgamelibrary.SetCard;
-import com.shakeup.setofthree.customviews.SetGameCardView;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.customviews.SetGameCardView;
 import com.shakeup.setofthree.setgame.GameContract;
 
 import java.util.ArrayList;
 
 /**
  * Created by Jayson on 3/15/2017.
- *
+ * <p>
  * RecyclerView Adapter for displaying an array of SetCards to a RecyclerView
  */
 
 public class SetGameRecyclerAdapter
         extends RecyclerView.Adapter<SetGameRecyclerAdapter.SetCardViewHolder> {
 
+    // Store a reference to the GamePresenter so we can let it know when items
+    // are clicked
+    private final GameContract.UserActionsListener mActionsListener;
+    private final String LOG_TAG = getClass().getSimpleName();
     // This is a live reference to the SetHand object in the SetLibrary so it and the UI
     // can always be in sync
     private ArrayList<SetCard> mSetHand;
     private boolean mOverflowMode = false;
     private Context mContext;
 
-    // Store a reference to the GamePresenter so we can let it know when items
-    // are clicked
-    private final GameContract.UserActionsListener mActionsListener;
-
-    private final String LOG_TAG = getClass().getSimpleName();
-
     /**
      * Public constructor to create this RecyclerView Adapter. Takes the current
      * context and a SetHand object which holds a list of all the cards in our hand.
+     *
      * @param context The current context.
      * @param setHand An ArrayList of SetCard objects to be displayed.
      */
@@ -52,7 +51,7 @@ public class SetGameRecyclerAdapter
         mActionsListener = actionsListener;
 
         // Handle edge case where we start the game in overflow mode
-        if( mSetHand.size() > 12 ){
+        if (mSetHand.size() > 12) {
             mOverflowMode = true;
         }
     }
@@ -113,9 +112,10 @@ public class SetGameRecyclerAdapter
 
     /**
      * Set the set-hand manually
+     *
      * @param newHand
      */
-    public void setSethand(ArrayList<SetCard> newHand){
+    public void setSethand(ArrayList<SetCard> newHand) {
         mSetHand = newHand;
     }
 
@@ -123,21 +123,22 @@ public class SetGameRecyclerAdapter
      * Replace the the old cards with the newly drawn cards. The cards have to be updated
      * differently whether we are moving in and out of overflow mode, or at the end of the
      * game where the deck is empty.
-     *
+     * <p>
      * Unfortunately the UI SetHand needs to be updated identically to the
      * internal SetHand in SetGame.java, otherwise they may mismatch and sets
      * won't be detected properly.
-     * @param one Index of the first new card
-     * @param two Index of the second new card
-     * @param three Index of the third new card
+     *
+     * @param one               Index of the first new card
+     * @param two               Index of the second new card
+     * @param three             Index of the third new card
      * @param isNewHandOverflow Whether or not the incoming deck is in overflow
-     * @param deckSize The number of cards remaining in the deck
+     * @param deckSize          The number of cards remaining in the deck
      */
     public void updateSetHand(
             int one, int two, int three,
-            boolean isNewHandOverflow, int deckSize){
+            boolean isNewHandOverflow, int deckSize) {
 
-        if( deckSize > 0 && !mOverflowMode  ){
+        if (deckSize > 0 && !mOverflowMode) {
             // If we have cards in the deck and we aren't in overflow, update
             // only the cards have have changed
             notifyItemChanged(one);
@@ -145,7 +146,7 @@ public class SetGameRecyclerAdapter
             notifyItemChanged(three);
 
             // If we're moving into overflow mode, notify that cards have been added
-            if( isNewHandOverflow ){
+            if (isNewHandOverflow) {
                 notifyItemRangeInserted(11, 3);
             }
         } else {
@@ -155,11 +156,11 @@ public class SetGameRecyclerAdapter
 
             // Notify change occurred from lowest index to the end of the array
             notifyItemRangeChanged(lowestIndex, mSetHand.size() - lowestIndex);
-            if(mSetHand.isEmpty()){
+            if (mSetHand.isEmpty()) {
                 // Handle edge case if mSetHand has been emptied (entire board is clear)
                 notifyItemRangeRemoved(0, 3);
             } else {
-                notifyItemRangeRemoved(mSetHand.size()-1, 3);
+                notifyItemRangeRemoved(mSetHand.size() - 1, 3);
             }
         }
 
@@ -181,6 +182,7 @@ public class SetGameRecyclerAdapter
 
         /**
          * Populate data handlers using the given view.
+         *
          * @param itemView
          */
         public SetCardViewHolder(View itemView) {
@@ -195,13 +197,14 @@ public class SetGameRecyclerAdapter
 
             // If we are in debug, show the ID of the card
             debugTextView = new TextView(mContext);
-            if( mContext.getResources().getBoolean(R.bool.is_debug) ){
+            if (mContext.getResources().getBoolean(R.bool.is_debug)) {
                 ((SetGameCardView) itemView).addView(debugTextView);
             }
         }
 
         /**
          * Cusom onClick handler to let cards know they've been clicked
+         *
          * @param v
          */
         @Override

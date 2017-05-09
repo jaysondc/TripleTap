@@ -13,14 +13,14 @@ import java.util.List;
 
 /**
  * Created by Jayson on 2/15/2017.
- *
+ * <p>
  * Class for testing functions of the Set Game Library
  */
 
 public class SetTests {
 
     @Test
-    public void createCardTest(){
+    public void createCardTest() {
         SetCard testCard = new SetCard(
                 CardShape.DIAMOND,
                 CardColor.GREEN,
@@ -34,7 +34,7 @@ public class SetTests {
     }
 
     @Test
-    public void cardToStringTest(){
+    public void cardToStringTest() {
         SetCard testCard = new SetCard(
                 CardShape.DIAMOND,
                 CardColor.GREEN,
@@ -46,7 +46,7 @@ public class SetTests {
     }
 
     @Test
-    public void cardEqualToTest(){
+    public void cardEqualToTest() {
         SetCard testCard1 = new SetCard(
                 CardShape.DIAMOND,
                 CardColor.GREEN,
@@ -65,7 +65,7 @@ public class SetTests {
     }
 
     @Test
-    public void getThirdCardTest(){
+    public void getThirdCardTest() {
         SetCard testCard1 = new SetCard(
                 CardShape.DIAMOND,
                 CardColor.GREEN,
@@ -113,7 +113,7 @@ public class SetTests {
     }
 
     @Test
-    public void setDeckTest(){
+    public void setDeckTest() {
         SetGame.SetDeck testDeck = new SetGame().new SetDeck();
 
         // Create a discard pile
@@ -127,7 +127,7 @@ public class SetTests {
         Assert.assertEquals(80, testDeck.getCount());
 
         // Draw the rest of the cards
-        for(int i = 0; i < 80; i++){
+        for (int i = 0; i < 80; i++) {
             discardPile.add(testDeck.drawCard());
         }
 
@@ -138,7 +138,7 @@ public class SetTests {
     }
 
     @Test
-    public void isValidSetTest(){
+    public void isValidSetTest() {
         SetGame testGame = new SetGame();
 
 
@@ -175,7 +175,7 @@ public class SetTests {
     }
 
     @Test
-    public void setAnalysisTest(){
+    public void setAnalysisTest() {
         // Test whether the set analysis is correct. Detect and validate all found sets in a hand.
         SetGame testGame = new SetGame();
         int detectedSets = testGame.getNumAvailableSets();
@@ -197,7 +197,7 @@ public class SetTests {
     }
 
     @Test
-    public void setAnalysisEmptyTest(){
+    public void setAnalysisEmptyTest() {
         // Test whether the set analysis is correct. Detect and validate all found sets in a hand.
         SetGame testGame = new SetGame();
 
@@ -205,7 +205,7 @@ public class SetTests {
         testGame.setSetHand(new ArrayList<SetCard>());
         // Create a new deck and empty it
         SetGame.SetDeck emptyDeck = testGame.new SetDeck();
-        while(!emptyDeck.isEmpty()){
+        while (!emptyDeck.isEmpty()) {
             emptyDeck.drawCard();
         }
 
@@ -220,7 +220,7 @@ public class SetTests {
     }
 
     @Test
-    public void setFullGameTest(){
+    public void setFullGameTest() {
         SetGame testGame = new SetGame();
         ArrayList<SetGame.Triplet> locationOfSets;
         int detectedSets = 0;
@@ -230,18 +230,18 @@ public class SetTests {
 
         // Test playing a game and pulling sets until the deck is empty or
         // there are no more sets in the hand
-        while (!testGame.getIsGameOver()){
+        while (!testGame.getIsGameOver()) {
 
             // Test pulling sets from the deck
             SetGame.Triplet foundSet;
             foundSet = testGame.getLocationOfSets().get(0);
 
             // Claim this set
-            if( testGame.claimSet(
+            if (testGame.claimSet(
                     foundSet.getFirst(),
                     foundSet.getSecond(),
                     foundSet.getThird()
-                    )) {
+            )) {
                 foundSets++;
             }
 
@@ -268,10 +268,10 @@ public class SetTests {
     }
 
     @Test
-    public void multipleFullGamesTest(){
+    public void multipleFullGamesTest() {
         int numberOfRuns = 1000;
 
-        for( int i = 0; i < numberOfRuns; i++ ){
+        for (int i = 0; i < numberOfRuns; i++) {
             setFullGameTest();
         }
     }

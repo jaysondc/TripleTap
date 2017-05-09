@@ -3,9 +3,9 @@ package com.shakeup.setofthree.gameoverscreen;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 
+import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.normalgame.NormalGameActivity;
 import com.shakeup.setofthree.normalgame.NormalGameFragment;
-import com.shakeup.setofthree.R;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,11 +22,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  */
 public class GameOverFragmentTests {
 
-    NormalGameActivity mGameActivity;
-    NormalGameFragment mGameFragment;
-    GameOverFragment mGameOverFragment;
-    GameOverPresenter mGameOverPresenter;
-
     // Specify we need to launch the NormalGameActivity before these tests
     @Rule
     public ActivityTestRule<NormalGameActivity> mGameActivityTestRule =
@@ -34,6 +29,11 @@ public class GameOverFragmentTests {
                     NormalGameActivity.class,
                     true /* Initial touch mode  */,
                     true /* Lazily launch activity */);
+    NormalGameActivity mGameActivity;
+    NormalGameFragment mGameFragment;
+    GameOverFragment mGameOverFragment;
+    GameOverPresenter mGameOverPresenter;
+
     @Before
     public void setUp() throws Exception {
         Intent startIntent = new Intent();
@@ -57,7 +57,7 @@ public class GameOverFragmentTests {
         // Get the Game Over Fragment
         mGameOverFragment =
                 (GameOverFragment) mGameActivity.getSupportFragmentManager()
-                .findFragmentById(R.id.content_frame);
+                        .findFragmentById(R.id.content_frame);
 
         // Get the Game Over Actions Listener
         mGameOverPresenter =
@@ -71,10 +71,10 @@ public class GameOverFragmentTests {
 
     // Test that nothing goes wrong during initial GameOverFragment setup
     @Test
-    public void testSetup(){
-        try{
+    public void testSetup() {
+        try {
             Thread.sleep(50000);
-        } catch (Exception e){
+        } catch (Exception e) {
             // Do stuff
         }
     }

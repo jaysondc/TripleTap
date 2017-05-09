@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Created by Jayson on 3/16/2017.
- *
+ * <p>
  * Contains all the unit tests for the GameFragment class
  */
 
@@ -22,24 +22,22 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class SetGameFragmentTests {
 
     @Mock
-    private GamePresenter  mActionsListener;
-
+    SparseBooleanArray checkedLocations;
+    @Mock
+    private GamePresenter mActionsListener;
     @Mock
     private RecyclerView mRecyclerGridView;
-
     @Mock
     private SetGameCardView mSetGameCardViewChecked;
     @Mock
     private SetGameCardView mSetGameCardViewUnchecked;
-
-    @Mock SparseBooleanArray checkedLocations;
 
     // Create instance of game fragment to test and inject mock RecyclerGridView
 //    @InjectMocks
 //    private GameFragment mGameView = new GameFragment();
 
     @Before
-    public void setUpGameFragment(){
+    public void setUpGameFragment() {
         // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
         // inject the mocks in the test the initMocks method needs to be called.
         MockitoAnnotations.initMocks(this);
@@ -47,8 +45,8 @@ public class SetGameFragmentTests {
         // Set up RecyclerView Mock
         // Checked locations are 2, 4, and 6.
         Mockito.doReturn(12).when(mRecyclerGridView).getChildCount();
-        for( int i = 0; i < 12; i++ ){
-            if( i == 2 || i == 4 || i == 6 ){
+        for (int i = 0; i < 12; i++) {
+            if (i == 2 || i == 4 || i == 6) {
                 Mockito.when(mRecyclerGridView.getChildAt(i)).thenReturn(mSetGameCardViewChecked);
             } else {
                 Mockito.when(mRecyclerGridView.getChildAt(i)).thenReturn(mSetGameCardViewUnchecked);
