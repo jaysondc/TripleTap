@@ -57,7 +57,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
         if (existingGame != null) {
             mSetGame = existingGame;
         } else {
-            mSetGame = new SetGame(0);
+            mSetGame = new SetGame(1);
         }
 
         // Get the location of valid sets on the board

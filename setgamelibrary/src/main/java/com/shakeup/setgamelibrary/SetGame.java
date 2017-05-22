@@ -314,7 +314,7 @@ public class SetGame {
         /**
          * Empty constructor to make SetDeck parcelable
          */
-        public SetDeck(){
+        public SetDeck() {
         }
 
         /**
@@ -323,85 +323,142 @@ public class SetGame {
          * 1 - Easy Mode
          */
         public SetDeck(int mode) {
-            mDeck = new ArrayList<>();
 
             if (mode == 0) { // Normal Mode
-                // Generate all possible SetCards and add them to the deck
-                for (CardShape shape : CardShape.values()) {
-                    for (CardColor color : CardColor.values()) {
-                        for (CardCount count : CardCount.values()) {
-                            for (CardFill fill : CardFill.values()) {
+                mDeck = createNormalDeck();
+            } else if (mode == 1) { // Easy Mode
+                mDeck = createEasyDeck();
+            }
+        }
 
-                                mDeck.add(new SetCard(shape, color, count, fill));
 
-                            }
+        /**
+         * Create a SetDeck of all (81) possible cards and shuffle them.
+         * @return A list of all possible cards shuffled
+         */
+        public ArrayList<SetCard> createNormalDeck() {
+            ArrayList<SetCard> deck = new ArrayList<>();
+
+            // Generate all possible SetCards and add them to the deck
+            for (CardShape shape : CardShape.values()) {
+                for (CardColor color : CardColor.values()) {
+                    for (CardCount count : CardCount.values()) {
+                        for (CardFill fill : CardFill.values()) {
+
+                            mDeck.add(new SetCard(shape, color, count, fill));
+
                         }
                     }
                 }
-            } else if (mode == 1) {
-                int staticChar = (int) Math.floor(Math.random() * 4);
-                int staticValue = (int) Math.floor(Math.random() * 3);
-
-                switch (staticChar) {
-                    case 0: // static Color
-                        for (CardShape shape : CardShape.values()) {
-                            for (CardCount count : CardCount.values()) {
-                                for (CardFill fill : CardFill.values()) {
-                                    mDeck.add(new SetCard(
-                                            shape,
-                                            CardColor.values()[staticValue],
-                                            count,
-                                            fill));
-                                }
-                            }
-                        }
-                        break;
-                    case 1: // static Shape
-                        for (CardColor color : CardColor.values()) {
-                            for (CardCount count : CardCount.values()) {
-                                for (CardFill fill : CardFill.values()) {
-                                    mDeck.add(new SetCard(
-                                            CardShape.values()[staticValue],
-                                            color,
-                                            count,
-                                            fill));
-                                }
-                            }
-                        }
-                        break;
-                    case 2: // static Count
-                        for (CardShape shape : CardShape.values()) {
-                            for (CardColor color : CardColor.values()) {
-                                for (CardFill fill : CardFill.values()) {
-                                    mDeck.add(new SetCard(
-                                            shape,
-                                            color,
-                                            CardCount.values()[staticValue],
-                                            fill));
-                                }
-                            }
-                        }
-                        break;
-                    case 3: // static Fill
-                        for (CardShape shape : CardShape.values()) {
-                            for (CardColor color : CardColor.values()) {
-                                for (CardCount count : CardCount.values()) {
-                                    mDeck.add(new SetCard(
-                                            shape,
-                                            color,
-                                            count,
-                                            CardFill.values()[staticValue]));
-                                }
-                            }
-                        }
-                        break;
-                }
-
             }
 
             // Shuffle the deck
             Collections.shuffle(mDeck);
 
+            return deck;
+        }
+
+        /**
+         * Create an Easy mode deck. This deck consists of all (81) possible combinations of cards
+         * separated into three sections.
+         * Example: If staticChar is COUNT and staticValue is TWO
+         *  Section 1 - All cards where count is TWO, shuffled
+         *  Section 2 - All cards where count is THREE, shuffled
+         *  Section 3 - All cards where count is ONE, shuffled
+         * @return An easy mode deck of SET Cards
+         */
+        public ArrayList<SetCard> createEasyDeck() {
+            int staticChar = (int) Math.floor(Math.random() * 4);
+            int staticValue = (int) Math.floor(Math.random() * 3);
+            // Full Deck
+            ArrayList<SetCard> deck = new ArrayList<>();
+            // Array of 3 easy decks
+            ArrayList<ArrayList<SetCard>> threeDecks = new ArrayList<>();
+            threeDecks.add(new ArrayList<SetCard>());
+            threeDecks.add(new ArrayList<SetCard>());
+            threeDecks.add(new ArrayList<SetCard>());
+
+            switch (staticChar) {
+                case 0: // static Color
+                    for (int i = 0; i < 3; i++) {
+                        for (CardShape shape : CardShape.values()) {
+                            for (CardCount count : CardCount.values()) {
+                                for (CardFill fill : CardFill.values()) {
+                                    int colorValue = (i + staticValue) % 3;
+                                    threeDecks.get(i).add(new SetCard(
+                                            shape,
+                                            CardColor.values()[colorValue],
+                                            count,
+                                            fill));
+                                }
+                            }
+                        }
+                        // Shuffle the section
+                        Collections.shuffle(threeDecks.get(i));
+                    }
+                    break;
+                case 1: // static Shape
+                    for (int i = 0; i < 3; i++) {
+                        for (CardColor color : CardColor.values()) {
+                            for (CardCount count : CardCount.values()) {
+                                for (CardFill fill : CardFill.values()) {
+                                    int shapeValue = (i + staticValue) % 3;
+                                    threeDecks.get(i).add(new SetCard(
+                                            CardShape.values()[shapeValue],
+                                            color,
+                                            count,
+                                            fill));
+                                }
+                            }
+                        }
+                        // Shuffle the section
+                        Collections.shuffle(threeDecks.get(i));
+                    }
+                    break;
+                case 2: // static Count
+                    for (int i = 0; i < 3; i++) {
+                        for (CardShape shape : CardShape.values()) {
+                            for (CardColor color : CardColor.values()) {
+                                for (CardFill fill : CardFill.values()) {
+                                    int staticCount = (i + staticValue) % 3;
+                                    threeDecks.get(i).add(new SetCard(
+                                            shape,
+                                            color,
+                                            CardCount.values()[staticCount],
+                                            fill));
+                                }
+                            }
+                        }
+                        // Shuffle the section
+                        Collections.shuffle(threeDecks.get(i));
+                    }
+                    break;
+                case 3: // static Fill
+                    for (int i = 0; i < 3; i++) {
+                        for (CardShape shape : CardShape.values()) {
+                            for (CardColor color : CardColor.values()) {
+                                for (CardCount count : CardCount.values()) {
+                                    int staticFill = (i + staticValue) % 3;
+                                    threeDecks.get(i).add(new SetCard(
+                                            shape,
+                                            color,
+                                            count,
+                                            CardFill.values()[staticFill]));
+                                }
+                            }
+                        }
+                        // Shuffle the section
+                        Collections.shuffle(threeDecks.get(i));
+                    }
+                    break;
+            }
+
+            // Combine threeDecks into a single deck
+            for (ArrayList someDeck : threeDecks) {
+                deck.addAll(someDeck);
+            }
+
+            return deck;
         }
 
         /**
