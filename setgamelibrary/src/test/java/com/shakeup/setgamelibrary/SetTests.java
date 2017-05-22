@@ -114,7 +114,7 @@ public class SetTests {
 
     @Test
     public void setDeckTest() {
-        SetGame.SetDeck testDeck = new SetGame().new SetDeck();
+        SetGame.SetDeck testDeck = new SetGame.SetDeck(0);
 
         // Create a discard pile
         ArrayList<SetCard> discardPile = new ArrayList<>();
@@ -135,6 +135,32 @@ public class SetTests {
 
         testDeck.refillDeck(discardPile);
         Assert.assertEquals(81, testDeck.getCount());
+    }
+
+    @Test
+    public void setDeckTestEasy() {
+
+        SetGame.SetDeck testDeck = new SetGame.SetDeck(1);
+
+        // Create a discard pile
+        ArrayList<SetCard> discardPile = new ArrayList<>();
+
+        Assert.assertEquals(27, testDeck.getCount());
+
+        // Draw a single card
+        discardPile.add(testDeck.drawCard());
+
+        Assert.assertEquals(26, testDeck.getCount());
+
+        // Draw the rest of the cards
+        for (int i = 0; i < 26; i++) {
+            discardPile.add(testDeck.drawCard());
+        }
+
+        Assert.assertTrue(testDeck.isEmpty());
+
+        testDeck.refillDeck(discardPile);
+        Assert.assertEquals(27, testDeck.getCount());
     }
 
     @Test
@@ -204,7 +230,7 @@ public class SetTests {
         // Set SetHand to be empty
         testGame.setSetHand(new ArrayList<SetCard>());
         // Create a new deck and empty it
-        SetGame.SetDeck emptyDeck = testGame.new SetDeck();
+        SetGame.SetDeck emptyDeck = new SetGame.SetDeck(0);
         while (!emptyDeck.isEmpty()) {
             emptyDeck.drawCard();
         }
@@ -221,7 +247,7 @@ public class SetTests {
 
     @Test
     public void setFullGameTest() {
-        SetGame testGame = new SetGame();
+        SetGame testGame = new SetGame(1);
         ArrayList<SetGame.Triplet> locationOfSets;
         int detectedSets = 0;
         int handSize = 0;

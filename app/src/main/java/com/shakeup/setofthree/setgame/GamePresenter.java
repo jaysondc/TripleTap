@@ -57,7 +57,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
         if (existingGame != null) {
             mSetGame = existingGame;
         } else {
-            mSetGame = new SetGame();
+            mSetGame = new SetGame(0);
         }
 
         // Get the location of valid sets on the board
@@ -65,7 +65,6 @@ public class GamePresenter implements GameContract.UserActionsListener {
 
         // Initialize the game display
         mGameView.displayGame(mSetGame.getSetHand());
-
     }
 
     /**
