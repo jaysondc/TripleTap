@@ -21,6 +21,8 @@ public class GamePresenter implements GameContract.UserActionsListener {
     // ArrayList holding the current valid locations of sets
     protected ArrayList<SetGame.Triplet> mSetLocations;
     private GameContract.View mGameView;
+    // Tag to tell if we're in debug mode
+    protected boolean mIsDebug;
 
 
     // Supply a default constructor
@@ -139,6 +141,15 @@ public class GamePresenter implements GameContract.UserActionsListener {
     @Override
     public void onSetCardClick() {
         mGameView.onSetCardClicked();
+    }
+
+    /**
+     * Store whether or not we're in debug mode
+     * @param isDebug Whether or not we're in debug mode
+     */
+    @Override
+    public void setIsDebug(boolean isDebug) {
+        mIsDebug = isDebug;
     }
 
     /**

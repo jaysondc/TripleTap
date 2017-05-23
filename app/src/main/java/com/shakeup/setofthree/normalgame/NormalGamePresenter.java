@@ -85,7 +85,9 @@ public class NormalGamePresenter extends GamePresenter
 
         // Upload the final score
         long finalScore = mNormalGameView.getTimerElapsedTime();
-        mNormalGameView.uploadScore(finalScore);
+        if (!mIsDebug) {
+            mNormalGameView.uploadScore(finalScore);
+        }
         mNormalGameView.saveLocalScore(finalScore, mScoreUploaded);
     }
 

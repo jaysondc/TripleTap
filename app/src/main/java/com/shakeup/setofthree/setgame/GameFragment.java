@@ -84,6 +84,9 @@ public abstract class GameFragment extends AppCompatDialogFragment
             Log.d(LOG_TAG, "Restored the game from a previous state.");
         }
 
+        // Let the presenter know whether or not we're in debug mode
+        mActionsListener.setIsDebug(getResources().getBoolean(R.bool.is_debug));
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

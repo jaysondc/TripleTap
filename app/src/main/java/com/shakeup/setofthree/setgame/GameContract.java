@@ -72,6 +72,8 @@ public class GameContract {
 
         ArrayList<SetGame.Triplet> getSetLocations();
 
+        void setIsDebug(boolean isDebug);
+
     }
 
 }

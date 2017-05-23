@@ -91,7 +91,9 @@ public class TimeAttackGamePresenter extends GamePresenter
         super.onGameOver();
 
         mTimeAttackGameView.setGameClickable(false);
-        mTimeAttackGameView.uploadScore(mPlayerScore);
+        if (!mIsDebug) {
+            mTimeAttackGameView.uploadScore(mPlayerScore);
+        }
         mTimeAttackGameView.saveLocalScore(mPlayerScore, mScoreUploaded);
     }
 
