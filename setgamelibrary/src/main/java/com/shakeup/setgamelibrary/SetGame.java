@@ -345,7 +345,7 @@ public class SetGame {
                     for (CardCount count : CardCount.values()) {
                         for (CardFill fill : CardFill.values()) {
 
-                            mDeck.add(new SetCard(shape, color, count, fill));
+                            deck.add(new SetCard(shape, color, count, fill));
 
                         }
                     }
@@ -353,7 +353,7 @@ public class SetGame {
             }
 
             // Shuffle the deck
-            Collections.shuffle(mDeck);
+            Collections.shuffle(deck);
 
             return deck;
         }

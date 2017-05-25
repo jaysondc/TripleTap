@@ -58,15 +58,11 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
     private String LOG_TAG = this.getClass().getSimpleName();
 
-    @Nullable
-
-
     /**
      * Run initial setup for creating a new game.
      * Any subclasses should override this method and set up
      * the root layout and presenter specific to their game mode.
      */
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -84,10 +80,18 @@ public abstract class GameFragment extends AppCompatDialogFragment
             Log.d(LOG_TAG, "Restored the game from a previous state.");
         }
 
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    /*
+     * Set the debug mode here after mActionsListener has been assigned by the subclass
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         // Let the presenter know whether or not we're in debug mode
         mActionsListener.setIsDebug(getResources().getBoolean(R.bool.is_debug));
-
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     /**
