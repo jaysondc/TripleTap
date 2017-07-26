@@ -39,7 +39,7 @@
             android:name=".mainmenu.MainMenuActivity"
             android:alwaysRetainTaskState="true"
             android:label="@string/app_label"
-            android:screenOrientation="fullUser">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,10 +51,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".timeattackgame.TimeAttackGameActivity"
-            android:screenOrientation="fullUser" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".normalgame.NormalGameActivity"
-            android:screenOrientation="fullUser" />
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
