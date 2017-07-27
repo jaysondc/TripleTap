@@ -80,6 +80,8 @@ dependencies {
     compile 'net.simonvt.schematic:schematic:0.7.0'
     // Parceler library generate parcelable implementations
     compile 'org.parceler:parceler-api:1.1.6'
+    // FlatButton for UI buttons
+    compile 'info.hoang8f:fbutton:1.0.5'
     annotationProcessor 'org.parceler:parceler:1.1.6'
 
     // Dependencies for local unit tests

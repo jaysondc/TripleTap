@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 import com.shakeup.setofthree.R;
+
+import info.hoang8f.widget.FButton;
 
 /**
  * Created by Jayson on 3/2/2017.
@@ -65,20 +66,20 @@ public class MainMenuFragment
          * Set up click listeners for each button
          */
         // Grab all button views
-        AppCompatButton singlePlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_single_player);
-        AppCompatButton multiplayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_multi_player);
-        AppCompatButton howToPlayButton =
-                (AppCompatButton) root.findViewById(R.id.button_how_to_play);
-        AppCompatButton leaderboardButton =
-                (AppCompatButton) root.findViewById(R.id.button_leaderboard);
-        AppCompatButton achievementsButton =
-                (AppCompatButton) root.findViewById(R.id.button_achievements);
-        AppCompatButton settingsButton =
-                (AppCompatButton) root.findViewById(R.id.button_settings);
-        AppCompatButton exitButton =
-                (AppCompatButton) root.findViewById(R.id.button_exit);
+        FButton singlePlayerButton =
+                root.findViewById(R.id.button_single_player);
+        FButton multiplayerButton =
+                root.findViewById(R.id.button_multi_player);
+        FButton howToPlayButton =
+                root.findViewById(R.id.button_how_to_play);
+        FButton leaderboardButton =
+                root.findViewById(R.id.button_leaderboard);
+        FButton achievementsButton =
+                root.findViewById(R.id.button_achievements);
+        FButton settingsButton =
+                root.findViewById(R.id.button_settings);
+        FButton exitButton =
+                root.findViewById(R.id.button_exit);
 
         // Set listeners to call methods in the presenter
         singlePlayerButton.setOnClickListener(new View.OnClickListener() {

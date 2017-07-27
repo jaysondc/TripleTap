@@ -6,10 +6,12 @@
     <color name="accent">#4CAF50</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
+    <color name="primary_text_inverse">#FEFEFE</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
 
     <color name="black_overlay">#66000000</color>
+
 
     <!-- Default SET colors -->
     <color name="set_red">#FF0000</color>

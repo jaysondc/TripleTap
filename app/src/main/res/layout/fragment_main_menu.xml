@@ -6,70 +6,90 @@
     android:layout_height="match_parent"
     tools:context=".mainmenu.MainMenuActivity">
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_single_player"
-        android:layout_width="128dp"
+        android:layout_width="200dp"
         android:layout_height="48dp"
-
         android:text="@string/menu_single_player"
+        android:textColor="@color/primary_text_inverse"
+        android:drawableStart="@drawable/ic_person_white_48dp"
+        app:buttonColor="@color/fbutton_color_turquoise"
         app:layout_constraintBottom_toTopOf="@+id/button_multi_player"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        app:shadowColor="@color/fbutton_color_green_sea" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_multi_player"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:text="@string/menu_multi_player"
+        android:textColor="@color/primary_text_inverse"
+        android:drawableStart="@drawable/ic_people_white_48dp"
+        app:buttonColor="@color/fbutton_color_emerald"
         app:layout_constraintBottom_toTopOf="@+id/button_how_to_play"
         app:layout_constraintLeft_toLeftOf="@+id/button_single_player"
-        app:layout_constraintTop_toBottomOf="@id/button_single_player" />
+        app:layout_constraintRight_toRightOf="@id/button_single_player"
+        app:layout_constraintTop_toBottomOf="@id/button_single_player"
+        app:shadowColor="@color/fbutton_color_nephritis" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_how_to_play"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:text="@string/menu_how_to_play"
+        android:textColor="@color/primary_text_inverse"
+        android:drawableStart="@drawable/ic_school_white_48dp"
+        app:buttonColor="@color/fbutton_color_peter_river"
         app:layout_constraintBottom_toTopOf="@+id/button_exit"
         app:layout_constraintLeft_toLeftOf="@+id/button_multi_player"
+        app:layout_constraintRight_toRightOf="@id/button_single_player"
         app:layout_constraintTop_toBottomOf="@+id/button_multi_player"
+        app:shadowColor="@color/fbutton_color_belize_hole"
         tools:layout_editor_absoluteY="203dp" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_exit"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:text="@string/menu_exit"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/button_how_to_play"
         app:layout_constraintTop_toBottomOf="@+id/button_how_to_play" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_achievements"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:text="@string/menu_achievements"
+        app:buttonColor="@color/fbutton_color_concrete"
         app:layout_constraintBottom_toTopOf="@+id/button_leaderboard"
         app:layout_constraintLeft_toLeftOf="@+id/button_leaderboard"
-        app:layout_constraintRight_toRightOf="@+id/button_leaderboard" />
+        app:layout_constraintRight_toRightOf="@+id/button_leaderboard"
+        app:shadowColor="@color/fbutton_color_asbestos" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_leaderboard"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:text="@string/menu_leaderboard"
+        app:buttonColor="@color/fbutton_color_concrete"
         app:layout_constraintBottom_toTopOf="@+id/button_settings"
         app:layout_constraintLeft_toLeftOf="@+id/button_settings"
-        app:layout_constraintRight_toRightOf="@+id/button_settings" />
+        app:layout_constraintRight_toRightOf="@+id/button_settings"
+        app:shadowColor="@color/fbutton_color_asbestos" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_settings"
         android:layout_width="148dp"
         android:layout_height="48dp"
         android:text="@string/menu_settings"
+        app:buttonColor="@color/fbutton_color_concrete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:shadowColor="@color/fbutton_color_asbestos" />
 
 </android.support.constraint.ConstraintLayout>
