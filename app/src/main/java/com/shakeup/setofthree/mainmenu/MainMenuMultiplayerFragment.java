@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.multiplayergame.MultiplayerGameActivity;
 
+import info.hoang8f.widget.FButton;
+
 /**
  * Created by Jayson on 3/2/2017.
  * <p>
@@ -54,14 +56,14 @@ public class MainMenuMultiplayerFragment
         View root = inflater.inflate(R.layout.fragment_multiplayer_menu, container, false);
 
         // Grab all button views
-        AppCompatButton twoPlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_two_players);
-        AppCompatButton threePlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_three_players);
-        AppCompatButton fourPlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_four_players);
-        AppCompatButton backButton =
-                (AppCompatButton) root.findViewById(R.id.button_back);
+        FButton twoPlayerButton =
+                root.findViewById(R.id.button_two_players);
+        FButton threePlayerButton =
+                root.findViewById(R.id.button_three_players);
+        FButton fourPlayerButton =
+                root.findViewById(R.id.button_four_players);
+        FButton backButton =
+                root.findViewById(R.id.button_back);
 
         // Set listeners to call methods in the presenter
         twoPlayerButton.setOnClickListener(new View.OnClickListener() {

@@ -1,32 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="left"
     android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_two_players"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="@string/menu_two_players" />
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="4dp"
+        android:drawableStart="@drawable/ic_people_white_48dp"
+        android:text="@string/menu_two_players"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_emerald"
+        app:layout_constraintBottom_toTopOf="@+id/button_three_players"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowHeight="5dp" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_three_players"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="@string/menu_three_players" />
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="4dp"
+        android:drawableStart="@drawable/ic_people_white_48dp"
+        android:text="@string/menu_three_players"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_emerald"
+        app:layout_constraintBottom_toTopOf="@+id/button_four_players"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_two_players"
+        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowHeight="5dp" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_four_players"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="@string/menu_four_players" />
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="4dp"
+        android:drawableStart="@drawable/ic_people_white_48dp"
+        android:text="@string/menu_four_players"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_emerald"
+        app:layout_constraintBottom_toTopOf="@+id/button_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_three_players"
+        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowHeight="5dp" />
 
-    <android.support.v7.widget.AppCompatButton
+    <info.hoang8f.widget.FButton
         android:id="@+id/button_back"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="@string/menu_back" />
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:drawableStart="@drawable/ic_keyboard_backspace_white_48dp"
+        android:text="@string/menu_back"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_emerald"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_four_players"
+        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowHeight="5dp" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
