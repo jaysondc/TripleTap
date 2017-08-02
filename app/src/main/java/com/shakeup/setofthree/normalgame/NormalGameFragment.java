@@ -6,7 +6,6 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,15 +85,15 @@ public class NormalGameFragment
         mActionsListener = mNormalActionsListener;
 
         // Set up the RecyclerView and assign it to the superclass
-        mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
+        mRecyclerGridView = root.findViewById(R.id.game_recycler_grid);
 
         // Grab references to our views
         mGameTimerView =
-                (Chronometer) root.findViewById(R.id.game_timer);
+                root.findViewById(R.id.game_timer);
         mDeckRemainingView =
-                (TextView) root.findViewById(R.id.deck_remaining);
+                root.findViewById(R.id.deck_remaining);
         mDebugRefreshView =
-                (Button) root.findViewById(R.id.button_debug_refresh);
+                root.findViewById(R.id.button_debug_refresh);
 
         mDebugRefreshView.setOnClickListener(new View.OnClickListener() {
             @Override

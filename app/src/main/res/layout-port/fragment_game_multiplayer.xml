@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutButtonOne"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_goneMarginEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/rotateLayoutButtonThree"
+        app:layout_constraintTop_toBottomOf="@id/rotateLayoutScoreOne">
+
+        <com.dd.processbutton.iml.SubmitProcessButton
+            android:id="@+id/button_player_one"
+            style="@style/MultiplayerButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/button_player_one" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutScoreOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:angle="0"
+        app:layout_constraintBottom_toTopOf="@id/rotateLayoutButtonOne"
+        app:layout_constraintLeft_toLeftOf="@id/rotateLayoutButtonOne"
+        app:layout_constraintRight_toRightOf="@id/rotateLayoutButtonOne"
+        app:layout_constraintTop_toBottomOf="@id/game_frame">
+
+        <TextView
+            android:id="@+id/score_player_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="24sp"
+            tools:text="10 Points" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutButtonThree"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        app:angle="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/rotateLayoutButtonOne"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rotateLayoutScoreThree">
+
+        <com.dd.processbutton.iml.SubmitProcessButton
+            android:id="@+id/button_player_three"
+            style="@style/MultiplayerButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/button_player_three" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutScoreThree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:angle="0"
+        app:layout_constraintBottom_toTopOf="@id/rotateLayoutButtonThree"
+        app:layout_constraintLeft_toLeftOf="@id/rotateLayoutButtonThree"
+        app:layout_constraintRight_toRightOf="@id/rotateLayoutButtonThree"
+        app:layout_constraintTop_toBottomOf="@id/game_frame">
+
+        <TextView
+            android:id="@+id/score_player_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="24sp"
+            tools:text="Score: 10" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+
+    <!-- Game Board -->
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/game_frame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        app:angle="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H, 1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/game_recycler_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:overScrollMode="never"
+            tools:listitem="@layout/setgame_card_main" />
+
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+
+    <!-- Player 2 and 4 space -->
+
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutButtonTwo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_goneMarginEnd="0dp"
+        app:angle="180"
+        app:layout_constraintBottom_toTopOf="@id/rotateLayoutScoreTwo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/rotateLayoutButtonFour"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.dd.processbutton.iml.SubmitProcessButton
+            android:id="@+id/button_player_two"
+            style="@style/MultiplayerButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/button_player_two" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutButtonFour"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        app:angle="180"
+        app:layout_constraintBottom_toTopOf="@id/rotateLayoutScoreFour"
+        app:layout_constraintLeft_toRightOf="@id/rotateLayoutButtonTwo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.dd.processbutton.iml.SubmitProcessButton
+            android:id="@+id/button_player_four"
+            style="@style/MultiplayerButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:text="@string/button_player_four" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutScoreTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:angle="180"
+        app:layout_constraintBottom_toTopOf="@id/game_frame"
+        app:layout_constraintLeft_toLeftOf="@id/rotateLayoutButtonTwo"
+        app:layout_constraintRight_toRightOf="@id/rotateLayoutButtonTwo"
+        app:layout_constraintTop_toBottomOf="@id/rotateLayoutButtonTwo">
+
+        <TextView
+            android:id="@+id/score_player_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="24sp"
+            tools:text="Score: 10" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutScoreFour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:angle="180"
+        app:layout_constraintBottom_toTopOf="@id/game_frame"
+        app:layout_constraintLeft_toLeftOf="@id/rotateLayoutButtonFour"
+        app:layout_constraintRight_toRightOf="@id/rotateLayoutButtonFour"
+        app:layout_constraintTop_toBottomOf="@id/rotateLayoutButtonFour">
+
+        <TextView
+            android:id="@+id/score_player_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="24sp"
+            tools:text="Score: 10" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+
+</android.support.constraint.ConstraintLayout>

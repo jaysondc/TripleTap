@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".multiplayergame.MultiplayerGameActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".timeattackgame.TimeAttackGameActivity"
             android:screenOrientation="portrait" />

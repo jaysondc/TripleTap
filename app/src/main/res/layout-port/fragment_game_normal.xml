@@ -4,22 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/content_frame"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="16dp">
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_count"
+        android:layout_width="112dp"
+        android:layout_height="64dp"
+        android:layout_margin="16dp"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/deck_remaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/normal_deck_remaining"
+            android:textSize="48sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="81" />
+
+    </android.support.v7.widget.CardView>
 
     <Chronometer
         android:id="@+id/game_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
         android:textSize="48sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Game Board -->
@@ -27,12 +44,14 @@
         android:id="@+id/game_frame"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H, 1:1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deck_remaining">
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/game_recycler_grid"
@@ -41,22 +60,7 @@
             android:layout_gravity="center"
             android:overScrollMode="never"
             tools:listitem="@layout/setgame_card_main" />
-
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/deck_remaining"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/normal_deck_remaining"
-        android:textSize="48sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="81" />
 
     <Button
         android:id="@+id/button_debug_refresh"
@@ -65,7 +69,38 @@
         android:text="@string/debug_refresh_board"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:visibility="visible" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/button_hint"
+        style="@style/FlatButtonStyle"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:layout_margin="16dp"
+        android:text="@string/button_hint"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_turquoise"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:shadowColor="@color/fbutton_color_green_sea"
+        app:shadowHeight="5dp" />
+
+    <com.shakeup.setofthree.customviews.FImageButton
+        android:id="@+id/button_pause"
+        style="@style/FlatButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_pause_white_48dp"
+        android:text="@string/button_hint"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_silver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:shadowColor="@color/fbutton_color_concrete"
+        app:shadowHeight="5dp" />
 
 
 </android.support.constraint.ConstraintLayout>
