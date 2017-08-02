@@ -80,7 +80,7 @@ public class GameOverFragment
         }
 
         root = inflater.inflate(
-                R.layout.fragment_game_over_single_player, container, false);
+                R.layout.fragment_game_over, container, false);
 
         // Get arguments from the fragment that called us
         Bundle arguments = this.getArguments();

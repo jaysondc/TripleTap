@@ -47,7 +47,7 @@
     <string name="score_prefix">Score: %d</string>
 
     <!-- Game Over Screen -->
-    <string name="game_over">Game Over!</string>
+    <string name="game_over">GAME OVER</string>
     <string name="button_restart">New Game</string>
     <string name="button_leaderboard">Leaderboard</string>
     <string name="button_view_sets">View Sets</string>

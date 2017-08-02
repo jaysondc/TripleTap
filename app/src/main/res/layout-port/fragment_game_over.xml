@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_game_over_leaderboard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_restart"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/game_over_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/game_over_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_over"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="48sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="GAME OVER" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/button_restart"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:text="@string/button_restart"
+        android:layout_marginEnd="4dp"
+        style="@style/FlatButtonStyle"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_turquoise"
+        app:shadowColor="@color/fbutton_color_green_sea"
+        app:shadowHeight="@dimen/button_shadow_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_leaderboard"
+        tools:text="NEW GAME" />
+
+    <com.shakeup.setofthree.customviews.FImageButton
+        android:id="@+id/button_leaderboard"
+        style="@style/FlatButtonStyle"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/menu_leaderboard"
+        android:src="@drawable/ic_games_leaderboards_white_48dp"
+        app:layout_constraintLeft_toRightOf="@id/button_restart"
+        app:layout_constraintRight_toLeftOf="@id/button_main_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:buttonColor="@color/fbutton_color_silver"
+        app:shadowColor="@color/fbutton_color_concrete"
+        app:shadowHeight="@dimen/button_shadow_height" />
+
+    <com.shakeup.setofthree.customviews.FImageButton
+        android:id="@+id/button_main_menu"
+        style="@style/FlatButtonStyle"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@string/menu_leaderboard"
+        android:src="@drawable/ic_menu_white_48dp"
+        app:layout_constraintLeft_toRightOf="@id/button_leaderboard"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:buttonColor="@color/fbutton_color_silver"
+        app:shadowColor="@color/fbutton_color_concrete"
+        app:shadowHeight="@dimen/button_shadow_height" />
+</android.support.constraint.ConstraintLayout>

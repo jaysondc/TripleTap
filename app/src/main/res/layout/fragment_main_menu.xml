@@ -89,7 +89,6 @@
             style="@style/FlatButtonStyle"
             android:layout_width="0dp"
             android:layout_height="64dp"
-
             android:layout_weight="0.1"
             android:background="@color/blue_pressed"
             android:contentDescription="@string/menu_achievements"
