@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -35,23 +36,35 @@
         android:gravity="center"
         android:orientation="vertical"></FrameLayout>
 
-    <com.google.android.gms.common.SignInButton
+    <com.shakeup.setofthree.customviews.FImageButton
         android:id="@+id/sign_in_button"
+        style="@style/FlatButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_gravity="right"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:visibility="visible" />
+        android:src="@drawable/ic_games_controller_white_48dp"
+        android:contentDescription="@string/common_signin_button_text"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_silver"
+        app:shadowColor="@color/fbutton_color_concrete"
+        app:shadowHeight="5dp" />
 
-    <Button
+    <com.shakeup.setofthree.customviews.FImageButton
         android:id="@+id/sign_out_button"
+        style="@style/FlatButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_gravity="right"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/menu_sign_out"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:src="@drawable/ic_games_controller_white_48dp"
+        android:contentDescription="@string/menu_sign_out"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_carrot"
+        app:shadowColor="@color/fbutton_color_pumpkin"
+        app:shadowHeight="5dp" />
 
 </LinearLayout>

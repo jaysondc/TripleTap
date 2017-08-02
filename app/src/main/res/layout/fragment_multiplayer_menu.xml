@@ -15,14 +15,14 @@
         android:drawableStart="@drawable/ic_people_white_48dp"
         android:text="@string/menu_two_players"
         android:textColor="@color/primary_text_inverse"
-        app:buttonColor="@color/fbutton_color_emerald"
+        app:buttonColor="@color/fbutton_color_amethyst"
         app:layout_constraintBottom_toTopOf="@+id/button_three_players"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed"
-        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowColor="@color/fbutton_color_wisteria"
         app:shadowHeight="5dp" />
 
     <info.hoang8f.widget.FButton
@@ -34,12 +34,12 @@
         android:drawableStart="@drawable/ic_people_white_48dp"
         android:text="@string/menu_three_players"
         android:textColor="@color/primary_text_inverse"
-        app:buttonColor="@color/fbutton_color_emerald"
+        app:buttonColor="@color/fbutton_color_amethyst"
         app:layout_constraintBottom_toTopOf="@+id/button_four_players"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_two_players"
-        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowColor="@color/fbutton_color_wisteria"
         app:shadowHeight="5dp" />
 
     <info.hoang8f.widget.FButton
@@ -51,12 +51,12 @@
         android:drawableStart="@drawable/ic_people_white_48dp"
         android:text="@string/menu_four_players"
         android:textColor="@color/primary_text_inverse"
-        app:buttonColor="@color/fbutton_color_emerald"
+        app:buttonColor="@color/fbutton_color_amethyst"
         app:layout_constraintBottom_toTopOf="@+id/button_back"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_three_players"
-        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowColor="@color/fbutton_color_wisteria"
         app:shadowHeight="5dp" />
 
     <info.hoang8f.widget.FButton
@@ -67,12 +67,12 @@
         android:drawableStart="@drawable/ic_keyboard_backspace_white_48dp"
         android:text="@string/menu_back"
         android:textColor="@color/primary_text_inverse"
-        app:buttonColor="@color/fbutton_color_emerald"
+        app:buttonColor="@color/fbutton_color_amethyst"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_four_players"
-        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowColor="@color/fbutton_color_wisteria"
         app:shadowHeight="5dp" />
 
 </android.support.constraint.ConstraintLayout>
