@@ -19,12 +19,9 @@
 
     <!-- Styles for Multiplayer Buttons -->
     <style name="MultiplayerButtonStyle">
-        <item name="android:layout_marginBottom">16dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/primary_text_inverse</item>
         <item name="android:textSize">24sp</item>
         <item name="pb_colorComplete">@color/button_background_complete</item>
-        <item name="pb_colorNormal">@color/button_background_normal</item>
-        <item name="pb_colorPressed">@color/button_background_pressed</item>
         <item name="pb_colorProgress">@color/button_background_progress</item>
         <item name="pb_textProgress">@string/button_claim_set</item>
         <item name="pb_colorError">@color/button_background_error</item>

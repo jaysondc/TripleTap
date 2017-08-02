@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed"
         app:shadowColor="@color/fbutton_color_green_sea"
-        app:shadowHeight="5dp" />
+        app:shadowHeight="@dimen/button_shadow_height" />
 
     <info.hoang8f.widget.FButton
         android:id="@+id/button_multi_player"
@@ -40,7 +40,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_single_player"
         app:shadowColor="@color/fbutton_color_wisteria"
-        app:shadowHeight="5dp" />
+        app:shadowHeight="@dimen/button_shadow_height" />
 
     <info.hoang8f.widget.FButton
         android:id="@+id/button_how_to_play"
@@ -57,7 +57,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_multi_player"
         app:shadowColor="@color/fbutton_color_belize_hole"
-        app:shadowHeight="5dp" />
+        app:shadowHeight="@dimen/button_shadow_height" />
 
     <LinearLayout
         android:id="@+id/group_settings"
@@ -82,7 +82,7 @@
             android:text="Test"
             app:buttonColor="@color/fbutton_color_silver"
             app:shadowColor="@color/fbutton_color_concrete"
-            app:shadowHeight="5dp" />
+            app:shadowHeight="@dimen/button_shadow_height" />
 
         <com.shakeup.setofthree.customviews.FImageButton
             android:id="@+id/button_achievements"
@@ -97,7 +97,7 @@
             app:buttonColor="@color/fbutton_color_silver"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:shadowColor="@color/fbutton_color_concrete"
-            app:shadowHeight="5dp" />
+            app:shadowHeight="@dimen/button_shadow_height" />
 
         <com.shakeup.setofthree.customviews.FImageButton
             android:id="@+id/button_settings"
@@ -111,7 +111,7 @@
             android:text="Test"
             app:buttonColor="@color/fbutton_color_silver"
             app:shadowColor="@color/fbutton_color_concrete"
-            app:shadowHeight="5dp" />
+            app:shadowHeight="@dimen/button_shadow_height" />
 
     </LinearLayout>
 

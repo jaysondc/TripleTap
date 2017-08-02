@@ -12,18 +12,21 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        app:layout_goneMarginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/rotateLayoutButtonThree"
-        app:layout_constraintTop_toBottomOf="@id/rotateLayoutScoreOne">
+        app:layout_constraintTop_toBottomOf="@id/rotateLayoutScoreOne"
+        app:layout_goneMarginEnd="0dp">
 
         <com.dd.processbutton.iml.SubmitProcessButton
             android:id="@+id/button_player_one"
             style="@style/MultiplayerButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/button_player_one" />
+            android:contentDescription="@string/button_player_one"
+            app:pb_colorNormal="@color/fbutton_color_emerald"
+            app:pb_colorPressed="@color/fbutton_color_nephritis"
+            app:pb_cornerRadius="@dimen/corner_radius" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
@@ -42,7 +45,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textSize="24sp"
-            tools:text="10 Points" />
+            tools:text="Score: 10" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
@@ -61,7 +64,10 @@
             style="@style/MultiplayerButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/button_player_three" />
+            android:contentDescription="@string/button_player_three"
+            app:pb_colorNormal="@color/fbutton_color_peter_river"
+            app:pb_colorPressed="@color/fbutton_color_belize_hole"
+            app:pb_cornerRadius="@dimen/corner_radius" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
@@ -112,45 +118,27 @@
 
     <!-- Player 2 and 4 space -->
 
-
     <com.github.rongi.rotate_layout.layout.RotateLayout
         android:id="@+id/rotateLayoutButtonTwo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        app:layout_goneMarginEnd="0dp"
         app:angle="180"
         app:layout_constraintBottom_toTopOf="@id/rotateLayoutScoreTwo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/rotateLayoutButtonFour"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginEnd="0dp">
 
         <com.dd.processbutton.iml.SubmitProcessButton
             android:id="@+id/button_player_two"
             style="@style/MultiplayerButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/button_player_two" />
-    </com.github.rongi.rotate_layout.layout.RotateLayout>
-
-    <com.github.rongi.rotate_layout.layout.RotateLayout
-        android:id="@+id/rotateLayoutButtonFour"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        app:angle="180"
-        app:layout_constraintBottom_toTopOf="@id/rotateLayoutScoreFour"
-        app:layout_constraintLeft_toRightOf="@id/rotateLayoutButtonTwo"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.dd.processbutton.iml.SubmitProcessButton
-            android:id="@+id/button_player_four"
-            style="@style/MultiplayerButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:text="@string/button_player_four" />
+            android:contentDescription="@string/button_player_two"
+            app:pb_colorNormal="@color/fbutton_color_amethyst"
+            app:pb_colorPressed="@color/fbutton_color_wisteria"
+            app:pb_cornerRadius="@dimen/corner_radius" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
@@ -171,6 +159,30 @@
             android:textSize="24sp"
             tools:text="Score: 10" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+    <com.github.rongi.rotate_layout.layout.RotateLayout
+        android:id="@+id/rotateLayoutButtonFour"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        app:angle="180"
+        app:layout_constraintBottom_toTopOf="@id/rotateLayoutScoreFour"
+        app:layout_constraintLeft_toRightOf="@id/rotateLayoutButtonTwo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.dd.processbutton.iml.SubmitProcessButton
+            android:id="@+id/button_player_four"
+            style="@style/MultiplayerButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/button_player_four"
+            app:pb_colorNormal="@color/fbutton_color_turquoise"
+            app:pb_colorPressed="@color/fbutton_color_green_sea"
+            app:pb_cornerRadius="@dimen/corner_radius" />
+    </com.github.rongi.rotate_layout.layout.RotateLayout>
+
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
         android:id="@+id/rotateLayoutScoreFour"
