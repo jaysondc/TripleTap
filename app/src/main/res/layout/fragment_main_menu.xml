@@ -8,88 +8,111 @@
 
     <info.hoang8f.widget.FButton
         android:id="@+id/button_single_player"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="4dp"
+        android:drawableStart="@drawable/ic_person_white_48dp"
         android:text="@string/menu_single_player"
         android:textColor="@color/primary_text_inverse"
-        android:drawableStart="@drawable/ic_person_white_48dp"
         app:buttonColor="@color/fbutton_color_turquoise"
         app:layout_constraintBottom_toTopOf="@+id/button_multi_player"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed"
-        app:shadowColor="@color/fbutton_color_green_sea" />
+        app:shadowColor="@color/fbutton_color_green_sea"
+        app:shadowHeight="5dp" />
 
     <info.hoang8f.widget.FButton
         android:id="@+id/button_multi_player"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="4dp"
+        android:drawableStart="@drawable/ic_people_white_48dp"
         android:text="@string/menu_multi_player"
         android:textColor="@color/primary_text_inverse"
-        android:drawableStart="@drawable/ic_people_white_48dp"
         app:buttonColor="@color/fbutton_color_emerald"
         app:layout_constraintBottom_toTopOf="@+id/button_how_to_play"
-        app:layout_constraintLeft_toLeftOf="@+id/button_single_player"
-        app:layout_constraintRight_toRightOf="@id/button_single_player"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_single_player"
-        app:shadowColor="@color/fbutton_color_nephritis" />
+        app:shadowColor="@color/fbutton_color_nephritis"
+        app:shadowHeight="5dp" />
 
     <info.hoang8f.widget.FButton
         android:id="@+id/button_how_to_play"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="4dp"
+        android:drawableStart="@drawable/ic_school_white_48dp"
         android:text="@string/menu_how_to_play"
         android:textColor="@color/primary_text_inverse"
-        android:drawableStart="@drawable/ic_school_white_48dp"
         app:buttonColor="@color/fbutton_color_peter_river"
-        app:layout_constraintBottom_toTopOf="@+id/button_exit"
-        app:layout_constraintLeft_toLeftOf="@+id/button_multi_player"
-        app:layout_constraintRight_toRightOf="@id/button_single_player"
+        app:layout_constraintBottom_toTopOf="@+id/group_settings"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_multi_player"
         app:shadowColor="@color/fbutton_color_belize_hole"
-        tools:layout_editor_absoluteY="203dp" />
+        app:shadowHeight="5dp" />
 
-    <info.hoang8f.widget.FButton
-        android:id="@+id/button_exit"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="@string/menu_exit"
-        android:visibility="gone"
+    <LinearLayout
+        android:id="@+id/group_settings"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/button_how_to_play"
-        app:layout_constraintTop_toBottomOf="@+id/button_how_to_play" />
-
-    <info.hoang8f.widget.FButton
-        android:id="@+id/button_achievements"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="@string/menu_achievements"
-        app:buttonColor="@color/fbutton_color_concrete"
-        app:layout_constraintBottom_toTopOf="@+id/button_leaderboard"
-        app:layout_constraintLeft_toLeftOf="@+id/button_leaderboard"
-        app:layout_constraintRight_toRightOf="@+id/button_leaderboard"
-        app:shadowColor="@color/fbutton_color_asbestos" />
-
-    <info.hoang8f.widget.FButton
-        android:id="@+id/button_leaderboard"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="@string/menu_leaderboard"
-        app:buttonColor="@color/fbutton_color_concrete"
-        app:layout_constraintBottom_toTopOf="@+id/button_settings"
-        app:layout_constraintLeft_toLeftOf="@+id/button_settings"
-        app:layout_constraintRight_toRightOf="@+id/button_settings"
-        app:shadowColor="@color/fbutton_color_asbestos" />
-
-    <info.hoang8f.widget.FButton
-        android:id="@+id/button_settings"
-        android:layout_width="148dp"
-        android:layout_height="48dp"
-        android:text="@string/menu_settings"
-        app:buttonColor="@color/fbutton_color_concrete"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:shadowColor="@color/fbutton_color_asbestos" />
+        app:layout_constraintTop_toBottomOf="@id/button_how_to_play">
+
+        <com.shakeup.setofthree.customviews.FImageButton
+            android:id="@+id/button_achievements"
+            style="@style/FlatButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="0.1"
+            android:contentDescription="@string/menu_achievements"
+            android:background="@color/blue_pressed"
+            android:src="@drawable/ic_games_achievements_white_48dp"
+            app:buttonColor="@color/fbutton_color_silver"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:shadowColor="@color/fbutton_color_concrete"
+            app:shadowHeight="5dp" />
+
+        <com.shakeup.setofthree.customviews.FImageButton
+            android:id="@+id/button_leaderboard"
+            style="@style/FlatButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="0.1"
+            android:contentDescription="@string/menu_leaderboard"
+            android:text="Test"
+            android:src="@drawable/ic_games_leaderboards_white_48dp"
+            app:buttonColor="@color/fbutton_color_silver"
+            app:shadowColor="@color/fbutton_color_concrete"
+            app:shadowHeight="5dp" />
+
+        <com.shakeup.setofthree.customviews.FImageButton
+            android:id="@+id/button_settings"
+            style="@style/FlatButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="0.1"
+            android:contentDescription="@string/menu_settings"
+            android:text="Test"
+            android:src="@drawable/ic_settings_white_48dp"
+            app:buttonColor="@color/fbutton_color_silver"
+            app:shadowColor="@color/fbutton_color_concrete"
+            app:shadowHeight="5dp" />
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

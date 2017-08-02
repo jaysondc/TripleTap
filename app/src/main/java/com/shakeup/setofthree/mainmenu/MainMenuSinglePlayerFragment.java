@@ -3,7 +3,6 @@ package com.shakeup.setofthree.mainmenu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,8 @@ import android.view.ViewGroup;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.normalgame.NormalGameActivity;
 import com.shakeup.setofthree.timeattackgame.TimeAttackGameActivity;
+
+import info.hoang8f.widget.FButton;
 
 /**
  * Created by Jayson on 3/29/2017.
@@ -55,15 +56,15 @@ public class MainMenuSinglePlayerFragment
         View root = inflater.inflate(R.layout.fragment_single_player_menu, container, false);
 
         // Grab all button views
-        AppCompatButton twoPlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_normal);
-        AppCompatButton threePlayerButton =
-                (AppCompatButton) root.findViewById(R.id.button_time_attack);
-        AppCompatButton backButton =
-                (AppCompatButton) root.findViewById(R.id.button_back);
+        FButton normalButton =
+                root.findViewById(R.id.button_normal);
+        FButton timeAttackButton =
+                root.findViewById(R.id.button_time_attack);
+        FButton backButton =
+                root.findViewById(R.id.button_back);
 
         // Set listeners to call methods in the presenter
-        twoPlayerButton.setOnClickListener(new View.OnClickListener() {
+        normalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Call presenter handler for a Normal game
@@ -71,7 +72,7 @@ public class MainMenuSinglePlayerFragment
             }
         });
 
-        threePlayerButton.setOnClickListener(new View.OnClickListener() {
+        timeAttackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Call presenter handler for a Time Attack game

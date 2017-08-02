@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.customviews.FImageButton;
 
 import info.hoang8f.widget.FButton;
 
@@ -72,14 +73,12 @@ public class MainMenuFragment
                 root.findViewById(R.id.button_multi_player);
         FButton howToPlayButton =
                 root.findViewById(R.id.button_how_to_play);
-        FButton leaderboardButton =
+        FImageButton leaderboardButton =
                 root.findViewById(R.id.button_leaderboard);
-        FButton achievementsButton =
+        FImageButton achievementsButton =
                 root.findViewById(R.id.button_achievements);
-        FButton settingsButton =
+        FImageButton settingsButton =
                 root.findViewById(R.id.button_settings);
-        FButton exitButton =
-                root.findViewById(R.id.button_exit);
 
         // Set listeners to call methods in the presenter
         singlePlayerButton.setOnClickListener(new View.OnClickListener() {
@@ -119,14 +118,6 @@ public class MainMenuFragment
             public void onClick(View v) {
                 // Show the how to play tutorial
                 mActionsListener.onHowToPlayClick();
-            }
-        });
-
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Exit the game
-                mActionsListener.onExitGameClick();
             }
         });
 
@@ -213,10 +204,6 @@ public class MainMenuFragment
                 .show();
     }
 
-    @Override
-    public void exitGame() {
-        getActivity().finish();
-    }
 
     @Override
     public void showHowToPlay() {

@@ -26,8 +26,6 @@ public class MainMenuContract {
 
         void openSettings();
 
-        void exitGame();
-
         void showHowToPlay();
 
     }
@@ -49,8 +47,6 @@ public class MainMenuContract {
         void onHowToPlayClick();
 
         void onSettingsClick();
-
-        void onExitGameClick();
 
     }
 }

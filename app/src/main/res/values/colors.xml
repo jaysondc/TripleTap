@@ -29,4 +29,7 @@
     <color name="button_background_progress">@color/primary_light</color>
     <color name="button_background_complete">@color/accent</color>
     <color name="button_background_error">#FF0000</color>
+
+    <color name="fbutton_default_color">#3eadeb</color>
+    <color name="fbutton_default_shadow_color">#ff3493c8</color>
 </resources>
