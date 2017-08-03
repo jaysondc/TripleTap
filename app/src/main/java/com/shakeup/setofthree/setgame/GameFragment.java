@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
@@ -58,6 +59,9 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
     private String LOG_TAG = this.getClass().getSimpleName();
 
+    // Debug buttons
+    private Button mDebugRefreshView, mDebugEndGameView;
+
     /**
      * Run initial setup for creating a new game.
      * Any subclasses should override this method and set up
@@ -92,6 +96,31 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
         // Let the presenter know whether or not we're in debug mode
         mActionsListener.setIsDebug(getResources().getBoolean(R.bool.is_debug));
+
+        // Hook up and display our debug buttons if we're in debug mode
+        mDebugRefreshView =
+                view.findViewById(R.id.button_debug_refresh);
+        mDebugEndGameView =
+                view.findViewById(R.id.button_debug_end_game);
+
+        mDebugRefreshView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshBoard();
+            }
+        });
+        mDebugEndGameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showGameOver();
+            }
+        });
+
+        // If we are in debug mode, show the refresh button
+        if (getResources().getBoolean(R.bool.is_debug)) {
+            mDebugRefreshView.setVisibility(View.VISIBLE);
+            mDebugEndGameView.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

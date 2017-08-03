@@ -92,20 +92,6 @@ public class NormalGameFragment
                 root.findViewById(R.id.game_timer);
         mDeckRemainingView =
                 root.findViewById(R.id.deck_remaining);
-        mDebugRefreshView =
-                root.findViewById(R.id.button_debug_refresh);
-
-        mDebugRefreshView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshBoard();
-            }
-        });
-
-        // If we are in debug mode, show the refresh button
-        if (getResources().getBoolean(R.bool.is_debug)) {
-            mDebugRefreshView.setVisibility(View.VISIBLE);
-        }
 
         // Initialize a game
         mNormalActionsListener.initGame(mExistingGame, mElapsedMillis);

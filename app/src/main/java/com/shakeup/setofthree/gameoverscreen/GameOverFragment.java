@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -25,10 +24,13 @@ import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.adapters.LocalLeaderboardRecyclerAdapter;
 import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.contentprovider.ScoreProvider;
+import com.shakeup.setofthree.customviews.FImageButton;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
 import com.shakeup.setofthree.mainmenu.MainMenuActivity;
 import com.shakeup.setofthree.normalgame.NormalGameFragment;
 import com.shakeup.setofthree.timeattackgame.TimeAttackGameFragment;
+
+import info.hoang8f.widget.FButton;
 
 /**
  * Created by Jayson on 4/4/2017.
@@ -51,7 +53,8 @@ public class GameOverFragment
     GameOverContract.UserActionsListener mGameOverActionsListener;
 
     RecyclerView mRecyclerLeaderboard;
-    Button mRestartButton, mLeaderboardButton, mViewSetsButton, mMainMenuButton;
+    FButton mRestartButton;
+    FImageButton mLeaderboardButton, mMainMenuButton;
     String mGameMode, mGameDifficulty;
     Parcelable mRecyclerState = null; // Holds the previous scroll position if it's saved
 
@@ -94,13 +97,11 @@ public class GameOverFragment
 
         // Grab references to our views
         mRestartButton =
-                (Button) root.findViewById(R.id.button_restart);
+                root.findViewById(R.id.button_restart);
         mLeaderboardButton =
-                (Button) root.findViewById(R.id.button_leaderboard);
-        mViewSetsButton =
-                (Button) root.findViewById(R.id.button_view_sets);
+                root.findViewById(R.id.button_leaderboard);
         mMainMenuButton =
-                (Button) root.findViewById(R.id.button_main_menu);
+                root.findViewById(R.id.button_main_menu);
 
         // Set click listeners for each button
         mRestartButton.setOnClickListener(new View.OnClickListener() {
@@ -113,12 +114,6 @@ public class GameOverFragment
             @Override
             public void onClick(View v) {
                 mGameOverActionsListener.onLeaderboardClicked();
-            }
-        });
-        mViewSetsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGameOverActionsListener.onViewSetsClicked();
             }
         });
         mMainMenuButton.setOnClickListener(new View.OnClickListener() {

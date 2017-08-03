@@ -32,6 +32,8 @@
     <string name="message_game_over">Game over!</string>
     <string name="message_restart">Restart</string>
     <string name="button_hint">Hint</string>
+    <string name="debug_refresh_board">Refresh</string>
+    <string name="debug_end_game">End Game</string>
 
     <!-- Multiplayer Buttons -->
     <string name="button_player_one">Player 1</string>
@@ -58,7 +60,6 @@
 
     <!-- Normal Game -->
     <string name="normal_deck_remaining">81</string>
-    <string name="debug_refresh_board">Refresh</string>
 
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>
