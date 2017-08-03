@@ -176,9 +176,9 @@ public class LocalLeaderboardRecyclerAdapter
             super(itemView);
 
             mView = itemView;
-            mPosition = (TextView) itemView.findViewById(R.id.text_position);
-            mScore = (TextView) itemView.findViewById(R.id.text_score);
-            mDate = (TextView) itemView.findViewById(R.id.text_date);
+            mPosition = itemView.findViewById(R.id.text_position);
+            mScore = itemView.findViewById(R.id.text_score);
+            mDate = itemView.findViewById(R.id.text_date);
         }
     }
 }

@@ -55,7 +55,6 @@ public class GameOverFragment
     RecyclerView mRecyclerLeaderboard;
     FButton mRestartButton;
     FImageButton mLeaderboardButton, mMainMenuButton;
-    String mGameMode, mGameDifficulty;
     Parcelable mRecyclerState = null; // Holds the previous scroll position if it's saved
 
     // Default constructor
@@ -93,7 +92,7 @@ public class GameOverFragment
 
         // Set up the RecyclerView and assign it to the superclass
         mRecyclerLeaderboard =
-                (RecyclerView) root.findViewById(R.id.recycler_game_over_leaderboard);
+                root.findViewById(R.id.recycler_game_over_leaderboard);
 
         // Grab references to our views
         mRestartButton =
@@ -123,12 +122,12 @@ public class GameOverFragment
             }
         });
 
-        mGameMode = arguments.getString(getString(R.string.extra_game_mode));
-        mGameDifficulty = arguments.getString(getString(R.string.extra_difficulty));
+        String gameMode = arguments.getString(getString(R.string.extra_game_mode));
+        String gameDifficulty = arguments.getString(getString(R.string.extra_difficulty));
 
         // Let the presenter know we've finished setup and are ready to load
         // the leaderboard
-        mGameOverActionsListener.onOnCreateViewFinished();
+        mGameOverActionsListener.onCreateViewFinished(gameMode, gameDifficulty);
 
         return root;
     }
@@ -145,22 +144,25 @@ public class GameOverFragment
     }
 
     @Override
-    public void loadLocalLeaderboard() {
-        // We have to bypass the presenter here and load everything within the
-        // fragment in order to satisfy the the Udacity Capstone requirements.
+    public void loadLocalLeaderboard(String mode, String difficulty) {
+
+        Bundle args = new Bundle();
+        args.putString(getString(R.string.extra_game_mode), mode);
+        args.putString(getString(R.string.extra_difficulty), difficulty);
+
         // Create a loader for the local scoreboard
-        getLoaderManager().initLoader(SCORE_LOADER_ID, null, this);
+        getLoaderManager().initLoader(SCORE_LOADER_ID, args, this);
     }
 
     @Override
-    public void restartGame() {
+    public void restartGame(String gameMode, String gameDifficulty) {
         // Swap in the Single Player Menu Fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (mGameMode.equals(getString(R.string.value_mode_normal))) {
+        if (gameMode.equals(getString(R.string.value_mode_normal))) {
             transaction.replace(R.id.content_frame, NormalGameFragment.newInstance());
-        } else if (mGameMode.equals(getString(R.string.value_mode_time_attack))) {
+        } else if (gameMode.equals(getString(R.string.value_mode_time_attack))) {
             transaction.replace(R.id.content_frame, TimeAttackGameFragment.newInstance());
         }
         transaction.commit();
@@ -210,7 +212,6 @@ public class GameOverFragment
     /*
      * Cursor Loader and callbacks for the local scoreboard
      */
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Set up selection string
@@ -220,19 +221,25 @@ public class GameOverFragment
                         + ScoreColumns.DIFFICULTY
                         + "=?";
 
+        // Get mode and difficulty from args
+        String gameMode = args.getString(getString(R.string.extra_game_mode));
+        String gameDifficulty = args.getString(getString(R.string.extra_difficulty));
+
         // Set up selection args
         String[] selectionArgs = new String[2];
-        selectionArgs[0] = mGameMode;
-        selectionArgs[1] = mGameDifficulty;
+        selectionArgs[0] = gameMode;
+        selectionArgs[1] = gameDifficulty;
 
-        String sortOrder = "";
         // Set up sortOrder string depending on our mode
-        if (mGameMode.equals(getString(R.string.value_mode_normal))) {
+        String sortOrder = "";
+        if (gameMode.equals(getString(R.string.value_mode_normal))) {
             sortOrder = ScoreColumns.SCORE + " ASC, "
-                    + ScoreColumns.TIME + " DESC";
-        } else if (mGameMode.equals(getString(R.string.value_mode_time_attack))) {
+                    + ScoreColumns.TIME + " DESC"
+                    + " LIMIT 5";
+        } else if (gameMode.equals(getString(R.string.value_mode_time_attack))) {
             sortOrder = ScoreColumns.SCORE + " DESC, "
-                    + ScoreColumns.TIME + " DESC";
+                    + ScoreColumns.TIME + " DESC"
+                    + " LIMIT 5";
         }
 
         // Create the cursorLoader for our scores

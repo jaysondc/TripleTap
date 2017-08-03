@@ -12,11 +12,11 @@ public class GameOverContract {
      */
     interface View {
 
-        void restartGame();
+        void restartGame(String gameMode, String gameDifficulty);
 
         void openLeaderboard();
 
-        void loadLocalLeaderboard();
+        void loadLocalLeaderboard(String gameMode, String gameDifficulty);
 
         void openFoundSets();
 
@@ -37,7 +37,7 @@ public class GameOverContract {
 
         void onMainMenuClicked();
 
-        void onOnCreateViewFinished();
+        void onCreateViewFinished(String mode, String difficulty);
 
     }
 }

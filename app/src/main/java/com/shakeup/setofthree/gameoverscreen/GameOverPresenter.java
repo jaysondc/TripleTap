@@ -14,8 +14,9 @@ public class GameOverPresenter
         implements GameOverContract.UserActionsListener {
 
     private final String LOG_TAG = getClass().getSimpleName();
-
     private GameOverContract.View mGameOverView;
+
+    String mGameMode, mGameDifficulty;
 
     // Supply a default constructor
     public GameOverPresenter() {
@@ -37,8 +38,13 @@ public class GameOverPresenter
      * but we need to use Loaders so all the logic is in the GameOverFragment
      */
     @Override
-    public void onOnCreateViewFinished() {
-        mGameOverView.loadLocalLeaderboard();
+    public void onCreateViewFinished(String mode, String difficulty) {
+
+        // Store the current mode and difficulty
+        this.mGameMode = mode;
+        this.mGameDifficulty = difficulty;
+
+        mGameOverView.loadLocalLeaderboard(mGameMode, mGameDifficulty);
     }
 
     /*
@@ -46,7 +52,7 @@ public class GameOverPresenter
      */
     @Override
     public void onRestartClicked() {
-        mGameOverView.restartGame();
+        mGameOverView.restartGame(mGameMode, mGameDifficulty);
     }
 
     /*

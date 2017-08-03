@@ -82,7 +82,7 @@ public class GameOverFragmentTests {
     // Check that the game has successfully restarted
     @Test
     public void restartGame() throws Exception {
-        mGameOverFragment.restartGame();
+        mGameOverFragment.restartGame("CLASSIC", "NORMAL");
 
         Thread.sleep(500);
 
