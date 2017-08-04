@@ -22,6 +22,7 @@
             android:authorities="@string/score_provider_authority"
             android:exported="true" />
 
+        <!--
         <service
             android:name=".widgets.LeaderboardWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
@@ -34,6 +35,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/leaderboard_widget_provider_info" />
         </receiver>
+        -->
 
         <activity
             android:name=".mainmenu.MainMenuActivity"
