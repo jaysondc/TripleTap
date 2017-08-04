@@ -101,4 +101,30 @@ public class NormalGamePresenter extends GamePresenter
     public void onScoreUploaded(boolean uploaded) {
         mScoreUploaded = uploaded;
     }
+
+    @Override
+    public void onHintClicked() {
+        // Nothing here yet
+    }
+
+    @Override
+    public void onPauseClicked() {
+        mNormalGameView.pauseGame();
+    }
+
+    @Override
+    public void onPauseResultResume() {
+        mNormalGameView.resumeGame();
+    }
+
+    @Override
+    public void onPauseResultMainMenu() {
+        mNormalGameView.openMainMenu();
+    }
+
+    @Override
+    public void onPauseResultRestart() {
+        mNormalGameView.restartGame();
+    }
+
 }

@@ -8,9 +8,9 @@ package com.shakeup.setofthree.pausemenu;
 
 public class PauseContract {
 
-    public static int RESULT_RESUME = 0;
-    public static int RESULT_RESTART = 1;
-    public static int RESULT_MAIN_MENU = 2;
+    public static final int RESULT_RESUME = 0;
+    public static final int RESULT_RESTART = 1;
+    public static final int RESULT_MAIN_MENU = 2;
 
     interface View {
 

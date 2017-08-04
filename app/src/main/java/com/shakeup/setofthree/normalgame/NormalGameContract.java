@@ -27,6 +27,18 @@ public class NormalGameContract extends GameContract {
 
         long getTimerElapsedTime();
 
+        void pauseGame();
+
+        void showHint();
+
+        void updateHintButton(int hintsRemaining);
+
+        void resumeGame();
+
+        void restartGame();
+
+        void openMainMenu();
+
     }
 
     /**
@@ -37,6 +49,16 @@ public class NormalGameContract extends GameContract {
         void initGame(SetGame existingGame, long timerElapsedMills);
 
         void onScoreUploaded(boolean uploaded);
+
+        void onHintClicked();
+
+        void onPauseClicked();
+
+        void onPauseResultResume();
+
+        void onPauseResultMainMenu();
+
+        void onPauseResultRestart();
 
     }
 }

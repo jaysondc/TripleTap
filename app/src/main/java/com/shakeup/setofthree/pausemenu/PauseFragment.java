@@ -1,6 +1,5 @@
 package com.shakeup.setofthree.pausemenu;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import info.hoang8f.widget.FButton;
  * This fragment handles the UI actions for the Pause menu
  */
 
-public class PauseFragment extends DialogFragment implements PauseContract.View {
+public class PauseFragment extends android.support.v4.app.DialogFragment implements PauseContract.View {
 
     FButton mResume, mNewGame;
     FImageButton mMainMenu;
@@ -98,4 +97,12 @@ public class PauseFragment extends DialogFragment implements PauseContract.View 
         dismiss();
     }
 
+    @Override
+    public void onResume() {
+        int width = getResources().getDimensionPixelSize(R.dimen.pause_dialog_width);
+        int height = getResources().getDimensionPixelSize(R.dimen.pause_dialog_height);
+        getDialog().getWindow().setLayout(width, height);
+
+        super.onResume();
+    }
 }

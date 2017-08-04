@@ -1,6 +1,7 @@
 package com.shakeup.setofthree.normalgame;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -19,11 +20,16 @@ import com.google.android.gms.games.Games;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.contentprovider.ScoreProvider;
+import com.shakeup.setofthree.customviews.FImageButton;
 import com.shakeup.setofthree.gameoverscreen.GameOverFragment;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
+import com.shakeup.setofthree.pausemenu.PauseContract;
+import com.shakeup.setofthree.pausemenu.PauseFragment;
 import com.shakeup.setofthree.setgame.GameFragment;
 
 import java.util.Locale;
+
+import info.hoang8f.widget.FButton;
 
 /**
  * Created by Jayson on 4/4/2017.
@@ -43,6 +49,9 @@ public class NormalGameFragment
     Chronometer mGameTimerView;
     TextView mDeckRemainingView;
     Button mDebugRefreshView;
+    FImageButton mPauseButton;
+    FButton mHintButton;
+
     long mElapsedMillis = 0; // Maintain timer progress between lifecycle changes
 
     // Default constructor
@@ -92,6 +101,24 @@ public class NormalGameFragment
                 root.findViewById(R.id.game_timer);
         mDeckRemainingView =
                 root.findViewById(R.id.deck_remaining);
+        mPauseButton =
+                root.findViewById(R.id.button_pause);
+        mHintButton =
+                root.findViewById(R.id.button_hint);
+
+        // Hook up click listeners
+        mPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNormalActionsListener.onPauseClicked();
+            }
+        });
+        mHintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNormalActionsListener.onHintClicked();
+            }
+        });
 
         // Initialize a game
         mNormalActionsListener.initGame(mExistingGame, mElapsedMillis);
@@ -128,12 +155,12 @@ public class NormalGameFragment
 
     @Override
     public void onSetSuccess() {
-        // Nothing to do here
+        // Nothing to do here, handled by superclass
     }
 
     @Override
     public void onSetFailure() {
-        // Nothing to do here
+        // Nothing to do here, handled by superclass
     }
 
     @Override
@@ -265,5 +292,59 @@ public class NormalGameFragment
         );
 
         Log.d(LOG_TAG, "Saved score locally!");
+    }
+
+    /**
+     * Pauses the game and opens the PauseFragment as a dialog for result.
+     */
+    @Override
+    public void pauseGame() {
+
+        android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
+        pauseFragment.setTargetFragment(this, 1);
+        pauseFragment.show(getFragmentManager(), "dialog");
+
+    }
+
+    @Override
+    public void showHint() {
+        // TODO Show hint
+    }
+
+    @Override
+    public void updateHintButton(int hintsRemaining) {
+        // TODO Update hint button
+    }
+
+    /*
+     * Retrieve the results from the pause pop up menu and react accordingly.
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (resultCode) {
+            case PauseContract.RESULT_RESUME:
+                break;
+            case PauseContract.RESULT_RESTART:
+                break;
+            case PauseContract.RESULT_MAIN_MENU:
+                break;
+        }
+
+    }
+
+    @Override
+    public void resumeGame() {
+        // Nothing here yet
+    }
+
+    @Override
+    public void restartGame() {
+        // Nothing here yet
+    }
+
+    @Override
+    public void openMainMenu() {
+        // Nothing here yet
     }
 }

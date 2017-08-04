@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
@@ -197,6 +199,18 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests 
         } catch (Exception e) {
 
         }
+    }
+
+    /**
+     * Test pause menu brings up PauseFragment dialog
+     */
+    @Test
+    public void testPauseMenu() {
+        onView(withId(R.id.button_pause))
+                .perform(click());
+
+        onView(withId(R.id.pause_layout))
+                .check(matches(isDisplayed()));
     }
 }
 
