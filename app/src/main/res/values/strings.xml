@@ -61,6 +61,9 @@
     <!-- Normal Game -->
     <string name="normal_deck_remaining">81</string>
 
+    <!-- Pause Menu -->
+    <string name="pause_resume">RESUME</string>
+
     <!-- Extra string constants -->
     <string name="extra_num_players">EXTRA_NUM_PLAYERS</string>
     <string name="extra_time_attack_length">EXTRA_TIME_ATTACK_LENGTH</string>

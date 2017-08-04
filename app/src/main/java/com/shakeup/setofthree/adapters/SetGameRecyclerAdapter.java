@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * <p>
  * RecyclerView Adapter for displaying an array of SetCards to a RecyclerView
  */
-
 public class SetGameRecyclerAdapter
         extends RecyclerView.Adapter<SetGameRecyclerAdapter.SetCardViewHolder> {
 

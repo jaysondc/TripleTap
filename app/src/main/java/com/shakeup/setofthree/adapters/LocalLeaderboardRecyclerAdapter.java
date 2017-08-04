@@ -119,6 +119,8 @@ public class LocalLeaderboardRecyclerAdapter
     /**
      * Get the ID of the most recent record
      *
+     * This method is no longer serves it's function if only the top 5 records are displayed
+     *
      * @return The ID of the most recent record, -1 if the cursor is null
      */
     public int getLatestRecordId() {

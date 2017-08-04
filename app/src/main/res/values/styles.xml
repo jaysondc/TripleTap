@@ -34,4 +34,9 @@
         <item name="android:paddingBottom">3dp</item>
     </style>
 
+    <!-- Dialog style for pause menu -->
+    <style name="PauseDialogStyle" parent="@style/Base.Theme.AppCompat.Light.Dialog">
+
+    </style>
+
 </resources>
