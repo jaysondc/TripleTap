@@ -338,7 +338,6 @@ public class NormalGameFragment
         pauseFragment.setTargetFragment(this, 1);
         pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
 
-
         // Show fragment
         pauseFragment.show(getFragmentManager(), "dialog");
 
