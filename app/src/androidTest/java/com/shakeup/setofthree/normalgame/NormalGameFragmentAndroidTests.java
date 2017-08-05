@@ -209,8 +209,12 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests 
         onView(withId(R.id.button_pause))
                 .perform(click());
 
+        // Check if pause menu exists
         onView(withId(R.id.pause_layout))
                 .check(matches(isDisplayed()));
+
+        onView(withId(R.id.button_resume))
+                .perform(click());
     }
 }
 

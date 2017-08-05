@@ -35,7 +35,7 @@
     </style>
 
     <!-- Dialog style for pause menu -->
-    <style name="PauseDialogStyle" parent="@style/Base.Theme.AppCompat.Light.Dialog">
+    <style name="PauseDialogStyle" parent="@style/Theme.AppCompat.Light.Dialog">
 
     </style>
 

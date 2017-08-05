@@ -16,6 +16,6 @@
     <dimen name="button_shadow_height">5dp</dimen>
 
     <!-- Pause Dialog -->
-    <dimen name="pause_dialog_width">264dp</dimen>
-    <dimen name="pause_dialog_height">164dp</dimen>
+    <dimen name="pause_dialog_width">325dp</dimen>
+    <dimen name="pause_dialog_height">196dp</dimen>
 </resources>

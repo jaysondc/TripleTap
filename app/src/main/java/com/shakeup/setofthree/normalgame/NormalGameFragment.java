@@ -53,6 +53,8 @@ public class NormalGameFragment
     FButton mHintButton;
 
     long mElapsedMillis = 0; // Maintain timer progress between lifecycle changes
+    boolean mIsPaused = false; // Maintain whether or not we're already paused
+    boolean mIsGameOver = false; // Maintain whether we finished the current game
 
     // Default constructor
     public NormalGameFragment() {
@@ -142,14 +144,16 @@ public class NormalGameFragment
 
     @Override
     public void onPause() {
-        stopTimer();
-        mElapsedMillis = getTimerElapsedTime();
+        // Pause the game if we aren't already
+        if (!mIsPaused && !mIsGameOver) {
+            mNormalActionsListener.onPauseClicked();
+        }
         super.onPause();
     }
 
     @Override
     public void onResume() {
-        startTimer(mElapsedMillis);
+        // We don't do anything here since the user needs to resume manually.
         super.onResume();
     }
 
@@ -165,6 +169,8 @@ public class NormalGameFragment
 
     @Override
     public void showGameOver() {
+        mIsGameOver = true;
+
         // Swap in the Game Over Fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -299,18 +305,29 @@ public class NormalGameFragment
      */
     @Override
     public void pauseGame() {
+        // Stop the timer and store elapsed time
+        stopTimer();
+        mElapsedMillis = getTimerElapsedTime();
+        mIsPaused = true;
 
         android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
         pauseFragment.setTargetFragment(this, 1);
+        pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
         pauseFragment.show(getFragmentManager(), "dialog");
-
     }
 
+    /**
+     * Shows the user a hint by highlighting a card that belongs to a set
+     */
     @Override
     public void showHint() {
         // TODO Show hint
     }
 
+    /**
+     * Update the hint button to show the available hints remaining
+     * @param hintsRemaining Number of hints remaining
+     */
     @Override
     public void updateHintButton(int hintsRemaining) {
         // TODO Update hint button
@@ -322,20 +339,22 @@ public class NormalGameFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        switch (resultCode) {
-            case PauseContract.RESULT_RESUME:
-                break;
-            case PauseContract.RESULT_RESTART:
-                break;
-            case PauseContract.RESULT_MAIN_MENU:
-                break;
+        if (resultCode == PauseContract.RESULT_RESUME) {
+            mNormalActionsListener.onPauseResultResume();
+        } else if (resultCode == PauseContract.RESULT_RESTART) {
+            mNormalActionsListener.onPauseResultRestart();
+        } else if (resultCode == PauseContract.RESULT_MAIN_MENU) {
+            mNormalActionsListener.onPauseResultMainMenu();
+        } else {
+            Log.d(LOG_TAG, "The pause menu returned an unexpected code.");
         }
 
     }
 
     @Override
     public void resumeGame() {
-        // Nothing here yet
+        startTimer(mElapsedMillis);
+        mIsPaused = false;
     }
 
     @Override

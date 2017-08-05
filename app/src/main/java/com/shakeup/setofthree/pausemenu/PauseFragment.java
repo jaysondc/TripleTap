@@ -31,6 +31,8 @@ public class PauseFragment extends android.support.v4.app.DialogFragment impleme
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
+        mPresenter = new PausePresenter(this);
+
         View root = inflater.inflate(R.layout.fragment_pause, container, false);
 
         // Grab button references
@@ -99,6 +101,8 @@ public class PauseFragment extends android.support.v4.app.DialogFragment impleme
 
     @Override
     public void onResume() {
+
+        // Set the size of our dialog manually
         int width = getResources().getDimensionPixelSize(R.dimen.pause_dialog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.pause_dialog_height);
         getDialog().getWindow().setLayout(width, height);
