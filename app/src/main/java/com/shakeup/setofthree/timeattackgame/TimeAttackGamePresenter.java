@@ -108,4 +108,30 @@ public class TimeAttackGamePresenter extends GamePresenter
         mScoreUploaded = uploaded;
     }
 
+    @Override
+    public void onPauseClicked() {
+        mTimeAttackGameView.pauseGame();
+    }
+
+    @Override
+    public void onHintClicked() {
+        // TODO: Implement hint functions
+        mTimeAttackGameView.showHint();
+        mTimeAttackGameView.updateHintButton(0);
+    }
+
+    @Override
+    public void onPauseResultResume() {
+        mTimeAttackGameView.resumeGame();
+    }
+
+    @Override
+    public void onPauseResultMainMenu() {
+        mTimeAttackGameView.openMainMenu();
+    }
+
+    @Override
+    public void onPauseResultRestart() {
+        mTimeAttackGameView.restartGame();
+    }
 }

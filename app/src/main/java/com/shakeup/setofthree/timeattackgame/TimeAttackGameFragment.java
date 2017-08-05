@@ -1,13 +1,14 @@
 package com.shakeup.setofthree.timeattackgame;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,17 @@ import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.contentprovider.ScoreColumns;
 import com.shakeup.setofthree.contentprovider.ScoreProvider;
+import com.shakeup.setofthree.customviews.FImageButton;
 import com.shakeup.setofthree.gameoverscreen.GameOverFragment;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
+import com.shakeup.setofthree.mainmenu.MainMenuActivity;
+import com.shakeup.setofthree.pausemenu.PauseContract;
+import com.shakeup.setofthree.pausemenu.PauseFragment;
 import com.shakeup.setofthree.setgame.GameFragment;
 
 import java.util.Locale;
+
+import info.hoang8f.widget.FButton;
 
 /**
  * Created by Jayson on 3/20/2017.
@@ -46,11 +53,17 @@ public class TimeAttackGameFragment
     // Timer updates every second
     long mTimeAttackTickLength = 100;
 
+    // UI Views
     TextView mGameTimer, mGameScore;
+    FImageButton mPauseButton;
+    FButton mHintButton;
 
     // Reference to the timer for the game
     TimeAttackCountdown mTimeAttackCountdown;
 
+    // Game state
+    boolean mIsPaused = false;
+    boolean mIsGameOver = false;
 
     // Default constructor
     public TimeAttackGameFragment() {
@@ -102,16 +115,37 @@ public class TimeAttackGameFragment
         mActionsListener = mTimeAttackActionsListener;
 
         // Set up the RecyclerView and assign it to the superclass
-        mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
+        mRecyclerGridView = root.findViewById(R.id.game_recycler_grid);
 
         // Grab references to our views
         mGameTimer =
-                (TextView) root.findViewById(R.id.game_timer);
+                root.findViewById(R.id.game_timer);
         mGameScore =
-                (TextView) root.findViewById(R.id.game_score);
+                root.findViewById(R.id.game_score);
+        mPauseButton =
+                root.findViewById(R.id.button_pause);
+        mHintButton =
+                root.findViewById(R.id.button_hint);
+
+        // Hook up click listeners
+        mPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTimeAttackActionsListener.onPauseClicked();
+            }
+        });
+        mHintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTimeAttackActionsListener.onHintClicked();
+            }
+        });
 
         // Initialize a game
         mTimeAttackActionsListener.initGame(mExistingGame, mTimeAttackLength, playerScore);
+
+        // Start the timer
+        startTimeAttackCountdown(mTimeAttackLength);
 
         return root;
     }
@@ -138,16 +172,50 @@ public class TimeAttackGameFragment
 
     @Override
     public void onPause() {
+        // Pause the game if we aren't already
+        if (!mIsPaused && !mIsGameOver) {
+            mTimeAttackActionsListener.onPauseClicked();
+        }
         super.onPause();
-        mTimeAttackCountdown.cancel();
     }
 
     @Override
     public void onResume() {
+
+        // Workaround to capture 'back' button presses from the fragment
+        // since we want 'back' to pause the game
+        // https://stackoverflow.com/a/29166971/7009268
+        if(getView() == null){
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP
+                        && keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (!mIsPaused) pauseGame();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         super.onResume();
-        startTimeAttackCountdown(mTimeAttackLength);
     }
 
+    /**
+     * Cleanup timer and resources
+     */
+    @Override
+    public void onStop() {
+        mTimeAttackCountdown.cancel();
+        mTimeAttackCountdown = null;
+
+        super.onStop();
+    }
 
     @Override
     public void onSetSuccess() {
@@ -163,6 +231,9 @@ public class TimeAttackGameFragment
 
     @Override
     public void showGameOver() {
+
+        mIsGameOver = true;
+
         // Swap in the Game Over Fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -191,11 +262,21 @@ public class TimeAttackGameFragment
                 mTimeAttackTickLength);
     }
 
+    /**
+     * Update the display with the number sets found
+     *
+     * @param playerScore Current score
+     */
     @Override
     public void updateScore(long playerScore) {
         mGameScore.setText(String.format(Locale.getDefault(), "%d", playerScore));
     }
 
+    /**
+     * Uploads the score to the GoogleGamesApi. Unlocks any relevant achievements
+     *
+     * @param score Score to be uploaded
+     */
     @Override
     public void uploadScore(long score) {
         // Get the GoogleApiClient from our parent activity
@@ -285,5 +366,94 @@ public class TimeAttackGameFragment
             // Save mills remaining so we can pause and start the timer later
             mTimeAttackLength = millisUntilFinished;
         }
+    }
+
+    /**
+     * Pauses the game and opens the PauseFragment as a dialog for result.
+     */
+    @Override
+    public void pauseGame() {
+        // Stop the timer, elapsed time is stored automatically
+        mTimeAttackCountdown.cancel();
+
+        mIsPaused = true;
+
+        // Set up PauseFragment
+        android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
+        pauseFragment.setCancelable(false);
+        pauseFragment.setTargetFragment(this, 1);
+        pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
+
+        // Show fragment
+        pauseFragment.show(getFragmentManager(), "dialog");
+    }
+
+    /*
+ * Retrieve the results from the pause pop up menu and react accordingly.
+ */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == PauseContract.RESULT_RESUME) {
+            mTimeAttackActionsListener.onPauseResultResume();
+        } else if (resultCode == PauseContract.RESULT_RESTART) {
+            mTimeAttackActionsListener.onPauseResultRestart();
+        } else if (resultCode == PauseContract.RESULT_MAIN_MENU) {
+            mTimeAttackActionsListener.onPauseResultMainMenu();
+        } else {
+            Log.d(LOG_TAG, "The pause menu returned an unexpected code.");
+        }
+
+    }
+
+    /**
+     * Un-pause the current game. This is called when leaving resuming from the pause
+     * menu and coming back from being minimized.
+     */
+    @Override
+    public void resumeGame() {
+        startTimeAttackCountdown(mTimeAttackLength);
+        mIsPaused = false;
+    }
+
+    /**
+     * Start a new game. Ends the current game.
+     */
+    @Override
+    public void restartGame() {
+        // Swap in the Single Player Menu Fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content_frame, TimeAttackGameFragment.newInstance());
+
+        transaction.commit();
+    }
+
+    /**
+     * Clear the task stack and open the main menu
+     */
+    @Override
+    public void openMainMenu() {
+        Intent intent = new Intent(getContext(), MainMenuActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    /**
+     * Shows the user a hint by highlighting a card that belongs to a set
+     */
+    @Override
+    public void showHint() {
+        // TODO Show hint
+    }
+
+    /**
+     * Update the hint button to show the available hints remaining
+     * @param hintsRemaining Number of hints remaining
+     */
+    @Override
+    public void updateHintButton(int hintsRemaining) {
+        // TODO Update hint button
     }
 }

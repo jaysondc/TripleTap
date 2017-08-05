@@ -104,7 +104,9 @@ public class NormalGamePresenter extends GamePresenter
 
     @Override
     public void onHintClicked() {
-        // Nothing here yet
+        // TODO: Implement hint functions
+        mNormalGameView.showHint();
+        mNormalGameView.updateHintButton(0);
     }
 
     @Override

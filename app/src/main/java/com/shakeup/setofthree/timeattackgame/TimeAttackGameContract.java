@@ -23,6 +23,18 @@ public class TimeAttackGameContract extends GameContract {
 
         void saveLocalScore(long score, boolean uploaded);
 
+        void showHint();
+
+        void updateHintButton(int hintsRemaining);
+
+        void pauseGame();
+
+        void resumeGame();
+
+        void restartGame();
+
+        void openMainMenu();
+
     }
 
     /**
@@ -41,6 +53,16 @@ public class TimeAttackGameContract extends GameContract {
         long getPlayerScore();
 
         void onScoreUploaded(boolean uploaded);
+
+        void onPauseClicked();
+
+        void onHintClicked();
+
+        void onPauseResultResume();
+
+        void onPauseResultMainMenu();
+
+        void onPauseResultRestart();
 
     }
 }

@@ -34,8 +34,8 @@ public class PauseFragment extends android.support.v4.app.DialogFragment impleme
         super.onStart();
 
         // Allow the SystemUI to interact with this fragment again
-        Window window = getDialog().getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+//        Window window = getDialog().getWindow();
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
 
     @Nullable

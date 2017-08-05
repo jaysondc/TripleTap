@@ -48,6 +48,7 @@ public class NormalGameFragment
     // Reference to our presenter
     NormalGameContract.UserActionsListener mNormalActionsListener;
 
+    // UI Views
     Chronometer mGameTimerView;
     TextView mDeckRemainingView;
     Button mDebugRefreshView;
@@ -168,8 +169,9 @@ public class NormalGameFragment
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
-                    pauseGame();
+                if (event.getAction() == KeyEvent.ACTION_UP
+                        && keyCode == KeyEvent.KEYCODE_BACK){
+                    if (!mIsPaused) pauseGame();
                     return true;
                 }
                 return false;
@@ -177,6 +179,17 @@ public class NormalGameFragment
         });
 
         super.onResume();
+    }
+
+    /**
+     * Cleanup timer and resources
+     */
+    @Override
+    public void onStop() {
+        stopTimer();
+        mGameTimerView = null;
+
+        super.onStop();
     }
 
     @Override
@@ -340,27 +353,6 @@ public class NormalGameFragment
 
         // Show fragment
         pauseFragment.show(getFragmentManager(), "dialog");
-
-        // Make the dialog focusable after immersive mode is maintained
-//        pauseFragment.getDialog().getWindow().clearFlags(
-//                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-    }
-
-    /**
-     * Shows the user a hint by highlighting a card that belongs to a set
-     */
-    @Override
-    public void showHint() {
-        // TODO Show hint
-    }
-
-    /**
-     * Update the hint button to show the available hints remaining
-     * @param hintsRemaining Number of hints remaining
-     */
-    @Override
-    public void updateHintButton(int hintsRemaining) {
-        // TODO Update hint button
     }
 
     /*
@@ -392,7 +384,7 @@ public class NormalGameFragment
     }
 
     /**
-     * Start a new game. This is called
+     * Start a new game. Ends the current game.
      */
     @Override
     public void restartGame() {
@@ -413,5 +405,22 @@ public class NormalGameFragment
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    /**
+     * Shows the user a hint by highlighting a card that belongs to a set
+     */
+    @Override
+    public void showHint() {
+        // TODO Show hint
+    }
+
+    /**
+     * Update the hint button to show the available hints remaining
+     * @param hintsRemaining Number of hints remaining
+     */
+    @Override
+    public void updateHintButton(int hintsRemaining) {
+        // TODO Update hint button
     }
 }
