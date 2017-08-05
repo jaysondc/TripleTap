@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.shakeup.setofthree.contentprovider.ScoreProvider;
 import com.shakeup.setofthree.customviews.FImageButton;
 import com.shakeup.setofthree.gameoverscreen.GameOverFragment;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
+import com.shakeup.setofthree.mainmenu.MainMenuActivity;
 import com.shakeup.setofthree.pausemenu.PauseContract;
 import com.shakeup.setofthree.pausemenu.PauseFragment;
 import com.shakeup.setofthree.setgame.GameFragment;
@@ -153,7 +155,27 @@ public class NormalGameFragment
 
     @Override
     public void onResume() {
-        // We don't do anything here since the user needs to resume manually.
+
+        // Workaround to capture 'back' button presses from the fragment
+        // since we want 'back' to pause the game
+        // https://stackoverflow.com/a/29166971/7009268
+        if(getView() == null){
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    pauseGame();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         super.onResume();
     }
 
@@ -310,10 +332,19 @@ public class NormalGameFragment
         mElapsedMillis = getTimerElapsedTime();
         mIsPaused = true;
 
+        // Set up PauseFragment
         android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
+        pauseFragment.setCancelable(false);
         pauseFragment.setTargetFragment(this, 1);
         pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
+
+
+        // Show fragment
         pauseFragment.show(getFragmentManager(), "dialog");
+
+        // Make the dialog focusable after immersive mode is maintained
+//        pauseFragment.getDialog().getWindow().clearFlags(
+//                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
 
     /**
@@ -351,19 +382,37 @@ public class NormalGameFragment
 
     }
 
+    /**
+     * Un-pause the current game. This is called when leaving resuming from the pause
+     * menu and coming back from being minimized.
+     */
     @Override
     public void resumeGame() {
         startTimer(mElapsedMillis);
         mIsPaused = false;
     }
 
+    /**
+     * Start a new game. This is called
+     */
     @Override
     public void restartGame() {
-        // Nothing here yet
+        // Swap in the Single Player Menu Fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content_frame, NormalGameFragment.newInstance());
+
+        transaction.commit();
     }
 
+    /**
+     * Clear the task stack and open the main menu
+     */
     @Override
     public void openMainMenu() {
-        // Nothing here yet
+        Intent intent = new Intent(getContext(), MainMenuActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

@@ -3,7 +3,7 @@ package com.shakeup.setofthree.pausemenu;
 /**
  * Created by Jayson Dela Cruz on 8/4/2017.
  *
- * Contract between the View and Presenter for the pause menu
+ * Contract between the View and Presenter for the pause menu.
  */
 
 public class PauseContract {
@@ -19,6 +19,9 @@ public class PauseContract {
         void openMainMenu();
 
         void resumeGame();
+
+        // The view also needs to override onActivityResult
+        // to receive the result from the pause fragment
 
     }
 

@@ -102,6 +102,23 @@ public class PauseFragment extends android.support.v4.app.DialogFragment impleme
     @Override
     public void onResume() {
 
+        // Set flags to maintain immersive mode
+        // http://vardhan-justlikethat.blogspot.com/2014/06/android-immersive-mode-for-dialog.html
+//        getDialog().getWindow().setFlags(
+//                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+//        );
+//        getDialog().getWindow().addFlags(
+//                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+//                        | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        getDialog().getWindow().getDecorView().setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         // Set the size of our dialog manually
         int width = getResources().getDimensionPixelSize(R.dimen.pause_dialog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.pause_dialog_height);
