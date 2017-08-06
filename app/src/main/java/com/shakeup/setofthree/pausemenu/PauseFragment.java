@@ -19,7 +19,7 @@ import info.hoang8f.widget.FButton;
  * This fragment handles the UI actions for the Pause menu
  */
 
-public class PauseFragment extends android.support.v4.app.DialogFragment implements PauseContract.View {
+public class PauseFragment extends android.support.v4.app.DialogFragment implements PauseContract.PauseView {
 
     FButton mResume, mNewGame;
     FImageButton mMainMenu;

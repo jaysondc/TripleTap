@@ -14,8 +14,14 @@
     <!-- Card and Button Values -->
     <dimen name="corner_radius">8dp</dimen>
     <dimen name="button_shadow_height">5dp</dimen>
+    <dimen name="set_card_height">64dp</dimen>
+    <dimen name="set_card_width">112dp</dimen>
 
     <!-- Pause Dialog -->
     <dimen name="pause_dialog_width">325dp</dimen>
     <dimen name="pause_dialog_height">196dp</dimen>
+
+    <!-- Tutorial Dimens -->
+    <dimen name="tutorial_card_height">64dp</dimen>
+    <dimen name="tutorial_card_width">112dp</dimen>
 </resources>

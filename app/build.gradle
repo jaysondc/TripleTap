@@ -50,6 +50,9 @@ repositories {
     maven {
         url "https://maven.google.com"
     }
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
@@ -82,6 +85,8 @@ dependencies {
     // FlatButton for UI buttons
     compile 'info.hoang8f:fbutton:1.0.5'
     annotationProcessor 'org.parceler:parceler:1.1.6'
+    // Intro Activity for Tutorial
+    compile 'com.github.apl-devs:appintro:v4.2.2'
 
     // Dependencies for local unit tests
     testCompile 'junit:junit:4.12'

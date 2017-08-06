@@ -160,6 +160,8 @@ public class SetGameCardView extends CardView {
         );
         mLinearLayout.setLayoutParams(layoutParams);
         this.addView(mLinearLayout);
+
+        drawSymbols();
     }
 
     /**

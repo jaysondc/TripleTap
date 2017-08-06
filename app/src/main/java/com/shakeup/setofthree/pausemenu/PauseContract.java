@@ -3,7 +3,7 @@ package com.shakeup.setofthree.pausemenu;
 /**
  * Created by Jayson Dela Cruz on 8/4/2017.
  *
- * Contract between the View and Presenter for the pause menu.
+ * Contract between the PauseView and Presenter for the pause menu.
  */
 
 public class PauseContract {
@@ -12,7 +12,7 @@ public class PauseContract {
     public static final int RESULT_RESTART = 1;
     public static final int RESULT_MAIN_MENU = 2;
 
-    interface View {
+    interface PauseView {
 
         void restartGame();
 

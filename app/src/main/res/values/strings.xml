@@ -91,4 +91,16 @@
     <string name="bundle_key_timer_length">timer_length</string>
     <string name="bundle_key_ta_score">ta_score</string>
     <string name="bundle_key_recycler_state">recycler_state</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_header_1">Welcome to Set of Three</string>
+    <string name="tutorial_text_1">In Set of Three, players race to find 3 cards on the board that make a SET. Each card has 4 distinct features \&#8230;</string>
+    <string name="tutorial_header_2">Shape</string>
+    <string name="tutorial_text_2">OVAL, SQUIGGLE, or DIAMOND</string>
+    <string name="tutorial_header_3">Color</string>
+    <string name="tutorial_text_3">RED, BLACK, or BLUE \n (These can be changed in settings)</string>
+    <string name="tutorial_header_4">Count</string>
+    <string name="tutorial_text_4">ONE, TWO, or THREE</string>
+    <string name="tutorial_header_5">Fill</string>
+    <string name="tutorial_text_5">SOLID, STRIPE, or OPEN</string>
 </resources>

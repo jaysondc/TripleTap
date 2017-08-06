@@ -12,27 +12,27 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class PausePresenter implements PauseContract.UserActionsListener {
 
-    PauseContract.View mView;
+    PauseContract.PauseView mPauseView;
 
     public PausePresenter(
-            @NonNull PauseContract.View pauseView) {
-        mView =
+            @NonNull PauseContract.PauseView pauseView) {
+        mPauseView =
                 checkNotNull(pauseView, "pauseView cannot be null!");
     }
 
     @Override
     public void onRestartClicked() {
-        mView.restartGame();
+        mPauseView.restartGame();
     }
 
     @Override
     public void onMainMenuClicked() {
-        mView.openMainMenu();
+        mPauseView.openMainMenu();
     }
 
     @Override
     public void onResumeClicked() {
-        mView.resumeGame();
+        mPauseView.resumeGame();
     }
 
 }

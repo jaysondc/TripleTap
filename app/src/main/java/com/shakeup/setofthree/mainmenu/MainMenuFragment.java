@@ -1,7 +1,6 @@
 package com.shakeup.setofthree.mainmenu;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +16,7 @@ import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.customviews.FImageButton;
+import com.shakeup.setofthree.tutorial.TutorialActivity;
 
 import info.hoang8f.widget.FButton;
 
@@ -207,9 +207,7 @@ public class MainMenuFragment
 
     @Override
     public void showHowToPlay() {
-        Intent intent = new Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(getString(R.string.how_to_play_url)));
+        Intent intent = new Intent(getContext(), TutorialActivity.class);
         startActivity(intent);
     }
 
