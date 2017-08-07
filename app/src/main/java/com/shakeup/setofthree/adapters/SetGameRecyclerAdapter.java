@@ -67,15 +67,6 @@ public class SetGameRecyclerAdapter
                 parent,
                 false);
 
-//        UNUSED IMPLEMENTATION FOR DYNAMICALLY SIZED CARDS
-//        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
-//                (parent.getMeasuredWidth() / 3 - 80),
-//                (parent.getMeasuredHeight() / 4 - 30)
-//        );
-//        params.setMargins(15, 15, 15, 15);
-//
-//        cardView.setLayoutParams(params);
-
         // Create a ViewHolder for the configured card
         return new SetCardViewHolder(cardView);
     }
@@ -96,6 +87,9 @@ public class SetGameRecyclerAdapter
 
         // Set debug text
         holder.debugTextView.setText("" + shape + color + count + fill);
+
+        // Unhighlight card in case it was highlighted before recycling
+        holder.cardView.setHighlighted(false);
     }
 
     @Override

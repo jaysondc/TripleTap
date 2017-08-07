@@ -122,7 +122,9 @@ public class NormalGameFragment
         mHintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mNormalActionsListener.onHintClicked();
+                if (!mIsPaused) {
+                    mNormalActionsListener.onHintClicked();
+                }
             }
         });
 
@@ -253,7 +255,9 @@ public class NormalGameFragment
      */
     @Override
     public void stopTimer() {
-        mGameTimerView.stop();
+        if (mGameTimerView != null) {
+            mGameTimerView.stop();
+        }
     }
 
     /**
@@ -341,19 +345,21 @@ public class NormalGameFragment
      */
     @Override
     public void pauseGame() {
-        // Stop the timer and store elapsed time
-        stopTimer();
-        mElapsedMillis = getTimerElapsedTime();
-        mIsPaused = true;
+        if (!mIsPaused) {
+            // Stop the timer and store elapsed time
+            stopTimer();
+            mElapsedMillis = getTimerElapsedTime();
+            mIsPaused = true;
 
-        // Set up PauseFragment
-        android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
-        pauseFragment.setCancelable(false);
-        pauseFragment.setTargetFragment(this, 1);
-        pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
+            // Set up PauseFragment
+            android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
+            pauseFragment.setCancelable(false);
+            pauseFragment.setTargetFragment(this, 1);
+            pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
 
-        // Show fragment
-        pauseFragment.show(getFragmentManager(), "dialog");
+            // Show fragment
+            pauseFragment.show(getFragmentManager(), "dialog");
+        }
     }
 
     /*

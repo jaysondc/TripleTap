@@ -279,22 +279,27 @@ public class SetGameCardView extends CardView {
     // IMPLEMENTATION FOR CHECKABLE INTERFACE //
     public void setChecked(boolean checked) {
         mIsChecked = checked;
-        if (mIsChecked) {
-            this.setBackgroundColor(
+        if (mIsChecked) { // Check
+            this.setCardBackgroundColor(
                     ContextCompat.getColor(
                             mContext,
                             R.color.card_background_selected
                     )
             );
-            this.setElevation(20);
-        } else {
-            this.setElevation(8);
-            this.setBackgroundColor(
-                    ContextCompat.getColor(
-                            mContext,
-                            R.color.card_background_normal
-                    )
-            );
+            this.setActivated(true);
+        } else { // Uncheck, highlight if highlighted
+            if (!isHighlighted()) {
+                this.setCardBackgroundColor(
+                        ContextCompat.getColor(
+                                mContext,
+                                R.color.card_background_normal
+                        )
+                );
+            } else {
+                this.setCardBackgroundColor(
+                        ContextCompat.getColor(mContext, R.color.card_background_highlighted));
+            }
+            this.setActivated(false);
         }
         invalidate();
     }
@@ -316,10 +321,10 @@ public class SetGameCardView extends CardView {
         mIsHighlighted = highlighted;
         // Do something to highlight the card
         if (mIsHighlighted) {
-            this.setBackgroundColor(
+            this.setCardBackgroundColor(
                     ContextCompat.getColor(mContext, R.color.card_background_highlighted));
         } else {
-            this.setBackgroundColor(
+            this.setCardBackgroundColor(
                     ContextCompat.getColor(mContext, R.color.card_background_normal));
         }
         invalidate();
@@ -333,62 +338,9 @@ public class SetGameCardView extends CardView {
         }
     }
 
-    /*
-     * Custom aspect ratios have proven difficult to work right. Implement feature later.
-     */
-//    /**
-//     * When the view is measured modify it's height to match the aspect ratio
-//     * specified in the attributes.
-//     * @param widthMeasureSpec The horizontal space requirements imposed by the parent
-//     * @param heightMeasureSpec The vertical space requirements imposed by the parent
-//     */
-//    @Override protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
-//    {
-//        int finalWidth, finalHeight;
-//
-//        // Get original height and width
-//        int originalWidth = MeasureSpec.getSize(widthMeasureSpec);
-//        int originalHeight = MeasureSpec.getSize(heightMeasureSpec);
-//
-//        if ( mAspectRatioWidth > mAspectRatioHeight ){
-//            // Scale height based on width
-//            finalHeight = originalWidth * mAspectRatioHeight / mAspectRatioWidth;
-//            finalWidth = originalWidth;
-//        } else if ( mAspectRatioWidth < mAspectRatioHeight ){
-//            // Scale width based on height
-//            finalWidth = originalHeight * mAspectRatioHeight / mAspectRatioWidth;
-//            finalHeight = originalHeight;
-//        } else {
-//            finalWidth = originalWidth;
-//            finalHeight = originalHeight;
-//        }
-//
-//        super.onMeasure(
-//                MeasureSpec.makeMeasureSpec(finalWidth, MeasureSpec.EXACTLY),
-//                MeasureSpec.makeMeasureSpec(finalHeight, MeasureSpec.EXACTLY));
-//    }
-
     /**
      * Setters and getters for custom attributes
      */
-//    public int getAspectRatioWidth() {
-//        return mAspectRatioWidth;
-//    }
-//
-//    public void setAspectRatioWidth(int mAspectRatioWidth) {
-//        this.mAspectRatioWidth = mAspectRatioWidth;
-//        invalidate();
-//        requestLayout();
-//    }
-//
-//    public int getAspectRatioHeight() {
-//        return mAspectRatioHeight;
-//    }
-//
-//    public void setAspectRatioHeight(int mAspectRatioHeight) {
-//        this.mAspectRatioHeight = mAspectRatioHeight;
-//        invalidate();
-//        requestLayout();    }
     public int getShape() {
         return mShape;
     }

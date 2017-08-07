@@ -8,6 +8,7 @@
     android:focusable="false"
     android:focusableInTouchMode="false"
     android:foreground="@drawable/card_foreground"
+    android:stateListAnimator="@animator/lift_on_select"
     app:cardCornerRadius="8dp"
     app:symbol_color="red"
     app:symbol_count="two"

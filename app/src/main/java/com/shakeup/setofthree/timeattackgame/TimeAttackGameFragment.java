@@ -138,7 +138,9 @@ public class TimeAttackGameFragment
         mHintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTimeAttackActionsListener.onHintClicked();
+                if (!mIsPaused) {
+                    mTimeAttackActionsListener.onHintClicked();
+                }
             }
         });
 
@@ -374,19 +376,21 @@ public class TimeAttackGameFragment
      */
     @Override
     public void pauseGame() {
-        // Stop the timer, elapsed time is stored automatically
-        mTimeAttackCountdown.cancel();
+        if (!mIsPaused) {
+            // Stop the timer, elapsed time is stored automatically
+            mTimeAttackCountdown.cancel();
 
-        mIsPaused = true;
+            mIsPaused = true;
 
-        // Set up PauseFragment
-        android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
-        pauseFragment.setCancelable(false);
-        pauseFragment.setTargetFragment(this, 1);
-        pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
+            // Set up PauseFragment
+            android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
+            pauseFragment.setCancelable(false);
+            pauseFragment.setTargetFragment(this, 1);
+            pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
 
-        // Show fragment
-        pauseFragment.show(getFragmentManager(), "dialog");
+            // Show fragment
+            pauseFragment.show(getFragmentManager(), "dialog");
+        }
     }
 
     /*
