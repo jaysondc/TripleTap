@@ -3,7 +3,6 @@ package com.shakeup.setofthree.normalgame;
 import android.support.annotation.NonNull;
 
 import com.shakeup.setgamelibrary.SetGame;
-import com.shakeup.setofthree.setgame.GameContract;
 import com.shakeup.setofthree.setgame.GamePresenter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -17,10 +16,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class NormalGamePresenter extends GamePresenter
         implements NormalGameContract.UserActionsListener {
 
+    // Hints given per game
+    private final int HINTS_AVAILABLE = 3;
+
     private final String LOG_TAG = getClass().getSimpleName();
-    int mPlayerScore = 0;
     boolean mScoreUploaded = false;
     private NormalGameContract.View mNormalGameView;
+    private int mHintsAvailable = HINTS_AVAILABLE;
 
     // Supply a default constructor
     public NormalGamePresenter() {
@@ -37,7 +39,7 @@ public class NormalGamePresenter extends GamePresenter
                 checkNotNull(normalGameView, "normalGameView cannot be null!");
 
         // Set our the view reference in our superclass
-        setGameView((GameContract.View) mNormalGameView);
+        setGameView(mNormalGameView);
     }
 
     /**
@@ -55,6 +57,8 @@ public class NormalGamePresenter extends GamePresenter
         mNormalGameView.updateDeckRemaining(mSetGame.getDeckSize() / 3);
         // Reset the score uploaded state
         mScoreUploaded = false;
+        // Show hints available
+        mNormalGameView.updateHintButton(mHintsAvailable);
     }
 
 
@@ -102,11 +106,17 @@ public class NormalGamePresenter extends GamePresenter
         mScoreUploaded = uploaded;
     }
 
+    /**
+     * Shows the user a hint if any are left to use.
+     */
     @Override
     public void onHintClicked() {
-        // TODO: Implement hint functions
-        mNormalGameView.showHint();
-        mNormalGameView.updateHintButton(0);
+        if (mHintsAvailable > 0) {
+            if (showHint()) {
+                mHintsAvailable--;
+            }
+        }
+        mNormalGameView.updateHintButton(mHintsAvailable);
     }
 
     @Override

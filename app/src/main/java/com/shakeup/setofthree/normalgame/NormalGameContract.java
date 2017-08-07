@@ -29,8 +29,6 @@ public class NormalGameContract extends GameContract {
 
         void pauseGame();
 
-        void showHint();
-
         void updateHintButton(int hintsRemaining);
 
         void resumeGame();

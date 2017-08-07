@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -408,19 +409,20 @@ public class NormalGameFragment
     }
 
     /**
-     * Shows the user a hint by highlighting a card that belongs to a set
-     */
-    @Override
-    public void showHint() {
-        // TODO Show hint
-    }
-
-    /**
-     * Update the hint button to show the available hints remaining
+     * Update the hint button to show the available hints remaining. If there are 0 hints
+     * remaining, disable the button
      * @param hintsRemaining Number of hints remaining
      */
     @Override
     public void updateHintButton(int hintsRemaining) {
-        // TODO Update hint button
+        StringBuilder sb = new StringBuilder(getString(R.string.button_hint));
+        sb.append(" (" + hintsRemaining + ")");
+
+        mHintButton.setText(sb.toString());
+        if (hintsRemaining <= 0) {
+            mHintButton.setEnabled(false);
+            mHintButton.setButtonColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_clouds));
+            mHintButton.setShadowColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_silver));
+        }
     }
 }
