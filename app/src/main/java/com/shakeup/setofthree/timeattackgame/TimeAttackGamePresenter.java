@@ -16,10 +16,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class TimeAttackGamePresenter extends GamePresenter
         implements TimeAttackGameContract.UserActionsListener {
 
+    // Hints given per game
+    private final int HINTS_AVAILABLE = 3;
+
     private final String LOG_TAG = getClass().getSimpleName();
     long mPlayerScore = 0;
     boolean mScoreUploaded = false;
     private TimeAttackGameContract.View mTimeAttackGameView;
+    private int mHintsAvailable = HINTS_AVAILABLE;
 
     // Supply a default constructor
     public TimeAttackGamePresenter() {
@@ -56,6 +60,8 @@ public class TimeAttackGamePresenter extends GamePresenter
         // Set the score
         mPlayerScore = playerScore;
         mTimeAttackGameView.updateScore(playerScore);
+        // Show hints available
+        mTimeAttackGameView.updateHintButton(mHintsAvailable);
     }
 
     @Override
@@ -112,11 +118,17 @@ public class TimeAttackGamePresenter extends GamePresenter
         mTimeAttackGameView.pauseGame();
     }
 
+    /**
+     * Shows the user a hint if any are left to use.
+     */
     @Override
     public void onHintClicked() {
-        // TODO: Implement hint functions
-        mTimeAttackGameView.showHint();
-        mTimeAttackGameView.updateHintButton(0);
+        if (mHintsAvailable > 0) {
+            if (showHint()) {
+                mHintsAvailable--;
+            }
+        }
+        mTimeAttackGameView.updateHintButton(mHintsAvailable);
     }
 
     @Override

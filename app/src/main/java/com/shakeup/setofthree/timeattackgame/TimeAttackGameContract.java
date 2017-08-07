@@ -23,8 +23,6 @@ public class TimeAttackGameContract extends GameContract {
 
         void saveLocalScore(long score, boolean uploaded);
 
-        void showHint();
-
         void updateHintButton(int hintsRemaining);
 
         void pauseGame();
