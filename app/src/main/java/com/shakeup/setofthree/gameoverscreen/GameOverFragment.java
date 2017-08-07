@@ -234,12 +234,12 @@ public class GameOverFragment
         String sortOrder = "";
         if (gameMode.equals(getString(R.string.value_mode_normal))) {
             sortOrder = ScoreColumns.SCORE + " ASC, "
-                    + ScoreColumns.TIME + " DESC"
-                    + " LIMIT 5";
+                    + ScoreColumns.TIME + " DESC";
+                    //+ " LIMIT 5";
         } else if (gameMode.equals(getString(R.string.value_mode_time_attack))) {
             sortOrder = ScoreColumns.SCORE + " DESC, "
-                    + ScoreColumns.TIME + " DESC"
-                    + " LIMIT 5";
+                    + ScoreColumns.TIME + " DESC";
+                    //+ " LIMIT 5";
         }
 
         // Create the cursorLoader for our scores

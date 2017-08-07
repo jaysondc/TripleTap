@@ -85,9 +85,10 @@ public class LocalLeaderboardRecyclerAdapter
         String timeString = Utilities.dateToString(time);
 
         // Set our view to display the data
-        holder.mPosition.setText(Utilities.longToString(position + 1));
+        StringBuilder sb = new StringBuilder(Utilities.longToString(position + 1));
+        sb.append(".");
+        holder.mPosition.setText(sb.toString());
         holder.mScore.setText(scoreString);
-        holder.mDate.setText(timeString);
 
         // Set a highlight if we are at the designated highlight position.
         if (position == mHighlightedIndex) {
@@ -118,8 +119,6 @@ public class LocalLeaderboardRecyclerAdapter
 
     /**
      * Get the ID of the most recent record
-     *
-     * This method is no longer serves it's function if only the top 5 records are displayed
      *
      * @return The ID of the most recent record, -1 if the cursor is null
      */

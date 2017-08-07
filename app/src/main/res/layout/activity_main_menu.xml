@@ -18,6 +18,7 @@
             android:id="@+id/menu_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
             android:layout_centerHorizontal="true"
             android:text="@string/menu_title"
             android:textSize="48sp" />
@@ -34,7 +35,7 @@
         android:layout_marginTop="16dp"
         android:layout_weight=".75"
         android:gravity="center"
-        android:orientation="vertical"></FrameLayout>
+        android:orientation="vertical"/>
 
     <com.shakeup.setofthree.customviews.FImageButton
         android:id="@+id/sign_in_button"

@@ -3,8 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/game_over_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_over"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="16dp"
+        style="@style/GameUiHeader"
+        android:fontFamily="sans-serif-bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="GAME OVER" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_game_over_leaderboard"
@@ -18,22 +31,13 @@
         app:layout_constraintTop_toBottomOf="@+id/game_over_title"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/game_over_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_over"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textSize="48sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="GAME OVER" />
-
     <info.hoang8f.widget.FButton
         android:id="@+id/button_restart"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:text="@string/button_restart"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="4dp"
         style="@style/FlatButtonStyle"
         android:textColor="@color/primary_text_inverse"
@@ -51,6 +55,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@string/menu_leaderboard"
         android:src="@drawable/ic_games_leaderboards_white_48dp"
         app:layout_constraintLeft_toRightOf="@id/button_restart"
@@ -65,6 +70,8 @@
         style="@style/FlatButtonStyle"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:contentDescription="@string/menu_leaderboard"
         android:src="@drawable/ic_menu_white_48dp"
         app:layout_constraintLeft_toRightOf="@id/button_leaderboard"

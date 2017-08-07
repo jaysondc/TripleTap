@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textSize="24sp"
+            style="@style/GameUiText"
             tools:text="Score: 10" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textSize="24sp"
+            style="@style/GameUiText"
             tools:text="Score: 10" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textSize="24sp"
+            style="@style/GameUiText"
             tools:text="Score: 10" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -192,7 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textSize="24sp"
+            style="@style/GameUiText"
             tools:text="Score: 10" />
     </com.github.rongi.rotate_layout.layout.RotateLayout>
 
