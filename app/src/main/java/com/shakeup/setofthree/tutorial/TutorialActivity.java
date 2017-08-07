@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro;
-import com.github.paolorotolo.appintro.AppIntro2Fragment;
-import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.shakeup.setofthree.R;
 
 /**
@@ -31,7 +29,13 @@ public class TutorialActivity extends AppIntro {
         addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_3));
         addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_4));
         addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_5));
-        addSlide(AppIntro2Fragment.newInstance("Test Fragment", "Here is a description.", R.drawable.ic_set_icons_oval_solid, R.color.fbutton_color_emerald));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_6));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_7));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_8));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_9));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_10));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_11));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_12));
 
         // Hide Skip/Done button.
         showSkipButton(true);
@@ -42,7 +46,8 @@ public class TutorialActivity extends AppIntro {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        // Do something when users tap on Skip button.
+        // End the current activity. TODO Change this to launch training mode.
+        this.finish();
     }
 
     @Override

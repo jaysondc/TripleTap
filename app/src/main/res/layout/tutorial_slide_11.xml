@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fbutton_color_turquoise">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:gravity="center">
+
+            <TextView
+                style="@style/AppIntroDefaultHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tutorial_header_11"
+                android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+            <com.shakeup.setofthree.customviews.SetGameCardView
+                android:id="@+id/card_one"
+                android:layout_width="@dimen/tutorial_card_width"
+                android:layout_height="@dimen/tutorial_card_height"
+                app:layout_constraintBottom_toTopOf="@+id/card_two"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:symbol_color="purple"
+                app:symbol_count="one"
+                app:symbol_fill="stripe"
+                app:symbol_shape="diamond"/>
+
+            <com.shakeup.setofthree.customviews.SetGameCardView
+                android:id="@+id/card_two"
+                android:layout_width="@dimen/tutorial_card_width"
+                android:layout_height="@dimen/tutorial_card_height"
+                app:layout_constraintBottom_toTopOf="@+id/card_three"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_one"
+                app:symbol_color="purple"
+                app:symbol_count="three"
+                app:symbol_fill="solid"
+                app:symbol_shape="diamond" />
+
+            <RelativeLayout
+                android:id="@+id/card_three"
+                android:layout_width="@dimen/tutorial_card_width"
+                android:layout_height="@dimen/tutorial_card_height"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_two"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/AppIntroDefaultHeading"
+                    android:text="@string/tutorial_hint_11"
+                    />
+                </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:gravity="center">
+
+            <TextView
+                style="@style/AppIntroDefaultText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/tutorial_text_11"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline_text" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
