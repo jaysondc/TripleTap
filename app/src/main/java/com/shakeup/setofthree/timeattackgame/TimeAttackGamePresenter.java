@@ -3,7 +3,6 @@ package com.shakeup.setofthree.timeattackgame;
 import android.support.annotation.NonNull;
 
 import com.shakeup.setgamelibrary.SetGame;
-import com.shakeup.setofthree.setgame.GameContract;
 import com.shakeup.setofthree.setgame.GamePresenter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -37,7 +36,7 @@ public class TimeAttackGamePresenter extends GamePresenter
                 checkNotNull(timeAttackGameView, "timeAttackGameView cannot be null!");
 
         // Set our the view reference in our superclass
-        setGameView((GameContract.View) mTimeAttackGameView);
+        setGameView(mTimeAttackGameView);
     }
 
     /**

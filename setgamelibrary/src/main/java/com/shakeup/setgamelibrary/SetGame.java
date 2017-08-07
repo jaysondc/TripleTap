@@ -11,6 +11,9 @@ import java.util.List;
 
 public class SetGame {
 
+    public static final int DIFFICULTY_NORMAL = 0;
+    public static final int DIFFICULTY_EASY = 1;
+
     // Number of available sets in the current hand
     public int mNumSetsAvailable;
     // Array to hold all drawn cards
@@ -34,7 +37,7 @@ public class SetGame {
      * Constructor to initialize a Normal difficulty game of SET
      */
     public SetGame() {
-        init(0);
+        init(DIFFICULTY_NORMAL);
     }
 
     /**
@@ -322,11 +325,10 @@ public class SetGame {
          * 0 - Normal Mode
          * 1 - Easy Mode
          */
-        public SetDeck(int mode) {
-
-            if (mode == 0) { // Normal Mode
+        public SetDeck(int difficulty) {
+            if (difficulty == DIFFICULTY_NORMAL) { // Normal Mode
                 mDeck = createNormalDeck();
-            } else if (mode == 1) { // Easy Mode
+            } else if (difficulty == DIFFICULTY_EASY) { // Easy Mode
                 mDeck = createEasyDeck();
             }
         }

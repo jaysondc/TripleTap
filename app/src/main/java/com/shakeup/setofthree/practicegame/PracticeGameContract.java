@@ -32,6 +32,8 @@ public class PracticeGameContract extends GameContract {
 
         void initGame(SetGame existingGame);
 
+        void onHintClicked();
+
         void onPauseClicked();
 
         void onPauseResultResume();

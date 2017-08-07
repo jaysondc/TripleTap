@@ -23,6 +23,9 @@ public class GamePresenter implements GameContract.UserActionsListener {
     private GameContract.View mGameView;
     // Tag to tell if we're in debug mode
     protected boolean mIsDebug;
+    // Triplet containing the current hint set
+    protected SetGame.Triplet mHintTriplet;
+    protected int mHintsHighlighted = 0;
 
 
     // Supply a default constructor
@@ -59,7 +62,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
         if (existingGame != null) {
             mSetGame = existingGame;
         } else {
-            mSetGame = new SetGame(0);
+            mSetGame = new SetGame(SetGame.DIFFICULTY_NORMAL);
         }
 
         // Get the location of valid sets on the board
@@ -88,21 +91,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
             // Call presenter method to handle failure
             this.onSetFailure();
         } else {
-            // Update the set hand
-            mGameView.updateSetHand(
-                    mSetGame.getIsOverflow(),
-                    mSetGame.getDeckSize());
-
-            // Call presenter method to handle success
             this.onSetSuccess();
-
-            // Call the GameOver method if the game is over,
-            if (mSetGame.getIsGameOver()) {
-                this.onGameOver();
-            }
-
-            // Get the new SetLocations array
-            mSetLocations = mSetGame.getLocationOfSets();
         }
 
     }
@@ -122,7 +111,25 @@ public class GamePresenter implements GameContract.UserActionsListener {
      */
     @Override
     public void onSetSuccess() {
+        // Update the set hand
+        mGameView.updateSetHand(
+                mSetGame.getIsOverflow(),
+                mSetGame.getDeckSize());
+
+        // Call presenter method to handle success
         mGameView.onSetSuccess();
+
+        // Call the GameOver method if the game is over,
+        if (mSetGame.getIsGameOver()) {
+            this.onGameOver();
+        }
+
+        // Get the new SetLocations array
+        mSetLocations = mSetGame.getLocationOfSets();
+
+        // Clear the number of highlighted hints
+        mHintTriplet = null;
+        mHintsHighlighted = 0;
     }
 
     /**
@@ -153,33 +160,60 @@ public class GamePresenter implements GameContract.UserActionsListener {
     }
 
     /**
-     * Highlight a valid set on the board
+     * Highlight a valid set on the board. This only is used by debug mode to highlight
+     * entire sets at a time.
      */
     public void highlightValidSet() {
         // If there are any sets left on the board
         if (mSetGame.getNumAvailableSets() > 0) {
-            // Get a random set
-            SetGame.Triplet randomSet = mSetGame.getRandomSet();
+            if (mHintTriplet == null) {
+                // Get a random set
+                mHintTriplet = mSetGame.getRandomSet();
+            }
 
             // Highlight each index
-            mGameView.highlightCard(randomSet.getFirst());
-            mGameView.highlightCard(randomSet.getSecond());
-            mGameView.highlightCard(randomSet.getThird());
+            mGameView.highlightCard(mHintTriplet.getFirst());
+            mGameView.highlightCard(mHintTriplet.getSecond());
+            mGameView.highlightCard(mHintTriplet.getThird());
         }
     }
 
     /**
-     * Highlight a single card from a valid set as a hint
+     * Highlight cards as hints. This highlights more cards from a set the more times
+     * you press the hint button. If 3 cards are already highlighted do nothing. Subclasses
+     * can wrap this class to add their own actions upon hint button clicks.
+     *
+     * @return whether or not a new card was highlighted
      */
-    public void onShowHintClick() {
+    public boolean showHint() {
         // If there are any sets left on the board
         if (mSetGame.getNumAvailableSets() > 0) {
-            // Get a random set
-            SetGame.Triplet randomSet = mSetGame.getRandomSet();
+            if (mHintTriplet == null) {
+                // Get a random set
+                mHintTriplet = mSetGame.getRandomSet();
+            }
 
-            // Highlight the first index
-            mGameView.highlightCard(randomSet.getFirst());
+            switch (mHintsHighlighted) {
+                case 0:
+                    // Highlight the first index
+                    mGameView.highlightCard(mHintTriplet.getFirst());
+                    mHintsHighlighted++;
+                    return true;
+                case 1:
+                    // Highlight the second index
+                    mGameView.highlightCard(mHintTriplet.getSecond());
+                    mHintsHighlighted++;
+                    return true;
+                case 2:
+                    // Highlight the third index
+                    mGameView.highlightCard(mHintTriplet.getThird());
+                    mHintsHighlighted++;
+                    return true;
+                default:
+                    return false;
+            }
         }
+        return false;
     }
 
     /**

@@ -45,8 +45,9 @@ public class PracticeGamePresenter extends GamePresenter
         super.initGame(existingGame);
         // Enable clicks
         mPracticeGameView.setGameClickable(true);
+        // Set the game to endless
+        mSetGame.setEndlessMode(true);
     }
-
 
     /*
      * Update the deck
@@ -70,6 +71,14 @@ public class PracticeGamePresenter extends GamePresenter
     @Override
     public void onGameOver() {
         super.onGameOver();
+    }
+
+    /**
+     * Each time hint is clicked, show another card from the hint set until a set is claimed
+     */
+    @Override
+    public void onHintClicked() {
+        showHint();
     }
 
     @Override

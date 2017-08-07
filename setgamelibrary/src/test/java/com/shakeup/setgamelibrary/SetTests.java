@@ -247,7 +247,7 @@ public class SetTests {
 
     @Test
     public void setFullGameTest() {
-        SetGame testGame = new SetGame(1);
+        SetGame testGame = new SetGame(SetGame.DIFFICULTY_NORMAL);
         ArrayList<SetGame.Triplet> locationOfSets;
         int detectedSets = 0;
         int handSize = 0;

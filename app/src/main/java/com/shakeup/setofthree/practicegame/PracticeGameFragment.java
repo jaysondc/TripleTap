@@ -100,6 +100,12 @@ public class PracticeGameFragment
                 mPracticeActionsListener.onPauseClicked();
             }
         });
+        mHintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPracticeActionsListener.onHintClicked();
+            }
+        });
 
         // Initialize a game
         mPracticeActionsListener.initGame(mExistingGame);

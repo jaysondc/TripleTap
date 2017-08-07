@@ -68,7 +68,7 @@ public class GameContract {
 
         void highlightValidSet();
 
-        void onShowHintClick();
+        boolean showHint();
 
         ArrayList<SetGame.Triplet> getSetLocations();
 
