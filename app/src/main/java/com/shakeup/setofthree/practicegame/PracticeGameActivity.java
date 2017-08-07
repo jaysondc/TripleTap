@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.normalgame;
+package com.shakeup.setofthree.practicegame;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,15 +10,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
+import com.shakeup.setofthree.normalgame.NormalGameFragment;
 
 /**
- * Created by Jayson on 3/29/2017.
+ * Created by Jayson on 8/7/2017.
  * <p>
  * This doesn't do anything except set up the correct
  * fragment which will contain all the views seen by the user.
  */
 
-public class NormalGameActivity
+public class PracticeGameActivity
         extends FullScreenActivity
         implements GoogleApiClientCallback {
 
@@ -31,7 +32,7 @@ public class NormalGameActivity
         setContentView(R.layout.activity_game);
 
         if (null == savedInstanceState) {
-            initFragment(NormalGameFragment.newInstance());
+            initFragment(PracticeGameFragment.newInstance());
         }
     }
 

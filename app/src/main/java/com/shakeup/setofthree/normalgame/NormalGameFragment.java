@@ -95,7 +95,7 @@ public class NormalGameFragment
 
         // Instance the presenter our fragment uses and grab a reference
         mNormalActionsListener = new NormalGamePresenter(this);
-        // Have the superclass use the MultiplayerGamePresenter as its GamePresenter
+        // Have the superclass use the NormalGamePresenter as its GamePresenter
         mActionsListener = mNormalActionsListener;
 
         // Set up the RecyclerView and assign it to the superclass

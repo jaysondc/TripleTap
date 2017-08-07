@@ -42,6 +42,14 @@ public class MainMenuSinglePlayerPresenter
         mSinglePlayerView.openTimeAttack(60000);
     }
 
+    /**
+     * Open the UI handler for launching a Practice game
+     */
+    @Override
+    public void onPracticeClick() {
+        mSinglePlayerView.openPractice();
+    }
+
     @Override
     public void onBackClick() {
         mSinglePlayerView.openPreviousFragment();

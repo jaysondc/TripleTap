@@ -22,8 +22,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:shadowColor="@color/fbutton_color_green_sea"
         app:shadowHeight="@dimen/button_shadow_height"
-        app:layout_constraintVertical_bias="0.5"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintVertical_bias="0.5"/>
 
     <info.hoang8f.widget.FButton
         android:id="@+id/button_time_attack"
@@ -35,10 +34,27 @@
         android:text="@string/menu_time_attack"
         android:textColor="@color/primary_text_inverse"
         app:buttonColor="@color/fbutton_color_turquoise"
-        app:layout_constraintBottom_toTopOf="@id/button_back"
+        app:layout_constraintBottom_toTopOf="@+id/button_practice"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_normal"
+        app:shadowColor="@color/fbutton_color_green_sea"
+        app:shadowHeight="@dimen/button_shadow_height" />
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/button_practice"
+        style="@style/FlatButtonStyle"
+        android:layout_width="224dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="4dp"
+        android:drawableStart="@drawable/ic_school_white_48dp"
+        android:text="@string/menu_practice"
+        android:textColor="@color/primary_text_inverse"
+        app:buttonColor="@color/fbutton_color_turquoise"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_time_attack"
+        app:layout_constraintBottom_toTopOf="@+id/button_back"
         app:shadowColor="@color/fbutton_color_green_sea"
         app:shadowHeight="@dimen/button_shadow_height" />
 
@@ -47,28 +63,15 @@
         style="@style/FlatButtonStyle"
         android:layout_width="224dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="4dp"
         android:drawableStart="@drawable/ic_keyboard_backspace_white_48dp"
         android:text="@string/menu_back"
         android:textColor="@color/primary_text_inverse"
         app:buttonColor="@color/fbutton_color_turquoise"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_time_attack"
-        app:layout_constraintBottom_toTopOf="@+id/placeholder"
+        app:layout_constraintTop_toBottomOf="@id/button_practice"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:shadowColor="@color/fbutton_color_green_sea"
         app:shadowHeight="@dimen/button_shadow_height" />
-
-    <LinearLayout
-        android:id="@id/placeholder"
-        android:layout_width="224dp"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp" />
 
 </android.support.constraint.ConstraintLayout>

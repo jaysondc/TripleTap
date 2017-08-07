@@ -23,8 +23,9 @@
     <string name="menu_four_players">Four Players</string>
 
     <!-- Single Player Menu -->
-    <string name="menu_normal">Classic</string>
+    <string name="menu_normal">Normal</string>
     <string name="menu_time_attack">Time Attack</string>
+    <string name="menu_practice">Practice</string>
 
     <!-- Game -->
     <string name="message_found_set">You found a SET!</string>

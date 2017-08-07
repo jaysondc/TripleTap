@@ -58,6 +58,9 @@
             android:name=".normalgame.NormalGameActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".practicegame.PracticeGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".tutorial.TutorialActivity"
             android:screenOrientation="portrait" />
     </application>

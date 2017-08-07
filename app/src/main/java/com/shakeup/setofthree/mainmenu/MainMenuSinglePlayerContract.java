@@ -16,6 +16,8 @@ public class MainMenuSinglePlayerContract {
 
         void openTimeAttack(long timeAttackLength);
 
+        void openPractice();
+
         void openPreviousFragment();
 
     }
@@ -25,6 +27,8 @@ public class MainMenuSinglePlayerContract {
         void onNormalClick();
 
         void onTimeAttackClick();
+
+        void onPracticeClick();
 
         void onBackClick();
 

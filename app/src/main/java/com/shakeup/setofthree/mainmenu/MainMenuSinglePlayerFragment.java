@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.normalgame.NormalGameActivity;
+import com.shakeup.setofthree.practicegame.PracticeGameActivity;
 import com.shakeup.setofthree.timeattackgame.TimeAttackGameActivity;
 
 import info.hoang8f.widget.FButton;
@@ -60,6 +61,8 @@ public class MainMenuSinglePlayerFragment
                 root.findViewById(R.id.button_normal);
         FButton timeAttackButton =
                 root.findViewById(R.id.button_time_attack);
+        FButton practiceButton =
+                root.findViewById(R.id.button_practice);
         FButton backButton =
                 root.findViewById(R.id.button_back);
 
@@ -71,12 +74,18 @@ public class MainMenuSinglePlayerFragment
                 mActionsListener.onNormalClick();
             }
         });
-
         timeAttackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Call presenter handler for a Time Attack game
                 mActionsListener.onTimeAttackClick();
+            }
+        });
+        practiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call presenter handler for a Time Attack game
+                mActionsListener.onPracticeClick();
             }
         });
 
@@ -109,6 +118,16 @@ public class MainMenuSinglePlayerFragment
         Log.d(LOG_TAG, "Started a Single Player Time Attack game.");
         Intent intent = new Intent(getContext(), TimeAttackGameActivity.class);
         intent.putExtra(getString(R.string.extra_time_attack_length), timeAttackLength);
+        startActivity(intent);
+    }
+
+    /**
+     * Launch a Single player Practice game.
+     */
+    @Override
+    public void openPractice() {
+        Log.d(LOG_TAG, "Started a Single Player Practice game.");
+        Intent intent = new Intent(getContext(), PracticeGameActivity.class);
         startActivity(intent);
     }
 
