@@ -36,6 +36,7 @@ public class TutorialActivity extends AppIntro {
         addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_10));
         addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_11));
         addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_12));
+        addSlide(TutorialSlide.newInstance(R.layout.tutorial_slide_13));
 
         // Hide Skip/Done button.
         showSkipButton(true);
@@ -46,19 +47,14 @@ public class TutorialActivity extends AppIntro {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        // End the current activity. TODO Change this to launch training mode.
+        // End the current activity.
         this.finish();
     }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        // Do something when users tap on Done button.
-    }
-
-    @Override
-    public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
-        super.onSlideChanged(oldFragment, newFragment);
-        // Do something when the slide changes.
+        // End the current activity.
+        this.finish();
     }
 }

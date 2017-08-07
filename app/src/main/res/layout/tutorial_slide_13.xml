@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fbutton_color_turquoise">
@@ -24,7 +25,7 @@
                 style="@style/AppIntroDefaultHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tutorial_header_12"
+                android:text="@string/tutorial_header_13"
                 android:textAppearance="@android:style/TextAppearance.Material.Headline"
                 app:layout_constraintBottom_toTopOf="@+id/guideline_title"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -37,44 +38,19 @@
             android:layout_height="0dp"
             android:layout_weight="0.5">
 
-            <com.shakeup.setofthree.customviews.SetGameCardView
-                android:id="@+id/card_one"
-                android:layout_width="@dimen/tutorial_card_width"
-                android:layout_height="@dimen/tutorial_card_height"
-                app:layout_constraintBottom_toTopOf="@+id/card_two"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:symbol_color="purple"
-                app:symbol_count="one"
-                app:symbol_fill="stripe"
-                app:symbol_shape="diamond"/>
-
-            <com.shakeup.setofthree.customviews.SetGameCardView
-                android:id="@+id/card_two"
-                android:layout_width="@dimen/tutorial_card_width"
-                android:layout_height="@dimen/tutorial_card_height"
-                app:layout_constraintBottom_toTopOf="@+id/card_three"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_one"
-                app:symbol_color="purple"
-                app:symbol_count="three"
-                app:symbol_fill="solid"
-                app:symbol_shape="diamond" />
-
-            <com.shakeup.setofthree.customviews.SetGameCardView
-                android:id="@+id/card_three"
-                android:layout_width="@dimen/tutorial_card_width"
-                android:layout_height="@dimen/tutorial_card_height"
+            <ImageView
+                android:layout_height="200dp"
+                android:layout_width="200dp"
+                android:src="@drawable/ic_checkbox_marked_circle_white_48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_two"
-                app:symbol_color="purple"
-                app:symbol_count="two"
-                app:symbol_fill="open"
-                app:symbol_shape="diamond" />
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp" />
+
         </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
@@ -89,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="@string/tutorial_text_12"
+                android:text="@string/tutorial_text_13"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
