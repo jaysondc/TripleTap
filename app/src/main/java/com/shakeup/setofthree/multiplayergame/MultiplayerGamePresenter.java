@@ -20,6 +20,8 @@ public class MultiplayerGamePresenter extends GamePresenter
 
     private MultiplayerGameContract.View mMultiplayerGameView;
 
+    private boolean isGameOver = false;
+
     // Scorekeeping
     private int[] mScoreArray = new int[4];
 
@@ -74,17 +76,19 @@ public class MultiplayerGamePresenter extends GamePresenter
     public void onPlayerButtonClick(int playerId) {
         Log.d(LOG_TAG, "Player " + playerId + " clicked their button.");
 
-        // Set the player as active
-        mMultiplayerGameView.setActivePlayer(playerId);
+        if (!isGameOver) {
+            // Set the player as active
+            mMultiplayerGameView.setActivePlayer(playerId);
 
-        // Unlock the board
-        mMultiplayerGameView.setGameClickable(true);
+            // Unlock the board
+            mMultiplayerGameView.setGameClickable(true);
 
-        // Change the game state to show we are waiting for a player action
-        mMultiplayerGameView.setGameState(1);
+            // Change the game state to show we are waiting for a player action
+            mMultiplayerGameView.setGameState(1);
 
-        // Start the find a set timer for each button
-        mMultiplayerGameView.startFindSetCountdown();
+            // Start the find a set timer for each button
+            mMultiplayerGameView.startFindSetCountdown();
+        }
     }
 
     /**
@@ -114,5 +118,25 @@ public class MultiplayerGamePresenter extends GamePresenter
         mMultiplayerGameView.setGameState(0);
     }
 
+    /**
+     * Determine who won the game and display a winning state for each player
+     */
+    @Override
+    public void onGameOver() {
+        // Find the max score
+        int maxScore = 0;
+        for (int score : mScoreArray) {
+            maxScore = (score > maxScore) ? score : maxScore;
+        }
 
+        // Show winners who have max score
+        for (int i = 0; i < mScoreArray.length; i++) {
+            if (mScoreArray[i] == maxScore) {
+                mMultiplayerGameView.showWinner(i);
+            }
+        }
+
+        mMultiplayerGameView.setGameClickable(false);
+        isGameOver = true;
+    }
 }

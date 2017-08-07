@@ -22,6 +22,8 @@ public class MultiplayerGameContract extends GameContract {
 
         void updatePlayerScore(int playerId, int playerScore);
 
+        void showWinner(int playerId);
+
     }
 
     /**

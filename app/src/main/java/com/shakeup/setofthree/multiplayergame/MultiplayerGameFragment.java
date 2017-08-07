@@ -3,8 +3,7 @@ package com.shakeup.setofthree.multiplayergame;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +117,7 @@ public class MultiplayerGameFragment
         mActionsListener = mMultiplayerActionsListener;
 
         // Set up the RecyclerView and assign it to the superclass
-        mRecyclerGridView = (RecyclerView) root.findViewById(R.id.game_recycler_grid);
+        mRecyclerGridView = root.findViewById(R.id.game_recycler_grid);
 
         // Hide unused player spaces
         switch (numPlayers) {
@@ -136,13 +135,13 @@ public class MultiplayerGameFragment
         root.invalidate();
 
         SubmitProcessButton playerOneButton =
-                (SubmitProcessButton) root.findViewById(R.id.button_player_one);
+                root.findViewById(R.id.button_player_one);
         SubmitProcessButton playerTwoButton =
-                (SubmitProcessButton) root.findViewById(R.id.button_player_two);
+                root.findViewById(R.id.button_player_two);
         SubmitProcessButton playerThreeButton =
-                (SubmitProcessButton) root.findViewById(R.id.button_player_three);
+                root.findViewById(R.id.button_player_three);
         SubmitProcessButton playerFourButton =
-                (SubmitProcessButton) root.findViewById(R.id.button_player_four);
+                root.findViewById(R.id.button_player_four);
 
         // Wrap the buttons in our MultiplayerButtonView class so we can easily animate them
         playerOneButtonView = new MultiplayerButtonView(playerOneButton, getContext());
@@ -176,10 +175,10 @@ public class MultiplayerGameFragment
         });
 
         // Set up Score displays
-        mPlayerScoreArray[0] = (TextView) root.findViewById(R.id.score_player_one);
-        mPlayerScoreArray[1] = (TextView) root.findViewById(R.id.score_player_two);
-        mPlayerScoreArray[2] = (TextView) root.findViewById(R.id.score_player_three);
-        mPlayerScoreArray[3] = (TextView) root.findViewById(R.id.score_player_four);
+        mPlayerScoreArray[0] = root.findViewById(R.id.score_player_one);
+        mPlayerScoreArray[1] = root.findViewById(R.id.score_player_two);
+        mPlayerScoreArray[2] = root.findViewById(R.id.score_player_three);
+        mPlayerScoreArray[3] = root.findViewById(R.id.score_player_four);
         for (TextView view : mPlayerScoreArray) {
             view.setText(R.string.score_initial);
         }
@@ -204,10 +203,6 @@ public class MultiplayerGameFragment
 
     @Override
     public void onSetSuccess() {
-//        // Do stuff in response to successful SET claim
-//        Snackbar.make(getView(), getString(R.string.message_found_set), Snackbar.LENGTH_LONG)
-//                .show();
-
         // Set the new game state and let the timers handle button states
         setGameState(3);
 
@@ -231,10 +226,6 @@ public class MultiplayerGameFragment
 
     @Override
     public void onSetFailure() {
-//        // Do stuff in response to a failed set claim
-//        Snackbar.make(getView(), getString(R.string.message_not_set), Snackbar.LENGTH_LONG)
-//                .show();
-
         // Set the new game state and let the timers handle button states
         setGameState(2);
 
@@ -256,16 +247,13 @@ public class MultiplayerGameFragment
 
     @Override
     public void showGameOver() {
+        mMultiplayerActionsListener.onGameOver();
+    }
 
-        // Show the game over state
-        Snackbar.make(getView(), getString(R.string.message_game_over), Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.message_restart), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mActionsListener.initGame(null);
-                    }
-                })
-                .show();
+    @Override
+    public void showWinner(int playerId) {
+        mPlayerScoreArray[playerId].setBackgroundColor(
+                ContextCompat.getColor(getContext(), R.color.fbutton_color_sun_flower));
     }
 
     @Override
