@@ -327,6 +327,7 @@ public class SetGameCardView extends CardView {
             this.setCardBackgroundColor(
                     ContextCompat.getColor(mContext, R.color.card_background_normal));
         }
+        setSelected(highlighted);
         invalidate();
     }
 
