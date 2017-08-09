@@ -5,18 +5,20 @@
     android:id="@id/content_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    style="@style/ActivityTheme">
 
     <com.github.rongi.rotate_layout.layout.RotateLayout
         android:id="@+id/rotateLayoutButtonOne"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/rotateLayoutButtonThree"
         app:layout_constraintTop_toBottomOf="@+id/rotateLayoutScoreOne"
-        app:layout_goneMarginEnd="0dp">
+        app:layout_goneMarginEnd="16dp">
 
         <com.dd.processbutton.iml.SubmitProcessButton
             android:id="@+id/button_player_one"
@@ -41,7 +43,7 @@
 
         <TextView
             android:id="@+id/score_player_one"
-            style="@style/GameUiText"
+            style="@style/MultiplayerScoreStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -53,6 +55,8 @@
         android:id="@+id/rotateLayoutButtonThree"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         app:angle="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +87,7 @@
 
         <TextView
             android:id="@+id/score_player_three"
-            style="@style/GameUiText"
+            style="@style/MultiplayerScoreStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -97,9 +101,9 @@
         android:id="@+id/game_frame"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:overScrollMode="never"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
         app:angle="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H, 1:1"
@@ -118,12 +122,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:angle="180"
         app:layout_constraintBottom_toTopOf="@+id/rotateLayoutScoreTwo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/rotateLayoutButtonFour"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginEnd="0dp">
+        app:layout_goneMarginEnd="16dp">
 
         <com.dd.processbutton.iml.SubmitProcessButton
             android:id="@+id/button_player_two"
@@ -148,7 +154,7 @@
 
         <TextView
             android:id="@+id/score_player_two"
-            style="@style/GameUiText"
+            style="@style/MultiplayerScoreStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -160,7 +166,9 @@
         android:id="@+id/rotateLayoutButtonFour"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         app:angle="180"
         app:layout_constraintBottom_toTopOf="@+id/rotateLayoutScoreFour"
         app:layout_constraintLeft_toRightOf="@id/rotateLayoutButtonTwo"
@@ -192,7 +200,7 @@
 
         <TextView
             android:id="@+id/score_player_four"
-            style="@style/GameUiText"
+            style="@style/MultiplayerScoreStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

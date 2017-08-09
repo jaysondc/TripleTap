@@ -427,8 +427,8 @@ public class NormalGameFragment
         mHintButton.setText(sb.toString());
         if (hintsRemaining <= 0) {
             mHintButton.setEnabled(false);
-            mHintButton.setButtonColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_clouds));
-            mHintButton.setShadowColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_silver));
+            mHintButton.setButtonColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_silver));
+            mHintButton.setShadowColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_concrete));
         }
     }
 }

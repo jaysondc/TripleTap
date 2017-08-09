@@ -44,13 +44,22 @@
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textSize">48sp</item>
     </style>
+
     <style name="GameUiText">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textSize">24sp</item>
     </style>
 
+    <style name="MultiplayerScoreStyle" parent="GameUiText">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
     <style name="TutorialActivity">
         <item name="android:background">@color/fbutton_color_peter_river</item>
+    </style>
+
+    <style name="ActivityTheme">
+        <item name="android:background">@color/fbutton_color_clouds</item>
     </style>
 
 </resources>
