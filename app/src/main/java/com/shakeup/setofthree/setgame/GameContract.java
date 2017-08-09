@@ -39,6 +39,8 @@ public class GameContract {
 
         void setGameClickable(boolean isClickable);
 
+        void showFailAnimation();
+
         void clearChoices();
 
         void clearHighlights();

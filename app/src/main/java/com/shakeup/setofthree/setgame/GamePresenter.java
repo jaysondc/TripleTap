@@ -103,6 +103,8 @@ public class GamePresenter implements GameContract.UserActionsListener {
     @Override
     public void onSetFailure() {
         mGameView.onSetFailure();
+        mGameView.clearChoices();
+        mGameView.showFailAnimation();
     }
 
     /**

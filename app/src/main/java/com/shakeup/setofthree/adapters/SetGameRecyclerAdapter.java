@@ -108,7 +108,7 @@ public class SetGameRecyclerAdapter
      *
      * @param newHand
      */
-    public void setSethand(ArrayList<SetCard> newHand) {
+    public void setSetHand(ArrayList<SetCard> newHand) {
         mSetHand = newHand;
     }
 

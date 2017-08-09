@@ -170,12 +170,12 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests 
         SetGameRecyclerAdapter myAdapter =
                 (SetGameRecyclerAdapter) mGameFragment.getRecyclerGridView().getAdapter();
         // Set the adapter to be empty temporarily to clear any old view holders
-        myAdapter.setSethand(new ArrayList<SetCard>());
+        myAdapter.setSetHand(new ArrayList<SetCard>());
         // Click the refresh button
         onView(withId(R.id.button_debug_refresh))
                 .perform(click());
 
-        myAdapter.setSethand(someHand);
+        myAdapter.setSetHand(someHand);
         onView(withId(R.id.button_debug_refresh))
                 .perform(click());
 

@@ -182,6 +182,18 @@ public abstract class GameFragment extends AppCompatDialogFragment
     }
 
     /**
+     * Shows a failure animation for submitting an invalid set
+     */
+    @Override
+    public void showFailAnimation() {
+        SetGameCardView cardView;
+        for (int i : mCheckedPositions) {
+            cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+            cardView.animateFailedSet();
+        }
+    }
+
+    /**
      * Highlight the card at a specific index
      *
      * @param index Index of the card to highlight
@@ -242,10 +254,6 @@ public abstract class GameFragment extends AppCompatDialogFragment
                     mCheckedPositions[0],
                     mCheckedPositions[1],
                     mCheckedPositions[2]));
-
-            // Clear all selections from GridView
-            clearChoices();
-            mCheckedCount = 0;
         }
     }
 
@@ -290,6 +298,9 @@ public abstract class GameFragment extends AppCompatDialogFragment
      * Uncheck all views in the RecyclerGrid
      */
     public void clearChoices() {
+        // Clear checked count
+        mCheckedCount = 0;
+
         // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
         for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
             SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);

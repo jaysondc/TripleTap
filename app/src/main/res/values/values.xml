@@ -9,4 +9,8 @@
     <!-- Provider Authority -->
     <string name="score_provider_authority">com.shakeup.setofthree.provider</string>
 
+    <!-- Animation durations -->
+    <integer name="card_animation_duration">250</integer>
+    <integer name="card_fail_animation_duration_flash">150</integer>
+
 </resources>

@@ -1,5 +1,7 @@
 package com.shakeup.setofthree.customviews;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -309,13 +311,12 @@ public class SetGameCardView extends CardView {
 
     // Implement Highlighted tag to highlight cards as hints//
     public void setHighlighted(boolean highlighted) {
-        mIsHighlighted = highlighted;
-        // Do something to highlight the card
-        if (mIsHighlighted) {
+        if (!mIsHighlighted && highlighted) {
             animateColorChange(R.color.card_background_normal, R.color.card_background_highlighted);
-        } else {
+        } else if (mIsHighlighted && !highlighted){
             animateColorChange(R.color.card_background_highlighted, R.color.card_background_normal);
         }
+        mIsHighlighted = highlighted;
         setSelected(highlighted);
         invalidate();
     }
@@ -407,8 +408,10 @@ public class SetGameCardView extends CardView {
         int colorTo = ContextCompat.getColor(getContext(), colorToId);
         final SetGameCardView card = this;
 
+        int duration = getContext().getResources().getInteger(R.integer.card_animation_duration);
+
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.setDuration(250); // milliseconds
+        colorAnimation.setDuration(duration); // milliseconds
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
@@ -416,5 +419,45 @@ public class SetGameCardView extends CardView {
             }
         });
         colorAnimation.start();
+    }
+
+    /**
+     * Change card color. This method wraps the Property Animation API mentioned here
+     * https://stackoverflow.com/a/14467625/7009268
+     */
+    public void animateFailedSet() {
+        int colorFrom = ContextCompat.getColor(getContext(), R.color.card_background_normal);
+        int colorTo = ContextCompat.getColor(getContext(), R.color.fbutton_color_alizarin);
+        final SetGameCardView card = this;
+
+        int duration = getContext().getResources().getInteger(R.integer.card_fail_animation_duration_flash);
+
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(duration); // milliseconds
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                card.setCardBackgroundColor((int) animator.getAnimatedValue());
+            }
+        });
+        colorAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        colorAnimation.setRepeatCount(2);
+        colorAnimation.start();
+
+        colorAnimation.addListener(new AnimatorListenerAdapter()
+        {
+            @Override
+            public void onAnimationEnd(Animator animation)
+            {
+                // Once animation is over, animate back to selected or highlighted or normal
+                if (isChecked()) {
+                    animateColorChange(R.color.fbutton_color_alizarin, R.color.card_background_selected);
+                } else if (isHighlighted()) {
+                    animateColorChange(R.color.fbutton_color_alizarin, R.color.card_background_highlighted);
+                } else {
+                    animateColorChange(R.color.fbutton_color_alizarin, R.color.card_background_normal);
+                }
+            }
+        });
     }
 }
