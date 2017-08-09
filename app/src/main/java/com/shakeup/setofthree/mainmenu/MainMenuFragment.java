@@ -3,9 +3,13 @@ package com.shakeup.setofthree.mainmenu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.transition.SidePropagation;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +39,11 @@ public class MainMenuFragment
     // Presenter to handle all user actions
     MainMenuContract.UserActionsListener mActionsListener;
     private String LOG_TAG = getClass().getSimpleName();
+    // Fragment transition to use
+    private Slide mNewEnterTransition;
+    private Slide mNewExitTransition;
+    private Slide mMainReenterTransition;
+    private Slide mMainExitTransition;
 
     /**
      * Allow another class to construct us
@@ -53,6 +62,7 @@ public class MainMenuFragment
 
         mActionsListener = new MainMenuPresenter(this);
 
+        setupTransitions();
     }
 
     /**
@@ -61,6 +71,12 @@ public class MainMenuFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        // Set enter and exit transitions
+        //mMainExitTransition.excludeTarget(R.id.group_settings, true);
+        this.setExitTransition(mMainExitTransition);
+        this.setReenterTransition(mMainReenterTransition);
+
         View root = inflater.inflate(R.layout.fragment_main_menu, container, false);
 
         /**
@@ -137,10 +153,16 @@ public class MainMenuFragment
      */
     @Override
     public void openSinglePlayerOptions() {
-        // Swap in the Single Player Menu Fragment
+        // Swap in single player menu fragment
+        Fragment fragment = MainMenuSinglePlayerFragment.newInstance();
+
+        // Set transitions
+        fragment.setEnterTransition(mNewEnterTransition);
+        fragment.setExitTransition(mNewExitTransition);
+
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.menu_frame, MainMenuSinglePlayerFragment.newInstance());
+        transaction.replace(R.id.menu_frame, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -150,10 +172,18 @@ public class MainMenuFragment
      */
     @Override
     public void openMultiplayerOptions() {
+
+        // Swap in multiplayer menu fragment
+        Fragment fragment = MainMenuMultiplayerFragment.newInstance();
+
+        // Set transitions
+        fragment.setEnterTransition(mNewEnterTransition);
+        fragment.setExitTransition(mNewExitTransition);
+
         // Swap in the Multiplayer Menu Fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.menu_frame, MainMenuMultiplayerFragment.newInstance());
+        transaction.replace(R.id.menu_frame, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -217,6 +247,39 @@ public class MainMenuFragment
     public interface googleApiClientCallback {
 
         GoogleApiClient getGoogleApiClient();
+
+    }
+
+    /**
+     * Setup fragment transitions
+     */
+    public void setupTransitions() {
+        SidePropagation propagateBottom = new SidePropagation();
+        propagateBottom.setSide(Gravity.BOTTOM);
+        propagateBottom.setPropagationSpeed(2);
+
+        SidePropagation propagateTop = new SidePropagation();
+        propagateTop.setSide(Gravity.TOP);
+        propagateTop.setPropagationSpeed(2);
+
+        // Transition used for replacement fragments
+        mNewEnterTransition = new Slide(Gravity.END);
+        mNewEnterTransition.setPropagation(propagateBottom);
+        mNewEnterTransition.setStartDelay(100);
+
+        mNewExitTransition = new Slide(Gravity.END);
+        mNewExitTransition.setPropagation(propagateBottom);
+        mNewExitTransition.setStartDelay(0);
+
+        // Transition used for main menu entering and exiting
+        mMainExitTransition = new Slide(Gravity.START);
+        mMainExitTransition.setPropagation(propagateTop);
+        mMainExitTransition.setStartDelay(0);
+
+        // Transition used for main menu reentering
+        mMainReenterTransition = new Slide(Gravity.START);
+        mMainReenterTransition.setPropagation(propagateTop);
+        mMainReenterTransition.setStartDelay(200);
 
     }
 

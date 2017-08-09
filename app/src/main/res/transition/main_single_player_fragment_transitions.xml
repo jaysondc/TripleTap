@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together">
+    <slide
+        android:slideEdge="right"
+        android:startDelay="0">
+        <targets>
+            <target android:targetId="@+id/button_normal" />
+        </targets>
+    </slide>
+    <slide
+        android:slideEdge="right"
+        android:startDelay="10">
+        <targets>
+            <target android:targetId="@+id/button_time_attack" />
+        </targets>
+    </slide>
+    <slide
+        android:slideEdge="right"
+        android:startDelay="20">
+        <targets>
+            <target android:targetId="@+id/button_practice" />
+        </targets>
+    </slide>
+    <slide
+        android:slideEdge="right"
+        android:startDelay="30">
+        <targets>
+            <target android:targetId="@+id/button_back" />
+        </targets>
+    </slide>
+
+
+</transitionSet>
