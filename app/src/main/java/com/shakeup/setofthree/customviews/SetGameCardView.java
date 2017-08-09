@@ -427,7 +427,7 @@ public class SetGameCardView extends CardView {
      */
     public void animateFailedSet() {
         int colorFrom = ContextCompat.getColor(getContext(), R.color.card_background_normal);
-        int colorTo = ContextCompat.getColor(getContext(), R.color.fbutton_color_alizarin);
+        int colorTo = ContextCompat.getColor(getContext(), R.color.fbutton_color_carrot);
         final SetGameCardView card = this;
 
         int duration = getContext().getResources().getInteger(R.integer.card_fail_animation_duration_flash);
