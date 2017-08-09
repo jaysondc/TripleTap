@@ -1,5 +1,7 @@
 package com.shakeup.setofthree.customviews;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -280,24 +282,13 @@ public class SetGameCardView extends CardView {
     public void setChecked(boolean checked) {
         mIsChecked = checked;
         if (mIsChecked) { // Check
-            this.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                            mContext,
-                            R.color.card_background_selected
-                    )
-            );
+            animateColorChange(R.color.card_background_normal, R.color.card_background_selected);
             this.setActivated(true);
-        } else { // Uncheck, highlight if highlighted
+        } else { // Uncheck, highlight again if highlighted
             if (!isHighlighted()) {
-                this.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                                mContext,
-                                R.color.card_background_normal
-                        )
-                );
+                animateColorChange(R.color.card_background_selected, R.color.card_background_normal);
             } else {
-                this.setCardBackgroundColor(
-                        ContextCompat.getColor(mContext, R.color.card_background_highlighted));
+                animateColorChange(R.color.card_background_selected, R.color.card_background_highlighted);
             }
             this.setActivated(false);
         }
@@ -321,11 +312,9 @@ public class SetGameCardView extends CardView {
         mIsHighlighted = highlighted;
         // Do something to highlight the card
         if (mIsHighlighted) {
-            this.setCardBackgroundColor(
-                    ContextCompat.getColor(mContext, R.color.card_background_highlighted));
+            animateColorChange(R.color.card_background_normal, R.color.card_background_highlighted);
         } else {
-            this.setCardBackgroundColor(
-                    ContextCompat.getColor(mContext, R.color.card_background_normal));
+            animateColorChange(R.color.card_background_highlighted, R.color.card_background_normal);
         }
         setSelected(highlighted);
         invalidate();
@@ -407,5 +396,25 @@ public class SetGameCardView extends CardView {
         String fill = CardFill.values()[this.getFill()].toString();
 
         return "[" + shape + "," + color + "," + count + "," + fill + "]";
+    }
+
+    /**
+     * Change card color. This method wraps the Property Animation API mentioned here
+     * https://stackoverflow.com/a/14467625/7009268
+     */
+    public void animateColorChange(int colorFromId, int colorToId) {
+        int colorFrom = ContextCompat.getColor(getContext(), colorFromId);
+        int colorTo = ContextCompat.getColor(getContext(), colorToId);
+        final SetGameCardView card = this;
+
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(250); // milliseconds
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                card.setCardBackgroundColor((int) animator.getAnimatedValue());
+            }
+        });
+        colorAnimation.start();
     }
 }
