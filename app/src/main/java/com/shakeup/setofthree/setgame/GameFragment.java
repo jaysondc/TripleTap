@@ -195,6 +195,19 @@ public abstract class GameFragment extends AppCompatDialogFragment
     }
 
     /**
+     * Shows a failure animation for submitting an invalid set This will also deselect those cards
+     * once the animation is complete
+     */
+    @Override
+    public void showSuccessAnimation(SetGameCardView.AnimationEndCallback callback) {
+        SetGameCardView cardView;
+        for (int i : mCheckedPositions) {
+            cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+            cardView.animateSuccessfulSet(callback);
+        }
+    }
+
+    /**
      * Highlight the card at a specific index
      *
      * @param index Index of the card to highlight
@@ -296,19 +309,12 @@ public abstract class GameFragment extends AppCompatDialogFragment
     }
 
     /**
-     * Uncheck all views in the RecyclerGrid
+     * Clear the number of choices the player has made. The actual unchecking of cards happens
+     * automatically after the success or failure animation is played
      */
     public void clearChoices() {
         // Clear checked count
         mCheckedCount = 0;
-
-//        // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
-//        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
-//            SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
-//            if (cardView.isChecked()) {
-//                cardView.setChecked(false);
-//            }
-//        }
     }
 
     /**

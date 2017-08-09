@@ -3,6 +3,7 @@ package com.shakeup.setofthree.setgame;
 import android.support.annotation.NonNull;
 
 import com.shakeup.setgamelibrary.SetGame;
+import com.shakeup.setofthree.customviews.SetGameCardView;
 
 import java.util.ArrayList;
 
@@ -102,9 +103,9 @@ public class GamePresenter implements GameContract.UserActionsListener {
      */
     @Override
     public void onSetFailure() {
-        mGameView.onSetFailure();
-        //mGameView.clearChoices();
         mGameView.showFailAnimation();
+        mGameView.onSetFailure();
+        mGameView.clearChoices();
     }
 
     /**
@@ -113,26 +114,35 @@ public class GamePresenter implements GameContract.UserActionsListener {
      */
     @Override
     public void onSetSuccess() {
-        // Update the set hand
-        mGameView.updateSetHand(
-                mSetGame.getIsOverflow(),
-                mSetGame.getDeckSize());
+        // Reference to our presenter to use in the callback method
+        final GamePresenter game = this;
 
-        // Call presenter method to handle success
-        mGameView.onSetSuccess();
-        mGameView.clearChoices();
+        // Show the success animation, continue to update the game once it's finished
+        mGameView.showSuccessAnimation(new SetGameCardView.AnimationEndCallback() {
+            @Override
+            public void onAnimationFinish() {
+                mGameView.clearChoices();
+                // Update the set hand
+                mGameView.updateSetHand(
+                        mSetGame.getIsOverflow(),
+                        mSetGame.getDeckSize());
 
-        // Call the GameOver method if the game is over,
-        if (mSetGame.getIsGameOver()) {
-            this.onGameOver();
-        }
+                // Call presenter method to handle success
+                mGameView.onSetSuccess();
 
-        // Get the new SetLocations array
-        mSetLocations = mSetGame.getLocationOfSets();
+                // Call the GameOver method if the game is over,
+                if (mSetGame.getIsGameOver()) {
+                    game.onGameOver();
+                }
 
-        // Clear the number of highlighted hints
-        mHintTriplet = null;
-        mHintsHighlighted = 0;
+                // Get the new SetLocations array
+                mSetLocations = mSetGame.getLocationOfSets();
+
+                // Clear the number of highlighted hints
+                mHintTriplet = null;
+                mHintsHighlighted = 0;
+            }
+        });
     }
 
     /**

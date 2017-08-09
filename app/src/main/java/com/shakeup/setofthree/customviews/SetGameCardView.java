@@ -472,4 +472,45 @@ public class SetGameCardView extends CardView {
             }
         });
     }
+
+    /**
+     * Change card color. This method wraps the Property Animation API mentioned here
+     * https://stackoverflow.com/a/14467625/7009268
+     */
+    public void animateSuccessfulSet(final AnimationEndCallback callback) {
+        int colorFrom = ContextCompat.getColor(getContext(), R.color.card_background_normal);
+        int colorTo = ContextCompat.getColor(getContext(), R.color.fbutton_color_nephritis);
+        final SetGameCardView card = this;
+
+        int duration = getContext().getResources().getInteger(R.integer.card_success_animation_duration);
+
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(duration); // milliseconds
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                card.setCardBackgroundColor((int) animator.getAnimatedValue());
+            }
+        });
+
+        colorAnimation.start();
+
+        colorAnimation.addListener(new AnimatorListenerAdapter()
+        {
+            @Override
+            public void onAnimationEnd(Animator animation)
+            {
+                card.setChecked(false, true);
+                // Notify our calling method that the animation is over
+                callback.onAnimationFinish();
+            }
+        });
+    }
+
+    /**
+     * Interface to be notified when an animation is finished
+     */
+    public interface AnimationEndCallback {
+        void onAnimationFinish();
+    }
 }

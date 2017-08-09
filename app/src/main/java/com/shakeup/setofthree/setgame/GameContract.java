@@ -2,6 +2,7 @@ package com.shakeup.setofthree.setgame;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
+import com.shakeup.setofthree.customviews.SetGameCardView;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,8 @@ public class GameContract {
         void setGameClickable(boolean isClickable);
 
         void showFailAnimation();
+
+        void showSuccessAnimation(SetGameCardView.AnimationEndCallback callback);
 
         void clearChoices();
 

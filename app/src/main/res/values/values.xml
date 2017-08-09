@@ -12,5 +12,6 @@
     <!-- Animation durations -->
     <integer name="card_animation_duration">250</integer>
     <integer name="card_fail_animation_duration_flash">150</integer>
+    <integer name="card_success_animation_duration">250</integer>
 
 </resources>
