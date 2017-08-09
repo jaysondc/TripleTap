@@ -224,7 +224,6 @@ public class TimeAttackGameFragment
     public void onSetSuccess() {
         // Let the presenter know someone found a set
         mTimeAttackActionsListener.onFindSetSuccess();
-
     }
 
     @Override
@@ -458,8 +457,8 @@ public class TimeAttackGameFragment
         mHintButton.setText(sb.toString());
         if (hintsRemaining <= 0) {
             mHintButton.setEnabled(false);
-            mHintButton.setButtonColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_clouds));
-            mHintButton.setShadowColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_silver));
+            mHintButton.setButtonColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_silver));
+            mHintButton.setShadowColor(ContextCompat.getColor(getContext(), R.color.fbutton_color_concrete));
         }
     }
 }

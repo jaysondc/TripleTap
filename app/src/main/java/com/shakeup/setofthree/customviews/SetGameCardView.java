@@ -502,7 +502,9 @@ public class SetGameCardView extends CardView {
             {
                 card.setChecked(false, true);
                 // Notify our calling method that the animation is over
-                callback.onAnimationFinish();
+                if (callback != null) {
+                    callback.onAnimationFinish();
+                }
             }
         });
     }

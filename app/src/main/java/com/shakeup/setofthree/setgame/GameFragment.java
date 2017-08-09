@@ -201,9 +201,17 @@ public abstract class GameFragment extends AppCompatDialogFragment
     @Override
     public void showSuccessAnimation(SetGameCardView.AnimationEndCallback callback) {
         SetGameCardView cardView;
+        // Show successful animations on all 3 checked cards
+        // Only send the callback to the 1st card.
+        boolean callbackSent = false;
         for (int i : mCheckedPositions) {
             cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
-            cardView.animateSuccessfulSet(callback);
+            if (!callbackSent) {
+                cardView.animateSuccessfulSet(callback);
+                callbackSent = true;
+            } else {
+                cardView.animateSuccessfulSet(null);
+            }
         }
     }
 
