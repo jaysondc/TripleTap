@@ -99,7 +99,7 @@
     <string name="tutorial_header_2">Shape</string>
     <string name="tutorial_text_2">OVAL, SQUIGGLE, or DIAMOND</string>
     <string name="tutorial_header_3">Color</string>
-    <string name="tutorial_text_3">RED, BLACK, or BLUE \n (These can be changed in settings)</string>
+    <string name="tutorial_text_3">RED, BLACK, or BLUE</string>
     <string name="tutorial_header_4">Count</string>
     <string name="tutorial_text_4">ONE, TWO, or THREE</string>
     <string name="tutorial_header_5">Fill</string>
