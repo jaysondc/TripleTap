@@ -44,7 +44,7 @@ public class GameContract {
 
         void showSuccessAnimation(SetGameCardView.AnimationEndCallback callback);
 
-        void clearChoices();
+        void clearChoices(boolean forceUnchecked);
 
         void clearHighlights();
 

@@ -112,7 +112,7 @@ public class MultiplayerGamePresenter extends GamePresenter
         mMultiplayerGameView.setGameClickable(false);
 
         // Clear any cards that were clicked
-        mMultiplayerGameView.clearChoices();
+        mMultiplayerGameView.clearChoices(true);
 
         // Set the game state back to idle
         mMultiplayerGameView.setGameState(0);

@@ -310,11 +310,22 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
     /**
      * Clear the number of choices the player has made. The actual unchecking of cards happens
-     * automatically after the success or failure animation is played
+     * automatically after the success or failure animation is played.
+     * @param forceUnchecked specifies whether or not to forcibly uncheck each item without waiting
+     *                       for animations to finish.
      */
-    public void clearChoices() {
+    public void clearChoices(boolean forceUnchecked) {
         // Clear checked count
         mCheckedCount = 0;
+
+        if (forceUnchecked) {
+            for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
+                SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+                if (cardView.isChecked()) {
+                    cardView.setChecked(false, true);
+                }
+            }
+        }
     }
 
     /**

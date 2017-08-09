@@ -105,7 +105,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
     public void onSetFailure() {
         mGameView.showFailAnimation();
         mGameView.onSetFailure();
-        mGameView.clearChoices();
+        mGameView.clearChoices(false);
     }
 
     /**
@@ -121,7 +121,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
         mGameView.showSuccessAnimation(new SetGameCardView.AnimationEndCallback() {
             @Override
             public void onAnimationFinish() {
-                mGameView.clearChoices();
+                mGameView.clearChoices(false);
                 // Update the set hand
                 mGameView.updateSetHand(
                         mSetGame.getIsOverflow(),
