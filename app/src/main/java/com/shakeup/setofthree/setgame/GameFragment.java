@@ -182,7 +182,8 @@ public abstract class GameFragment extends AppCompatDialogFragment
     }
 
     /**
-     * Shows a failure animation for submitting an invalid set
+     * Shows a failure animation for submitting an invalid set This will also deselect those cards
+     * once the animation is complete
      */
     @Override
     public void showFailAnimation() {
@@ -216,7 +217,7 @@ public abstract class GameFragment extends AppCompatDialogFragment
         // Holds a reference to the card so we can select it
         SetGameCardView card =
                 (SetGameCardView) mRecyclerGridView.getChildAt(index);
-        card.setChecked(true);
+        card.setChecked(true, true);
     }
 
     /**
@@ -301,13 +302,13 @@ public abstract class GameFragment extends AppCompatDialogFragment
         // Clear checked count
         mCheckedCount = 0;
 
-        // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
-        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
-            SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
-            if (cardView.isChecked()) {
-                cardView.setChecked(false);
-            }
-        }
+//        // Loop through all SetGameCardViews in the adapter and mark them as Unchecked
+//        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
+//            SetGameCardView cardView = (SetGameCardView) mRecyclerGridView.getChildAt(i);
+//            if (cardView.isChecked()) {
+//                cardView.setChecked(false);
+//            }
+//        }
     }
 
     /**

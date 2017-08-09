@@ -281,16 +281,29 @@ public class SetGameCardView extends CardView {
     }
 
     // IMPLEMENTATION FOR CHECKABLE INTERFACE //
-    public void setChecked(boolean checked) {
+
+    /**
+     * Sets the card to a checked state. The view will be marked as activated and the background will
+     * animate to the checked color if specified.
+     * @param checked is the value to set the 'checked' and 'activated' flags
+     * @param animate is whether or not to animate the background color change
+     */
+    public void setChecked(boolean checked, boolean animate) {
         mIsChecked = checked;
         if (mIsChecked) { // Check
-            animateColorChange(R.color.card_background_normal, R.color.card_background_selected);
+            if (animate) animateColorChange(
+                    R.color.card_background_normal,
+                    R.color.card_background_selected);
             this.setActivated(true);
         } else { // Uncheck, highlight again if highlighted
             if (!isHighlighted()) {
-                animateColorChange(R.color.card_background_selected, R.color.card_background_normal);
+                if (animate) animateColorChange(
+                        R.color.card_background_selected,
+                        R.color.card_background_normal);
             } else {
-                animateColorChange(R.color.card_background_selected, R.color.card_background_highlighted);
+                if (animate) animateColorChange(
+                        R.color.card_background_selected,
+                        R.color.card_background_highlighted);
             }
             this.setActivated(false);
         }
@@ -299,9 +312,9 @@ public class SetGameCardView extends CardView {
 
     public void toggleChecked() {
         if (isChecked()) {
-            setChecked(false);
+            setChecked(false, true);
         } else {
-            setChecked(true);
+            setChecked(true, true);
         }
     }
 
@@ -450,9 +463,8 @@ public class SetGameCardView extends CardView {
             public void onAnimationEnd(Animator animation)
             {
                 // Once animation is over, animate back to selected or highlighted or normal
-                if (isChecked()) {
-                    animateColorChange(R.color.fbutton_color_alizarin, R.color.card_background_selected);
-                } else if (isHighlighted()) {
+                card.setChecked(false, false);
+                if (isHighlighted()) {
                     animateColorChange(R.color.fbutton_color_alizarin, R.color.card_background_highlighted);
                 } else {
                     animateColorChange(R.color.fbutton_color_alizarin, R.color.card_background_normal);
