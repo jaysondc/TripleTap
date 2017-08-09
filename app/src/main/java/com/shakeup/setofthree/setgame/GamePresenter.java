@@ -120,6 +120,7 @@ public class GamePresenter implements GameContract.UserActionsListener {
 
         // Call presenter method to handle success
         mGameView.onSetSuccess();
+        mGameView.clearChoices();
 
         // Call the GameOver method if the game is over,
         if (mSetGame.getIsGameOver()) {
