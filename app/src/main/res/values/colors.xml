@@ -34,4 +34,7 @@
 
     <color name="fbutton_default_color">#3eadeb</color>
     <color name="fbutton_default_shadow_color">#ff3493c8</color>
+
+    <color name="button_play_games">#91C653</color>
+    <color name="button_play_games_shadow">#6BA13C</color>
 </resources>

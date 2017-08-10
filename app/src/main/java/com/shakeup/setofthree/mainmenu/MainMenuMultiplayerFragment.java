@@ -1,9 +1,9 @@
 package com.shakeup.setofthree.mainmenu;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,8 +109,9 @@ public class MainMenuMultiplayerFragment
     public void openMultiPlayer(int numPlayers) {
         Log.d(LOG_TAG, "Started a " + numPlayers + " player Multiplayer game.");
         Intent intent = new Intent(getContext(), MultiplayerGameActivity.class);
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
         intent.putExtra(getString(R.string.extra_num_players), numPlayers);
-        startActivity(intent);
+        startActivity(intent, bundle);
     }
 
     /**

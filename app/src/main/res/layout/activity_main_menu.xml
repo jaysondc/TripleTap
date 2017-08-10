@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    style="@style/ActivityTheme"
     tools:context="com.shakeup.setofthree.mainmenu.MainMenuActivity">
 
     <LinearLayout
@@ -63,8 +64,8 @@
         android:src="@drawable/ic_games_controller_white_48dp"
         android:contentDescription="@string/menu_sign_out"
         android:textColor="@color/primary_text_inverse"
-        app:buttonColor="@color/fbutton_color_carrot"
-        app:shadowColor="@color/fbutton_color_pumpkin"
+        app:buttonColor="@color/button_play_games"
+        app:shadowColor="@color/button_play_games_shadow"
         app:shadowHeight="5dp" />
 
 </LinearLayout>

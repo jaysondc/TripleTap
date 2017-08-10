@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.mainmenu;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -106,8 +107,9 @@ public class MainMenuSinglePlayerFragment
     @Override
     public void openNormal() {
         Log.d(LOG_TAG, "Started a Single Player Normal game.");
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
         Intent intent = new Intent(getContext(), NormalGameActivity.class);
-        startActivity(intent);
+        startActivity(intent, bundle);
     }
 
     /**
@@ -117,8 +119,9 @@ public class MainMenuSinglePlayerFragment
     public void openTimeAttack(long timeAttackLength) {
         Log.d(LOG_TAG, "Started a Single Player Time Attack game.");
         Intent intent = new Intent(getContext(), TimeAttackGameActivity.class);
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
         intent.putExtra(getString(R.string.extra_time_attack_length), timeAttackLength);
-        startActivity(intent);
+        startActivity(intent, bundle);
     }
 
     /**
@@ -128,7 +131,8 @@ public class MainMenuSinglePlayerFragment
     public void openPractice() {
         Log.d(LOG_TAG, "Started a Single Player Practice game.");
         Intent intent = new Intent(getContext(), PracticeGameActivity.class);
-        startActivity(intent);
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
+        startActivity(intent, bundle);
     }
 
     /**

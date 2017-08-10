@@ -41,7 +41,8 @@
             android:name=".mainmenu.MainMenuActivity"
             android:alwaysRetainTaskState="true"
             android:label="@string/app_label"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

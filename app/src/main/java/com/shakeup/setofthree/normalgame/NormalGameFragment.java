@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.normalgame;
 
+import android.app.ActivityOptions;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -408,9 +409,9 @@ public class NormalGameFragment
     @Override
     public void openMainMenu() {
         Intent intent = new Intent(getContext(), MainMenuActivity.class);
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        getActivity().finish();
+        startActivity(intent, bundle);
     }
 
     /**

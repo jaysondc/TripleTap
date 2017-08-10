@@ -7,7 +7,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.transition.SidePropagation;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -43,7 +47,10 @@ public class MainMenuActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_menu);
+
+        setupAnimations();
 
         // Show the user the tutorial if it's their first time launching the app
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -64,6 +71,7 @@ public class MainMenuActivity
         // Set onClickListeners for the sign in and out buttons
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
+
 
     }
 
@@ -137,5 +145,21 @@ public class MainMenuActivity
     @Override
     public GoogleApiClient getGoogleApiClient() {
         return getApiClient();
+    }
+
+    /**
+     * Create and set animations for activity transition
+     */
+    private void setupAnimations() {
+        SidePropagation propagateBottom = new SidePropagation();
+        propagateBottom.setSide(Gravity.BOTTOM);
+        propagateBottom.setPropagationSpeed(2);
+
+        Transition activityTransition = new Slide(Gravity.START);
+        activityTransition.setPropagation(propagateBottom);
+        activityTransition.setStartDelay(100);
+
+        getWindow().setExitTransition(activityTransition);
+        getWindow().setEnterTransition(activityTransition);
     }
 }

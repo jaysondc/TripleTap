@@ -1,5 +1,6 @@
 package com.shakeup.setofthree.practicegame;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -244,8 +245,8 @@ public class PracticeGameFragment
     @Override
     public void openMainMenu() {
         Intent intent = new Intent(getContext(), MainMenuActivity.class);
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        getActivity().finish();
+        startActivity(intent, bundle);
     }
 }
