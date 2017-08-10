@@ -1,6 +1,9 @@
 package com.shakeup.setofthree.mainmenu;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +13,7 @@ import android.view.View;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.tutorial.TutorialActivity;
 
 /**
  * This is the activity for the main menu. It doesn't do anything except set up the
@@ -40,6 +44,18 @@ public class MainMenuActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        // Show the user the tutorial if it's their first time launching the app
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+            edit.apply();
+
+            Intent intent = new Intent(this, TutorialActivity.class);
+            startActivity(intent);
+        }
 
         if (savedInstanceState == null) {
             initFragment(MainMenuFragment.newInstance());

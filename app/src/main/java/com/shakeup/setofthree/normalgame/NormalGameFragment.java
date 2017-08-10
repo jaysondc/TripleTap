@@ -190,7 +190,6 @@ public class NormalGameFragment
     @Override
     public void onStop() {
         stopTimer();
-        mGameTimerView = null;
 
         super.onStop();
     }

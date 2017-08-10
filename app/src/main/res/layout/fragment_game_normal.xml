@@ -11,7 +11,7 @@
         android:id="@+id/card_count"
         android:layout_width="@dimen/set_card_width"
         android:layout_height="@dimen/set_card_height"
-        android:layout_margin="16dp"
+        android:layout_margin="32dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="@dimen/cardview_default_elevation"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/normal_deck_remaining"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
+        android:layout_margin="32dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

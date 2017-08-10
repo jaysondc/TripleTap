@@ -122,4 +122,7 @@
     <string name="tutorial_header_13">That\'s it!</string>
     <string name="tutorial_text_13">You\'re ready to play Set of Three! Try Practice Mode if you need more time. See you on the leaderboards!</string>
 
+    <!-- Shared Preferences -->
+    <string name="pref_previously_started">previously_started</string>
+
 </resources>
