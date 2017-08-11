@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/content_frame"
+    style="@style/ActivityTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/ActivityTheme">
+    android:transitionGroup="true">
 
     <!-- Game Board -->
     <FrameLayout
@@ -21,7 +22,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <include layout="@layout/fragment_game"/>
+        <include layout="@layout/fragment_game" />
 
     </FrameLayout>
 

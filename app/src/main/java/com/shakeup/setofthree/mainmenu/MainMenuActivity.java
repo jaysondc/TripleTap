@@ -7,12 +7,10 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.transition.SidePropagation;
-import android.transition.Slide;
 import android.transition.Transition;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
@@ -48,14 +46,14 @@ public class MainMenuActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main_menu);
-
         setupAnimations();
+
+        setContentView(R.layout.activity_main_menu);
 
         // Show the user the tutorial if it's their first time launching the app
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-        if(!previouslyStarted) {
+        if (!previouslyStarted) {
             SharedPreferences.Editor edit = prefs.edit();
             edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
             edit.apply();
@@ -151,15 +149,14 @@ public class MainMenuActivity
      * Create and set animations for activity transition
      */
     private void setupAnimations() {
-        SidePropagation propagateBottom = new SidePropagation();
-        propagateBottom.setSide(Gravity.BOTTOM);
-        propagateBottom.setPropagationSpeed(2);
 
-        Transition activityTransition = new Slide(Gravity.START);
-        activityTransition.setPropagation(propagateBottom);
-        activityTransition.setStartDelay(100);
-
-        getWindow().setExitTransition(activityTransition);
+        Transition activityTransition = android.transition.TransitionInflater
+                .from(this)
+                .inflateTransition(R.transition.main_menu_exit_transition);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setEnterTransition(activityTransition);
+        getWindow().setReturnTransition(activityTransition);
+        getWindow().setExitTransition(activityTransition);
+        getWindow().setReenterTransition(activityTransition);
     }
 }

@@ -1,6 +1,5 @@
 package com.shakeup.setofthree.normalgame;
 
-import android.app.ActivityOptions;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import com.shakeup.setofthree.contentprovider.ScoreProvider;
 import com.shakeup.setofthree.customviews.FImageButton;
 import com.shakeup.setofthree.gameoverscreen.GameOverFragment;
 import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
-import com.shakeup.setofthree.mainmenu.MainMenuActivity;
 import com.shakeup.setofthree.pausemenu.PauseContract;
 import com.shakeup.setofthree.pausemenu.PauseFragment;
 import com.shakeup.setofthree.setgame.GameFragment;
@@ -408,10 +406,7 @@ public class NormalGameFragment
      */
     @Override
     public void openMainMenu() {
-        Intent intent = new Intent(getContext(), MainMenuActivity.class);
-        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent, bundle);
+        getActivity().finishAfterTransition();
     }
 
     /**

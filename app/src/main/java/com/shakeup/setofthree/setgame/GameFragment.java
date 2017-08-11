@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -61,6 +63,17 @@ public abstract class GameFragment extends AppCompatDialogFragment
 
     // Debug buttons
     private Button mDebugRefreshView, mDebugEndGameView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.game_enter_transition);
+        getActivity().getWindow().setEnterTransition(transition);
+        getActivity().getWindow().setReenterTransition(transition);
+        getActivity().getWindow().setExitTransition(transition);
+        getActivity().getWindow().setReturnTransition(transition);
+    }
 
     /**
      * Run initial setup for creating a new game.
@@ -319,6 +332,7 @@ public abstract class GameFragment extends AppCompatDialogFragment
     /**
      * Clear the number of choices the player has made. The actual unchecking of cards happens
      * automatically after the success or failure animation is played.
+     *
      * @param forceUnchecked specifies whether or not to forcibly uncheck each item without waiting
      *                       for animations to finish.
      */

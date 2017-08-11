@@ -11,6 +11,10 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
@@ -37,6 +41,7 @@
 
     <!-- Dialog style for pause menu -->
     <style name="PauseDialogStyle" parent="@style/Theme.AppCompat.Light.Dialog">
+        <!-- Placeholder for pause menu themes -->
     </style>
 
     <!-- Game UI Styles -->
@@ -59,7 +64,7 @@
     </style>
 
     <style name="ActivityTheme">
-        <item name="android:background">@color/fbutton_color_clouds</item>
+        <!-- Placeholder for activity themes -->
     </style>
 
 </resources>
