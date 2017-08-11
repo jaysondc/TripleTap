@@ -32,7 +32,7 @@
         android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_margin="16dp"
-        android:text="@string/button_hint"
+        android:text="@string/button_hint_unlimited"
         android:textColor="@color/primary_text_inverse"
         app:buttonColor="@color/fbutton_color_turquoise"
         app:layout_constraintBottom_toBottomOf="parent"
