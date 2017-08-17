@@ -41,7 +41,7 @@
             <ImageView
                 android:layout_height="200dp"
                 android:layout_width="200dp"
-                android:src="@drawable/ic_checkbox_marked_circle_white_48dp"
+                android:src="@drawable/ic_check_circle_white_512px"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="8dp"
                 android:layout_marginRight="8dp"

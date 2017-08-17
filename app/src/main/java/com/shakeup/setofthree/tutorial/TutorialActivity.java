@@ -1,11 +1,14 @@
 package com.shakeup.setofthree.tutorial;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.shakeup.setofthree.R;
+import com.shakeup.setofthree.practicegame.PracticeGameActivity;
 
 /**
  * Created by Jayson Dela Cruz on 8/5/2017.
@@ -42,6 +45,9 @@ public class TutorialActivity extends AppIntro {
         showSkipButton(true);
         setProgressButtonEnabled(true);
 
+        // Set 'DONE' text
+        setDoneText(getString(R.string.tutorial_done_text));
+
     }
 
     @Override
@@ -51,10 +57,18 @@ public class TutorialActivity extends AppIntro {
         this.finish();
     }
 
+    /**
+     * When the tutorial is finished, open Practice Mode
+     * @param currentFragment
+     */
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         // End the current activity.
-        this.finish();
+        Intent intent = new Intent(this, PracticeGameActivity.class);
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+        startActivity(intent, bundle);
+
+        this.finishAfterTransition();
     }
 }

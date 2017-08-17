@@ -95,8 +95,9 @@
     <string name="bundle_key_recycler_state">recycler_state</string>
 
     <!-- Tutorial -->
+    <string name="tutorial_done_text">PRACTICE</string>
     <string name="tutorial_header_1">Welcome to Set of Three</string>
-    <string name="tutorial_text_1">In Set of Three, players race to find 3 cards on the board that make a SET. Each card has 4 distinct features&#8230;</string>
+    <string name="tutorial_text_1">In Set of Three players race to find 3 cards on the board that make a SET. Each card has 4 distinct features&#8230;</string>
     <string name="tutorial_header_2">Shape</string>
     <string name="tutorial_text_2">OVAL, SQUIGGLE, or DIAMOND</string>
     <string name="tutorial_header_3">Color</string>
@@ -114,14 +115,14 @@
     <string name="tutorial_header_9">Even this is a SET</string>
     <string name="tutorial_text_9">Shape: DIFFERENT\nColor: DIFFERENT\nCount: DIFFERENT\nFill: DIFFERENT</string>
     <string name="tutorial_header_10">What isn\'t a SET?</string>
-    <string name="tutorial_text_10">Shape: SAME\nColor: DIFFERENT\nCount: SAME\nFill: NEITHER\nIf any one of these features is NEITHER, then it isn\'t a SET. The cards above aren\'t a set because there are 2 cards that are SOLID.</string>
+    <string name="tutorial_text_10">Shape: SAME\nColor: DIFFERENT\nCount: SAME\nFill: NEITHER\nIf any one of these features is NEITHER, then it isn\'t a SET. The cards above aren\'t a SET because there are 2 cards that are SOLID.</string>
     <string name="tutorial_header_11">Tips</string>
     <string name="tutorial_text_11">For any 2 cards, there is only 1 card that completes a set. What card completes this set?</string>
     <string name="tutorial_hint_11">\?</string>
     <string name="tutorial_header_12">Tips</string>
     <string name="tutorial_text_12">You\'re right! It has to be DIAMOND, BLUE, TWO, OPEN.</string>
     <string name="tutorial_header_13">That\'s it!</string>
-    <string name="tutorial_text_13">You\'re ready to play Set of Three! Try Practice Mode if you need more time. See you on the leaderboards!</string>
+    <string name="tutorial_text_13">You\'re ready to play Set of Three! Don\'t forget to take advantage of Practice Mode with no timer and unlimited hints. See you on the leaderboards!</string>
 
     <!-- Shared Preferences -->
     <string name="pref_previously_started">previously_started</string>
