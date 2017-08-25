@@ -114,7 +114,7 @@ public class SetTests {
 
     @Test
     public void setDeckTest() {
-        SetGame.SetDeck testDeck = new SetGame.SetDeck(0);
+        SetDeck testDeck = new SetDeck(0);
 
         // Create a discard pile
         ArrayList<SetCard> discardPile = new ArrayList<>();
@@ -138,9 +138,41 @@ public class SetTests {
     }
 
     @Test
+    public void setEndlessDeckTest() {
+        SetGame testGame = new SetGame();
+        testGame.setEndlessMode(true);
+
+        for (int i = 0; i < 1000; i++) {
+            SetGame.Triplet triplet = testGame.getRandomSet();
+            testGame.claimSet(triplet.getFirst(), triplet.getSecond(), triplet.getThird());
+
+            Assert.assertFalse(containsDuplicates(testGame));
+        }
+
+    }
+
+    public boolean containsDuplicates(SetGame game) {
+        ArrayList<SetCard> hand = game.getSetHand();
+
+        for (int i = 0; i < hand.size(); i++) {
+            SetCard card1 = hand.get(i);
+            for (int j = i+1; j < hand.size(); j++) {
+                SetCard card2 = hand.get(j);
+                if (card1.isEqualTo(card2)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * This test is disabled until I figure out how I want Easy Mode to work
+     */
     public void setDeckTestEasy() {
 
-        SetGame.SetDeck testDeck = new SetGame.SetDeck(1);
+        SetDeck testDeck = new SetDeck(1);
 
         // Create a discard pile
         ArrayList<SetCard> discardPile = new ArrayList<>();
@@ -230,7 +262,7 @@ public class SetTests {
         // Set SetHand to be empty
         testGame.setSetHand(new ArrayList<SetCard>());
         // Create a new deck and empty it
-        SetGame.SetDeck emptyDeck = new SetGame.SetDeck(0);
+        SetDeck emptyDeck = new SetDeck(0);
         while (!emptyDeck.isEmpty()) {
             emptyDeck.drawCard();
         }

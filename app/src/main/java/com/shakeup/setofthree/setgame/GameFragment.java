@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setgamelibrary.SetDeck;
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.adapters.SetGameRecyclerAdapter;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
         @ParcelClass(SetCard.class),
         @ParcelClass(SetGame.Triplet.class),
         @ParcelClass(SetGame.SetTriplet.class),
-        @ParcelClass(SetGame.SetDeck.class)
+        @ParcelClass(SetDeck.class)
 })
 public abstract class GameFragment extends AppCompatDialogFragment
         implements GameContract.View {

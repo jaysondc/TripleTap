@@ -7,6 +7,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
 import com.shakeup.setgamelibrary.SetCard;
+import com.shakeup.setgamelibrary.SetDeck;
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.adapters.SetGameRecyclerAdapter;
@@ -141,7 +142,7 @@ public class NormalGameFragmentAndroidTests extends SetGameFragmentAndroidTests 
     public void testClearBoardGameOver() throws InterruptedException {
 
         // Get the deck and empty it
-        SetGame.SetDeck deck = mSetGame.getSetDeck();
+        SetDeck deck = mSetGame.getSetDeck();
         while (!deck.isEmpty()) {
             deck.drawCard();
         }
