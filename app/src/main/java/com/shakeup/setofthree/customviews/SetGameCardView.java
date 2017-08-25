@@ -163,6 +163,8 @@ public class SetGameCardView extends CardView {
                 ViewGroup.LayoutParams.MATCH_PARENT
         );
         mLinearLayout.setLayoutParams(layoutParams);
+        this.setCardBackgroundColor(
+                ContextCompat.getColor(getContext(), R.color.card_background_normal));
         this.addView(mLinearLayout);
 
         drawSymbols();
