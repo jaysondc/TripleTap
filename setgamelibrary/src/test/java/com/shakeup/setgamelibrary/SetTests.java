@@ -137,12 +137,16 @@ public class SetTests {
         Assert.assertEquals(81, testDeck.getCount());
     }
 
+
+    /**
+     * Tests whether or not duplicate cards show up in an endless game
+     */
     @Test
     public void setEndlessDeckTest() {
         SetGame testGame = new SetGame();
         testGame.setEndlessMode(true);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             SetGame.Triplet triplet = testGame.getRandomSet();
             testGame.claimSet(triplet.getFirst(), triplet.getSecond(), triplet.getThird());
 

@@ -98,11 +98,6 @@ public class SetGame {
             // Add all 3 cards to the discard pile in case we want to use them
             // to refill the deck
 
-            // Reset the deck if we are in endless mode
-            if (mCurrentDeck.isEmpty() && mEndlessMode) {
-                mCurrentDeck.refillDeck(mDiscardPile);
-            }
-
             mDiscardPile.add(firstCard);
             mDiscardPile.add(secondCard);
             mDiscardPile.add(thirdCard);
@@ -151,6 +146,11 @@ public class SetGame {
     public void analyzeSets() {
         int setsFound = 0;
         mLocationOfSets = new ArrayList<>();
+
+        // Refill the deck if count is low and we are in endless mode
+        if (mCurrentDeck.getCount() < 6 && mEndlessMode) {
+            mCurrentDeck.refillDeck(mDiscardPile);
+        }
 
         for (int i = 0; i < mSetHand.size(); i++) {
             for (int j = i + 1; j < mSetHand.size(); j++) {
