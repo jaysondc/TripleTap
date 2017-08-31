@@ -9,7 +9,7 @@ import android.util.Log;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.shakeup.setofthree.FullScreenActivity;
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.interfaces.GoogleApiClientCallback;
+import com.shakeup.setofthree.common.interfaces.GoogleApiClientCallback;
 
 /**
  * Created by Jayson on 3/29/2017.

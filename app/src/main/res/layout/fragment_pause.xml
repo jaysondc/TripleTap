@@ -40,7 +40,7 @@
         app:shadowHeight="@dimen/button_shadow_height"
         tools:text="NEW GAME" />
 
-    <com.shakeup.setofthree.customviews.FImageButton
+    <com.shakeup.setofthree.common.customviews.FImageButton
         android:id="@+id/button_main_menu"
         style="@style/FlatButtonStyle"
         android:layout_width="64dp"

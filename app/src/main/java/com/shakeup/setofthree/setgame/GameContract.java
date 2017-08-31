@@ -2,7 +2,7 @@ package com.shakeup.setofthree.setgame;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setgamelibrary.SetGame;
-import com.shakeup.setofthree.customviews.SetGameCardView;
+import com.shakeup.setofthree.common.customviews.SetGameCardView;
 
 import java.util.ArrayList;
 

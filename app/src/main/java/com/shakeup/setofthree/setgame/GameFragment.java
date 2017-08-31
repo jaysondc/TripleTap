@@ -20,7 +20,7 @@ import com.shakeup.setgamelibrary.SetDeck;
 import com.shakeup.setgamelibrary.SetGame;
 import com.shakeup.setofthree.R;
 import com.shakeup.setofthree.adapters.SetGameRecyclerAdapter;
-import com.shakeup.setofthree.customviews.SetGameCardView;
+import com.shakeup.setofthree.common.customviews.SetGameCardView;
 
 import org.parceler.ParcelClass;
 import org.parceler.ParcelClasses;

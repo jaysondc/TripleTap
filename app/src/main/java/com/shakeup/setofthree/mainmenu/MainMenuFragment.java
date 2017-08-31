@@ -19,7 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.customviews.FImageButton;
+import com.shakeup.setofthree.common.customviews.FImageButton;
 import com.shakeup.setofthree.tutorial.TutorialActivity;
 
 import info.hoang8f.widget.FButton;

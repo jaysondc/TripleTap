@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.customviews;
+package com.shakeup.setofthree.common.customviews;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

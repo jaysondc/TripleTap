@@ -19,7 +19,7 @@
             android:value="@string/app_id" />
 
         <provider
-            android:name=".contentprovider.generated.ScoreProvider"
+            android:name=".common.contentprovider.generated.ScoreProvider"
             android:authorities="@string/score_provider_authority"
             android:exported="true" />
 

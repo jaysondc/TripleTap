@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.utilities;
+package com.shakeup.setofthree.common.utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

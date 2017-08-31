@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.customviews.FImageButton;
+import com.shakeup.setofthree.common.customviews.FImageButton;
 
 import info.hoang8f.widget.FButton;
 

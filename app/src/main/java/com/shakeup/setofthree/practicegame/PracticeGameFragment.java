@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.customviews.FImageButton;
+import com.shakeup.setofthree.common.customviews.FImageButton;
 import com.shakeup.setofthree.pausemenu.PauseContract;
 import com.shakeup.setofthree.pausemenu.PauseFragment;
 import com.shakeup.setofthree.setgame.GameFragment;

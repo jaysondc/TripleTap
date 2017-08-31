@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.contentprovider;
+package com.shakeup.setofthree.common.contentprovider;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
 import net.simonvt.schematic.annotation.DataType;

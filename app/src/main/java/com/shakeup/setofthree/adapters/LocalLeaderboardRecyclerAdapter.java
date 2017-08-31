@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.contentprovider.ScoreColumns;
-import com.shakeup.setofthree.utilities.Utilities;
+import com.shakeup.setofthree.common.contentprovider.ScoreColumns;
+import com.shakeup.setofthree.common.utilities.Utilities;
 
 /**
  * Created by Jayson on 4/14/2017.

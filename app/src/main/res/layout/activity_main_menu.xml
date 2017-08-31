@@ -38,7 +38,7 @@
         android:orientation="vertical"
         android:transitionGroup="true" />
 
-    <com.shakeup.setofthree.customviews.FImageButton
+    <com.shakeup.setofthree.common.customviews.FImageButton
         android:id="@+id/sign_in_button"
         style="@style/FlatButtonStyle"
         android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
         app:shadowColor="@color/fbutton_color_concrete"
         app:shadowHeight="5dp" />
 
-    <com.shakeup.setofthree.customviews.FImageButton
+    <com.shakeup.setofthree.common.customviews.FImageButton
         android:id="@+id/sign_out_button"
         style="@style/FlatButtonStyle"
         android:layout_width="wrap_content"

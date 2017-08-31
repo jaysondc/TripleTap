@@ -1,4 +1,4 @@
-package com.shakeup.setofthree.interfaces;
+package com.shakeup.setofthree.common.interfaces;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 

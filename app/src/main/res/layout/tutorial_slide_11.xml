@@ -37,7 +37,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.5">
 
-            <com.shakeup.setofthree.customviews.SetGameCardView
+            <com.shakeup.setofthree.common.customviews.SetGameCardView
                 android:id="@+id/card_one"
                 android:layout_width="@dimen/tutorial_card_width"
                 android:layout_height="@dimen/tutorial_card_height"
@@ -50,7 +50,7 @@
                 app:symbol_fill="stripe"
                 app:symbol_shape="diamond"/>
 
-            <com.shakeup.setofthree.customviews.SetGameCardView
+            <com.shakeup.setofthree.common.customviews.SetGameCardView
                 android:id="@+id/card_two"
                 android:layout_width="@dimen/tutorial_card_width"
                 android:layout_height="@dimen/tutorial_card_height"

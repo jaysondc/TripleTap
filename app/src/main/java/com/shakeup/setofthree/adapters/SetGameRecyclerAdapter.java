@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.shakeup.setgamelibrary.SetCard;
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.customviews.SetGameCardView;
+import com.shakeup.setofthree.common.customviews.SetGameCardView;
 import com.shakeup.setofthree.setgame.GameContract;
 
 import java.util.ArrayList;

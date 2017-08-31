@@ -9,9 +9,9 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.shakeup.setofthree.R;
-import com.shakeup.setofthree.contentprovider.ScoreColumns;
-import com.shakeup.setofthree.contentprovider.ScoreProvider;
-import com.shakeup.setofthree.utilities.Utilities;
+import com.shakeup.setofthree.common.contentprovider.ScoreColumns;
+import com.shakeup.setofthree.common.contentprovider.ScoreProvider;
+import com.shakeup.setofthree.common.utilities.Utilities;
 
 import java.util.Locale;
 

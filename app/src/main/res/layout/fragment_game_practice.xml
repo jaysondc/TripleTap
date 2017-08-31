@@ -40,7 +40,7 @@
         app:shadowColor="@color/fbutton_color_green_sea"
         app:shadowHeight="5dp" />
 
-    <com.shakeup.setofthree.customviews.FImageButton
+    <com.shakeup.setofthree.common.customviews.FImageButton
         android:id="@+id/button_pause"
         style="@style/FlatButtonStyle"
         android:layout_width="wrap_content"

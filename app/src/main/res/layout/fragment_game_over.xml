@@ -50,7 +50,7 @@
         app:layout_constraintRight_toLeftOf="@+id/button_leaderboard"
         tools:text="NEW GAME" />
 
-    <com.shakeup.setofthree.customviews.FImageButton
+    <com.shakeup.setofthree.common.customviews.FImageButton
         android:id="@+id/button_leaderboard"
         style="@style/FlatButtonStyle"
         android:layout_width="64dp"
@@ -66,7 +66,7 @@
         app:shadowColor="@color/fbutton_color_concrete"
         app:shadowHeight="@dimen/button_shadow_height" />
 
-    <com.shakeup.setofthree.customviews.FImageButton
+    <com.shakeup.setofthree.common.customviews.FImageButton
         android:id="@+id/button_main_menu"
         style="@style/FlatButtonStyle"
         android:layout_width="64dp"

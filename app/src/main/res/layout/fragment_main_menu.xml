@@ -71,7 +71,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_how_to_play">
 
-        <com.shakeup.setofthree.customviews.FImageButton
+        <com.shakeup.setofthree.common.customviews.FImageButton
             android:id="@+id/button_leaderboard"
             style="@style/FlatButtonStyle"
             android:layout_width="0dp"
@@ -85,7 +85,7 @@
             app:shadowColor="@color/fbutton_color_concrete"
             app:shadowHeight="@dimen/button_shadow_height" />
 
-        <com.shakeup.setofthree.customviews.FImageButton
+        <com.shakeup.setofthree.common.customviews.FImageButton
             android:id="@+id/button_achievements"
             style="@style/FlatButtonStyle"
             android:layout_width="0dp"
@@ -99,7 +99,7 @@
             app:shadowColor="@color/fbutton_color_concrete"
             app:shadowHeight="@dimen/button_shadow_height" />
 
-        <com.shakeup.setofthree.customviews.FImageButton
+        <com.shakeup.setofthree.common.customviews.FImageButton
             android:id="@+id/button_settings"
             style="@style/FlatButtonStyle"
             android:layout_width="0dp"
