@@ -184,17 +184,18 @@ public class PracticeGameFragment
      */
     @Override
     public void pauseGame() {
+        if (!mIsPaused) {
+            mIsPaused = true;
 
-        mIsPaused = true;
+            // Set up PauseFragment
+            android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
+            pauseFragment.setCancelable(false);
+            pauseFragment.setTargetFragment(this, 1);
+            pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
 
-        // Set up PauseFragment
-        android.support.v4.app.DialogFragment pauseFragment = new PauseFragment();
-        pauseFragment.setCancelable(false);
-        pauseFragment.setTargetFragment(this, 1);
-        pauseFragment.setStyle(STYLE_NORMAL, R.style.PauseDialogStyle);
-
-        // Show fragment
-        pauseFragment.show(getFragmentManager(), "dialog");
+            // Show fragment
+            pauseFragment.show(getFragmentManager(), "dialog");
+        }
     }
 
     /*
