@@ -32,6 +32,7 @@ public class SetGameRecyclerAdapter
     private ArrayList<SetCard> mSetHand;
     private boolean mOverflowMode = false;
     private Context mContext;
+    private boolean gameClickable = true;
 
     /**
      * Public constructor to create this RecyclerView Adapter. Takes the current
@@ -202,18 +203,27 @@ public class SetGameRecyclerAdapter
          */
         @Override
         public void onClick(View v) {
+            if (gameClickable) {
+                SetGameCardView card = (SetGameCardView) v;
 
-            SetGameCardView card = (SetGameCardView) v;
+                // Output clicked card to log
+                Log.d(LOG_TAG, "Clicked " + card.toString());
 
-            // Output clicked card to log
-            Log.d(LOG_TAG, "Clicked " + card.toString());
+                // Toggle checked state and store new state in the ViewHolder
+                card.toggleChecked();
+                isChecked = ((SetGameCardView) v).isChecked();
 
-            // Toggle checked state and store new state in the ViewHolder
-            card.toggleChecked();
-            isChecked = ((SetGameCardView) v).isChecked();
-
-            // Notify the GamePresenter that we've been clicked
-            mActionsListener.onSetCardClick();
+                // Notify the GamePresenter that we've been clicked
+                mActionsListener.onSetCardClick();
+            }
         }
+    }
+
+    public boolean isGameClickable() {
+        return gameClickable;
+    }
+
+    public void setGameClickable(boolean gameClickable) {
+        this.gameClickable = gameClickable;
     }
 }

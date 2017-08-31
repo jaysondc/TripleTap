@@ -428,15 +428,12 @@ public abstract class GameFragment extends AppCompatDialogFragment
     }
 
     /**
-     * Public accessor to set the SetHand cards as Clickable
+     * Set the SetHand cards as Clickable through the RecyclerViewAdapter
      *
-     * @param isClickable The value to set the Clickable attribute
+     * @param clickable The value to set the Clickable attribute
      */
-    public void setGameClickable(boolean isClickable) {
-        // Loop through all SetGameCardViews in the adapter set them as isClickble
-        for (int i = 0; i < mRecyclerGridView.getChildCount(); i++) {
-            mRecyclerGridView.getChildAt(i).setEnabled(isClickable);
-        }
+    public void setGameClickable(boolean clickable) {
+        mSetGameRecyclerAdapter.setGameClickable(clickable);
     }
 
     public boolean isClickable() {
