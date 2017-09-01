@@ -1,21 +1,19 @@
 <resources>
-    <string name="app_name">Set of Three</string>
-    <string name="app_label">Set of Three</string>
+    <string name="app_name">Triple Tap</string>
+    <string name="app_label">Triple Tap</string>
 
     <!-- Main Menu -->
-    <string name="menu_title">Set of Three</string>
+    <string name="menu_title">Triple Tap</string>
     <string name="menu_single_player">Single Player</string>
     <string name="menu_multi_player">Multiplayer</string>
     <string name="menu_how_to_play">How to Play</string>
     <string name="menu_leaderboard">Leaderboard</string>
     <string name="menu_achievements">Achievements</string>
     <string name="menu_settings">Settings</string>
-    <string name="menu_exit">Quit</string>
     <string name="menu_back">Back</string>
     <string name="menu_sign_out">Sign Out</string>
     <string name="leaderboards_not_available">Leaderboards are unavailable unless you are signed into Google Play Games.</string>
     <string name="achievements_not_available">Achievements are unavailable unless you are signed into Google Play Games.</string>
-    <string name="how_to_play_url">http://www.youtube.com/watch?v=yJ_eUUvDXKs</string>
 
     <!-- Multiplayer Menu -->
     <string name="menu_two_players">Two Players</string>
@@ -28,10 +26,7 @@
     <string name="menu_practice">Practice</string>
 
     <!-- Game -->
-    <string name="message_found_set">You found a SET!</string>
-    <string name="message_not_set">Sorry! That\'s not a SET!</string>
     <string name="message_game_over">Game over!</string>
-    <string name="message_restart">Restart</string>
     <string name="button_hint">Hint</string>
     <string name="button_hint_unlimited">Hint (&#8734;)</string>
     <string name="debug_refresh_board">Refresh</string>
@@ -42,8 +37,8 @@
     <string name="button_player_two">Player 2</string>
     <string name="button_player_three">Player 3</string>
     <string name="button_player_four">Player 4</string>
-    <string name="button_claim_set">TAP A SET!</string>
-    <string name="button_found_set">SET!</string>
+    <string name="button_claim_set">TAP A TRIPLE!</string>
+    <string name="button_found_set">TRIPLE!</string>
     <string name="button_out_of_time">TOO LATE!</string>
     <string name="button_not_a_set">NOT A SET!</string>
     <string name="button_wait">WAITING</string>
@@ -96,33 +91,33 @@
 
     <!-- Tutorial -->
     <string name="tutorial_done_text">PRACTICE</string>
-    <string name="tutorial_header_1">Welcome to Set of Three</string>
-    <string name="tutorial_text_1">In Set of Three players race to find 3 cards on the board that make a SET. Each card has 4 distinct features&#8230;</string>
+    <string name="tutorial_header_1">Welcome to Triple Tap!</string>
+    <string name="tutorial_text_1">In <i>Triple Tap</i> players race to find 3 cards on the board that make a <i>TRIPLE</i>. Each card has 4 distinct features&#8230;</string>
     <string name="tutorial_header_2">Shape</string>
-    <string name="tutorial_text_2">OVAL, SQUIGGLE, or DIAMOND</string>
+    <string name="tutorial_text_2"><i>EMERALD</i>, <i>PEAR</i>, or <i>DIAMOND</i></string>
     <string name="tutorial_header_3">Color</string>
-    <string name="tutorial_text_3">RED, BLACK, or BLUE</string>
+    <string name="tutorial_text_3"><i>RED</i>, <i>BLACK</i>, or <i>BLUE</i></string>
     <string name="tutorial_header_4">Count</string>
-    <string name="tutorial_text_4">ONE, TWO, or THREE</string>
+    <string name="tutorial_text_4"><i>ONE</i>, <i>TWO</i>, or <i>THREE</i></string>
     <string name="tutorial_header_5">Fill</string>
-    <string name="tutorial_text_5">SOLID, STRIPE, or OPEN</string>
-    <string name="tutorial_header_6">What is a SET?</string>
-    <string name="tutorial_text_6">A SET is any 3 cards where all 4 features are either the \n SAME or DIFFERENT \n (All the cards shown so far have been valid SETs)</string>
-    <string name="tutorial_header_7">This is a SET</string>
-    <string name="tutorial_text_7">Shape: SAME\nColor: SAME\nCount: DIFFERENT\nFill: DIFFERENT</string>
-    <string name="tutorial_header_8">This is also a SET</string>
-    <string name="tutorial_text_8">Shape: DIFFERENT\nColor: DIFFERENT\nCount: SAME\nFill: DIFFERENT</string>
-    <string name="tutorial_header_9">Even this is a SET</string>
-    <string name="tutorial_text_9">Shape: DIFFERENT\nColor: DIFFERENT\nCount: DIFFERENT\nFill: DIFFERENT</string>
-    <string name="tutorial_header_10">What isn\'t a SET?</string>
-    <string name="tutorial_text_10">Shape: SAME\nColor: DIFFERENT\nCount: SAME\nFill: NEITHER\nIf any one of these features is NEITHER, then it isn\'t a SET. The cards above aren\'t a SET because there are 2 cards that are SOLID.</string>
+    <string name="tutorial_text_5"><i>SOLID</i>, <i>STRIPE</i>, or <i>OPEN</i></string>
+    <string name="tutorial_header_6">What is a <i>TRIPLE</i>?</string>
+    <string name="tutorial_text_6">A <i>TRIPLE</i> is a set of 3 cards where all 4 features are either the \n <i>SAME</i> or <i>DIFFERENT</i> \n (All the cards shown so far have been valid <i>TRIPLE</i>s)</string>
+    <string name="tutorial_header_7">This is a <i>TRIPLE</i></string>
+    <string name="tutorial_text_7">Shape: <i>SAME</i>\nColor: <i>SAME</i>\nCount: <i>DIFFERENT</i>\nFill: <i>DIFFERENT</i></string>
+    <string name="tutorial_header_8">This is also a <i>TRIPLE</i></string>
+    <string name="tutorial_text_8">Shape: <i>DIFFERENT</i>\nColor: <i>DIFFERENT</i>\nCount: <i>SAME</i>\nFill: <i>DIFFERENT</i></string>
+    <string name="tutorial_header_9">Even this is a <i>TRIPLE</i></string>
+    <string name="tutorial_text_9">Shape: <i>DIFFERENT</i>\nColor: <i>DIFFERENT</i>\nCount: <i>DIFFERENT</i>\nFill: <i>DIFFERENT</i></string>
+    <string name="tutorial_header_10">What isn\'t a <i>TRIPLE</i>?</string>
+    <string name="tutorial_text_10">Shape: <i>SAME</i>\nColor: <i>DIFFERENT</i>\nCount: <i>SAME</i>\nFill: <b><i>NEITHER</i></b>\nIf any one of these features is <b><i>NEITHER</i></b>, then it isn\'t a <i>TRIPLE</i>. The cards above aren\'t a <i>TRIPLE</i> because there are only 2 cards that are <i>SOLID</i>.</string>
     <string name="tutorial_header_11">Tips</string>
-    <string name="tutorial_text_11">For any 2 cards, there is only 1 card that completes a set. What card completes this set?</string>
+    <string name="tutorial_text_11">For any 2 cards, there is only 1 card that completes the <i>TRIPLE</i>. What card completes this <i>TRIPLE</i>?</string>
     <string name="tutorial_hint_11">\?</string>
     <string name="tutorial_header_12">Tips</string>
-    <string name="tutorial_text_12">You\'re right! It has to be DIAMOND, BLUE, TWO, OPEN.</string>
+    <string name="tutorial_text_12">You\'re right! It has to be <i>DIAMOND</i>, <i>BLUE</i>, <i>TWO</i>, <i>OPEN</i>.</string>
     <string name="tutorial_header_13">That\'s it!</string>
-    <string name="tutorial_text_13">You\'re ready to play Set of Three! Don\'t forget to take advantage of Practice Mode with no timer and unlimited hints. See you on the leaderboards!</string>
+    <string name="tutorial_text_13">You\'re ready to play <i>Triple Tap</i>! Don\'t forget to take advantage of Practice Mode with <b>no timer</b> and <b>unlimited hints</b>. See you on the leaderboards!</string>
 
     <!-- Shared Preferences -->
     <string name="pref_previously_started">previously_started</string>
