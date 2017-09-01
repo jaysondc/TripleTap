@@ -55,7 +55,7 @@ public class MainMenuSinglePlayerFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_single_player_menu, container, false);
+        View root = inflater.inflate(R.layout.fragment_main_menu_single_player, container, false);
 
         // Grab all button views
         FButton normalButton =

@@ -53,7 +53,7 @@ public class MainMenuMultiplayerFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_multiplayer_menu, container, false);
+        View root = inflater.inflate(R.layout.fragment_main_menu_multiplayer, container, false);
 
         // Grab all button views
         FButton twoPlayerButton =
