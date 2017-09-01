@@ -142,15 +142,15 @@ public class SetGameCardView extends CardView {
          * | squiggle_solid | squiggle_open | squiggle_stripe |
          * +--------------------------------------------------+
          */
-        mShapeFill[0][0] = R.drawable.ic_set_icons_oval_solid;
-        mShapeFill[0][1] = R.drawable.ic_set_icons_oval_open;
-        mShapeFill[0][2] = R.drawable.ic_set_icons_oval_stripe;
+        mShapeFill[0][0] = R.drawable.ic_set_icons_emerald_solid;
+        mShapeFill[0][1] = R.drawable.ic_set_icons_emerald_open;
+        mShapeFill[0][2] = R.drawable.ic_set_icons_emerald_stripe;
         mShapeFill[1][0] = R.drawable.ic_set_icons_diamond_solid;
         mShapeFill[1][1] = R.drawable.ic_set_icons_diamond_open;
         mShapeFill[1][2] = R.drawable.ic_set_icons_diamond_stripe;
-        mShapeFill[2][0] = R.drawable.ic_set_icons_squiggle_solid;
-        mShapeFill[2][1] = R.drawable.ic_set_icons_squiggle_open;
-        mShapeFill[2][2] = R.drawable.ic_set_icons_squiggle_stripe;
+        mShapeFill[2][0] = R.drawable.ic_set_icons_pear_solid;
+        mShapeFill[2][1] = R.drawable.ic_set_icons_pear_open;
+        mShapeFill[2][2] = R.drawable.ic_set_icons_pear_stripe;
 
         /*
          * Add a LinearLayout to the card's frame layout to hold the symbols
