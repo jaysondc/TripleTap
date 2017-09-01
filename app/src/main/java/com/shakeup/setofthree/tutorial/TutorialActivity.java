@@ -14,7 +14,7 @@ import com.shakeup.setofthree.practicegame.PracticeGameActivity;
  * Created by Jayson Dela Cruz on 8/5/2017.
  *
  * TutorialActivity displays a pager view of TutorialSlides that teach the user
- * how to play Set of Three
+ * how to play Triple Tap
  */
 
 public class TutorialActivity extends AppIntro {

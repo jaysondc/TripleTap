@@ -32,7 +32,7 @@
     </style>
 
     <!-- Styles for Menu Buttons -->
-    <style name="FlatButtonStyle">
+    <style name="FlatButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingBottom">3dp</item>

@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintVertical_chainStyle="packed"
         app:shadowColor="@color/fbutton_color_green_sea"
-        app:shadowHeight="@dimen/button_shadow_height" />
+        app:shadowHeight="@dimen/button_shadow_height"/>
 
     <info.hoang8f.widget.FButton
         android:id="@+id/button_multi_player"
